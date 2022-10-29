@@ -34,7 +34,7 @@ export default function Home() {
         <Image src="/logo.svg" alt="Vercel Logo" width={200} height={200} />
         <Spacer />
         <Text h1 className={styles.title}>
-          Welcome to&nbsp;
+          Vadakkam to&nbsp;
           <Link
             color
             href="https://nextjs.org"
