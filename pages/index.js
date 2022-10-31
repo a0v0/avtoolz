@@ -1,14 +1,14 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
 import {
-  Container,
   Button,
+  Container,
   Input,
+  Link,
   Spacer,
   Text,
-  Link
-} from '@nextui-org/react';
+} from "@nextui-org/react";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
@@ -28,7 +28,7 @@ export default function Home() {
         direction="column"
         justify="center"
         alignItems="center"
-        style={{ height: '100vh' }}
+        style={{ height: "100vh" }}
       >
         <Spacer />
         <Image src="/logo.svg" alt="Vercel Logo" width={200} height={200} />
