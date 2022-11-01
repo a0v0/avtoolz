@@ -1,0 +1,43 @@
+{
+  "routes": [
+    {
+      "title": "aV Toolz",
+      "keywords": "docs, doc, documentation, getting started, avToolz",
+      "subtitle": "For an advanced search please use the search input",
+      "icon": "note",
+      "section": "Scope",
+      "heading": true,
+      "routes": [
+        {
+          "title": "Home",
+          "open": true,
+          "keywords": "guide, getting started, start, nextui",
+          "icon": "/paper.svg",
+          "routes": [
+            {
+              "title": "Welcome",
+              "keywords": "Welcome, start, avToolz",
+              "path": "/"
+            }
+          ]
+        },
+        {
+          "title": "File Converters",
+          "keywords": "themeable, theme, customize, palette",
+          "icon": "/category.svg",
+          "open": true,
+          "routes": [
+            {
+              "title": "SVG To PNG",
+              "path": "/tools/svg-to-png"
+            },
+            {
+              "title": "PNG To SVG",
+              "path": "/tools/png-to-svg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
