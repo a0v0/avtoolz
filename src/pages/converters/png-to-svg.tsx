@@ -5,7 +5,7 @@ import { fetchDocsManifest, getCurrentTag, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
 import { getId } from "@utils/collections";
 import { Action, useRegisterActions } from "kbar";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import router, { useRouter } from "next/router";
 import React from "react";
@@ -53,7 +53,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const tag = await getCurrentTag();
   const manifest = await fetchDocsManifest(tag);
 

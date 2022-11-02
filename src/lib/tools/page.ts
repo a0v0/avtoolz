@@ -1,7 +1,7 @@
-import localManifest from "@content/tools/manifest.json";
 import { getLatestTag } from "@lib/github/api";
 import { getRawAssetFromRepo, getRawFileFromRepo } from "@lib/github/raw";
-import { isProd, removeFromLast } from "@utils/index";
+import { removeFromLast } from "@utils/index";
+import localManifest from "manifest.json";
 
 import { ASSETS_PATH, CONTENT_PATH, FORCE_TAG, TAG } from "./config";
 
@@ -46,15 +46,16 @@ export async function fetchRawDoc(doc: string, tag: string) {
   return await getRawFileFromRepo(`${CONTENT_PATH}${doc}`, tag);
 }
 
-export async function fetchDocsManifest(tag: string) {
-  if (!isProd) return localManifest;
+export async function fetchDocsManifest(_tag: string) {
+  return localManifest;
+  // if (!isProd) return localManifest;
 
-  const res = await getRawFileFromRepo(
-    `${CONTENT_PATH}/tools/manifest.json`,
-    tag
-  );
+  // const res = await getRawFileFromRepo(
+  //   `${CONTENT_PATH}/tools/manifest.json`,
+  //   tag
+  // );
 
-  return JSON.parse(res);
+  // return JSON.parse(res);
 }
 
 export function getRawAsset(doc: string, tag: string) {

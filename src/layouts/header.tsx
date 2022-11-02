@@ -1,9 +1,9 @@
-import React from "react";
-import Head from "next/head";
+import { SITE_URL, TWITTER_USER_NAME } from "@lib/constants";
+import { useTheme } from "@nextui-org/react";
+import { toCapitalize } from "@utils/index";
 import withDefaults from "@utils/with-defaults";
-import {toCapitalize} from "@utils/index";
-import {TWITTER_USER_NAME, SITE_URL} from "@lib/constants";
-import {useTheme} from "@nextui-org/react";
+import Head from "next/head";
+import React from "react";
 
 export interface HeaderProps {
   title?: string;
@@ -13,12 +13,12 @@ export interface HeaderProps {
 }
 
 const defaultProps = {
-  description: "Make beautiful websites regardless of your design experience.",
+  description: "A Swiss army knife for everyone",
   image: "/twitter-cards/nextui.jpeg",
 };
 
 if (global.document) {
-  const info = [`Let's make the Web prettier 🚀`];
+  const info = [`A Swiss army knife for everyone 🔪`];
 
   for (const message of info) {
     // eslint-disable-next-line no-console
@@ -26,18 +26,21 @@ if (global.document) {
   }
 }
 
-const Header: React.FC<HeaderProps> = ({title, description, image, url}) => {
-  const {theme, isDark} = useTheme();
+const Header: React.FC<HeaderProps> = ({ title, description, image, url }) => {
+  const { theme, isDark } = useTheme();
 
   let pageTitle = title ? `${toCapitalize(title)} | ` : "";
 
-  pageTitle += "NextUI - Beautiful, fast and modern React UI Library";
+  pageTitle += "aVToolz - A Swiss army knife for everyone";
 
   return (
     <Head>
       <title>{pageTitle}</title>
       <meta content={`@${TWITTER_USER_NAME}`} name="twitter:site" />
-      <meta content={image ? "summary_large_image" : "summary"} name="twitter:card" />
+      <meta
+        content={image ? "summary_large_image" : "summary"}
+        name="twitter:card"
+      />
       {image && (
         <meta
           content={image.startsWith("https://") ? image : `${SITE_URL}${image}`}
@@ -49,11 +52,15 @@ const Header: React.FC<HeaderProps> = ({title, description, image, url}) => {
       <meta content={description} property="og:description" />
       <meta content={description} name="description" />
       <meta
-        content={isDark ? theme?.colors?.black?.value : theme?.colors?.white?.value}
+        content={
+          isDark ? theme?.colors?.black?.value : theme?.colors?.white?.value
+        }
         name="msapplication-TileColor"
       />
       <meta
-        content={isDark ? theme?.colors?.black?.value : theme?.colors?.white?.value}
+        content={
+          isDark ? theme?.colors?.black?.value : theme?.colors?.white?.value
+        }
         name="theme-color"
       />
       <meta
@@ -63,11 +70,27 @@ const Header: React.FC<HeaderProps> = ({title, description, image, url}) => {
       />
       <link href="/favicon.ico" rel="icon" />
       <link href="/manifest.json" rel="manifest" />
-      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
-      <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
-      <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
       <link
-        color={isDark ? theme?.colors?.black?.value : theme?.colors?.white?.value}
+        href="/apple-touch-icon.png"
+        rel="apple-touch-icon"
+        sizes="180x180"
+      />
+      <link
+        href="/favicon-32x32.png"
+        rel="icon"
+        sizes="32x32"
+        type="image/png"
+      />
+      <link
+        href="/favicon-16x16.png"
+        rel="icon"
+        sizes="16x16"
+        type="image/png"
+      />
+      <link
+        color={
+          isDark ? theme?.colors?.black?.value : theme?.colors?.white?.value
+        }
         href="/safari-pinned-tab.svg"
         rel="mask-icon"
       />

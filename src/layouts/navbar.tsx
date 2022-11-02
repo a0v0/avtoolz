@@ -1,13 +1,10 @@
 import {
-  Badge,
-  Discord,
   Github,
   Heart,
   Logo,
   MenuToggle,
   NotifyBanner,
   ThemeToggle,
-  Twitter,
 } from "@components";
 import { useMediaQuery } from "@hooks/use-media-query";
 import { Route } from "@lib/tools/page";
@@ -23,14 +20,9 @@ import {
 import { Box } from "@primitives";
 import { darkTheme } from "@theme/shared";
 import { pulse } from "@utils/animations";
-import { isActive } from "@utils/links";
-import cn from "classnames";
-import { includes } from "lodash";
 import dynamic from "next/dynamic";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-
 import { StyledNavContainer, StyledNavMainContainer } from "./styles";
 
 export interface Props {
@@ -46,16 +38,8 @@ const MobileNavigation = dynamic(
   }
 );
 
-const SearchInput = dynamic(
-  () => import("../components/search/instant-search"),
-  {
-    ssr: true,
-  }
-);
-
 const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
   const [expanded, setExpanded] = useState(false);
-  const router = useRouter();
   const isMobile = useMediaQuery(960);
   const [, setBodyHidden] = useBodyScroll(null, { scrollLayer: true });
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -131,7 +115,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                   />
                 </Link>
               </NextLink>
-              <Spacer x={0.4} />
+              {/* <Spacer x={0.4} />
               <Badge
                 solid
                 css={{
@@ -143,10 +127,10 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                 type="secondary"
               >
                 Beta
-              </Badge>
+              </Badge> */}
             </Row>
           </Col>
-          <Col
+          {/* <Col
             className="navbar__resources-container"
             css={{ "@mdMax": { d: "none" } }}
           >
@@ -204,7 +188,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                 Feedback
               </Link>
             </Row>
-          </Col>
+          </Col> */}
           <Col className="navbar__search-container">
             <Row
               align="center"
@@ -242,45 +226,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                       },
                     },
                   }}
-                  href="https://twitter.com/getnextui"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <Twitter size={24} />
-                </Link>
-                <Link
-                  className="navbar__social-icon"
-                  css={{
-                    m: "0 6px",
-                    "& svg": {
-                      transition: "$default",
-                    },
-                    "&:hover": {
-                      "& svg": {
-                        opacity: 0.7,
-                      },
-                    },
-                  }}
-                  href="https://discord.gg/9b6yyZKmH4"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <Discord size={24} />
-                </Link>
-                <Link
-                  className="navbar__social-icon"
-                  css={{
-                    m: "0 6px",
-                    "& svg": {
-                      transition: "$default",
-                    },
-                    "&:hover": {
-                      "& svg": {
-                        opacity: 0.7,
-                      },
-                    },
-                  }}
-                  href="https://github.com/nextui-org/nextui"
+                  href="https://github.com/a0v0/avtoolz-site"
                   rel="noreferrer"
                   target="_blank"
                 >
@@ -301,7 +247,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                   }}
                 />
               </Row>
-              <SearchInput offsetTop={!isDetached && hasNotify ? 40 : 0} />
+
               <Spacer x={0.5} />
               <Button
                 auto
@@ -333,7 +279,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                       },
                   },
                 }}
-                href="https://patreon.com/jrgarciadev"
+                href="https://github.com/a0v0/avtoolz-site"
                 icon={
                   <Heart filled fill="var(--nextui-colors-red600)" size={20} />
                 }

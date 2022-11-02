@@ -3,9 +3,11 @@ import ToolsLayout from "@layouts/docs";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, getCurrentTag, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
-import { GetStaticProps } from "next";
+import { getId } from "@utils/collections";
+import { Action, useRegisterActions } from "kbar";
+import { GetServerSideProps } from "next";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import React from "react";
 
 interface Props {
@@ -20,6 +22,22 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
   const { query } = useRouter();
   const { tag, slug } = getSlug(query);
 
+  // kbar home action
+  const homeAction: Action = React.useMemo(() => {
+    return {
+      id: getId(),
+      name: "Go Home",
+      section: "Scope",
+      icon: "home",
+      shortcut: [],
+      keywords: "home, return, back, landing, page, init, initial",
+      children: [],
+      perform: () => router.push("/"),
+    };
+  }, [routes]);
+
+  useRegisterActions([homeAction].filter(Boolean));
+
   return (
     <ToolsLayout
       currentRoute={route}
@@ -30,12 +48,12 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
       slug={slug}
       tag={tag}
     >
-      <h1>PNG TO SVG</h1>
+      <h1>Welcome</h1>
     </ToolsLayout>
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const tag = await getCurrentTag();
   const manifest = await fetchDocsManifest(tag);
 

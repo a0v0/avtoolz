@@ -7,7 +7,7 @@ import { NextRouter, useRouter } from "next/router";
 
 import { getId } from "../utils/collections";
 // data imported from manifest
-import docsManifest from "../../content/tools/manifest.json";
+import docsManifest from "manifest.json";
 
 const docsActions: Action[] = [];
 
