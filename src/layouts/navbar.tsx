@@ -7,6 +7,7 @@ import {
   ThemeToggle,
 } from "@components";
 import { useMediaQuery } from "@hooks/use-media-query";
+import { GITHUB_REPO_URL } from "@lib/constants";
 import { Route } from "@lib/tools/page";
 import {
   Button,
@@ -226,7 +227,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                       },
                     },
                   }}
-                  href="https://github.com/a0v0/avtoolz-site"
+                  href={GITHUB_REPO_URL}
                   rel="noreferrer"
                   target="_blank"
                 >
@@ -279,7 +280,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                       },
                   },
                 }}
-                href="https://github.com/a0v0/avtoolz-site"
+                href={GITHUB_REPO_URL}
                 icon={
                   <Heart filled fill="var(--nextui-colors-red600)" size={20} />
                 }

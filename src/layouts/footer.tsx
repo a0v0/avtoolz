@@ -1,4 +1,3 @@
-import { VercelCallout } from "@components";
 import { Container, CSS, Link, Row, Text } from "@nextui-org/react";
 import React from "react";
 
@@ -53,9 +52,9 @@ const Footer: React.FC<Props> = ({ css, containerCss }) => {
           </Link>
         </Text>
       </Row>
-      <Row css={css} justify="center">
+      {/* <Row css={css} justify="center">
         <VercelCallout />
-      </Row>
+      </Row> */}
     </Container>
   );
 };

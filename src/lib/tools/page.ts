@@ -1,9 +1,5 @@
-import { getLatestTag } from "@lib/github/api";
-import { getRawAssetFromRepo, getRawFileFromRepo } from "@lib/github/raw";
 import { removeFromLast } from "@utils/index";
 import localManifest from "manifest.json";
-
-import { ASSETS_PATH, CONTENT_PATH, FORCE_TAG, TAG } from "./config";
 
 export interface Route {
   title: string;
@@ -31,35 +27,12 @@ export interface Carry {
   params: { slug: any };
 }
 
-export async function getCurrentTag(tag?: string) {
-  if (tag) return tag;
-  if (FORCE_TAG) return TAG;
-
-  return getLatestTag();
-}
-
 export function addTagToSlug(slug: string, tag?: string) {
-  return tag ? slug.replace("/docs", `/tools/tag/${tag}`) : slug;
+  return tag ? slug.replace("/tools", `/tools/tag/${tag}`) : slug;
 }
 
-export async function fetchRawDoc(doc: string, tag: string) {
-  return await getRawFileFromRepo(`${CONTENT_PATH}${doc}`, tag);
-}
-
-export async function fetchDocsManifest(_tag: string) {
+export async function fetchDocsManifest() {
   return localManifest;
-  // if (!isProd) return localManifest;
-
-  // const res = await getRawFileFromRepo(
-  //   `${CONTENT_PATH}/tools/manifest.json`,
-  //   tag
-  // );
-
-  // return JSON.parse(res);
-}
-
-export function getRawAsset(doc: string, tag: string) {
-  return getRawAssetFromRepo(`${ASSETS_PATH}${doc}`, tag);
 }
 
 export function findRouteByPath(

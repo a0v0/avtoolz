@@ -30,10 +30,6 @@
             {
               "title": "SVG To PNG",
               "path": "/converters/svg-to-png"
-            },
-            {
-              "title": "PNG To SVG",
-              "path": "/converters/png-to-svg"
             }
           ]
         }

@@ -1,7 +1,7 @@
 import useDocsRoute from "@hooks/use-docs-route";
 import ToolsLayout from "@layouts/docs";
 import { MetaProps } from "@lib/tools/meta";
-import { fetchDocsManifest, getCurrentTag, Route } from "@lib/tools/page";
+import { fetchDocsManifest, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
 import { getId } from "@utils/collections";
 import { Action, useRegisterActions } from "kbar";
@@ -54,8 +54,7 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const tag = await getCurrentTag();
-  const manifest = await fetchDocsManifest(tag);
+  const manifest = await fetchDocsManifest();
 
   return {
     props: {

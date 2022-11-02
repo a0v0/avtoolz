@@ -29,7 +29,7 @@ if (global.document) {
 const Header: React.FC<HeaderProps> = ({ title, description, image, url }) => {
   const { theme, isDark } = useTheme();
 
-  let pageTitle = title ? `${toCapitalize(title)} | ` : "";
+  let pageTitle = title ? `${toCapitalize(title)} 🔪 ` : "";
 
   pageTitle += "aVToolz - A Swiss army knife for everyone";
 
