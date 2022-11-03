@@ -175,7 +175,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                 target="_blank"
                 title="Request a tool to be added"
               >
-                Feature Request
+                ✨Feature Request✨
               </Link>
             </Row>
           </Col>

@@ -1,7 +1,7 @@
 {
   "routes": [
     {
-      "title": "aV Toolz",
+      "title": "",
       "keywords": "docs, doc, documentation, getting started, avToolz",
       "subtitle": "For an advanced search please use the search input",
       "icon": "note",
@@ -11,12 +11,12 @@
         {
           "title": "Home",
           "open": true,
-          "keywords": "guide, getting started, start, nextui",
+          "keywords": "guide, getting started, start",
           "icon": "/paper.svg",
           "routes": [
             {
-              "title": "Welcome",
-              "keywords": "Welcome, start, avToolz",
+              "title": "Overview",
+              "keywords": "Overview, start, avToolz",
               "path": "/"
             }
           ]
