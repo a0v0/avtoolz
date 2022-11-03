@@ -23,6 +23,7 @@ import { darkTheme } from "@theme/shared";
 import { pulse } from "@utils/animations";
 import dynamic from "next/dynamic";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { StyledNavContainer, StyledNavMainContainer } from "./styles";
 
@@ -42,6 +43,7 @@ const MobileNavigation = dynamic(
 const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
   const [expanded, setExpanded] = useState(false);
   const isMobile = useMediaQuery(960);
+  const router = useRouter();
   const [, setBodyHidden] = useBodyScroll(null, { scrollLayer: true });
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -131,12 +133,12 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
               </Badge> */}
             </Row>
           </Col>
-          {/* <Col
+          <Col
             className="navbar__resources-container"
             css={{ "@mdMax": { d: "none" } }}
           >
             <Row align="center" justify="center">
-              <Spacer x={1} y={0} />
+              {/* <Spacer x={1} y={0} />
               <NextLink href="/tools/guide/getting-started">
                 <Link
                   className={cn("navbar__link", {
@@ -175,21 +177,21 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                   Components
                 </Link>
               </NextLink>
-              <Spacer x={1} y={0} />
+              <Spacer x={1} y={0} /> */}
               <Link
                 className="navbar__link"
                 css={{
                   color: "$text",
                 }}
-                href="https://github.com/nextui-org/nextui/discussions/new?category=feedback"
+                href="https://github.com/a0v0/avtoolz/discussions/new?category=ideas"
                 rel="noopener noreferrer"
                 target="_blank"
-                title="Leave your feedback"
+                title="Request a tool to be added"
               >
-                Feedback
+                Feature Request
               </Link>
             </Row>
-          </Col> */}
+          </Col>
           <Col className="navbar__search-container">
             <Row
               align="center"
