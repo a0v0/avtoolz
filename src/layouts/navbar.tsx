@@ -118,19 +118,6 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                   />
                 </Link>
               </NextLink>
-              {/* <Spacer x={0.4} />
-              <Badge
-                solid
-                css={{
-                  px: "$4",
-                  "@mdMax": {
-                    display: "none",
-                  },
-                }}
-                type="secondary"
-              >
-                Beta
-              </Badge> */}
             </Row>
           </Col>
           <Col
