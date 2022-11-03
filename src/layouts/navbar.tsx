@@ -23,7 +23,6 @@ import { darkTheme } from "@theme/shared";
 import { pulse } from "@utils/animations";
 import dynamic from "next/dynamic";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { StyledNavContainer, StyledNavMainContainer } from "./styles";
 
@@ -43,7 +42,6 @@ const MobileNavigation = dynamic(
 const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
   const [expanded, setExpanded] = useState(false);
   const isMobile = useMediaQuery(960);
-  const router = useRouter();
   const [, setBodyHidden] = useBodyScroll(null, { scrollLayer: true });
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -125,46 +123,6 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
             css={{ "@mdMax": { d: "none" } }}
           >
             <Row align="center" justify="center">
-              {/* <Spacer x={1} y={0} />
-              <NextLink href="/tools/guide/getting-started">
-                <Link
-                  className={cn("navbar__link", {
-                    active:
-                      isActive(router.pathname, "/tools/[[...slug]]") &&
-                      !includes(router.asPath, "components"),
-                  })}
-                  css={{
-                    color: "$text",
-                    "&.active": {
-                      fontWeight: "600",
-                      color: "$primary",
-                    },
-                  }}
-                  href="#"
-                >
-                  Docs
-                </Link>
-              </NextLink>
-              <Spacer x={1} y={0} />
-              <NextLink href="/tools/components/avatar">
-                <Link
-                  aria-disabled
-                  className={cn("navbar__link", {
-                    active: includes(router.asPath, "components"),
-                  })}
-                  css={{
-                    color: "$text",
-                    "&.active": {
-                      fontWeight: "600",
-                      color: "$primary",
-                    },
-                  }}
-                  title="Components"
-                >
-                  Components
-                </Link>
-              </NextLink>
-              <Spacer x={1} y={0} /> */}
               <Link
                 className="navbar__link"
                 css={{
