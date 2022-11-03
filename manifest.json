@@ -25,7 +25,7 @@
           "title": "File Converters",
           "keywords": "themeable, theme, customize, palette",
           "icon": "/category.svg",
-          "open": false,
+          "open": true,
           "routes": [
             {
               "title": "SVG To PNG",
