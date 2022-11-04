@@ -1,11 +1,12 @@
+import { ChevronRight, Sparkles } from "@components";
+import { Badge, Spacer } from "@nextui-org/react";
+import { AnimatedText } from "@primitives";
+import { darkTheme } from "@theme/shared";
+import { NavbarNotifyConfig } from "config";
+import Link from "next/link";
 import * as React from "react";
-import NextLink from "next/link";
-import {Badge, Spacer} from "@nextui-org/react";
-import {ChevronRight, Sparkles} from "@components";
-import {AnimatedText} from "@primitives";
-import {darkTheme} from "@theme/shared";
 
-import {StyledNotifyBanner, StyledContent} from "./styles";
+import { StyledContent, StyledNotifyBanner } from "./styles";
 
 interface Props {
   text: string;
@@ -16,7 +17,13 @@ interface Props {
 }
 
 const NotifyBanner: React.FC<Props> = (props) => {
-  const {showBadge = true, showSparkles = true, isVisible = true, text, href = "#"} = props;
+  const {
+    showBadge = true,
+    showSparkles = true,
+    isVisible = true,
+    text,
+    href = "#",
+  } = props;
 
   return (
     <StyledNotifyBanner isVisible={isVisible}>
@@ -36,22 +43,28 @@ const NotifyBanner: React.FC<Props> = (props) => {
           variant="flat"
         >
           <span aria-label="notify" role="img">
-            🎉
+            {NavbarNotifyConfig.emoji}
           </span>
-          &nbsp;NEW
+          &nbsp;{NavbarNotifyConfig.emojiText}
         </Badge>
       )}
-      <NextLink href={href}>
+      <Link href={href} passHref={true}>
         <StyledContent>
           <Spacer x={0.3} />
           {showSparkles ? (
             <Sparkles activeOnHover>
-              <AnimatedText css={{cursor: "pointer", userSelect: "none"}} size={16}>
+              <AnimatedText
+                css={{ cursor: "pointer", userSelect: "none" }}
+                size={16}
+              >
                 {text}
               </AnimatedText>
             </Sparkles>
           ) : (
-            <AnimatedText css={{cursor: "pointer", userSelect: "none"}} size={16}>
+            <AnimatedText
+              css={{ cursor: "pointer", userSelect: "none" }}
+              size={16}
+            >
               {text}
             </AnimatedText>
           )}
@@ -63,7 +76,7 @@ const NotifyBanner: React.FC<Props> = (props) => {
             strokeWidth={2}
           />
         </StyledContent>
-      </NextLink>
+      </Link>
     </StyledNotifyBanner>
   );
 };

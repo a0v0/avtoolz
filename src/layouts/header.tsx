@@ -1,7 +1,7 @@
-import { SITE_URL, TWITTER_USER_NAME } from "@lib/constants";
 import { useTheme } from "@nextui-org/react";
 import { toCapitalize } from "@utils/index";
 import withDefaults from "@utils/with-defaults";
+import { SITE_URL, TWITTER_USER_NAME } from "config";
 import Head from "next/head";
 import React from "react";
 

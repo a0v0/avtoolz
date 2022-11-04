@@ -7,7 +7,6 @@ import {
   ThemeToggle,
 } from "@components";
 import { useMediaQuery } from "@hooks/use-media-query";
-import { GITHUB_REPO_URL } from "@lib/constants";
 import { Route } from "@lib/tools/page";
 import {
   Button,
@@ -21,6 +20,7 @@ import {
 import { Box } from "@primitives";
 import { darkTheme } from "@theme/shared";
 import { pulse } from "@utils/animations";
+import { GITHUB_REPO_URL, NavbarNotifyConfig } from "config";
 import dynamic from "next/dynamic";
 import NextLink from "next/link";
 import React, { useEffect, useState } from "react";
@@ -40,6 +40,7 @@ const MobileNavigation = dynamic(
 );
 
 const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
+  hasNotify = NavbarNotifyConfig.enabled;
   const [expanded, setExpanded] = useState(false);
   const isMobile = useMediaQuery(960);
   const [, setBodyHidden] = useBodyScroll(null, { scrollLayer: true });
@@ -82,9 +83,9 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
     <StyledNavMainContainer id="navbar-container">
       {hasNotify && (
         <NotifyBanner
-          href="/tools/components/navbar"
+          href={NavbarNotifyConfig.href}
           isVisible={!isDetached}
-          text="Navbar component"
+          text={NavbarNotifyConfig.text}
         />
       )}
       <StyledNavContainer isDetached={isDetached} showBlur={showBlur}>
