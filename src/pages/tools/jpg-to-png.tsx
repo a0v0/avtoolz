@@ -33,9 +33,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       routes={routes}
       slug={router.route}
       tag={tag}
-    >
-      <h1>{meta.title}</h1>
-    </ToolsLayout>
+    ></ToolsLayout>
   );
 };
 

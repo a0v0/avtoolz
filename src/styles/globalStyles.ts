@@ -1,4 +1,4 @@
-import {globalCss} from "@nextui-org/react";
+import { globalCss } from "@nextui-org/react";
 
 export default globalCss({
   html: {
@@ -68,7 +68,8 @@ export default globalCss({
     right: "0px",
     width: "100px",
     height: "100%",
-    boxShadow: "0 0 10px var(--nextui-colors-secondary), 0 0 5px var(--nextui-colors-secondary)",
+    boxShadow:
+      "0 0 10px var(--nextui-colors-secondary), 0 0 5px var(--nextui-colors-secondary)",
     opacity: 1,
     WebkitTransform: "rotate(3deg) translate(0px, -4px)",
     transform: "rotate(3deg) translate(0px, -4px)",
