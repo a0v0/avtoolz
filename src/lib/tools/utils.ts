@@ -9,7 +9,7 @@ export interface SlugResponse {
 
 // Handle optional catch all route for `/docs`
 function getDocsSlug(slug: any): any {
-  return slug?.length ? slug : ["getting-started"];
+  return slug?.length ? slug : [""];
 }
 
 export function getSlug(params: SlugParams): SlugResponse {
@@ -18,10 +18,10 @@ export function getSlug(params: SlugParams): SlugResponse {
 
   if (slug[0] === "tag") {
     return {
-      slug: `/tools/${getDocsSlug(slug.slice(2)).join("/")}`,
+      slug: `/${getDocsSlug(slug.slice(2)).join("/")}`,
       tag: slug[1],
     };
   }
 
-  return { slug: `/tools/${slug.join("/")}` };
+  return { slug: `/${slug.join("/")}` };
 }

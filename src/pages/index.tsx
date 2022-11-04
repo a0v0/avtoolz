@@ -1,5 +1,5 @@
 import useDocsRoute from "@hooks/use-docs-route";
-import ToolsLayout from "@layouts/docs";
+import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";

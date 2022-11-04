@@ -10,7 +10,7 @@
       "routes": [
         {
           "title": "Home",
-          "open": true,
+          "open": false,
           "keywords": "guide, getting started, start",
           "icon": "/paper.svg",
           "routes": [
@@ -25,11 +25,15 @@
           "title": "File Converters",
           "keywords": "themeable, theme, customize, palette",
           "icon": "/category.svg",
-          "open": true,
+          "open": false,
           "routes": [
             {
               "title": "SVG To PNG",
               "path": "/converters/svg-to-png"
+            },
+            {
+              "title": "JPG To PNG",
+              "path": "/converters/jpg-to-png"
             }
           ]
         }

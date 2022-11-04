@@ -20,7 +20,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { tag } = getSlug(router.query);
 
   const meta: MetaProps = {
-    title: "SVG To PNG",
+    title: "JPG TO PNG",
     description: "",
   };
 
