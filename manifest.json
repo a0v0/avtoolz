@@ -22,14 +22,14 @@
           ]
         },
         {
-          "title": "Converters",
-          "keywords": "converter, file, convert, avToolz",
+          "title": "PDF Tools",
+          "keywords": "pdf, tools, avToolz, pdf-to-img, img-to-pdf, pdf-to-text, pdf-to-html, pdf-to-docx, pdf-to-epub, pdf-to-xml, pdf-to-rtf, pdf-to-odt, pdf-to-ods, pdf-to-odp, pdf-to-odg, pdf-to-odf, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-od",
           "icon": "/category.svg",
           "open": false,
           "routes": [
             {
-              "title": "JPG To PNG",
-              "path": "/tools/jpg-to-png"
+              "title": "IMG TO PDF",
+              "path": "/tools/img-to-pdf"
             }
           ]
         }

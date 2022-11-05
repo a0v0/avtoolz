@@ -5,14 +5,12 @@ import { fetchDocsManifest, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
 import { GITHUB_REPO_URL } from "config";
 import { GetServerSideProps } from "next";
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 interface Props {
   routes: Route[];
   currentRoute?: Route;
-  source?: MDXRemoteSerializeResult;
   meta?: MetaProps;
 }
 
@@ -32,7 +30,6 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
       tag={tag}
     >
       <h1 style={{ textAlign: "center" }}>👋 Welcome netizens!</h1>
-
       <Image
         src="/mstile-310x310.png"
         alt="aVToolz site logo"
@@ -52,6 +49,10 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
         New tools are added to this site frequently so do not forget to give a
         star on <a href={GITHUB_REPO_URL}>GitHub</a> and opt for notifications
         whenever a new version comes out.
+      </p>
+      <br></br>
+      <p>
+        Choose your tools from the sidebar or if on mobile from navigation bar.
       </p>
       <br></br>
       <h2>😘 Credits</h2>

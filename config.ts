@@ -1,9 +1,9 @@
 export const NavbarNotifyConfig = {
   enabled: true,
-  emoji: "🤯",
-  emojiText: "Cool",
-  href: "/newpahe",
-  text: "New Feature Added",
+  emoji: "👽",
+  emojiText: "New",
+  href: "/tools/img-to-pdf",
+  text: "Image To PDF Converter added",
 };
 
 export const TWITTER_USER_NAME = "";

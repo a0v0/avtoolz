@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@code-hike/classer": "0.3.0",
+    "@coderosh/images-to-pdf": "^2.1.0",
     "@codesandbox/sandpack-react": "0.14.3",
     "@mapbox/rehype-prism": "^0.6.0",
     "@mdx-js/react": "^1.6.22",

@@ -1,4 +1,4 @@
-import { Fixed, Sidebar, TableOfContent } from "@components";
+import { Fixed, Sidebar } from "@components";
 import Header from "@layouts/header";
 import { MetaProps } from "@lib/tools/meta";
 import { Route } from "@lib/tools/page";
@@ -58,7 +58,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
         >
           <Col
             css={{
-              width: "32%",
+              width: "25%",
               display: "none",
               "@md": {
                 display: "block",
@@ -86,7 +86,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
             css={{
               zIndex: "$10",
               maxWidth: "100%",
-              overflow: "auto",
+              overflow: "hidden",
               mt: "$$navbarHeight",
               "@xsMax": {
                 p: 0,
@@ -97,7 +97,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
             <br></br>
             {children}
           </Col>
-          <Col
+          {/* <Col
             css={{
               width: "28%",
               height: "100%",
@@ -121,7 +121,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
             >
               <TableOfContent headings={headings} />
             </Fixed>
-          </Col>
+          </Col> */}
           <StyledImg
             alt="gradient blue background"
             className="docs__gradient-blue"
