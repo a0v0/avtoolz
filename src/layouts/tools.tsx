@@ -29,7 +29,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
   slug,
   meta,
 }) => {
-  const [headings, setHeadings] = useState<Heading[]>([]);
+  const [, setHeadings] = useState<Heading[]>([]);
 
   useEffect(() => {
     setHeadings(getHeadings());

@@ -26,7 +26,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
     description: "Convert Images to PDF online for free.",
   };
 
-  const [imageList, setImageList] = useState<ImageProps[]>([
+  const [imageList] = useState<ImageProps[]>([
     {
       img: "/images/fruit-1.jpeg",
     },
