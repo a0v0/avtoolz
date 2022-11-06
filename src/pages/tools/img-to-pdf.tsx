@@ -3,34 +3,59 @@ import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
-import { Button, Card, Grid, Spacer } from "@nextui-org/react";
+import { Button, Card, Grid, Spacer, Text } from "@nextui-org/react";
+import { jsPDF } from "jspdf";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useFilePicker } from "use-file-picker";
 
 interface Props {
   routes: Route[];
   currentRoute?: Route;
 }
 
-interface ImageProps {
-  img: string;
-}
+const meta: MetaProps = {
+  title: "IMG to PDF",
+  description: "Convert Images to PDF online for free.",
+};
 
 const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
   const router = useRouter();
   const { tag } = getSlug(router.query);
-  const meta: MetaProps = {
-    title: "IMG to PDF",
-    description: "Convert Images to PDF online for free.",
+  const pdf = new jsPDF();
+  const [openFileSelector, { filesContent, plainFiles, clear }] = useFilePicker(
+    {
+      multiple: true,
+      readAs: "DataURL", // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
+      // accept: '.ics,.pdf',
+      accept: [".png", ".jpg", ".jpeg"],
+      limitFilesConfig: { min: 1 },
+      // minFileSize: 1, // in megabytes
+      // maxFileSize: 1,
+      // readFilesContent: false, // ignores file content
+    }
+  );
+
+  const [isDownloadButtonDisabled, setIsDownloadButtonDisabled] =
+    useState(true);
+
+  const convertToPDF = async () => {
+    filesContent.map((file) => {
+      pdf.addImage(file.content);
+    });
+    setIsDownloadButtonDisabled(true);
   };
 
-  const [imageList] = useState<ImageProps[]>([
-    {
-      img: "/images/fruit-1.jpeg",
-    },
-  ]);
+  const masterReset = () => {
+    clear();
+    setIsDownloadButtonDisabled(false);
+  };
+
+  const downloadPdf = (pdf: jsPDF) => {
+    pdf.save("pdf-" + Math.floor(Math.random() * 9852593) + ".pdf");
+  };
 
   return (
     <ToolsLayout
@@ -43,14 +68,13 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       tag={tag}
     >
       <h2>{meta.title}</h2>
-
       <Grid.Container gap={1} justify="flex-start">
-        {imageList.map((item, index) => (
+        {filesContent.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
             <Card isPressable>
               <Card.Body css={{ p: 0 }}>
                 <Card.Image
-                  src={"https://nextui.org" + item.img}
+                  src={item.content}
                   objectFit="cover"
                   width="100%"
                   height={140}
@@ -69,6 +93,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
+              onClick={() => openFileSelector()}
             >
               + Add Images
             </Card.Body>
@@ -76,18 +101,46 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         </Grid>
       </Grid.Container>
       <Spacer y={1} />
-
+      Total images selected: {plainFiles.length}
       <Grid.Container gap={2}>
         <Grid>
-          <Button color="warning" auto ghost>
+          <Button
+            onPress={() => convertToPDF()}
+            color="warning"
+            disabled={plainFiles.length < 1}
+            auto
+            ghost
+          >
             Convert
           </Button>
         </Grid>
         <Grid>
-          <Button color="success" disabled auto ghost>
+          <Button
+            onPress={() => downloadPdf()}
+            color="success"
+            disabled={isDownloadButtonDisabled}
+            auto
+            ghost
+          >
             Download PDF
           </Button>
         </Grid>
+        <Grid>
+          <Button
+            onPress={() => masterReset()}
+            color="error"
+            disabled={plainFiles.length < 1}
+            auto
+            ghost
+          >
+            Reset
+          </Button>
+        </Grid>
+        {isDownloadButtonDisabled ? (
+          <Grid>
+            <Text color="#17c964">Pdf generated succesfully!!</Text>
+          </Grid>
+        ) : null}
       </Grid.Container>
       <About />
     </ToolsLayout>

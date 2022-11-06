@@ -58,7 +58,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
         >
           <Col
             css={{
-              width: "25%",
+              width: "20%",
               display: "none",
               "@md": {
                 display: "block",
@@ -88,6 +88,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
               maxWidth: "100%",
               overflow: "hidden",
               mt: "$$navbarHeight",
+              padding: "0 2rem",
               "@xsMax": {
                 p: 0,
               },
