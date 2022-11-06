@@ -1,9 +1,11 @@
+// FIXME: multiple images not working when converting to pdf
+
 import useDocsRoute from "@hooks/use-docs-route";
 import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
-import { Button, Card, Grid, Spacer, Text } from "@nextui-org/react";
+import { Button, Card, Grid, Loading, Spacer, Text } from "@nextui-org/react";
 import { jsPDF } from "jspdf";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
@@ -24,7 +26,10 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
   const router = useRouter();
   const { tag } = getSlug(router.query);
-  const pdf = new jsPDF();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPdfGenerated, setIsPdfGenerated] = useState(false);
+
   const [openFileSelector, { filesContent, plainFiles, clear }] = useFilePicker(
     {
       multiple: true,
@@ -38,23 +43,20 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
     }
   );
 
-  const [isDownloadButtonDisabled, setIsDownloadButtonDisabled] =
-    useState(true);
-
   const convertToPDF = async () => {
+    setIsLoading(true);
+
+    const pdf = new jsPDF();
     filesContent.map((file) => {
-      pdf.addImage(file.content);
+      pdf.addImage(file.content, 0, 0, 0, 0);
     });
-    setIsDownloadButtonDisabled(true);
+    pdf.save("pdf-" + Math.floor(Math.random() * 9852593) + ".pdf");
+    setIsLoading(false);
+    setIsPdfGenerated(true);
   };
 
   const masterReset = () => {
     clear();
-    setIsDownloadButtonDisabled(false);
-  };
-
-  const downloadPdf = (pdf: jsPDF) => {
-    pdf.save("pdf-" + Math.floor(Math.random() * 9852593) + ".pdf");
   };
 
   return (
@@ -83,22 +85,24 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             </Card>
           </Grid>
         ))}
-        <Grid xs={4} sm={2}>
-          <Card isPressable>
-            <Card.Body
-              css={{
-                h: 140,
-                p: 0,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => openFileSelector()}
-            >
-              + Add Images
-            </Card.Body>
-          </Card>
-        </Grid>
+        {plainFiles.length === 0 ? (
+          <Grid xs={4} sm={2}>
+            <Card isPressable>
+              <Card.Body
+                css={{
+                  h: 140,
+                  p: 0,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onClick={() => openFileSelector()}
+              >
+                + Add Images
+              </Card.Body>
+            </Card>
+          </Grid>
+        ) : null}
       </Grid.Container>
       <Spacer y={1} />
       Total images selected: {plainFiles.length}
@@ -111,10 +115,14 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             auto
             ghost
           >
-            Convert
+            {isLoading ? (
+              <Loading type="points" color="currentColor" size="sm" />
+            ) : (
+              "Convert and Download PDF"
+            )}
           </Button>
         </Grid>
-        <Grid>
+        {/* <Grid>
           <Button
             onPress={() => downloadPdf()}
             color="success"
@@ -124,7 +132,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           >
             Download PDF
           </Button>
-        </Grid>
+        </Grid> */}
         <Grid>
           <Button
             onPress={() => masterReset()}
@@ -136,7 +144,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             Reset
           </Button>
         </Grid>
-        {isDownloadButtonDisabled ? (
+        {isPdfGenerated ? (
           <Grid>
             <Text color="#17c964">Pdf generated succesfully!!</Text>
           </Grid>
