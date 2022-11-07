@@ -11,3 +11,4 @@ Website of https://avtoolz.com
 - [] SVG To PNG
 - [] JPG To PNG
 - [] PNG To JPG
+- https://www.reduceimages.com/ similar to this
