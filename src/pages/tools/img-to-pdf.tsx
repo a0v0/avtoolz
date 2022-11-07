@@ -9,7 +9,6 @@ import {
   Badge,
   Button,
   Card,
-  Checkbox,
   Grid,
   Loading,
   Radio,
@@ -17,7 +16,7 @@ import {
   Table,
   Text,
 } from "@nextui-org/react";
-import { getFileSizeFromDataUri, getTotalSize } from "@utils/size-calc";
+import { getFileSizeFromDataUri } from "@utils/size-calc";
 import { jsPDF } from "jspdf";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
@@ -55,7 +54,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const [selectedPageOrientation, setSelectedPageOrientation] =
     useState("portrait");
   const pageOrientation = ["portrait", "horizontal"];
-  const [selectedPageSize, setSelectedPageSize] = useState("a4");
+  // const [selectedPageSize, setSelectedPageSize] = useState("a4");
 
   const convertToPDF = async () => {
     setIsLoading(true);
