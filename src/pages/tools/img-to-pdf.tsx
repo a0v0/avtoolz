@@ -1,5 +1,4 @@
-// FIXME: multiple images not working when converting to pdf
-
+// @ts-nocheck
 import useDocsRoute from "@hooks/use-docs-route";
 import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
@@ -17,11 +16,12 @@ import {
   Table,
   Text,
 } from "@nextui-org/react";
-import { getImageDimensions } from "@utils/image";
 import { getFileSizeFromDataUri, getTotalSize } from "@utils/size-calc";
-import { jsPDF } from "jspdf";
+import EXIF from "exif-js";
+import { toNumber } from "lodash";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { degrees, PageSizes, PDFDocument } from "pdf-lib";
 import React, { useState } from "react";
 import { useFilePicker } from "use-file-picker";
 interface Props {
@@ -35,7 +35,7 @@ const meta: MetaProps = {
 };
 
 const pageOrientation = ["portrait", "landscape"];
-const pageSizes = ["fit", "a3", "a4", "letter", "legal", "tabloid", "ledger"];
+
 const A4 = "A4",
   Letter = "US Letter",
   Fit = "Same as Image",
@@ -62,80 +62,202 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
     }
   );
 
-  const [selectedPageOrientation, setSelectedPageOrientation] =
-    useState("portrait");
-  const [selectedPageSize, setSlectedPageSize] = useState("A4");
-
   const [props, setProps] = useState({
-    images: [],
-    pageOrientation: "portrait",
-    pageSize: "A4",
+    pageOrientation: Portrait,
+    pageSize: Fit,
     pageMargin: 0,
     lastError: undefined,
-    lastMime: undefined,
+    lastMime: null,
     forceShowOption: false,
     compressImages: false,
     imageQuality: 8,
     busy: false,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isPdfGenerated, setIsPdfGenerated] = useState(false);
-  const [compress, setCompress] = useState(false);
-
-  const convertToPDF = async () => {
-    setIsLoading(true);
-    // var content: any[] = [];
-
-    // filesContent.map((file) => {
-    //   content.push({ image: file.content });
-    // });
-
-    // var docDefinition = {
-    //   content,
-    //   pageSize: selectedPageSize,
-
-    //   pageOrientation: selectedPageOrientation,
-    //   // pageMargins: [0, 0, 0, 0],
-    //   // margin: 5,
-    // };
-    // pdfMake.createPdf(docDefinition).download();
-    const pdf = new jsPDF();
-
-    filesContent.map((file) => {
-      if (selectedPageOrientation === "portrait") {
-        if (selectedPageSize === "fit") {
-          const [width, height] = getImageDimensions(file.content);
-          pdf.addPage([width, height], "portrait");
-        } else {
-          pdf.addPage(selectedPageSize, "portrait");
-        }
-      } else {
-        if (selectedPageSize === "fit") {
-          const [width, height] = getImageDimensions(file.content);
-          pdf.addPage([width, height], "landscape");
-        } else {
-          pdf.addPage(selectedPageSize, "landscape");
-        }
-      }
-
-      pdf.addImage(file.content, 0, 0, 0, 0);
-    });
-
-    pdf.deletePage(1);
-    pdf.save("pdf-" + Math.floor(Math.random() * 9852593) + ".pdf");
-    setIsLoading(false);
-    setIsPdfGenerated(true);
-  };
 
   const masterReset = () => {
     clear();
-    setSlectedPageSize("A4");
-    setCompress(false);
-    setSelectedPageOrientation("portrait");
   };
 
-  console.log(plainFiles);
+  const getPageSize = () => {
+    switch (props.pageSize) {
+      case A4:
+        if (props.pageOrientation === Portrait) {
+          return PageSizes.A4;
+        } else {
+          let pageSize = [...PageSizes.A4];
+          pageSize.reverse();
+          return pageSize;
+        }
+      case Letter:
+        if (props.pageOrientation === Portrait) {
+          return PageSizes.Letter;
+        } else {
+          let pageSize = [...PageSizes.Letter];
+          pageSize.reverse();
+          return pageSize;
+        }
+      default:
+        return undefined;
+    }
+  };
+
+  function canvasToBlob(canvas: any, quality: any) {
+    return new Promise((resolve, reject) => {
+      try {
+        canvas.toBlob(resolve, "image/jpeg", quality);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  const fetchImage = async (dataURL: any, quality: any) => {
+    if (!quality) {
+      let res = await fetch(dataURL);
+      let raw = await res.arrayBuffer();
+      return {
+        arrayBuffer: raw,
+        mime: res.headers.get("content-type"),
+      };
+    } else {
+      let img = await loadImage(dataURL);
+      let canvas = document.createElement("canvas");
+      let ctx = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      let blob = await canvasToBlob(canvas, quality);
+      let raw = await blob.arrayBuffer();
+      return {
+        arrayBuffer: raw,
+        mime: "image/jpeg",
+      };
+    }
+  };
+
+  const loadImage = (objUrl: any) => {
+    return new Promise((resolve, reject) => {
+      let img = new Image();
+      img.onload = () => {
+        resolve(img);
+      };
+      img.onerror = (e) => {
+        reject(e);
+      };
+      img.src = objUrl;
+    });
+  };
+
+  const convertToPDF = async () => {
+    let mime: string | null = "";
+
+    try {
+      setProps({ ...props, busy: true });
+      const pdfDoc = await PDFDocument.create();
+      for (let i = 0; i < plainFiles.length; i++) {
+        let pageSize = getPageSize();
+
+        let res = await fetchImage(
+          filesContent[i].content,
+          props.compressImages ? props.imageQuality / 10 : undefined
+        );
+        let raw = await res.arrayBuffer;
+
+        mime = res.mime;
+        console.log(mime);
+
+        let jpegOrientation = 1;
+
+        if (mime === "image/jpeg") {
+          try {
+            let jpegExif = EXIF.readFromBinaryFile(raw);
+            if (jpegExif["Orientation"]) {
+              jpegOrientation = jpegExif["Orientation"];
+              console.log("jpegOrientation: " + jpegOrientation);
+            }
+          } catch (ex) {
+            console.error(ex);
+          }
+        }
+        //console.log(raw);
+        const img = await (mime === "image/jpeg"
+          ? pdfDoc.embedJpg(raw)
+          : pdfDoc.embedPng(raw));
+
+        console.log("width: " + img.width + " height: " + img.height);
+
+        if (props.pageSize === Fit) {
+          pageSize = [img.width, img.height];
+        } else {
+          switch (jpegOrientation) {
+            case 6:
+            case 8:
+              pageSize = [pageSize[1], pageSize[0]];
+              break;
+          }
+        }
+        const page = pdfDoc.addPage(pageSize);
+        if (props.pageSize === Fit) {
+          page.drawImage(img, {
+            x: 0,
+            y: 0,
+            width: img.width,
+            height: img.height,
+          });
+        } else {
+          //page.setSize(pageSize[0], pageSize[1]);
+          let scaleFactor = Math.min(
+            (page.getWidth() - props.pageMargin) / img.width,
+            (page.getHeight() - props.pageMargin) / img.height
+          );
+          let w = img.width * scaleFactor;
+          let h = img.height * scaleFactor;
+
+          //page.setSize(img.width,img.height);
+          console.log(img.width + " " + img.height);
+          console.log(page.getWidth() + " " + page.getHeight());
+
+          let dim = img.scale(scaleFactor);
+
+          page.drawImage(img, {
+            x: page.getWidth() / 2 - dim.width / 2,
+            y: page.getHeight() / 2 - dim.height / 2,
+            width: dim.width,
+            height: dim.height,
+          });
+        }
+
+        switch (jpegOrientation) {
+          case 6:
+            page.setRotation(degrees(90));
+            break;
+          case 3:
+            page.setRotation(degrees(180));
+            break;
+          case 8:
+            page.setRotation(degrees(270));
+            break;
+        }
+      }
+      const pdfBytes = await pdfDoc.save();
+      let blob = new Blob([pdfBytes], { type: "application/pdf" });
+      // let url = window.URL.createObjectURL(blob);
+      // window.open(url);
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      var fileName = "file.pdf";
+      link.download = fileName;
+      link.click();
+      setProps({ ...props, busy: false });
+    } catch (err) {
+      console.error(err);
+      setProps({ ...props, lastError: err, lastMime: mime, busy: false });
+    }
+
+    setIsPdfGenerated(true);
+  };
 
   return (
     <ToolsLayout
@@ -147,7 +269,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       slug={router.route}
       tag={tag}
     >
-      <h2 style={{ color: "#0072f5" }}>{meta.title}</h2>
+      <h2 style={{ color: "#ff0058" }}>{meta.title}</h2>
       <Grid.Container gap={1} justify="flex-start">
         {filesContent.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
@@ -184,7 +306,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             css={{
               width: "100%",
               border: "dashed",
-              borderColor: "blue",
+              borderColor: "#ff4ecd",
               borderRadius: "$2xl",
             }}
           >
@@ -211,50 +333,67 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       <Radio.Group
         size="sm"
         orientation="horizontal"
-        value={selectedPageOrientation}
-        onChange={setSelectedPageOrientation}
-        defaultValue="portrait"
+        value={props.pageOrientation}
+        onChange={(e) => setProps({ ...props, pageOrientation: e })}
+        defaultValue={Portrait}
         label="Select Page Orientation"
       >
-        {pageOrientation.map((orientationText) => (
-          <Radio key={orientationText} value={orientationText}>
-            {capitalize(orientationText)}
-          </Radio>
-        ))}
+        <Radio key={Portrait} value={Portrait}>
+          Portrait
+        </Radio>
+        <Radio key={Landscape} value={Landscape}>
+          Landscape
+        </Radio>
       </Radio.Group>
       <Spacer y={0.5} />
       <Radio.Group
         size="sm"
         orientation="horizontal"
-        value={selectedPageSize}
-        onChange={setSlectedPageSize}
-        defaultValue="A4"
+        value={props.pageSize}
+        onChange={(e) => setProps({ ...props, pageSize: e })}
+        defaultValue={Fit}
         label="Select Page Size"
       >
-        {pageSizes.map((orientationText) => (
-          <Radio key={orientationText} value={orientationText}>
-            {capitalize(orientationText)}
-          </Radio>
-        ))}
+        <Radio key={Fit} value={Fit}>
+          {Fit}
+        </Radio>
+        <Radio key={A4} value={A4}>
+          {A4}
+        </Radio>
+        <Radio key={Letter} value={Letter}>
+          {Letter}
+        </Radio>
       </Radio.Group>
       <Spacer y={0.5} />
+
       <Radio.Group
         size="sm"
         orientation="horizontal"
-        value={selectedPageSize}
-        onChange={setSlectedPageSize}
-        defaultValue="A4"
+        value={props.pageMargin.toString()}
+        onChange={(e) => setProps({ ...props, pageMargin: toNumber(e) })}
+        defaultValue={None}
         label="Select Margin"
+        isDisabled={props.pageSize === Fit}
       >
-        {pageSizes.map((orientationText) => (
-          <Radio key={orientationText} value={orientationText}>
-            {capitalize(orientationText)}
-          </Radio>
-        ))}
-      </Radio.Group>{" "}
+        <Radio key={None} value={None}>
+          None
+        </Radio>
+        <Radio key={Small} value={Small}>
+          Small
+        </Radio>
+        <Radio key={Big} value={Big}>
+          Big
+        </Radio>
+      </Radio.Group>
       <Spacer y={0.5} />
-      <Checkbox isSelected={compress} color="success" onChange={setCompress}>
-        Compress
+
+      <Checkbox
+        size="sm"
+        isSelected={props.compressImages}
+        color="success"
+        onChange={(e) => setProps({ ...props, compressImages: e })}
+      >
+        Compress (80%)
       </Checkbox>
       <Grid.Container gap={2}>
         <Grid>
@@ -265,7 +404,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             auto
             ghost
           >
-            {isLoading ? (
+            {props.busy ? (
               <Loading type="points" color="currentColor" size="sm" />
             ) : (
               "Convert and Download PDF"
@@ -328,7 +467,7 @@ function Features() {
   return (
     <>
       <Spacer y={3} />
-      <h2 style={{ color: "#0072f5" }}>About this tool</h2>
+      <h2 style={{ color: "#ff0058" }}>About this tool</h2>
       Img to PDF Converter is a free online tool to convert images to PDF. You
       can convert multiple images at once and save the PDF file.
       <Spacer y={1} />

@@ -1,10 +1,15 @@
-import {styled} from "@nextui-org/react";
+import { styled } from "@nextui-org/react";
 
-import makeCodeTheme, {getCodeThemeColors} from "../playground/code-theme";
+import makeCodeTheme, { getCodeThemeColors } from "../playground/code-theme";
 
 const codeTheme = makeCodeTheme();
-const {stringColor, functionColor, commentColor, primitiveColor, classnameColor} =
-  getCodeThemeColors();
+const {
+  stringColor,
+  functionColor,
+  commentColor,
+  primitiveColor,
+  classnameColor,
+} = getCodeThemeColors();
 
 export const Pre = styled("pre", {
   $$background: codeTheme.plain.backgroundColor,
@@ -72,13 +77,15 @@ export const Pre = styled("pre", {
     color: "$$syntax5",
   },
 
-  ".token.attr-value, .token.class, .token.string, .token.number, .token.unit, .token.color": {
-    color: "$$syntax2",
-  },
+  ".token.attr-value, .token.class, .token.string, .token.number, .token.unit, .token.color":
+    {
+      color: "$$syntax2",
+    },
 
-  ".token.keyword, .token.rule, .token.operator, .token.pseudo-class, .token.important": {
-    color: "$$syntax3",
-  },
+  ".token.keyword, .token.rule, .token.operator, .token.pseudo-class, .token.important":
+    {
+      color: "$$syntax3",
+    },
   ".token.attr-name": {
     color: "$$syntax6",
   },

@@ -1,5 +1,4 @@
-import { Blockholder, CodeDemo } from "@components";
-import landingContent from "@content/landing";
+import { Blockholder } from "@components";
 import {
   Col,
   Collapse,
@@ -97,7 +96,7 @@ const BuiltInStitchesSection = () => {
             xs={12}
           >
             <Col>
-              <Collapse.Group accordion onChange={handleChange}>
+              <Collapse.Group accordion>
                 {items.map(({ id, title, description }) => (
                   <Collapse
                     key={id}
@@ -175,19 +174,7 @@ const BuiltInStitchesSection = () => {
                 mt: "-10%",
               }}
             >
-              {isVisible ? (
-                <CodeDemo
-                  showWindowIcons
-                  css={{
-                    maxHeight: 420,
-                  }}
-                  language="jsx"
-                  line={activeItem.lines}
-                  value={landingContent.stitchesUtilitiesCode}
-                />
-              ) : (
-                <Blockholder height="420px" />
-              )}
+              {isVisible ? null : <Blockholder height="420px" />}
             </Col>
           </Grid>
         </Grid.Container>
