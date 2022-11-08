@@ -9,6 +9,7 @@ import {
   Badge,
   Button,
   Card,
+  Checkbox,
   Grid,
   Loading,
   Radio,
@@ -16,7 +17,8 @@ import {
   Table,
   Text,
 } from "@nextui-org/react";
-import { getFileSizeFromDataUri } from "@utils/size-calc";
+import { getImageDimensions } from "@utils/image";
+import { getFileSizeFromDataUri, getTotalSize } from "@utils/size-calc";
 import { jsPDF } from "jspdf";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
@@ -31,6 +33,17 @@ const meta: MetaProps = {
   title: "IMG to PDF Converter",
   description: "",
 };
+
+const pageOrientation = ["portrait", "landscape"];
+const pageSizes = ["fit", "a3", "a4", "letter", "legal", "tabloid", "ledger"];
+const A4 = "A4",
+  Letter = "US Letter",
+  Fit = "Same as Image",
+  Portrait = "Portrait",
+  Landscape = "Landscape",
+  None = "0",
+  Small = "20",
+  Big = "50";
 
 const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
@@ -49,20 +62,67 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
     }
   );
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPdfGenerated, setIsPdfGenerated] = useState(false);
   const [selectedPageOrientation, setSelectedPageOrientation] =
     useState("portrait");
-  const pageOrientation = ["portrait", "horizontal"];
-  // const [selectedPageSize, setSelectedPageSize] = useState("a4");
+  const [selectedPageSize, setSlectedPageSize] = useState("A4");
+
+  const [props, setProps] = useState({
+    images: [],
+    pageOrientation: "portrait",
+    pageSize: "A4",
+    pageMargin: 0,
+    lastError: undefined,
+    lastMime: undefined,
+    forceShowOption: false,
+    compressImages: false,
+    imageQuality: 8,
+    busy: false,
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPdfGenerated, setIsPdfGenerated] = useState(false);
+  const [compress, setCompress] = useState(false);
 
   const convertToPDF = async () => {
     setIsLoading(true);
+    // var content: any[] = [];
 
+    // filesContent.map((file) => {
+    //   content.push({ image: file.content });
+    // });
+
+    // var docDefinition = {
+    //   content,
+    //   pageSize: selectedPageSize,
+
+    //   pageOrientation: selectedPageOrientation,
+    //   // pageMargins: [0, 0, 0, 0],
+    //   // margin: 5,
+    // };
+    // pdfMake.createPdf(docDefinition).download();
     const pdf = new jsPDF();
+
     filesContent.map((file) => {
+      if (selectedPageOrientation === "portrait") {
+        if (selectedPageSize === "fit") {
+          const [width, height] = getImageDimensions(file.content);
+          pdf.addPage([width, height], "portrait");
+        } else {
+          pdf.addPage(selectedPageSize, "portrait");
+        }
+      } else {
+        if (selectedPageSize === "fit") {
+          const [width, height] = getImageDimensions(file.content);
+          pdf.addPage([width, height], "landscape");
+        } else {
+          pdf.addPage(selectedPageSize, "landscape");
+        }
+      }
+
       pdf.addImage(file.content, 0, 0, 0, 0);
     });
+
+    pdf.deletePage(1);
     pdf.save("pdf-" + Math.floor(Math.random() * 9852593) + ".pdf");
     setIsLoading(false);
     setIsPdfGenerated(true);
@@ -70,6 +130,9 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
 
   const masterReset = () => {
     clear();
+    setSlectedPageSize("A4");
+    setCompress(false);
+    setSelectedPageOrientation("portrait");
   };
 
   console.log(plainFiles);
@@ -142,10 +205,9 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         ) : null}
       </Grid.Container>
       <Spacer y={1} />
-
-      {/* <p>Total size of image(s): {getTotalSize(plainFiles)}</p>
-      <p>Total images selected: {plainFiles.length}</p> */}
-      {}
+      <p>Total size of image(s): {getTotalSize(plainFiles)}</p>
+      <p>Total images selected: {plainFiles.length}</p>
+      <Spacer y={0.5} />
       <Radio.Group
         size="sm"
         orientation="horizontal"
@@ -160,6 +222,40 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           </Radio>
         ))}
       </Radio.Group>
+      <Spacer y={0.5} />
+      <Radio.Group
+        size="sm"
+        orientation="horizontal"
+        value={selectedPageSize}
+        onChange={setSlectedPageSize}
+        defaultValue="A4"
+        label="Select Page Size"
+      >
+        {pageSizes.map((orientationText) => (
+          <Radio key={orientationText} value={orientationText}>
+            {capitalize(orientationText)}
+          </Radio>
+        ))}
+      </Radio.Group>
+      <Spacer y={0.5} />
+      <Radio.Group
+        size="sm"
+        orientation="horizontal"
+        value={selectedPageSize}
+        onChange={setSlectedPageSize}
+        defaultValue="A4"
+        label="Select Margin"
+      >
+        {pageSizes.map((orientationText) => (
+          <Radio key={orientationText} value={orientationText}>
+            {capitalize(orientationText)}
+          </Radio>
+        ))}
+      </Radio.Group>{" "}
+      <Spacer y={0.5} />
+      <Checkbox isSelected={compress} color="success" onChange={setCompress}>
+        Compress
+      </Checkbox>
       <Grid.Container gap={2}>
         <Grid>
           <Button
