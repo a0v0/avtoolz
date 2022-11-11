@@ -12,7 +12,7 @@
       "@theme/*": ["./src/theme/*"],
       "@lib/*": ["./src/lib/*"]
     },
-    "lib": ["dom", "es2015", "ESNext.String", "ES2021.String"],
+    "lib": ["dom", "ESNext.String", "ES2021.String"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -25,7 +25,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "target": "es5"
+    "target": "es6"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

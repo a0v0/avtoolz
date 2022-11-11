@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ title, description, image, url }) => {
 
   let pageTitle = title ? `${toCapitalize(title)} 🔪 ` : "";
 
-  pageTitle += "aVToolz - A Swiss army knife for everyone";
+  pageTitle += "aVToolz";
 
   return (
     <Head>
