@@ -1,5 +1,5 @@
 import { Blockholder, CodeDemoBlock } from "@components";
-import landingContent from "@content/landing";
+
 import { Col, Grid, Row, Spacer, Text } from "@nextui-org/react";
 import { Section, Subtitle, Title } from "@primitives";
 import { useState } from "react";
@@ -56,7 +56,6 @@ const ComparationSection = () => {
                     minHeight: 340,
                   }}
                   language="jsx"
-                  value={landingContent.comparativeCode.nextui}
                 />
               )}
               <Text css={{ color: "$text", fontSize: "$xl" }}>NextUI</Text>

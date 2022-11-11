@@ -1,5 +1,4 @@
 import { Blockholder, CodeDemoBlock, Player } from "@components";
-import landingContent from "@content/landing";
 import { Col, createTheme, Grid, Row, Spacer, Switch } from "@nextui-org/react";
 import { BlockLink, Box, Section, Subtitle, Title } from "@primitives";
 import { darkTheme, lightTheme } from "@theme/shared";
@@ -143,7 +142,6 @@ const DarkModeSection = () => {
                     boxShadow: "none",
                   }}
                   language="jsx"
-                  value={landingContent.darkModeCode}
                 />
               ) : (
                 <Blockholder height="475px" />

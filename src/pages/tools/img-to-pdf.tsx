@@ -22,7 +22,7 @@ import { toNumber } from "lodash";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { degrees, PageSizes, PDFDocument } from "pdf-lib";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFilePicker } from "use-file-picker";
 interface Props {
   routes: Route[];
@@ -33,8 +33,6 @@ const meta: MetaProps = {
   title: "IMG to PDF Converter",
   description: "",
 };
-
-const pageOrientation = ["portrait", "landscape"];
 
 const A4 = "A4",
   Letter = "US Letter",
@@ -61,6 +59,12 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       // readFilesContent: false, // ignores file content
     }
   );
+
+  const [allFiles, setAllFiles] = useState(filesContent);
+
+  useEffect(() => {
+    setAllFiles(filesContent);
+  }, [filesContent, plainFiles]);
 
   const [props, setProps] = useState({
     pageOrientation: Portrait,
@@ -160,7 +164,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         let pageSize = getPageSize();
 
         let res = await fetchImage(
-          filesContent[i].content,
+          allFiles[i].content,
           props.compressImages ? props.imageQuality / 10 : undefined
         );
         let raw = await res.arrayBuffer;
@@ -271,7 +275,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
     >
       <h2 style={{ color: "#ff0058" }}>{meta.title}</h2>
       <Grid.Container gap={1} justify="flex-start">
-        {filesContent.map((item, index) => (
+        {allFiles.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
             <Card>
               <Card.Body css={{ p: 0 }}>

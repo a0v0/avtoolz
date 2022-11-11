@@ -5,7 +5,7 @@
       "@components": ["./src/components/index.ts"],
       "@primitives": ["./src/components/primitives/index.ts"],
       "@components/": ["./src/components/*"],
-      "@content/*": ["./content/*"],
+
       "@layouts/*": ["./src/layouts/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],

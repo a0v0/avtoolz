@@ -1,5 +1,4 @@
 import { Blockholder, CodeDemoBlock, CustomButton } from "@components";
-import landingContent from "@content/landing";
 import { Col, Grid, Link, Row, Spacer } from "@nextui-org/react";
 import { BlockLink, Box, Section, Subtitle, Title } from "@primitives";
 import { darkTheme } from "@theme/shared";
@@ -90,7 +89,6 @@ const CustomizationSection = () => {
                     bs: "$lg",
                   }}
                   language="jsx"
-                  value={landingContent.customizationCode}
                 />
               ) : (
                 <Blockholder height="360px" />
