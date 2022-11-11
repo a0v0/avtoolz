@@ -2,7 +2,7 @@
 import useDocsRoute from "@hooks/use-docs-route";
 import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
-import { fetchDocsManifest, Route } from "@lib/tools/page";
+import { fetchDocsManifest, findRouteByPath, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
 import {
   Badge,
@@ -13,7 +13,6 @@ import {
   Loading,
   Radio,
   Spacer,
-  Table,
   Text,
 } from "@nextui-org/react";
 import { getFileSizeFromDataUri, getTotalSize } from "@utils/size-calc";
@@ -28,11 +27,6 @@ interface Props {
   routes: Route[];
   currentRoute?: Route;
 }
-
-const meta: MetaProps = {
-  title: "IMG to PDF Converter",
-  description: "",
-};
 
 const A4 = "A4",
   Letter = "US Letter",
@@ -59,6 +53,11 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       // readFilesContent: false, // ignores file content
     }
   );
+
+  const meta: MetaProps = {
+    title: route.title.split(":")[1],
+    description: route.description,
+  };
 
   const [allFiles, setAllFiles] = useState(filesContent);
 
@@ -262,7 +261,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
 
     setIsPdfGenerated(true);
   };
-
+  console.log(route);
   return (
     <ToolsLayout
       currentRoute={route}
@@ -273,7 +272,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       slug={router.route}
       tag={tag}
     >
-      <h2 style={{ color: "#ff0058" }}>{meta.title}</h2>
+      <h2 style={{ color: "#00efff" }}>{meta.title}</h2>
       <Grid.Container gap={1} justify="flex-start">
         {allFiles.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
@@ -433,47 +432,17 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           </Grid>
         ) : null}
       </Grid.Container>
-      <Features />
+      <Features description={meta.description} />
     </ToolsLayout>
   );
 };
 
-function Features() {
-  const columns = [
-    {
-      key: "name",
-      label: "NAME",
-    },
-    {
-      key: "description",
-      label: "DESCRIPTION",
-    },
-  ];
-  const rows = [
-    {
-      key: "1",
-      name: "Name",
-      description: "Img to PDF Converter",
-    },
-
-    {
-      key: "3",
-      name: "Tags",
-      description: "img-to-pdf, image-to-pdf, image-to-pdf-converter",
-    },
-    {
-      key: "4",
-      name: "Supported Formats",
-      description: "png, jpg, jpeg",
-    },
-  ];
-
+function Features({ description }: string) {
   return (
     <>
       <Spacer y={3} />
-      <h2 style={{ color: "#ff0058" }}>About this tool</h2>
-      Img to PDF Converter is a free online tool to convert images to PDF. You
-      can convert multiple images at once and save the PDF file.
+      <h2 style={{ color: "#00efff" }}>About this tool</h2>
+      {description}
       <Spacer y={1} />
       <h3 style={{ color: "#ff4ecd" }}>Easy to use</h3>
       <p>
@@ -490,42 +459,25 @@ function Features() {
         All the conversion happens write into your browser. No image/images is
         sent to the server. So your data is secure.
       </p>
-      <Table
-        aria-label="Description table for img to pdf converter"
-        css={{
-          height: "auto",
-          minWidth: "100%",
-        }}
-        selectionMode="multiple"
-      >
-        <Table.Header columns={columns}>
-          {(column) => (
-            <Table.Column key={column.key}>{column.label}</Table.Column>
-          )}
-        </Table.Header>
-        <Table.Body items={rows}>
-          {(item) => (
-            <Table.Row key={item.key}>
-              {(columnKey) => <Table.Cell>{item[columnKey]}</Table.Cell>}
-            </Table.Row>
-          )}
-        </Table.Body>
-      </Table>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  resolvedUrl,
+}) => {
+  // console.log(params);
+  // // console.log("resolved url:", resolvedUrl);
+  // const { slug } = getSlug(params);
   const manifest = await fetchDocsManifest();
+  const route = manifest && findRouteByPath(resolvedUrl, manifest.routes);
   return {
     props: {
       routes: manifest.routes,
+      currentRoute: route,
     },
   };
 };
 
-const capitalize = (str: string) => {
-  const lower = str.toLowerCase();
-  return str.charAt(0).toUpperCase() + lower.slice(1);
-};
 export default DocsPage;

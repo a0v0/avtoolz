@@ -4,7 +4,6 @@
   "site_url": "https://avtoolz.com",
   "github_repo_url": "https://github.com/a0v0/avtoolz",
   "twitter_username": "",
-
   "routes": [
     {
       "title": "",
@@ -13,6 +12,7 @@
       "icon": "note",
       "section": "Scope",
       "heading": true,
+
       "routes": [
         {
           "title": "Home",
@@ -22,6 +22,7 @@
           "routes": [
             {
               "title": "Welcome",
+              "sidebarTitle": "Welcome",
               "keywords": "welcome, start, introduction",
               "path": "/"
             }
@@ -32,13 +33,41 @@
           "keywords": "pdf, pdf-tools, avToolz,",
           "icon": "/category.svg",
           "open": false,
-          "path": "/tools/img-to-pdf",
-          "description": "",
           "routes": [
             {
-              "title": "IMG TO PDF",
-              "description": "Easily Convert PNG and JPG images to PDF.",
+              "sidebarTitle": "IMG To PDF",
+              "title": "IMG To PDF Converter",
+              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
               "path": "/tools/img-to-pdf"
+            },
+            {
+              "sidebarTitle": "PNG To PDF",
+              "title": "IMG To PDF Converter",
+              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
+              "path": "/tools/img-to-pdf",
+              "comingSoon": true
+            },
+            {
+              "sidebarTitle": "JPG To PDF",
+              "title": "IMG To PDF Converter",
+              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
+              "path": "/tools/img-to-pdf",
+              "comingSoon": true
+            },
+            {
+              "sidebarTitle": "Merge PDF",
+              "title": "IMG To PDF Converter",
+              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
+              "path": "/tools/img-to-pdf",
+              "comingSoon": true
+            },
+            ,
+            {
+              "sidebarTitle": "Compress PDF",
+              "title": "IMG To PDF Converter",
+              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
+              "path": "/tools/img-to-pdf",
+              "comingSoon": true
             }
           ]
         }

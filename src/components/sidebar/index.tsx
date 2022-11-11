@@ -34,20 +34,61 @@ function getCategoryPath(routes: Route[]): string {
   return route && route.path ? removeFromLast(route.path, "/") : "";
 }
 
-const Sidebar: React.FC<SidebarProps> = ({routes, level, tag, slug, onPostClick}) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  routes,
+  level,
+  tag,
+  slug,
+  onPostClick,
+}) => {
   const isMobile = useIsMobile();
 
   return (
     <>
-      {routes?.map(({path, title, icon, routes, newPost, comingSoon, updated, heading, open}) => {
-        if (routes) {
-          const pathname = getCategoryPath(routes);
-          const categorySelected = slug.startsWith(pathname);
-          const opened = categorySelected || isMobile ? false : open;
+      {routes?.map(
+        ({
+          path,
+          title,
+          sidebarTitle,
+          icon,
+          routes,
+          newPost,
+          comingSoon,
+          updated,
+          heading,
+          open,
+        }) => {
+          if (routes) {
+            const pathname = getCategoryPath(routes);
+            const categorySelected = slug.startsWith(pathname);
+            const opened = categorySelected || isMobile ? false : open;
 
-          if (heading) {
+            if (heading) {
+              return (
+                <Heading key={pathname} title={title}>
+                  <Sidebar
+                    level={level + 1}
+                    routes={routes}
+                    slug={slug}
+                    tag={tag}
+                    onPostClick={onPostClick}
+                  />
+                </Heading>
+              );
+            }
+
             return (
-              <Heading key={pathname} title={title}>
+              <Category
+                key={pathname}
+                iconUrl={icon}
+                isMobile={isMobile}
+                level={level}
+                opened={opened}
+                routes={routes}
+                selected={categorySelected}
+                title={title}
+                updated={updated}
+              >
                 <Sidebar
                   level={level + 1}
                   routes={routes}
@@ -55,58 +96,37 @@ const Sidebar: React.FC<SidebarProps> = ({routes, level, tag, slug, onPostClick}
                   tag={tag}
                   onPostClick={onPostClick}
                 />
-              </Heading>
+              </Category>
             );
           }
+          const href = "/tools/[[...slug]]";
+          const pagePath: string | undefined =
+            path && removeFromLast(path, ".");
+          const pathname = pagePath && addTagToSlug(pagePath, tag);
+          const selected = pagePath && pagePath === slug;
+
+          const route = {
+            href,
+            path,
+            title: sidebarTitle,
+            pathname,
+            selected,
+            comingSoon,
+            updated,
+            newPost,
+          } as NavLinkProps;
 
           return (
-            <Category
-              key={pathname}
-              iconUrl={icon}
+            <Post
+              key={title}
               isMobile={isMobile}
               level={level}
-              opened={opened}
-              routes={routes}
-              selected={categorySelected}
-              title={title}
-              updated={updated}
-            >
-              <Sidebar
-                level={level + 1}
-                routes={routes}
-                slug={slug}
-                tag={tag}
-                onPostClick={onPostClick}
-              />
-            </Category>
+              route={route}
+              onClick={() => onPostClick && onPostClick(route)}
+            />
           );
         }
-        const href = "/tools/[[...slug]]";
-        const pagePath: string | undefined = path && removeFromLast(path, ".");
-        const pathname = pagePath && addTagToSlug(pagePath, tag);
-        const selected = pagePath && pagePath === slug;
-
-        const route = {
-          href,
-          path,
-          title,
-          pathname,
-          selected,
-          comingSoon,
-          updated,
-          newPost,
-        } as NavLinkProps;
-
-        return (
-          <Post
-            key={title}
-            isMobile={isMobile}
-            level={level}
-            route={route}
-            onClick={() => onPostClick && onPostClick(route)}
-          />
-        );
-      })}
+      )}
     </>
   );
 };

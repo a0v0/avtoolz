@@ -1,7 +1,7 @@
-import React from "react";
+import { Link, styled } from "@nextui-org/react";
 import NextLink from "next/link";
-import {useRouter} from "next/router";
-import {Link, styled} from "@nextui-org/react";
+import { useRouter } from "next/router";
+import React from "react";
 
 export interface Props {
   href: string;
