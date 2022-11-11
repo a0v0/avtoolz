@@ -1,4 +1,4 @@
-import { Blockholder, CodeDemoBlock } from "@components";
+import { Blockholder } from "@components";
 
 import { Col, Grid, Row, Spacer, Text } from "@nextui-org/react";
 import { Section, Subtitle, Title } from "@primitives";
@@ -47,17 +47,7 @@ const ComparationSection = () => {
                 h: "100%",
               }}
             >
-              {!isVisible ? (
-                <Blockholder height="380px" />
-              ) : (
-                <CodeDemoBlock
-                  showWindowIcons
-                  css={{
-                    minHeight: 340,
-                  }}
-                  language="jsx"
-                />
-              )}
+              {!isVisible ? <Blockholder height="380px" /> : null}
               <Text css={{ color: "$text", fontSize: "$xl" }}>NextUI</Text>
             </Col>
           </Grid>
@@ -72,19 +62,7 @@ const ComparationSection = () => {
             xs={12}
           >
             <Col css={{ dflex: "center", fd: "column", h: "100%" }}>
-              {!isVisible ? (
-                <Blockholder height="380px" />
-              ) : (
-                <CodeDemoBlock
-                  showWindowIcons
-                  css={{
-                    height: 340,
-                    boxShadow: "none",
-                  }}
-                  language="jsx"
-                  value={landingContent.comparativeCode.others}
-                />
-              )}
+              {!isVisible ? <Blockholder height="380px" /> : null}
               <Text css={{ color: "$accents6", fontSize: "$xl" }}>Others</Text>
             </Col>
           </Grid>

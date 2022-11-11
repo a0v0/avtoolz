@@ -1,4 +1,5 @@
 import { filesize } from "filesize";
+
 export function getTotalSize(files: File[]) {
   return filesize(files.reduce((total, file) => total + file.size, 0));
 }

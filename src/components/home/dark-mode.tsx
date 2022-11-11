@@ -1,4 +1,4 @@
-import { Blockholder, CodeDemoBlock, Player } from "@components";
+import { Blockholder, Player } from "@components";
 import { Col, createTheme, Grid, Row, Spacer, Switch } from "@nextui-org/react";
 import { BlockLink, Box, Section, Subtitle, Title } from "@primitives";
 import { darkTheme, lightTheme } from "@theme/shared";
@@ -134,18 +134,7 @@ const DarkModeSection = () => {
             xs={12}
           >
             <Col css={{ dflex: "center", h: "100%" }}>
-              {isVisible ? (
-                <CodeDemoBlock
-                  showWindowIcons
-                  css={{
-                    minHeight: 300,
-                    boxShadow: "none",
-                  }}
-                  language="jsx"
-                />
-              ) : (
-                <Blockholder height="475px" />
-              )}
+              {isVisible ? null : <Blockholder height="475px" />}
             </Col>
           </Grid>
         </Grid.Container>

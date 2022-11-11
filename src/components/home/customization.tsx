@@ -1,4 +1,4 @@
-import { Blockholder, CodeDemoBlock, CustomButton } from "@components";
+import { Blockholder,CustomButton } from "@components";
 import { Col, Grid, Link, Row, Spacer } from "@nextui-org/react";
 import { BlockLink, Box, Section, Subtitle, Title } from "@primitives";
 import { darkTheme } from "@theme/shared";
@@ -81,18 +81,7 @@ const CustomizationSection = () => {
                 h: "100%",
               }}
             >
-              {isVisible ? (
-                <CodeDemoBlock
-                  showWindowIcons
-                  css={{
-                    maxHeight: 320,
-                    bs: "$lg",
-                  }}
-                  language="jsx"
-                />
-              ) : (
-                <Blockholder height="360px" />
-              )}
+              {isVisible ? null : <Blockholder height="360px" />}
               <NextLink href="/tools/theme/override-styles">
                 <BlockLink color="green">Learn more</BlockLink>
               </NextLink>
