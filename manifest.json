@@ -1,4 +1,10 @@
 {
+  "site_name": "avToolz",
+  "site_tagline": "",
+  "site_url": "https://avtoolz.com",
+  "github_repo_url": "https://github.com/a0v0/avtoolz",
+  "twitter_username": "",
+
   "routes": [
     {
       "title": "",
@@ -23,12 +29,15 @@
         },
         {
           "title": "PDF Tools",
-          "keywords": "pdf, tools, avToolz, pdf-to-img, img-to-pdf, pdf-to-text, pdf-to-html, pdf-to-docx, pdf-to-epub, pdf-to-xml, pdf-to-rtf, pdf-to-odt, pdf-to-ods, pdf-to-odp, pdf-to-odg, pdf-to-odf, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-odg, pdf-to-odp, pdf-to-ods, pdf-to-odt, pdf-to-odm, pdf-to-odi, pdf-to-odc, pdf-to-odb, pdf-to-odf, pdf-to-od",
+          "keywords": "pdf, pdf-tools, avToolz,",
           "icon": "/category.svg",
           "open": false,
+          "path": "/tools/img-to-pdf",
+          "description": "",
           "routes": [
             {
               "title": "IMG TO PDF",
+              "description": "Easily Convert PNG and JPG images to PDF.",
               "path": "/tools/img-to-pdf"
             }
           ]

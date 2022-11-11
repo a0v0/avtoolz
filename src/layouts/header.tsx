@@ -1,10 +1,9 @@
 import { useTheme } from "@nextui-org/react";
 import { toCapitalize } from "@utils/index";
 import withDefaults from "@utils/with-defaults";
-import { SITE_URL, TWITTER_USER_NAME } from "config";
+import manifest from "manifest.json";
 import Head from "next/head";
 import React from "react";
-
 export interface HeaderProps {
   title?: string;
   description?: string;
@@ -29,21 +28,25 @@ if (global.document) {
 const Header: React.FC<HeaderProps> = ({ title, description, image, url }) => {
   const { theme, isDark } = useTheme();
 
-  let pageTitle = title ? `${toCapitalize(title)} 🔪 ` : "";
+  let pageTitle = title ? `${toCapitalize(title)} • ` : "";
 
-  pageTitle += "aVToolz";
+  pageTitle += manifest.site_name;
 
   return (
     <Head>
       <title>{pageTitle}</title>
-      <meta content={`@${TWITTER_USER_NAME}`} name="twitter:site" />
+      <meta content={`@${manifest.twitter_username}`} name="twitter:site" />
       <meta
         content={image ? "summary_large_image" : "summary"}
         name="twitter:card"
       />
       {image && (
         <meta
-          content={image.startsWith("https://") ? image : `${SITE_URL}${image}`}
+          content={
+            image.startsWith("https://")
+              ? image
+              : `${manifest.site_name}${image}`
+          }
           property="og:image"
         />
       )}

@@ -3,7 +3,7 @@ import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
-import { GITHUB_REPO_URL } from "config";
+import manifest from "manifest.json";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -47,8 +47,8 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
       <br></br>
       <p>
         New tools are added to this site frequently so do not forget to give a
-        star on <a href={GITHUB_REPO_URL}>GitHub</a> and opt for notifications
-        whenever a new version comes out.
+        star on <a href={manifest.github_repo_url}>GitHub</a> and opt for
+        notifications whenever a new version comes out.
       </p>
       <br></br>
       <p>

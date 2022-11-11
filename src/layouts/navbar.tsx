@@ -21,6 +21,7 @@ import { Box } from "@primitives";
 import { darkTheme } from "@theme/shared";
 import { pulse } from "@utils/animations";
 import { GITHUB_REPO_URL, NavbarNotifyConfig } from "config";
+import manifest from "manifest.json";
 import dynamic from "next/dynamic";
 import NextLink from "next/link";
 import React, { useEffect, useState } from "react";
@@ -129,7 +130,9 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                 css={{
                   color: "$text",
                 }}
-                href="https://github.com/a0v0/avtoolz/discussions/new?category=ideas"
+                href={
+                  manifest.github_repo_url + "/discussions/new?category=ideas"
+                }
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Request a tool to be added"
@@ -175,7 +178,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                       },
                     },
                   }}
-                  href={GITHUB_REPO_URL}
+                  href={manifest.github_repo_url}
                   rel="noreferrer"
                   target="_blank"
                 >
