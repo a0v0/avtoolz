@@ -12,7 +12,6 @@
       "icon": "note",
       "section": "Scope",
       "heading": true,
-
       "routes": [
         {
           "title": "Home",

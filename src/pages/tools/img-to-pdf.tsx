@@ -464,12 +464,8 @@ function Features({ description }: string) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({
-  params,
   resolvedUrl,
 }) => {
-  // console.log(params);
-  // // console.log("resolved url:", resolvedUrl);
-  // const { slug } = getSlug(params);
   const manifest = await fetchDocsManifest();
   const route = manifest && findRouteByPath(resolvedUrl, manifest.routes);
   return {

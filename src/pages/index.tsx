@@ -1,7 +1,7 @@
 import useDocsRoute from "@hooks/use-docs-route";
 import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
-import { fetchDocsManifest, Route } from "@lib/tools/page";
+import { fetchDocsManifest, findRouteByPath, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
 import manifest from "manifest.json";
 import { GetServerSideProps } from "next";
@@ -16,8 +16,8 @@ interface Props {
 
 const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
-  const { query } = useRouter();
-  const { tag, slug } = getSlug(query);
+  const router = useRouter();
+  const { tag } = getSlug(router.query);
 
   return (
     <ToolsLayout
@@ -26,7 +26,7 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
       nextRoute={nextRoute}
       prevRoute={prevRoute}
       routes={routes}
-      slug={slug}
+      slug={router.route}
       tag={tag}
     >
       <h1 style={{ textAlign: "center" }}>👋 Welcome netizens!</h1>
@@ -67,14 +67,16 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({
+  resolvedUrl,
+}) => {
   const manifest = await fetchDocsManifest();
-
+  const route = manifest && findRouteByPath(resolvedUrl, manifest.routes);
   return {
     props: {
       routes: manifest.routes,
+      currentRoute: route,
     },
   };
 };
-
 export default IndexPage;
