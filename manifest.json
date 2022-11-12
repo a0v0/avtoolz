@@ -1,6 +1,6 @@
 {
   "site_name": "avToolz",
-  "site_tagline": "",
+  "site_tagline": "A Swiss army knife for everyone",
   "site_url": "https://avtoolz.com",
   "github_repo_url": "https://github.com/a0v0/avtoolz",
   "twitter_username": "",
@@ -43,29 +43,28 @@
               "sidebarTitle": "PNG To PDF",
               "title": "IMG To PDF Converter",
               "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
-              "path": "/tools/img-to-pdf",
+              "path": "/tools/img-o-pdf",
               "comingSoon": true
             },
             {
               "sidebarTitle": "JPG To PDF",
               "title": "IMG To PDF Converter",
               "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
-              "path": "/tools/img-to-pdf",
+              "path": "/tools/img-topdf",
               "comingSoon": true
             },
             {
               "sidebarTitle": "Merge PDF",
               "title": "IMG To PDF Converter",
               "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
-              "path": "/tools/img-to-pdf",
+              "path": "/tools/img-t-pdf",
               "comingSoon": true
             },
-
             {
               "sidebarTitle": "Compress PDF",
               "title": "IMG To PDF Converter",
               "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
-              "path": "/tools/img-to-pdf",
+              "path": "/tools/img-to-pf",
               "comingSoon": true
             }
           ]

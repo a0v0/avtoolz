@@ -1,5 +1,5 @@
 import { getRawAssetFromRepo, getRawFileFromRepo } from "@lib/github/raw";
-import { isProd, removeFromLast } from "@utils/index";
+import { removeFromLast } from "@utils/index";
 import localManifest from "manifest.json";
 
 import { ASSETS_PATH, CONTENT_PATH } from "./config";
@@ -33,7 +33,7 @@ export interface Carry {
 }
 
 export function addTagToSlug(slug: string, tag?: string) {
-  return tag ? slug.replace("/docs", `/docs/tag/${tag}`) : slug;
+  return tag ? slug.replace("/tools", `/tools/tag/${tag}`) : slug;
 }
 
 export async function fetchRawDoc(doc: string, tag: string) {
@@ -41,7 +41,7 @@ export async function fetchRawDoc(doc: string, tag: string) {
 }
 
 export async function fetchDocsManifest() {
-  if (!isProd) return localManifest;
+  return localManifest;
 }
 
 export function getRawAsset(doc: string, tag: string) {

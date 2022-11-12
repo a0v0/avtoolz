@@ -14,10 +14,15 @@ interface Props {
   meta?: MetaProps;
 }
 
-const IndexPage: React.FC<Props> = ({ routes, currentRoute, meta }) => {
+const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
   const router = useRouter();
   const { tag } = getSlug(router.query);
+
+  const meta: MetaProps = {
+    title: route.title.split(":")[1],
+    description: route.description,
+  };
 
   return (
     <ToolsLayout
@@ -79,4 +84,5 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   };
 };
+
 export default IndexPage;

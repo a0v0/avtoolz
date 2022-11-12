@@ -4,6 +4,7 @@ import withDefaults from "@utils/with-defaults";
 import manifest from "manifest.json";
 import Head from "next/head";
 import React from "react";
+
 export interface HeaderProps {
   title?: string;
   description?: string;
@@ -12,12 +13,12 @@ export interface HeaderProps {
 }
 
 const defaultProps = {
-  description: "A Swiss army knife for everyone",
-  image: "/twitter-cards/nextui.jpeg",
+  description: manifest.site_tagline,
+  image: "",
 };
 
 if (global.document) {
-  const info = [`A Swiss army knife for everyone 🔪`];
+  const info = [manifest.site_tagline];
 
   for (const message of info) {
     // eslint-disable-next-line no-console
