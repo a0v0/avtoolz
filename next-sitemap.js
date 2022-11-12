@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "https://nextui.org",
+  siteUrl: "https://avtoolz.com",
   generateRobotsTxt: true,
   exclude: ["/examples/*"],
 };

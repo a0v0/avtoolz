@@ -20,7 +20,7 @@ import {
 import { Box } from "@primitives";
 import { darkTheme } from "@theme/shared";
 import { pulse } from "@utils/animations";
-import { GITHUB_REPO_URL, NavbarNotifyConfig } from "config";
+import { NavbarNotifyConfig } from "config";
 import manifest from "manifest.json";
 import dynamic from "next/dynamic";
 import NextLink from "next/link";
@@ -231,7 +231,7 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                       },
                   },
                 }}
-                href={GITHUB_REPO_URL}
+                href={manifest.github_repo_url}
                 icon={
                   <Heart filled fill="var(--nextui-colors-red600)" size={20} />
                 }
