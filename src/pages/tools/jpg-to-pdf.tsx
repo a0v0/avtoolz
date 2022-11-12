@@ -15,7 +15,7 @@ import {
   Spacer,
   Text,
 } from "@nextui-org/react";
-import { getFileSizeFromDataUri, getTotalSize } from "@utils/size-calc";
+import { getFileSizeFromDataUri } from "@utils/size-calc";
 import EXIF from "exif-js";
 import { toNumber } from "lodash";
 import { GetServerSideProps } from "next";
@@ -23,6 +23,7 @@ import { useRouter } from "next/router";
 import { degrees, PageSizes, PDFDocument } from "pdf-lib";
 import React, { useEffect, useState } from "react";
 import { useFilePicker } from "use-file-picker";
+
 interface Props {
   routes: Route[];
   currentRoute?: Route;
@@ -37,22 +38,25 @@ const A4 = "A4",
   Small = "20",
   Big = "50";
 
+const headingColor = "blue";
+const selectBorderColor = "blue";
+
 const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
   const router = useRouter();
   const { tag } = getSlug(router.query);
-  const [openFileSelector, { filesContent, plainFiles, clear }] = useFilePicker(
-    {
+
+  const [openFileSelector, { filesContent, plainFiles, clear, loading }] =
+    useFilePicker({
       multiple: true,
       readAs: "DataURL", // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
       // accept: '.ics,.pdf',
-      accept: [".png", ".jpg", ".jpeg"],
+      accept: [".jpg", ".jpeg"],
       limitFilesConfig: { min: 1 },
       // minFileSize: 1, // in megabytes
       // maxFileSize: 1,
       // readFilesContent: false, // ignores file content
-    }
-  );
+    });
 
   const meta: MetaProps = {
     title: route.title.split(":")[1],
@@ -60,10 +64,6 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   };
 
   const [allFiles, setAllFiles] = useState(filesContent);
-
-  useEffect(() => {
-    setAllFiles(filesContent);
-  }, [filesContent, plainFiles]);
 
   const [props, setProps] = useState({
     pageOrientation: Portrait,
@@ -78,8 +78,12 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   });
 
   const [isPdfGenerated, setIsPdfGenerated] = useState(false);
+  useEffect(() => {
+    setAllFiles([...allFiles, ...filesContent]);
+  }, [filesContent]);
 
   const masterReset = () => {
+    setAllFiles([]);
     clear();
   };
 
@@ -159,7 +163,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
     try {
       setProps({ ...props, busy: true });
       const pdfDoc = await PDFDocument.create();
-      for (let i = 0; i < plainFiles.length; i++) {
+      for (let i = 0; i < allFiles.length; i++) {
         let pageSize = getPageSize();
 
         let res = await fetchImage(
@@ -169,7 +173,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         let raw = await res.arrayBuffer;
 
         mime = res.mime;
-        console.log(mime);
+        // console.log(mime);
 
         let jpegOrientation = 1;
 
@@ -178,7 +182,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             let jpegExif = EXIF.readFromBinaryFile(raw);
             if (jpegExif["Orientation"]) {
               jpegOrientation = jpegExif["Orientation"];
-              console.log("jpegOrientation: " + jpegOrientation);
+              // console.log("jpegOrientation: " + jpegOrientation);
             }
           } catch (ex) {
             console.error(ex);
@@ -189,7 +193,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           ? pdfDoc.embedJpg(raw)
           : pdfDoc.embedPng(raw));
 
-        console.log("width: " + img.width + " height: " + img.height);
+        // console.log("width: " + img.width + " height: " + img.height);
 
         if (props.pageSize === Fit) {
           pageSize = [img.width, img.height];
@@ -219,8 +223,8 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           let h = img.height * scaleFactor;
 
           //page.setSize(img.width,img.height);
-          console.log(img.width + " " + img.height);
-          console.log(page.getWidth() + " " + page.getHeight());
+          // console.log(img.width + " " + img.height);
+          // console.log(page.getWidth() + " " + page.getHeight());
 
           let dim = img.scale(scaleFactor);
 
@@ -261,7 +265,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
 
     setIsPdfGenerated(true);
   };
-  console.log(route);
+  // console.log(route);
   return (
     <ToolsLayout
       currentRoute={route}
@@ -272,7 +276,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       slug={router.route}
       tag={tag}
     >
-      <h2 style={{ color: "#00efff" }}>{meta.title}</h2>
+      <h2 style={{ color: headingColor }}>{meta.title}</h2>
       <Grid.Container gap={1} justify="flex-start">
         {allFiles.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
@@ -304,12 +308,12 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             </Card>
           </Grid>
         ))}
-        {plainFiles.length === 0 ? (
+        {!loading && allFiles.length === 0 ? (
           <Grid
             css={{
               width: "100%",
               border: "dashed",
-              borderColor: "#ff4ecd",
+              borderColor: selectBorderColor,
               borderRadius: "$2xl",
             }}
           >
@@ -327,12 +331,17 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
               </Card.Body>
             </Card>
           </Grid>
-        ) : null}
+        ) : (
+          <Grid xs={4} sm={2}>
+            <Card>
+              <Card.Body css={{ p: 0 }} onClick={() => openFileSelector()}>
+                + Add More
+              </Card.Body>
+            </Card>
+          </Grid>
+        )}
       </Grid.Container>
       <Spacer y={1} />
-      <p>Total size of image(s): {getTotalSize(plainFiles)}</p>
-      <p>Total images selected: {plainFiles.length}</p>
-      <Spacer y={0.5} />
       <Radio.Group
         size="sm"
         orientation="horizontal"
@@ -442,12 +451,13 @@ function Features({ description }: string) {
     <>
       <Spacer y={3} />
       <h2 style={{ color: "#00efff" }}>About this tool</h2>
-      {description}
+      <p style={{ whiteSpace: "pre-line" }}>{description}</p>
+
       <Spacer y={1} />
       <h3 style={{ color: "#ff4ecd" }}>Easy to use</h3>
       <p>
-        Convert JPG images to PDF in seconds. Easily adjust orientation and
-        margins.
+        The tool is realy easy to use. Our clean and minimalistic ui design
+        makes it realy easy to understand and use the tool.
       </p>
       <h3 style={{ color: "#f5a524" }}>No limits</h3>
       <p>

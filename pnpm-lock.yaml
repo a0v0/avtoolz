@@ -69,6 +69,7 @@ specifiers:
   unist-util-visit: 2.0.3
   use-file-picker: ^1.5.1
   util.promisify: ^1.1.1
+  web-file-selector: ^1.0.5
 
 dependencies:
   '@code-hike/classer': 0.3.0_react@17.0.2
@@ -124,6 +125,7 @@ dependencies:
   unist-util-visit: 2.0.3
   use-file-picker: 1.5.1_react@17.0.2
   util.promisify: 1.1.1
+  web-file-selector: 1.0.5
 
 devDependencies:
   '@types/canvas-confetti': 1.4.3
@@ -2056,6 +2058,10 @@ packages:
       '@typescript-eslint/types': 4.33.0
       eslint-visitor-keys: 2.1.0
     dev: true
+
+  /@wxwzl/eventemitter/1.0.1:
+    resolution: {integrity: sha512-0PREvbpteYxDoZdutI54LQELEp2dTQDCbIrCyQORv5iaLJ90pz7uKMlb+jN+YhTaAxF4CU2qIdHM93jo2D82BQ==}
+    dev: false
 
   /acorn-jsx/5.3.2_acorn@8.8.1:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -6051,6 +6057,12 @@ packages:
 
   /w3c-keyname/2.2.6:
     resolution: {integrity: sha512-f+fciywl1SJEniZHD6H+kUO8gOnwIr7f4ijKA6+ZvJFjeGi1r4PDLl53Ayud9O/rk64RqgoQine0feoeOU0kXg==}
+    dev: false
+
+  /web-file-selector/1.0.5:
+    resolution: {integrity: sha512-N0JByeFnOPwC+shx3hXRfadBHFGVch2Kk85AvLkcOB4ZVQ19X0Rn2U4UdplppIsWgy0t/34A9sL7KrZ+dsjI6A==}
+    dependencies:
+      '@wxwzl/eventemitter': 1.0.1
     dev: false
 
   /web-namespaces/1.1.4:

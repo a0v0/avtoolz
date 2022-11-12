@@ -34,24 +34,16 @@
           "open": false,
           "routes": [
             {
-              "sidebarTitle": "IMG To PDF",
-              "title": "IMG To PDF Converter",
-              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
-              "path": "/tools/img-to-pdf"
+              "sidebarTitle": "JPG To PDF",
+              "title": "JPG To PDF Converter",
+              "description": "Easily Convert JPG images to PDF.\n JPG to PDF Converter is a free online tool to convert JPG images to PDF. You can convert multiple JPG images at once and save the PDF file.",
+              "path": "/tools/jpg-to-pdf"
             },
             {
               "sidebarTitle": "PNG To PDF",
-              "title": "IMG To PDF Converter",
-              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
-              "path": "/tools/img-o-pdf",
-              "comingSoon": true
-            },
-            {
-              "sidebarTitle": "JPG To PDF",
-              "title": "IMG To PDF Converter",
-              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
-              "path": "/tools/img-topdf",
-              "comingSoon": true
+              "title": "PNG To PDF Converter",
+              "description": "Easily Convert PNG images to PDF.\n PNG to PDF Converter is a free online tool to convert PNG images to PDF. You can convert multiple PNG images at once and save the PDF file.",
+              "path": "/tools/png-to-pdf"
             },
             {
               "sidebarTitle": "Merge PDF",
