@@ -40,7 +40,7 @@ export async function fetchRawDoc(doc: string, tag: string) {
   return await getRawFileFromRepo(`${CONTENT_PATH}${doc}`, tag);
 }
 
-export async function fetchDocsManifest(tag: string) {
+export async function fetchDocsManifest() {
   if (!isProd) return localManifest;
 }
 
