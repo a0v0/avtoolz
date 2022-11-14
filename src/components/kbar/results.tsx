@@ -1,28 +1,30 @@
-import * as React from "react";
+import { useTheme } from "@nextui-org/react";
 import cn from "classnames";
-import {matchSorter} from "match-sorter";
-import {VisualState, useKBar} from "kbar";
-import {groupBy, isEmpty} from "lodash";
-import {useTheme} from "@nextui-org/react";
+import { useKBar, VisualState } from "kbar";
+import { groupBy, isEmpty } from "lodash";
+import { matchSorter } from "match-sorter";
+import * as React from "react";
 
-import {Action, ResultState, KBarResultsProps, ResultHandlers} from "./types";
+import { Action, KBarResultsProps, ResultHandlers, ResultState } from "./types";
 
 function useMatches(term: string, actions: Action[]) {
-  // TODO: we can throttle this if needed
   return React.useMemo(
-    () => (term.trim() === "" ? actions : matchSorter(actions, term, {keys: ["keywords", "name"]})),
-    [term, actions],
+    () =>
+      term.trim() === ""
+        ? actions
+        : matchSorter(actions, term, { keys: ["keywords", "name"] }),
+    [term, actions]
   );
 }
 
 export default function KBarResults(props: KBarResultsProps) {
-  const {search, actions, currentRootActionId, query} = useKBar((state) => ({
+  const { search, actions, currentRootActionId, query } = useKBar((state) => ({
     search: state.searchQuery,
     currentRootActionId: state.currentRootActionId,
     actions: state.actions,
   }));
 
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   // Store reference to a list of all actions
   const actionsList = React.useMemo(
@@ -30,7 +32,7 @@ export default function KBarResults(props: KBarResultsProps) {
       Object.keys(actions).map((key) => {
         return actions[key];
       }),
-    [actions],
+    [actions]
   );
 
   const currActions = React.useMemo(() => {
@@ -69,7 +71,7 @@ export default function KBarResults(props: KBarResultsProps) {
 
         return action;
       }) as Action[],
-    [currActions],
+    [currActions]
   );
 
   const matches = useMatches(search, filteredList);
@@ -154,7 +156,11 @@ export default function KBarResults(props: KBarResultsProps) {
     }
 
     return (
-      <DefaultResultWrapper key={action.id} isActive={activeIndex === index} {...handlers}>
+      <DefaultResultWrapper
+        key={action.id}
+        isActive={activeIndex === index}
+        {...handlers}
+      >
         {action.name}
       </DefaultResultWrapper>
     );
@@ -166,7 +172,10 @@ export default function KBarResults(props: KBarResultsProps) {
       {!isEmpty(groupedMatches)
         ? Object.keys(groupedMatches).map((section, sectionIndex) => {
             return (
-              <ul key={`${section}_${sectionIndex}`} className="kbar-section-list">
+              <ul
+                key={`${section}_${sectionIndex}`}
+                className="kbar-section-list"
+              >
                 {section && section !== "undefined" ? (
                   <b className="kbar-section-list__title">{section}</b>
                 ) : null}
@@ -202,7 +211,11 @@ export default function KBarResults(props: KBarResultsProps) {
 }
 
 // Separate component to ensure we can scrollTo active elements properly.
-const DefaultResultWrapper: React.FC<{isActive: boolean}> = ({isActive, children, ...rest}) => {
+const DefaultResultWrapper: React.FC<{ isActive: boolean }> = ({
+  isActive,
+  children,
+  ...rest
+}) => {
   const ownRef = React.useRef<HTMLUListElement>(null);
 
   React.useEffect(() => {
@@ -216,8 +229,8 @@ const DefaultResultWrapper: React.FC<{isActive: boolean}> = ({isActive, children
           if (!element) {
             return;
           }
-          element.scrollIntoView({block: "nearest"});
-        }),
+          element.scrollIntoView({ block: "nearest" });
+        })
       );
     }
   }, [isActive]);

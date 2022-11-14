@@ -1,20 +1,22 @@
 import useDocsRoute from "@hooks/use-docs-route";
 import ToolsLayout from "@layouts/tools";
+import { getRawFileFromRepo } from "@lib/github/raw";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, findRouteByPath, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
-import manifest from "manifest.json";
+import Markdown from "markdown-to-jsx";
 import { GetServerSideProps } from "next";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+
 interface Props {
   routes: Route[];
   currentRoute?: Route;
   meta?: MetaProps;
+  content: string;
 }
 
-const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
+const IndexPage: React.FC<Props> = ({ routes, currentRoute, content }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
   const router = useRouter();
   const { tag } = getSlug(router.query);
@@ -34,7 +36,8 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
       slug={router.route}
       tag={tag}
     >
-      <h1 style={{ textAlign: "center" }}>👋 Welcome netizens!</h1>
+      <Markdown>{content}</Markdown>
+      {/* <h1 style={{ textAlign: "center" }}>👋 Welcome netizens!</h1>
       <Image
         src="/mstile-310x310.png"
         alt="aVToolz site logo"
@@ -60,27 +63,38 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
         Choose your tools from the sidebar or if on mobile from navigation bar.
       </p>
       <br></br>
-      <h2>😘 Credits</h2>
+      <h2>😘 Available Tools</h2>
       <p>
         Thanks to these awesome tools/libraries/resources that made aVToolz
         possible:
       </p>
       <ul>
         <li></li>
-      </ul>
+      </ul> */}
     </ToolsLayout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({
   resolvedUrl,
+  req,
+  res,
 }) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
   const manifest = await fetchDocsManifest();
   const route = manifest && findRouteByPath(resolvedUrl, manifest.routes);
+
+  const content = await getRawFileFromRepo("README.md", "main/");
+
   return {
     props: {
       routes: manifest.routes,
       currentRoute: route,
+      content: content,
     },
   };
 };

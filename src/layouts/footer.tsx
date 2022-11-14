@@ -1,6 +1,6 @@
-import { Container, CSS, Link, Row, Text } from "@nextui-org/react";
+import { ISSUE_REPORT_URL } from "@lib/github/constants";
+import { Container, CSS, Link, Row, Spacer, Text } from "@nextui-org/react";
 import React from "react";
-
 export interface Props {
   css?: CSS;
   containerCss?: CSS;
@@ -49,6 +49,21 @@ const Footer: React.FC<Props> = ({ css, containerCss }) => {
           Created&nbsp;by&nbsp;
           <Link href="https://github.com/a0v0" rel="noreferrer" target="_blank">
             aV
+          </Link>
+        </Text>
+        <Spacer x={0.5} />
+        <Text
+          span
+          className="footer__by"
+          css={{
+            fontSize: "$sm",
+            color: "$accents7",
+            dflex: "center",
+          }}
+        >
+          Report&nbsp;
+          <Link href={ISSUE_REPORT_URL} rel="noreferrer" target="_blank">
+            bugs
           </Link>
         </Text>
       </Row>

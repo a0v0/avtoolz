@@ -12,3 +12,5 @@ Website of https://avtoolz.com
 - [] JPG To PNG
 - [] PNG To JPG
 - https://www.reduceimages.com/ similar to this
+
+#TODO change logo to firearm
