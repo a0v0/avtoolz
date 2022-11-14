@@ -4,6 +4,7 @@ import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, findRouteByPath, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
+
 import {
   Badge,
   Button,
@@ -38,7 +39,7 @@ const A4 = "A4",
   Small = "20",
   Big = "50";
 
-const headingColor = "blue";
+const headingColor = "#00efff";
 const selectBorderColor = "blue";
 
 const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
@@ -83,6 +84,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   }, [filesContent]);
 
   const masterReset = () => {
+    setIsPdfGenerated(false);
     setAllFiles([]);
     clear();
   };
@@ -110,16 +112,6 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
     }
   };
 
-  function canvasToBlob(canvas: any, quality: any) {
-    return new Promise((resolve, reject) => {
-      try {
-        canvas.toBlob(resolve, "image/jpeg", quality);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  }
-
   const fetchImage = async (dataURL: any, quality: any) => {
     if (!quality) {
       let res = await fetch(dataURL);
@@ -142,19 +134,6 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         mime: "image/jpeg",
       };
     }
-  };
-
-  const loadImage = (objUrl: any) => {
-    return new Promise((resolve, reject) => {
-      let img = new Image();
-      img.onload = () => {
-        resolve(img);
-      };
-      img.onerror = (e) => {
-        reject(e);
-      };
-      img.src = objUrl;
-    });
   };
 
   const convertToPDF = async () => {
@@ -265,7 +244,17 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
 
     setIsPdfGenerated(true);
   };
-  // console.log(route);
+
+  const deleteImage = (index: number) => {
+    let temp = [...allFiles];
+    temp.splice(index, 1);
+    setAllFiles(temp);
+
+    if (temp.length === 0) {
+      masterReset();
+    }
+  };
+
   return (
     <ToolsLayout
       currentRoute={route}
@@ -281,7 +270,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         {allFiles.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
             <Card>
-              <Card.Body css={{ p: 0 }}>
+              <Card.Body css={{ p: 0, overflow: "hidden" }}>
                 <Card.Image
                   src={item.content}
                   objectFit="cover"
@@ -289,7 +278,6 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
                   height={140}
                 />
                 <Card
-                  isPressable
                   css={{
                     position: "absolute",
                     backgroundColor: "#00000000",
@@ -304,10 +292,30 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
                     {getFileSizeFromDataUri(item.content)}
                   </Badge>
                 </Card>
+                <Card
+                  isPressable
+                  onPress={() => deleteImage(index)}
+                  css={{
+                    position: "absolute",
+                    backgroundColor: "#00000000",
+                    top: 1,
+                    right: 5,
+                    zIndex: 1,
+                    alignItems: "end",
+
+                    borderRadius: 0,
+                    border: "2px",
+                  }}
+                >
+                  <Badge color="error" variant="bordered">
+                    X
+                  </Badge>
+                </Card>
               </Card.Body>
             </Card>
           </Grid>
         ))}
+
         {!loading && allFiles.length === 0 ? (
           <Grid
             css={{
@@ -333,9 +341,20 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           </Grid>
         ) : (
           <Grid xs={4} sm={2}>
-            <Card>
-              <Card.Body css={{ p: 0 }} onClick={() => openFileSelector()}>
-                + Add More
+            <Card isPressable>
+              <Card.Body
+                css={{
+                  cursor: "pointer",
+                  h: 140,
+                  p: 0,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onClick={() => openFileSelector()}
+              >
+                <Grid>
+                  <span>+</span> <span>Add More</span>
+                </Grid>
               </Card.Body>
             </Card>
           </Grid>
@@ -450,7 +469,7 @@ function Features({ description }: string) {
   return (
     <>
       <Spacer y={3} />
-      <h2 style={{ color: "#00efff" }}>About this tool</h2>
+      <h2 style={{ color: headingColor }}>About this tool</h2>
       <p style={{ whiteSpace: "pre-line" }}>{description}</p>
 
       <Spacer y={1} />
@@ -487,3 +506,26 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 export default DocsPage;
+
+function canvasToBlob(canvas: any, quality: any) {
+  return new Promise((resolve, reject) => {
+    try {
+      canvas.toBlob(resolve, "image/jpeg", quality);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+const loadImage = (objUrl: any) => {
+  return new Promise((resolve, reject) => {
+    let img = new Image();
+    img.onload = () => {
+      resolve(img);
+    };
+    img.onerror = (e) => {
+      reject(e);
+    };
+    img.src = objUrl;
+  });
+};
