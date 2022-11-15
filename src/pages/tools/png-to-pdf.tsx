@@ -39,8 +39,7 @@ const A4 = "A4",
   Small = "20",
   Big = "50";
 
-const headingColor = "#00efff";
-const selectBorderColor = "blue";
+const selectBorderColor = "red";
 
 const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
@@ -265,7 +264,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       slug={router.route}
       tag={tag}
     >
-      <h2 style={{ color: headingColor }}>{meta.title}</h2>
+      <h2>{meta.title}</h2>
       <Grid.Container gap={1} justify="flex-start">
         {allFiles.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
@@ -469,7 +468,7 @@ function Features({ description }: string) {
   return (
     <>
       <Spacer y={3} />
-      <h2 style={{ color: headingColor }}>About this tool</h2>
+      <h2>About this tool</h2>
       <p style={{ whiteSpace: "pre-line" }}>{description}</p>
 
       <Spacer y={1} />

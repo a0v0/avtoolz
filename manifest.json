@@ -14,10 +14,10 @@
       "heading": true,
       "routes": [
         {
-          "title": "Home",
+          "title": "🏡 Home",
           "open": false,
           "keywords": "guide, getting started, start",
-          "icon": "/paper.svg",
+
           "routes": [
             {
               "title": "Welcome",
@@ -28,10 +28,10 @@
           ]
         },
         {
-          "title": "PDF Tools",
+          "title": "📝 PDF Tools",
           "keywords": "pdf, pdf-tools, avToolz,",
-          "icon": "/category.svg",
-          "open": false,
+
+          "open": true,
           "routes": [
             {
               "sidebarTitle": "JPG To PDF",
@@ -48,15 +48,58 @@
             {
               "sidebarTitle": "Merge PDF",
               "title": "IMG To PDF Converter",
-              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
+              "description": "Easily Merge PDF files.\n Merge PDF is a free online tool to merge multiple PDF files into a single PDF file. You can merge multiple PDF files at once and save the PDF file.",
               "path": "/tools/img-t-pdf",
               "comingSoon": true
             },
             {
               "sidebarTitle": "Compress PDF",
               "title": "IMG To PDF Converter",
-              "description": "Easily Convert PNG and JPG images to PDF. Img to PDF Converter is a free online tool to convert images to PDF. You can convert multiple images at once and save the PDF file.",
+              "description": "Easily Compress PDF files.\n Compress PDF is a free online tool to compress PDF files without losing quality and minimize the size of PDF files.",
               "path": "/tools/img-to-pf",
+              "comingSoon": true
+            }
+          ]
+        },
+        {
+          "title": "⛓️ File Converters",
+          "keywords": "",
+          "open": true,
+          "routes": [
+            {
+              "sidebarTitle": "SVG To PNG",
+              "title": "SVG To PNG Converter",
+              "description": "Easily Convert SVG images to PNG.\n SVG to PNG Converter is a free online tool to convert SVG images to PNG. ",
+              "path": "/tools/svg-to-png",
+              "comingSoon": true
+            },
+            {
+              "sidebarTitle": "SVG To JPG",
+              "title": "SVG To JPG Converter",
+              "description": "Easily Convert SVG images to JPG.\n SVG to JPG Converter is a free online tool to convert SVG images to JPG. ",
+              "path": "/tools/svg-to-jpg",
+              "comingSoon": true
+            },
+            {
+              "sidebarTitle": "SVG To WebP",
+              "title": "SVG To WebP Converter",
+              "description": "Easily Convert SVG images to WebP.\n SVG to WebP Converter is a free online tool to convert SVG images to WebP. ",
+              "path": "/tools/svg-to-webp",
+              "comingSoon": true
+            },
+
+            {
+              "sidebarTitle": "Image to Data URI",
+              "title": "Image to Data URI Converter",
+              "description": "Easily Convert Images to Data URI.\n Image to Data URI Converter is a free online tool to convert Images to Data URI. ",
+              "path": "/tools/img-to-data-uri",
+              "comingSoon": true
+            },
+            {
+              "sidebarTitle": "Image to Base64",
+              "title": "Image to Base64 Converter",
+              "description": "Easily Convert Images to Base64.\n Image to Base64 Converter is a free online tool to convert Images to Base64. ",
+              "path": "/tools/img-to-base64",
               "comingSoon": true
             }
           ]

@@ -58,7 +58,7 @@ const ToolsLayout: React.FC<React.PropsWithChildren<Props>> = ({
         >
           <Col
             css={{
-              width: "20%",
+              width: "25%",
               display: "none",
               "@md": {
                 display: "block",

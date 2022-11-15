@@ -13,7 +13,6 @@ Website of https://avtoolz.com
 - [] PNG To JPG
 - https://www.reduceimages.com/ similar to this
 
-#TODO change logo to firearm
 #TODO Automatically initiate a build whenver README.md of https://github.com/a0v0/avtoolz changes.
 
 ## Internal Notes
