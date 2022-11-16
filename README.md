@@ -4,7 +4,7 @@
 
 aVToolz is an extremely handy website containg a collection of tools to perform daily tasks. aVToolz offer tools for image conversion, file conversion, text transformation and many more...
 
-New tools are added to this site frequently so do not forget to give a star on <a href="https://github.com/a0v0/avtoolz">GitHub</a> and opt for notifications whenever a new version comes out.
+New tools are added to this site frequently so do not forget to give a star on [GitHub](https://github.com/a0v0/avtoolz) and opt for notifications whenever a new version comes out.
 
 ## 😘 Available Tools
 - PDF Tools
