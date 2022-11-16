@@ -1,6 +1,5 @@
 import useDocsRoute from "@hooks/use-docs-route";
 import ToolsLayout from "@layouts/tools";
-import { getRawFileFromRepo } from "@lib/github/raw";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, findRouteByPath, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
@@ -14,10 +13,9 @@ interface Props {
   routes: Route[];
   currentRoute?: Route;
   meta?: MetaProps;
-  content: string;
 }
 
-const IndexPage: React.FC<Props> = ({ routes, currentRoute, content }) => {
+const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
   const router = useRouter();
   const { tag } = getSlug(router.query);
@@ -77,24 +75,14 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute, content }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({
   resolvedUrl,
-  req,
-  res,
 }) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
   const manifest = await fetchDocsManifest();
   const route = manifest && findRouteByPath(resolvedUrl, manifest.routes);
-
-  const content = await getRawFileFromRepo("README.md", "main/");
 
   return {
     props: {
       routes: manifest.routes,
       currentRoute: route,
-      content: content,
     },
   };
 };
