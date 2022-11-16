@@ -227,7 +227,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         )}
       </Grid.Container>
       <Spacer y={1} />
-      <Text>Supported formats: .png </Text>
+      <Text>Supported formats: .webp </Text>
       <Spacer y={0.5} />
 
       <Text color="#9ba1a6">Select Quality</Text>
