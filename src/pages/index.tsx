@@ -37,7 +37,7 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
     >
       <h1 style={{ textAlign: "center" }}>👋 Welcome netizens!</h1>
       <Image
-        src="/mstile-310x310.png"
+        src="/firefighter.svg"
         alt="aVToolz site logo"
         title=""
         width="10vh"
