@@ -10,10 +10,25 @@ export function getImageDimensions(imageURI: string): number[] {
   });
   return [w, h];
 }
-function getPngDimensions(base64: string): number[] {
-  const header = atob(base64.slice(0, 50)).slice(16, 24);
-  const uint8 = Uint8Array.from(header, (c) => c.charCodeAt(0));
-  const dataView = new DataView(uint8.buffer);
 
-  return [dataView.getInt32(0), dataView.getInt32(4)];
+//**dataURL to blob**
+export function dataURLtoBlob(dataurl) {
+  var arr = dataurl.split(","),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
+}
+
+//**blob to dataURL**
+export function blobToDataURL(blob: Blob, callback) {
+  var a = new FileReader();
+  a.onload = function (e) {
+    callback(e.target.result);
+  };
+  a.readAsDataURL(blob);
 }

@@ -39,7 +39,7 @@ const A4 = "A4",
   Small = "20",
   Big = "50";
 
-const selectBorderColor = "red";
+const selectBorderColor = "deepskyblue";
 
 const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
@@ -78,6 +78,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   });
 
   const [isPdfGenerated, setIsPdfGenerated] = useState(false);
+
   useEffect(() => {
     setAllFiles([...allFiles, ...filesContent]);
   }, [filesContent]);
@@ -319,7 +320,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           <Grid
             css={{
               width: "100%",
-              border: "dashed",
+              border: "dashed 6px deepskyblue",
               borderColor: selectBorderColor,
               borderRadius: "$2xl",
             }}
@@ -346,14 +347,13 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
                   cursor: "pointer",
                   h: 140,
                   p: 0,
+                  verticalAlign: "middle",
                   justifyContent: "center",
-                  alignItems: "center",
+                  textAlign: "center",
                 }}
                 onClick={() => openFileSelector()}
               >
-                <Grid>
-                  <span>+</span> <span>Add More</span>
-                </Grid>
+                + Add More
               </Card.Body>
             </Card>
           </Grid>

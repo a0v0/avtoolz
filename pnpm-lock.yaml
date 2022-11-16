@@ -22,6 +22,8 @@ specifiers:
   babel-plugin-module-resolver: ^4.1.0
   canvas-confetti: ^1.4.0
   classnames: ^2.3.1
+  compressor-img: ^1.0.7
+  compressorjs: ^1.1.1
   eslint: ^8.26.0
   eslint-config-next: ^11.0.0
   exif-js: ^2.3.0
@@ -49,6 +51,7 @@ specifiers:
   react-device-detect: ^1.17.0
   react-dom: ^17.0.2
   react-iconly: ^2.2.2
+  react-image-file-resizer: ^0.4.8
   react-instantsearch-dom: ^6.12.0
   react-intersection-observer: 8.32.2
   react-live: ^2.2.3
@@ -82,6 +85,8 @@ dependencies:
   algoliasearch: 4.14.2
   canvas-confetti: 1.6.0
   classnames: 2.3.2
+  compressor-img: 1.0.7
+  compressorjs: 1.1.1
   exif-js: 2.3.0
   filesize: 10.0.5
   framer-motion: 5.6.0_sfoxds7t5ydpegc3knd667wn6m
@@ -106,6 +111,7 @@ dependencies:
   react-device-detect: 1.17.0_sfoxds7t5ydpegc3knd667wn6m
   react-dom: 17.0.2_react@17.0.2
   react-iconly: 2.2.5_react@17.0.2
+  react-image-file-resizer: 0.4.8
   react-instantsearch-dom: 6.38.0_kr5x6cjikajrhwznglqptdxk4q
   react-intersection-observer: 8.32.2_react@17.0.2
   react-live: 2.4.1_sfoxds7t5ydpegc3knd667wn6m
@@ -2284,6 +2290,10 @@ packages:
       readable-stream: 3.6.0
     dev: false
 
+  /blueimp-canvas-to-blob/3.29.0:
+    resolution: {integrity: sha512-0pcSSGxC0QxT+yVkivxIqW0Y4VlO2XSDPofBAqoJ1qJxgH9eiUDLv50Rixij2cDuEfx4M6DpD9UGZpRhT5Q8qg==}
+    dev: false
+
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
     dependencies:
@@ -2512,6 +2522,17 @@ packages:
 
   /component-xor/0.0.4:
     resolution: {integrity: sha512-ZIt6sla8gfo+AFVRZoZOertcnD5LJaY2T9CKE2j13NJxQt/mUafD69Bl7/Y4AnpI2LGjiXH7cOfJDx/n2G9edA==}
+    dev: false
+
+  /compressor-img/1.0.7:
+    resolution: {integrity: sha512-VIP1DZsgjv/cP7qmvODGrlKytW/KO88aYMHABSvansuTGVPI0wzjMaHpDxhmi1Z659z+lGXFIQF9HwYZNhWtIA==}
+    dev: false
+
+  /compressorjs/1.1.1:
+    resolution: {integrity: sha512-SysRuUPfmUNoq+RviE0iMFVUmoX2q/x+7PkEPUmk6NGkd85hDrmvujx0Qtp8UCGA6KMe5kuodsylPQcNaLf60w==}
+    dependencies:
+      blueimp-canvas-to-blob: 3.29.0
+      is-blob: 2.1.0
     dev: false
 
   /compute-scroll-into-view/1.0.17:
@@ -3634,6 +3655,11 @@ packages:
     resolution: {integrity: sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==}
     dependencies:
       has-bigints: 1.0.2
+
+  /is-blob/2.1.0:
+    resolution: {integrity: sha512-SZ/fTft5eUhQM6oF/ZaASFDEdbFVe89Imltn9uZr03wdKMcWNVYSMjQPFtg05QuNkt5l5c135ElvXEQG0rk4tw==}
+    engines: {node: '>=6'}
+    dev: false
 
   /is-boolean-object/1.1.2:
     resolution: {integrity: sha512-gDYaKHJmnj4aWxyj6YHyXVpdQawtVLHU5cb+eztPGczf6cjuTdwve5ZIEfgXqH4e57An1D1AKf8CZ3kYrQRqYA==}
@@ -4956,6 +4982,10 @@ packages:
       react: ^16.8.6 || ^17
     dependencies:
       react: 17.0.2
+    dev: false
+
+  /react-image-file-resizer/0.4.8:
+    resolution: {integrity: sha512-Ue7CfKnSlsfJ//SKzxNMz8avDgDSpWQDOnTKOp/GNRFJv4dO9L5YGHNEnj40peWkXXAK2OK0eRIoXhOYpUzUTQ==}
     dev: false
 
   /react-instantsearch-core/6.38.0_pybjzmhtnpk62btmxi5dirminu:

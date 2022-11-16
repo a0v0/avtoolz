@@ -39,7 +39,7 @@ const A4 = "A4",
   Small = "20",
   Big = "50";
 
-const selectBorderColor = "red";
+const selectBorderColor = "deepskyblue";
 
 const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
@@ -319,7 +319,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           <Grid
             css={{
               width: "100%",
-              border: "dashed",
+              border: "dashed 6px",
               borderColor: selectBorderColor,
               borderRadius: "$2xl",
             }}
@@ -327,14 +327,16 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             <Card isPressable>
               <Card.Body
                 css={{
+                  cursor: "pointer",
                   h: 140,
                   p: 0,
+                  verticalAlign: "middle",
                   justifyContent: "center",
-                  alignItems: "center",
+                  textAlign: "center",
                 }}
                 onClick={() => openFileSelector()}
               >
-                + Add Images
+                + Add More
               </Card.Body>
             </Card>
           </Grid>

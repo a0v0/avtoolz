@@ -103,6 +103,37 @@
               "comingSoon": true
             }
           ]
+        },
+        {
+          "title": "🎏 Miscellaneous Tools",
+          "keywords": "",
+          "open": true,
+          "routes": [
+            {
+              "sidebarTitle": "Compress Image",
+              "title": "Compress Image Online",
+              "description": "Easily Compress Image Online.\n Compress Images Online is a free online tool to compress Images without losing quality and minimize the size of Images.",
+              "path": "/tools/compress-image"
+            },
+            {
+              "sidebarTitle": "Compress PNG",
+              "title": "Compress PNG Online",
+              "description": "Easily Compress PNG Online.\n Compress PNG Online is a free online tool to compress PNG without losing quality and minimize the size of PNG.",
+              "path": "/tools/compress-png"
+            },
+            {
+              "sidebarTitle": "Compress JPG",
+              "title": "Compress JPG Online",
+              "description": "Easily Compress JPG Online.\n Compress JPG Online is a free online tool to compress JPG without losing quality and minimize the size of JPG.",
+              "path": "/tools/compress-jpg"
+            },
+            {
+              "sidebarTitle": "Compress WebP",
+              "title": "Compress WebP Online",
+              "description": "Easily Compress WebP Online.\n Compress WebP Online is a free online tool to compress WebP without losing quality and minimize the size of WebP.",
+              "path": "/tools/compress-webp"
+            }
+          ]
         }
       ]
     }
