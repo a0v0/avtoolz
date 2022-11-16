@@ -128,6 +128,12 @@
               "path": "/tools/compress-jpg"
             },
             {
+              "sidebarTitle": "Compress JPEG",
+              "title": "Compress JPEG Online",
+              "description": "Easily Compress JPEG Online.\n Compress JPEG Online is a free online tool to compress JPEG without losing quality and minimize the size of JPEG.",
+              "path": "/tools/compress-jpeg"
+            },
+            {
               "sidebarTitle": "Compress WebP",
               "title": "Compress WebP Online",
               "description": "Easily Compress WebP Online.\n Compress WebP Online is a free online tool to compress WebP without losing quality and minimize the size of WebP.",
