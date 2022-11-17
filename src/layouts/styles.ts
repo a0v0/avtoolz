@@ -1,4 +1,4 @@
-import {styled} from "@nextui-org/react";
+import { styled } from "@nextui-org/react";
 
 export const StyledNavMainContainer = styled("nav", {
   top: 0,
@@ -6,7 +6,7 @@ export const StyledNavMainContainer = styled("nav", {
   width: "100%",
   position: "fixed",
   background: "transparent",
-  zIndex: "$max",
+  zIndex: "9000",
 });
 
 export const StyledNavContainer = styled("div", {
@@ -20,9 +20,10 @@ export const StyledNavContainer = styled("div", {
     showBlur: {
       true: {
         background: "$background",
-        "@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none))": {
-          background: "$headerBackground",
-        },
+        "@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none))":
+          {
+            background: "$headerBackground",
+          },
       },
     },
     isDetached: {

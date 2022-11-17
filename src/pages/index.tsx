@@ -3,6 +3,7 @@ import ToolsLayout from "@layouts/tools";
 import { MetaProps } from "@lib/tools/meta";
 import { fetchDocsManifest, findRouteByPath, Route } from "@lib/tools/page";
 import { getSlug } from "@lib/tools/utils";
+import { useTheme } from "@nextui-org/react";
 import manifest from "manifest.json";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
@@ -19,6 +20,7 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { route, prevRoute, nextRoute } = useDocsRoute(routes, currentRoute);
   const router = useRouter();
   const { tag } = getSlug(router.query);
+  const { isDark } = useTheme();
 
   const meta: MetaProps = {
     title: route.title.split(":")[1],
@@ -37,7 +39,11 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
     >
       <h1 style={{ textAlign: "center" }}>👋 Welcome netizens!</h1>
       <Image
-        src="/firefighter.svg"
+        src={
+          isDark
+            ? "/avtoolz-banner-dark-shadow.png"
+            : "/avtoolz-banner-light-shadow.png"
+        }
         alt="aVToolz site logo"
         title=""
         width="10vh"

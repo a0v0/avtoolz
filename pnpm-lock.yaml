@@ -57,6 +57,7 @@ specifiers:
   react-markdown: ^8.0.3
   react-markdown-github-renderers: ^1.0.3
   react-remark: ^2.1.0
+  react-simple-image-viewer: ^1.2.2
   refractor: 3.3.1
   rehype: 11.0.0
   rehype-parse: 7.0.1
@@ -121,6 +122,7 @@ dependencies:
   react-markdown: 8.0.3_q5o373oqrklnndq2vhekyuzhxi
   react-markdown-github-renderers: 1.0.3_react@17.0.2
   react-remark: 2.1.0_react@17.0.2
+  react-simple-image-viewer: 1.2.2_sfoxds7t5ydpegc3knd667wn6m
   refractor: 3.3.1
   rehype: 11.0.0
   rehype-parse: 7.0.1
@@ -5240,6 +5242,16 @@ packages:
     peerDependencies:
       react: '*'
       react-dom: '*'
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /react-simple-image-viewer/1.2.2_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-Vk9p6Glm7uE4cSEBGkqZPGC3qoZcAwd48nq5/JN13NKd9rUrUIWZWFEmRzO+FVwl6c0UdjSDkthGoaoiYeWVjg==}
+    peerDependencies:
+      react: ^18.1.0
+      react-dom: ^18.1.0
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2

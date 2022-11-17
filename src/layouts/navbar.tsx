@@ -23,6 +23,7 @@ import { pulse } from "@utils/animations";
 import { NavbarNotifyConfig } from "config";
 import manifest from "manifest.json";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import NextLink from "next/link";
 import React, { useEffect, useState } from "react";
 import { StyledNavContainer, StyledNavMainContainer } from "./styles";
@@ -165,6 +166,26 @@ const Navbar: React.FC<Props> = ({ isHome, hasNotify, routes }) => {
                 gap={1}
                 justify="flex-end"
               >
+                <Link
+                  className="navbar__social-icon"
+                  css={{
+                    m: "0 6px",
+                    "& svg": {
+                      transition: "$default",
+                    },
+                    "&:hover": {
+                      "& svg": {
+                        opacity: 0.7,
+                      },
+                    },
+                  }}
+                  href={manifest.telegram_join_link}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <Image src={"/telegram.svg"} width={20} height={20} />
+                  {/* <<Github size={24} />> */}
+                </Link>
                 <Link
                   className="navbar__social-icon"
                   css={{

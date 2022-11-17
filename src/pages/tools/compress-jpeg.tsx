@@ -22,7 +22,8 @@ import Compressor from "compressorjs";
 import { toNumber } from "lodash";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import ImageViewer from "react-simple-image-viewer";
 import { useFilePicker } from "use-file-picker";
 interface Props {
   routes: Route[];
@@ -48,7 +49,18 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       // maxFileSize: 1,
       // readFilesContent: false, // ignores file content
     });
+  const [currentImage, setCurrentImage] = useState("");
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
 
+  const openImageViewer = useCallback((src) => {
+    setCurrentImage(src);
+    setIsViewerOpen(true);
+  }, []);
+
+  const closeImageViewer = () => {
+    setCurrentImage("");
+    setIsViewerOpen(false);
+  };
   const meta: MetaProps = {
     title: route.title.split(":")[1],
     description: route.description,
@@ -105,13 +117,14 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
       <Grid.Container gap={1} justify="flex-start">
         {filesContent.map((item, index) => (
           <Grid xs={4} sm={2} key={index}>
-            <Card>
+            <Card isPressable>
               <Card.Body css={{ p: 0, overflow: "hidden" }}>
                 <Card.Image
                   src={item.content}
                   objectFit="cover"
                   width="100%"
                   height={140}
+                  onClick={() => openImageViewer(item.content)}
                 />
                 <Card
                   css={{
@@ -197,13 +210,14 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
               </Grid>
             ) : (
               <Grid xs={4} sm={2}>
-                <Card>
+                <Card isPressable>
                   <Card.Body css={{ p: 0, overflow: "hidden" }}>
                     <Card.Image
                       src={imagesrc.toString()}
                       objectFit="cover"
                       width="100%"
                       height={140}
+                      onClick={() => openImageViewer(imagesrc.toString())}
                     />
                     <Card
                       css={{
@@ -265,6 +279,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             disabled={plainFiles.length < 1}
             auto
             ghost
+            style={{ zIndex: 1 }}
           >
             {props.busy ? (
               <Loading type="points" color="currentColor" size="sm" />
@@ -282,6 +297,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             disabled={imagesrc.toString().length === 0}
             auto
             ghost
+            style={{ zIndex: 1 }}
           >
             Download
           </Button>
@@ -293,6 +309,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
             disabled={plainFiles.length < 1}
             auto
             ghost
+            style={{ zIndex: 1 }}
           >
             Reset
           </Button>
@@ -304,6 +321,20 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
         ) : null} */}
       </Grid.Container>
       <Features description={meta.description} />
+      {isViewerOpen && (
+        <div style={{ zIndex: "9999" }}>
+          <ImageViewer
+            src={[currentImage]}
+            currentIndex={0}
+            onClose={closeImageViewer}
+            disableScroll={false}
+            backgroundStyle={{
+              backgroundColor: "rgba(0,0,0,0.9)",
+            }}
+            closeOnClickOutside={true}
+          />
+        </div>
+      )}
     </ToolsLayout>
   );
 };

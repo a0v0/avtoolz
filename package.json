@@ -54,6 +54,7 @@
     "react-markdown": "^8.0.3",
     "react-markdown-github-renderers": "^1.0.3",
     "react-remark": "^2.1.0",
+    "react-simple-image-viewer": "^1.2.2",
     "refractor": "3.3.1",
     "rehype": "11.0.0",
     "rehype-parse": "7.0.1",
