@@ -1,7 +1,7 @@
 export const NavbarNotifyConfig = {
   enabled: true,
-  emoji: "👽",
+  emoji: "🤯",
   emojiText: "New",
-  href: "/tools/png-to-pdf",
-  text: "PNG TO PDF Converter added",
+  href: "/tools/compress-image",
+  text: "Image Compressing tools added",
 };
