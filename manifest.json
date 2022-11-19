@@ -50,8 +50,7 @@
               "sidebarTitle": "Markdown To PDF",
               "title": "Markdown To PDF Converter",
               "description": "Easily Convert Markdown to PDF.\n Markdown to PDF Converter is a free online tool to convert Markdown to PDF. You can convert multiple Markdown files at once and save the PDF file.",
-              "path": "/tools/markdown-to-pdf",
-              "comingSoon": true
+              "path": "/tools/markdown-to-pdf"
             },
             {
               "sidebarTitle": "Merge PDF",

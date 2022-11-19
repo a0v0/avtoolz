@@ -268,215 +268,9 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
   };
 
   return (
-    <ToolsLayout
-      currentRoute={route}
-      meta={meta}
-      nextRoute={nextRoute}
-      prevRoute={prevRoute}
-      routes={routes}
-      slug={router.route}
-      tag={tag}
-    >
-      <h2>{meta.title}</h2>
-      <Grid.Container gap={1} justify="flex-start">
-        {allFiles.map((item, index) => (
-          <Grid xs={4} sm={2} key={index}>
-            <Card isPressable>
-              <Card.Body css={{ p: 0, overflow: "hidden" }}>
-                <Card.Image
-                  src={item.content}
-                  objectFit="cover"
-                  width="100%"
-                  height={140}
-                  onClick={() => openImageViewer(item.content)}
-                />
-                <Card
-                  css={{
-                    position: "absolute",
-                    backgroundColor: "#00000000",
-                    // bgBlur: "#ffffff66",
-                    bottom: 1,
-                    zIndex: 1,
-                    alignItems: "center",
-                    borderRadius: 0,
-                  }}
-                >
-                  <Badge color="success" variant="bordered">
-                    {getFileSizeFromDataUri(item.content)}
-                  </Badge>
-                </Card>
-                <Card
-                  isPressable
-                  onPress={() => deleteImage(index)}
-                  css={{
-                    position: "absolute",
-                    backgroundColor: "#00000000",
-                    top: 1,
-                    right: 5,
-                    zIndex: 1,
-                    alignItems: "end",
-
-                    borderRadius: 0,
-                    border: "2px",
-                  }}
-                >
-                  <Badge color="error" variant="bordered">
-                    X
-                  </Badge>
-                </Card>
-              </Card.Body>
-            </Card>
-          </Grid>
-        ))}
-
-        {!loading && allFiles.length === 0 ? (
-          <Grid
-            css={{
-              width: "100%",
-              border: "dashed 6px deepskyblue",
-              borderColor: selectBorderColor,
-              borderRadius: "$2xl",
-            }}
-          >
-            <Card isPressable>
-              <Card.Body
-                css={{
-                  h: 140,
-                  p: 0,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onClick={() => openFileSelector()}
-              >
-                + Add Images
-              </Card.Body>
-            </Card>
-          </Grid>
-        ) : (
-          <Grid xs={4} sm={2}>
-            <Card isPressable>
-              <Card.Body
-                css={{
-                  cursor: "pointer",
-                  h: 140,
-                  p: 0,
-                  verticalAlign: "middle",
-                  justifyContent: "center",
-                  textAlign: "center",
-                }}
-                onClick={() => openFileSelector()}
-              >
-                + Add More
-              </Card.Body>
-            </Card>
-          </Grid>
-        )}
-      </Grid.Container>
-      <Spacer y={1} />
-      <Radio.Group
-        size="sm"
-        orientation="horizontal"
-        value={props.pageOrientation}
-        onChange={(e) => setProps({ ...props, pageOrientation: e })}
-        defaultValue={Portrait}
-        label="Select Page Orientation"
-      >
-        <Radio key={Portrait} value={Portrait}>
-          Portrait
-        </Radio>
-        <Radio key={Landscape} value={Landscape}>
-          Landscape
-        </Radio>
-      </Radio.Group>
-      <Spacer y={0.5} />
-      <Radio.Group
-        size="sm"
-        orientation="horizontal"
-        value={props.pageSize}
-        onChange={(e) => setProps({ ...props, pageSize: e })}
-        defaultValue={Fit}
-        label="Select Page Size"
-      >
-        <Radio key={Fit} value={Fit}>
-          {Fit}
-        </Radio>
-        <Radio key={A4} value={A4}>
-          {A4}
-        </Radio>
-        <Radio key={Letter} value={Letter}>
-          {Letter}
-        </Radio>
-      </Radio.Group>
-      <Spacer y={0.5} />
-
-      <Radio.Group
-        size="sm"
-        orientation="horizontal"
-        value={props.pageMargin.toString()}
-        onChange={(e) => setProps({ ...props, pageMargin: toNumber(e) })}
-        defaultValue={None}
-        label="Select Margin"
-        isDisabled={props.pageSize === Fit}
-      >
-        <Radio key={None} value={None}>
-          None
-        </Radio>
-        <Radio key={Small} value={Small}>
-          Small
-        </Radio>
-        <Radio key={Big} value={Big}>
-          Big
-        </Radio>
-      </Radio.Group>
-      <Spacer y={0.5} />
-
-      <Checkbox
-        size="sm"
-        isSelected={props.compressImages}
-        color="success"
-        onChange={(e) => setProps({ ...props, compressImages: e })}
-      >
-        Compress (80%)
-      </Checkbox>
-      <Grid.Container gap={2}>
-        <Grid>
-          <Button
-            onPress={() => convertToPDF()}
-            color="warning"
-            disabled={plainFiles.length < 1}
-            auto
-            ghost
-            style={{ zIndex: 1 }}
-          >
-            {props.busy ? (
-              <Loading type="points" color="currentColor" size="sm" />
-            ) : (
-              "Convert and Download PDF"
-            )}
-          </Button>
-        </Grid>
-
-        <Grid>
-          <Button
-            onPress={() => masterReset()}
-            color="error"
-            disabled={plainFiles.length < 1}
-            auto
-            ghost
-            style={{ zIndex: 1 }}
-          >
-            Reset
-          </Button>
-        </Grid>
-        {isPdfGenerated ? (
-          <Grid>
-            <Text color="#17c964">Pdf generated succesfully!!</Text>
-          </Grid>
-        ) : null}
-      </Grid.Container>
-      <Features description={meta.description} />
+    <>
       {isViewerOpen && (
-        <div style={{ zIndex: "9999" }}>
+        <div style={{ position: "absolute", zIndex: "99999" }}>
           <ImageViewer
             src={[currentImage]}
             currentIndex={0}
@@ -489,7 +283,215 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           />
         </div>
       )}
-    </ToolsLayout>
+      <ToolsLayout
+        currentRoute={route}
+        meta={meta}
+        nextRoute={nextRoute}
+        prevRoute={prevRoute}
+        routes={routes}
+        slug={router.route}
+        tag={tag}
+      >
+        <h2>{meta.title}</h2>
+        <Grid.Container gap={1} justify="flex-start">
+          {allFiles.map((item, index) => (
+            <Grid xs={4} sm={2} key={index}>
+              <Card isPressable>
+                <Card.Body css={{ p: 0, overflow: "hidden" }}>
+                  <Card.Image
+                    src={item.content}
+                    objectFit="cover"
+                    width="100%"
+                    height={140}
+                    onClick={() => openImageViewer(item.content)}
+                  />
+                  <Card
+                    css={{
+                      position: "absolute",
+                      backgroundColor: "#00000000",
+                      // bgBlur: "#ffffff66",
+                      bottom: 1,
+                      zIndex: 1,
+                      alignItems: "center",
+                      borderRadius: 0,
+                    }}
+                  >
+                    <Badge color="success" variant="bordered">
+                      {getFileSizeFromDataUri(item.content)}
+                    </Badge>
+                  </Card>
+                  <Card
+                    isPressable
+                    onPress={() => deleteImage(index)}
+                    css={{
+                      position: "absolute",
+                      backgroundColor: "#00000000",
+                      top: 1,
+                      right: 5,
+                      zIndex: 1,
+                      alignItems: "end",
+
+                      borderRadius: 0,
+                      border: "2px",
+                    }}
+                  >
+                    <Badge color="error" variant="bordered">
+                      X
+                    </Badge>
+                  </Card>
+                </Card.Body>
+              </Card>
+            </Grid>
+          ))}
+
+          {!loading && allFiles.length === 0 ? (
+            <Grid
+              css={{
+                width: "100%",
+                border: "dashed 6px deepskyblue",
+                borderColor: selectBorderColor,
+                borderRadius: "$2xl",
+              }}
+            >
+              <Card isPressable>
+                <Card.Body
+                  css={{
+                    h: 140,
+                    p: 0,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onClick={() => openFileSelector()}
+                >
+                  + Add Images
+                </Card.Body>
+              </Card>
+            </Grid>
+          ) : (
+            <Grid xs={4} sm={2}>
+              <Card isPressable>
+                <Card.Body
+                  css={{
+                    cursor: "pointer",
+                    h: 140,
+                    p: 0,
+                    verticalAlign: "middle",
+                    justifyContent: "center",
+                    textAlign: "center",
+                  }}
+                  onClick={() => openFileSelector()}
+                >
+                  + Add More
+                </Card.Body>
+              </Card>
+            </Grid>
+          )}
+        </Grid.Container>
+        <Spacer y={1} />
+        <Radio.Group
+          size="sm"
+          orientation="horizontal"
+          value={props.pageOrientation}
+          onChange={(e) => setProps({ ...props, pageOrientation: e })}
+          defaultValue={Portrait}
+          label="Select Page Orientation"
+        >
+          <Radio key={Portrait} value={Portrait}>
+            Portrait
+          </Radio>
+          <Radio key={Landscape} value={Landscape}>
+            Landscape
+          </Radio>
+        </Radio.Group>
+        <Spacer y={0.5} />
+        <Radio.Group
+          size="sm"
+          orientation="horizontal"
+          value={props.pageSize}
+          onChange={(e) => setProps({ ...props, pageSize: e })}
+          defaultValue={Fit}
+          label="Select Page Size"
+        >
+          <Radio key={Fit} value={Fit}>
+            {Fit}
+          </Radio>
+          <Radio key={A4} value={A4}>
+            {A4}
+          </Radio>
+          <Radio key={Letter} value={Letter}>
+            {Letter}
+          </Radio>
+        </Radio.Group>
+        <Spacer y={0.5} />
+
+        <Radio.Group
+          size="sm"
+          orientation="horizontal"
+          value={props.pageMargin.toString()}
+          onChange={(e) => setProps({ ...props, pageMargin: toNumber(e) })}
+          defaultValue={None}
+          label="Select Margin"
+          isDisabled={props.pageSize === Fit}
+        >
+          <Radio key={None} value={None}>
+            None
+          </Radio>
+          <Radio key={Small} value={Small}>
+            Small
+          </Radio>
+          <Radio key={Big} value={Big}>
+            Big
+          </Radio>
+        </Radio.Group>
+        <Spacer y={0.5} />
+
+        <Checkbox
+          size="sm"
+          isSelected={props.compressImages}
+          color="success"
+          onChange={(e) => setProps({ ...props, compressImages: e })}
+        >
+          Compress (80%)
+        </Checkbox>
+        <Grid.Container gap={2}>
+          <Grid>
+            <Button
+              onPress={() => convertToPDF()}
+              color="warning"
+              disabled={plainFiles.length < 1}
+              auto
+              ghost
+              style={{ zIndex: 1 }}
+            >
+              {props.busy ? (
+                <Loading type="points" color="currentColor" size="sm" />
+              ) : (
+                "Convert and Download PDF"
+              )}
+            </Button>
+          </Grid>
+
+          <Grid>
+            <Button
+              onPress={() => masterReset()}
+              color="error"
+              disabled={plainFiles.length < 1}
+              auto
+              ghost
+              style={{ zIndex: 1 }}
+            >
+              Reset
+            </Button>
+          </Grid>
+          {isPdfGenerated ? (
+            <Grid>
+              <Text color="#17c964">Pdf generated succesfully!!</Text>
+            </Grid>
+          ) : null}
+        </Grid.Container>
+        <Features description={meta.description} />
+      </ToolsLayout>
+    </>
   );
 };
 
