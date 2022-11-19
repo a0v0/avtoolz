@@ -46,12 +46,7 @@
               "description": "Easily Convert PNG images to PDF.\n PNG to PDF Converter is a free online tool to convert PNG images to PDF. You can convert multiple PNG images at once and save the PDF file.",
               "path": "/tools/png-to-pdf"
             },
-            {
-              "sidebarTitle": "Markdown To PDF",
-              "title": "Markdown To PDF Converter",
-              "description": "Easily Convert Markdown to PDF.\n Markdown to PDF Converter is a free online tool to convert Markdown to PDF. You can convert multiple Markdown files at once and save the PDF file.",
-              "path": "/tools/markdown-to-pdf"
-            },
+
             {
               "sidebarTitle": "Merge PDF",
               "title": "IMG To PDF Converter",
