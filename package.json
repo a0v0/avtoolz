@@ -44,6 +44,7 @@
     "nprogress": "^0.2.0",
     "parse-numeric-range": "1.2.0",
     "pdf-lib": "^1.17.1",
+    "pdf-merger-js": "^4.1.2",
     "print-js": "^1.6.0",
     "prism-react-renderer": "^1.2.1",
     "querystring": "^0.2.1",
