@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ title, description, image, url }) => {
       />
 
       <meta
-        content={manifest.site_url + "/avtoolz-banner-dark-shadow.png"}
+        content={manifest.site_url + "/avtoolz-banner-light-shadow.png"}
         property="og:image"
       />
 
