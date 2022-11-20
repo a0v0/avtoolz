@@ -65,15 +65,6 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
       <p>
         Choose your tools from the sidebar or if on mobile from navigation bar.
       </p>
-      <br></br>
-      <h2>😘 Available Tools</h2>
-      <p>
-        Thanks to these awesome tools/libraries/resources that made aVToolz
-        possible:
-      </p>
-      <ul>
-        <li></li>
-      </ul>
     </ToolsLayout>
   );
 };
