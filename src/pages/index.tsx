@@ -23,7 +23,7 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
   const { isDark } = useTheme();
 
   const meta: MetaProps = {
-    title: route.title.split(":")[1],
+    title: "",
     description: route.description,
   };
 
