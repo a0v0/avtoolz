@@ -15,3 +15,5 @@ New tools are added to this site frequently so do not forget to give a star on [
   - PNG Compress
   - JPG Compress
   - JPEG Compress
+
+... adding more ☺ 
