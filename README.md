@@ -8,14 +8,14 @@ New tools are added to this site frequently so do not forget to give a star on [
 
 ## 😘 Available Tools
 - PDF Tools
-  - PNG to PDF
-  - JPG to PDF
-  - Merge PDF
+  - [PNG to PDF](https://avtoolz.com/tools/png-to-pdf)
+  - [JPG to PDF](https://avtoolz.com/tools/jpg-to-pdf)
+  - [Merge PDF](https://avtoolz.com/tools/merge-pdf)
 - Miscellaneous Tools
-  - Compress Image 
-  - Compress PNG 
-  - Compress JPG 
-  - Compress JPEG 
-  - Compress Webp
+  - [Compress Image](https://avtoolz.com/tools/compress-image)
+  - [Compress PNG](https://avtoolz.com/tools/compress-png)
+  - [Compress JPG](https://avtoolz.com/tools/compress-jpg)
+  - [Compress JPEG](https://avtoolz.com/tools/compress-jpeg)
+  - [Compress Webp](https://avtoolz.com/tools/compress-webp)
 
 ... adding more ☺ 
