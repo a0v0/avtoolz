@@ -10,10 +10,12 @@ New tools are added to this site frequently so do not forget to give a star on [
 - PDF Tools
   - PNG to PDF
   - JPG to PDF
+  - Merge PDF
 - Miscellaneous Tools
-  - Image Compress
-  - PNG Compress
-  - JPG Compress
-  - JPEG Compress
+  - Compress Image 
+  - Compress PNG 
+  - Compress JPG 
+  - Compress JPEG 
+  - Compress Webp
 
 ... adding more ☺ 
