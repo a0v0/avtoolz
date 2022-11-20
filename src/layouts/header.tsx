@@ -42,7 +42,10 @@ const Header: React.FC<HeaderProps> = ({ title, description, image, url }) => {
         name="twitter:card"
       />
 
-      <meta content="/avtoolz-banner-dark-shadow.png" property="og:image" />
+      <meta
+        content={manifest.site_url + "/avtoolz-banner-dark-shadow.png"}
+        property="og:image"
+      />
 
       <meta key="title" content={pageTitle} property="og:title" />
       {url && <meta content={url} property="og:url" />}
