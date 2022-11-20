@@ -48,14 +48,14 @@ const Application: NextPage<AppProps<{}>> = ({ Component, pageProps }) => {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="light"
       value={{
         light: lightTheme.className,
         dark: darkTheme.className,
       }}
     >
       <NextUIProvider>
-        <PlausibleProvider domain="nextui.org" enabled={isProd}>
+        <PlausibleProvider domain="avtoolz.com" enabled={isProd}>
           <KBarProvider>
             <Component {...pageProps} />
           </KBarProvider>
