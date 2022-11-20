@@ -49,16 +49,15 @@
 
             {
               "sidebarTitle": "Merge PDF",
-              "title": "IMG To PDF Converter",
-              "description": "Easily Merge PDF files.\n Merge PDF is a free online tool to merge multiple PDF files into a single PDF file. You can merge multiple PDF files at once and save the PDF file.",
-              "path": "/tools/img-t-pdf",
-              "comingSoon": true
+              "title": "Merge PDF Online",
+              "description": "Easily Merge PDF files.\n Merge PDF Online is a free online tool to merge multiple PDF files into a single PDF file. You can merge multiple PDF files at once and save the PDF file.",
+              "path": "/tools/merge-pdf"
             },
             {
               "sidebarTitle": "Compress PDF",
               "title": "IMG To PDF Converter",
               "description": "Easily Compress PDF files.\n Compress PDF is a free online tool to compress PDF files without losing quality and minimize the size of PDF files.",
-              "path": "/tools/img-to-pf",
+              "path": "/tools/compress-pdf",
               "comingSoon": true
             }
           ]

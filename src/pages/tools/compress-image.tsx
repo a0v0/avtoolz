@@ -14,7 +14,7 @@ import {
   Spacer,
   Text,
 } from "@nextui-org/react";
-import { download } from "@utils/download";
+import { DownloadFile } from "@utils/download";
 import { blobToDataURL, dataURLtoBlob } from "@utils/image";
 import { getFileSizeFromDataUri } from "@utils/size-calc";
 import Compressor from "compressorjs";
@@ -315,7 +315,10 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
           <Grid>
             <Button
               onPress={() =>
-                download(imagesrc.toString(), "av-compressed" + props.format)
+                DownloadFile(
+                  imagesrc.toString(),
+                  "av-compressed" + props.format
+                )
               }
               color="success"
               disabled={imagesrc.toString().length === 0}

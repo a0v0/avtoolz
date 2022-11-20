@@ -1,4 +1,4 @@
-export function download(url: string, filename?: string) {
+export function DownloadFile(url: string, filename?: string) {
   fetch(url)
     .then((response) => response.blob())
     .then((blob) => {
