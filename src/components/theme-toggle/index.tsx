@@ -1,11 +1,11 @@
-import React from "react";
-import cn from "classnames";
-import {CSS, styled, useTheme} from "@nextui-org/react";
-import {useTheme as useNextTheme} from "next-themes";
 import useIsMounted from "@hooks/use-is-mounted";
+import { CSS, styled, useTheme } from "@nextui-org/react";
+import cn from "classnames";
+import { useTheme as useNextTheme } from "next-themes";
+import React from "react";
 
 import Blockholder from "../blockholder";
-import {Moon, Sun} from "../icons";
+import { Moon, Sun } from "../icons";
 
 interface Props {
   className?: string;
@@ -27,10 +27,10 @@ const StyledButton = styled("button", {
   },
 });
 
-export const ThemeToggle: React.FC<Props> = ({className, css}) => {
+export const ThemeToggle: React.FC<Props> = ({ className, css }) => {
   const isMounted = useIsMounted();
-  const {setTheme} = useNextTheme();
-  const {isDark} = useTheme();
+  const { setTheme } = useNextTheme();
+  const { isDark } = useTheme();
 
   if (!isMounted) {
     return (
