@@ -37,7 +37,6 @@ const IndexPage: React.FC<Props> = ({ routes, currentRoute }) => {
       slug={router.route}
       tag={tag}
     >
-      <h1 style={{ textAlign: "center" }}>👋 Welcome netizens!</h1>
       <Image
         src={
           isDark
