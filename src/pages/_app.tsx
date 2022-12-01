@@ -5,7 +5,6 @@ import { NextUIProvider } from "@nextui-org/react";
 import { isProd } from "@utils/index";
 import { debounce } from "lodash";
 import { NextPage } from "next";
-import PlausibleProvider from "next-plausible";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { AppInitialProps } from "next/app";
 import { NextRouter, Router } from "next/router";
@@ -55,11 +54,10 @@ const Application: NextPage<AppProps<{}>> = ({ Component, pageProps }) => {
       }}
     >
       <NextUIProvider>
-        <PlausibleProvider domain="avtoolz.com" enabled={isProd}>
-          <KBarProvider>
-            <Component {...pageProps} />
-          </KBarProvider>
-        </PlausibleProvider>
+        <KBarProvider>
+          <Component {...pageProps} />
+        </KBarProvider>
+        ]
         <style global jsx>{`
           .noselect {
             -webkit-touch-callout: none; /* iOS Safari */
