@@ -48,7 +48,7 @@ const Application: NextPage<AppProps<{}>> = ({ Component, pageProps }) => {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="light"
+      defaultTheme="system"
       value={{
         light: lightTheme.className,
         dark: darkTheme.className,
