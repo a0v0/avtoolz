@@ -11,6 +11,13 @@ New tools are added to this site frequently so do not forget to give a star on [
   - [PNG to PDF](https://avtoolz.com/tools/png-to-pdf)
   - [JPG to PDF](https://avtoolz.com/tools/jpg-to-pdf)
   - [Merge PDF](https://avtoolz.com/tools/merge-pdf)
+
+- Image Tools
+  - [SVG to Image](https://avtoolz.com/tools/svg-to-img)
+  - [SVG to PNG](https://avtoolz.com/tools/svg-to-png)
+  - [SVG to JPG](https://avtoolz.com/tools/svg-to-jpg)
+  - [SVG to WEBP](https://avtoolz.com/tools/svg-to-webp)
+  
 - Miscellaneous Tools
   - [Compress Image](https://avtoolz.com/tools/compress-image)
   - [Compress PNG](https://avtoolz.com/tools/compress-png)
