@@ -1,14 +1,24 @@
-export function getImageDimensions(imageURI: string): number[] {
-  let img = new Image();
-  img.src = imageURI;
+// export function getImageDimensions(imageURI: string): number[] {
+//   let img = new Image();
+//   img.src = imageURI;
 
-  var w: number = 0;
-  var h: number = 0;
-  img.decode().then(() => {
-    w = img.naturalWidth;
-    h = img.naturalHeight;
+//   var w: number = 0;
+//   var h: number = 0;
+//   img.decode().then(() => {
+//     w = img.naturalWidth;
+//     h = img.naturalHeight;
+//   });
+//   return [w, h];
+// }
+
+export function getImageDimensions(file: string) {
+  return new Promise<{ w: number; h: number }>(function (resolved, rejected) {
+    var i = new Image();
+    i.onload = function () {
+      resolved({ w: i.naturalWidth, h: i.naturalHeight });
+    };
+    i.src = file;
   });
-  return [w, h];
 }
 
 //**dataURL to blob**

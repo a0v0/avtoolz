@@ -12,6 +12,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@babel/core": "^7.20.5",
     "@code-hike/classer": "0.3.0",
     "@coderosh/images-to-pdf": "^2.1.0",
     "@codesandbox/sandpack-react": "0.14.3",
@@ -20,7 +21,6 @@
     "@nextui-org/react": "1.0.0-beta.10",
     "@types/lodash": "^4.14.170",
     "algoliasearch": "^4.10.3",
-    "canvas-confetti": "^1.4.0",
     "classnames": "^2.3.1",
     "compressor-img": "^1.0.7",
     "compressorjs": "^1.1.1",
@@ -59,6 +59,7 @@
     "react-markdown-github-renderers": "^1.0.3",
     "react-remark": "^2.1.0",
     "react-simple-image-viewer": "^1.2.2",
+    "react-svg-to-image": "^3.0.0",
     "refractor": "3.3.1",
     "rehype": "11.0.0",
     "rehype-parse": "7.0.1",
@@ -74,6 +75,7 @@
     "showdown": "^2.1.0",
     "string-to-arraybuffer": "^1.0.2",
     "styled-jsx": "^4.0.1",
+    "svg2img": "1.0.0-beta.2",
     "unified": "9.2.1",
     "unist-util-visit": "2.0.3",
     "use-file-picker": "^1.5.1",
@@ -81,7 +83,6 @@
     "web-file-selector": "^1.0.5"
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.4.2",
     "@types/node": "^18.11.9",
     "@types/nprogress": "^0.2.0",
     "@types/parse-numeric-range": "^0.0.1",

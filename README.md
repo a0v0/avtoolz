@@ -7,6 +7,7 @@ Website of https://avtoolz.com
 ## File Converter
 
 - https://www.reduceimages.com/ similar to this
+<!-- https://jakearchibald.github.io/svgomg/ -->
 
 #TODO Automatically initiate a build whenver README.md of https://github.com/a0v0/avtoolz changes.
 

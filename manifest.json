@@ -68,25 +68,28 @@
           "open": true,
           "routes": [
             {
+              "sidebarTitle": "SVG To Image",
+              "title": "SVG To Image Converter",
+              "description": "Easily Convert SVG images to JPG, PNG, WEBP.\n SVG to Image Converter is a free online tool to convert SVG images to JPG, PNG, WEBP. ",
+              "path": "/tools/svg-to-img"
+            },
+            {
               "sidebarTitle": "SVG To PNG",
               "title": "SVG To PNG Converter",
               "description": "Easily Convert SVG images to PNG.\n SVG to PNG Converter is a free online tool to convert SVG images to PNG. ",
-              "path": "/tools/svg-to-png",
-              "comingSoon": true
+              "path": "/tools/svg-to-png"
             },
             {
               "sidebarTitle": "SVG To JPG",
               "title": "SVG To JPG Converter",
               "description": "Easily Convert SVG images to JPG.\n SVG to JPG Converter is a free online tool to convert SVG images to JPG. ",
-              "path": "/tools/svg-to-jpg",
-              "comingSoon": true
+              "path": "/tools/svg-to-jpg"
             },
             {
               "sidebarTitle": "SVG To WebP",
               "title": "SVG To WebP Converter",
               "description": "Easily Convert SVG images to WebP.\n SVG to WebP Converter is a free online tool to convert SVG images to WebP. ",
-              "path": "/tools/svg-to-webp",
-              "comingSoon": true
+              "path": "/tools/svg-to-webp"
             },
 
             {

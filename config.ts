@@ -1,7 +1,7 @@
 export const NavbarNotifyConfig = {
   enabled: true,
-  emoji: "✨",
+  emoji: "😎",
   emojiText: "New",
-  href: "/tools/merge-pdf",
-  text: "Merge PDF tool added. Enjoy :)",
+  href: "/tools/svg-to-img",
+  text: "SVG Converters added. Enjoy :)",
 };
