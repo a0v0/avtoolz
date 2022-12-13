@@ -96,8 +96,7 @@
               "sidebarTitle": "Image to Data URI",
               "title": "Image to Data URI Converter",
               "description": "Easily Convert Images to Data URI.\n Image to Data URI Converter is a free online tool to convert Images to Data URI. ",
-              "path": "/tools/img-to-data-uri",
-              "comingSoon": true
+              "path": "/tools/img-to-data-uri"
             },
             {
               "sidebarTitle": "Image to Base64",

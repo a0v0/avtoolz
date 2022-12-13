@@ -1,7 +1,7 @@
 export const NavbarNotifyConfig = {
   enabled: true,
-  emoji: "😎",
+  emoji: "🫡",
   emojiText: "New",
-  href: "/tools/svg-to-img",
-  text: "SVG Converters added. Enjoy :)",
+  href: "/tools/img-to-data-uri",
+  text: "Image To DataURI converted added :)",
 };
