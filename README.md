@@ -17,6 +17,7 @@ New tools are added to this site frequently so do not forget to give a star on [
   - [SVG to PNG](https://avtoolz.com/tools/svg-to-png)
   - [SVG to JPG](https://avtoolz.com/tools/svg-to-jpg)
   - [SVG to WEBP](https://avtoolz.com/tools/svg-to-webp)
+  - [Image to DataURI](https://avtoolz.com/tools/img-to-data-uri)
   
 - Miscellaneous Tools
   - [Compress Image](https://avtoolz.com/tools/compress-image)
