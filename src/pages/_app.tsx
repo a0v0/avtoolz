@@ -2,7 +2,6 @@ import { KBarWrapper as KBarProvider } from "@components";
 import RouterEvents from "@lib/router-events";
 import { NextComponent } from "@lib/types";
 import { NextUIProvider } from "@nextui-org/react";
-import { isProd } from "@utils/index";
 import { debounce } from "lodash";
 import { NextPage } from "next";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
@@ -57,7 +56,7 @@ const Application: NextPage<AppProps<{}>> = ({ Component, pageProps }) => {
         <KBarProvider>
           <Component {...pageProps} />
         </KBarProvider>
-        ]
+
         <style global jsx>{`
           .noselect {
             -webkit-touch-callout: none; /* iOS Safari */

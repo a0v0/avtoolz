@@ -363,7 +363,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
                   }}
                   onClick={() => openFileSelector()}
                 >
-                  + Add Images
+                  + Select Images
                 </Card.Body>
               </Card>
             </Grid>
@@ -381,7 +381,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
                   }}
                   onClick={() => openFileSelector()}
                 >
-                  + Add More
+                  + Select Image
                 </Card.Body>
               </Card>
             </Grid>
