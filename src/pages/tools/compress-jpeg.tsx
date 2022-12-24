@@ -218,7 +218,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
                         textAlign: "center",
                       }}
                     >
-                      Click convert button to see preview
+                      Click compress button to see preview
                     </Card.Body>
                   </Card>
                 </Grid>
@@ -298,7 +298,7 @@ const DocsPage: React.FC<Props> = ({ routes, currentRoute }) => {
               {props.busy ? (
                 <Loading type="points" color="currentColor" size="sm" />
               ) : (
-                "Convert"
+                "Compress"
               )}
             </Button>
           </Grid>
