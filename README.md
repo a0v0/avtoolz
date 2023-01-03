@@ -6,7 +6,7 @@ aVToolz is an extremely handy website containg a collection of tools to perform 
 
 New tools are added to this site frequently so do not forget to give a star on [GitHub](https://github.com/a0v0/avtoolz) and opt for notifications whenever a new version comes out.
 
-## 😘 Available Tools
+## ⚡️ Available Tools
 - PDF Tools
   - [PNG to PDF](https://avtoolz.com/tools/png-to-pdf)
   - [JPG to PDF](https://avtoolz.com/tools/jpg-to-pdf)
