@@ -1,0 +1,14 @@
+version: 3
+
+tasks:
+  # gen: yarn docusaurus gen-api-docs all
+
+  install:
+    desc: Install dependencies for documentation
+    cmds:
+      - yarn install
+
+  start:
+    desc: Start documentation site
+    cmds:
+      - yarn start

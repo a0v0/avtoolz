@@ -1,17 +1,12 @@
 {
+  // This file is not used in compilation. It is here just for a nice editor experience.
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "@components": ["./src/components/index.ts"],
-      "@primitives": ["./src/components/primitives/index.ts"],
-      "@components/": ["./src/components/*"],
-
-      "@layouts/*": ["./src/layouts/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@theme/*": ["./src/theme/*"],
-      "@lib/*": ["./src/lib/*"]
-    },
+    // "paths": {
+    //   "@components/": ["./src/components/*"],
+    //   "@utils/*": ["./src/utils/*"]
+    // },
     "lib": ["dom", "ESNext.String", "ES2021.String"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -26,7 +21,5 @@
     "jsx": "preserve",
     "incremental": true,
     "target": "es6"
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  }
 }

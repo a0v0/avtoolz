@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://avtoolz.com
-
-# Sitemaps
-Sitemap: https://avtoolz.com/sitemap.xml
