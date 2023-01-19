@@ -47,3 +47,24 @@
 [data-theme="dark"] {
   background-color: #000b18;
 }
+
+@keyframes heartbeat {
+  0% {
+    font-size: 0.75em;
+  }
+  20% {
+    font-size: 1em;
+  }
+  40% {
+    font-size: 0.75em;
+  }
+  60% {
+    font-size: 1em;
+  }
+  80% {
+    font-size: 0.75em;
+  }
+  100% {
+    font-size: 0.75em;
+  }
+}

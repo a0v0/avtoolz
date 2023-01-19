@@ -18,15 +18,18 @@ import { useFilePicker } from "use-file-picker";
 import { DownloadFile } from "../utils/download";
 import { blobToDataURL, dataURLtoBlob } from "../utils/image";
 
-import { IMAGE_FILENAME } from "../utils/constants";
+import {
+  BACKGROUND_COLOR,
+  IMAGE_FILENAME,
+  SELECTED_BORDER_COLOR,
+} from "../utils/constants";
 import { getStaticAssetPath } from "../utils/paths";
 import { getFileSizeFromDataUri } from "../utils/size-calc";
 
-const selectBorderColor = "deepskyblue";
-const backgroundColor = "#16181a";
 const JPG = ".jpg",
   PNG = ".png",
   WEBP = ".webp";
+
 enum CompressType {
   Quality,
   Size,
@@ -34,6 +37,7 @@ enum CompressType {
 
 const Tool: React.FC = () => {
   const { isDarkTheme } = useColorMode();
+
   const [openFileSelector, { filesContent, plainFiles, clear, loading }] =
     useFilePicker({
       multiple: false,
@@ -152,7 +156,9 @@ const Tool: React.FC = () => {
                   <Badge
                     color="success"
                     variant="bordered"
-                    style={{ background: backgroundColor }}
+                    style={{
+                      background: isDarkTheme ? BACKGROUND_COLOR : null,
+                    }}
                   >
                     {getFileSizeFromDataUri(item.content).toString()}
                   </Badge>
@@ -167,7 +173,7 @@ const Tool: React.FC = () => {
             css={{
               width: "100%",
               border: "dashed 6px",
-              borderColor: selectBorderColor,
+              borderColor: SELECTED_BORDER_COLOR,
               borderRadius: "$2xl",
             }}
           >
@@ -179,12 +185,12 @@ const Tool: React.FC = () => {
                   verticalAlign: "middle",
                   justifyContent: "center",
                   textAlign: "center",
-                  background: isDarkTheme ? backgroundColor : null,
+                  background: isDarkTheme ? BACKGROUND_COLOR : null,
                   color: isDarkTheme ? "white" : null,
                 }}
                 onClick={() => openFileSelector()}
               >
-                + Select Image
+                + Choose File
               </Card.Body>
             </Card>
           </Grid>
@@ -217,7 +223,7 @@ const Tool: React.FC = () => {
                     css={{
                       h: 140,
                       p: 0,
-                      background: isDarkTheme ? backgroundColor : null,
+                      background: isDarkTheme ? BACKGROUND_COLOR : null,
                       color: isDarkTheme ? "white" : null,
                       verticalAlign: "middle",
                       justifyContent: "center",
@@ -252,7 +258,9 @@ const Tool: React.FC = () => {
                       <Badge
                         color="success"
                         variant="bordered"
-                        style={{ background: backgroundColor }}
+                        style={{
+                          background: isDarkTheme ? BACKGROUND_COLOR : null,
+                        }}
                       >
                         {getFileSizeFromDataUri(imagesrc.toString()).toString()}
                       </Badge>

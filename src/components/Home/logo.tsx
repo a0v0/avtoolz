@@ -14,7 +14,7 @@ const Logo: React.FC = () => {
       }
       alt="aVToolz site logo"
       title=""
-      height="25vh"
+      height="30vh"
       objectFit="contain"
     />
   );

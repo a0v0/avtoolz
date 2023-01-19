@@ -17,7 +17,6 @@ const config = {
   organizationName: "Frisbane", // Usually your GitHub org/user name.
   projectName: "Frisbane Developer Docs", // Usually your repo name.
   themes: [
-    "docusaurus-theme-redoc",
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
@@ -58,6 +57,7 @@ const config = {
     ({
       navbar: {
         title: "aVToolz",
+        // hideOnScroll: true,
         logo: {
           alt: "aVToolz Logo",
           src: "logo.svg",
@@ -65,6 +65,16 @@ const config = {
           target: "_self", // By default, this value is calculated based on the `href` attribute (the external link will open in a new tab, all others in the current one).
         },
         items: [
+          {
+            href: "https://github.com/a0v0",
+            label: "aV",
+            position: "right",
+          },
+          {
+            href: "https://github.com/a0v0/avtoolz/discussions/new?category=ideas",
+            label: "Feature Request",
+            position: "right",
+          },
           {
             href: "https://t.me/avtoolz",
             label: "Telegram",
