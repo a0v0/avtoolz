@@ -9,8 +9,8 @@ const Logo: React.FC = () => {
     <Image
       src={
         isDarkTheme
-          ? getStaticAssetPath("/avtoolz-banner-dark-shadow.png")
-          : getStaticAssetPath("/avtoolz-banner-light-shadow.png")
+          ? getStaticAssetPath("/avtoolz-banner-dark-shadow.webp")
+          : getStaticAssetPath("/avtoolz-banner-light-shadow.webp")
       }
       alt="aVToolz site logo"
       title=""
