@@ -14,7 +14,11 @@ import { toNumber } from "lodash";
 import React, { useCallback, useState } from "react";
 import ImageViewer from "react-simple-image-viewer";
 import { useFilePicker } from "use-file-picker";
-import { BACKGROUND_COLOR, IMAGE_FILENAME, SELECTED_BORDER_COLOR } from "../utils/constants";
+import {
+  BACKGROUND_COLOR,
+  IMAGE_FILENAME,
+  SELECTED_BORDER_COLOR,
+} from "../utils/constants";
 import { DownloadFile } from "../utils/download";
 import { getImageDimensions } from "../utils/image";
 import { getFileSizeFromDataUri } from "../utils/size-calc";
@@ -292,7 +296,7 @@ const Tool: React.FC = () => {
       </Grid.Container>
       <Spacer y={1} />
       <p style={{ fontWeight: "bold" }}>Select Dimensions</p>
-      <Spacer y={0.8} />
+      <Spacer y={-0.8} />
       <Radio.Group
         size="sm"
         orientation="horizontal"
@@ -347,7 +351,7 @@ const Tool: React.FC = () => {
       ) : null}
       <Spacer y={1} />
       <p style={{ fontWeight: "bold" }}>Select Output Format</p>
-      <Spacer y={0.8} />
+      <Spacer y={-0.8} />
       <Radio.Group
         size="sm"
         orientation="horizontal"

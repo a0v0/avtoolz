@@ -296,7 +296,7 @@ const Tool: React.FC = () => {
       </Grid.Container>
       <Spacer y={1} />
       <p style={{ fontWeight: "bold" }}>Select Dimensions</p>
-      <Spacer y={0.8} />
+      <Spacer y={-0.8} />
       <Radio.Group
         size="sm"
         orientation="horizontal"
@@ -351,7 +351,7 @@ const Tool: React.FC = () => {
       ) : null}
       <Spacer y={1} />
       <p style={{ fontWeight: "bold" }}>Select Output Format</p>
-      <Spacer y={0.8} />
+      <Spacer y={-0.8} />
       <Radio.Group
         size="sm"
         orientation="horizontal"

@@ -18,7 +18,11 @@ import { useFilePicker } from "use-file-picker";
 import { DownloadFile } from "../utils/download";
 import { blobToDataURL, dataURLtoBlob } from "../utils/image";
 
-import { BACKGROUND_COLOR, IMAGE_FILENAME, SELECTED_BORDER_COLOR } from "../utils/constants";
+import {
+  BACKGROUND_COLOR,
+  IMAGE_FILENAME,
+  SELECTED_BORDER_COLOR,
+} from "../utils/constants";
 import { getStaticAssetPath } from "../utils/paths";
 import { getFileSizeFromDataUri } from "../utils/size-calc";
 
@@ -269,7 +273,7 @@ const Tool: React.FC = () => {
 
       <Spacer y={1} />
       <p style={{ fontWeight: "bold" }}>Select Quality</p>
-      <Spacer y={0.8} />
+      <Spacer y={-0.8} />
       <Grid.Container justify="flex-start">
         <Grid style={{ width: "20em" }}>
           <Slider

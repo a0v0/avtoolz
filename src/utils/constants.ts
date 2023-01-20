@@ -9,6 +9,11 @@ export const SELECTED_BORDER_COLOR = "deepskyblue";
 //#####################
 //# PDF Constants
 //#####################
+export const PDF_FILENAME_PREFIX = "pdf_";
+export const PDF_FILENAME_MIDDLE = makeid(5);
+export const PDF_FILENAME_SUFFIX = "_avtoolz";
+export const PDF_FILENAME =
+  PDF_FILENAME_PREFIX + PDF_FILENAME_MIDDLE + PDF_FILENAME_SUFFIX;
 
 //#####################
 //# Image Constants

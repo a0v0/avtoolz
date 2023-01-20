@@ -275,7 +275,7 @@ const Tool: React.FC = () => {
 
       <Spacer y={1} />
       <p style={{ fontWeight: "bold" }}>Select Quality</p>
-      <Spacer y={0.8} />
+      <Spacer y={-0.8} />
       <Grid.Container justify="flex-start">
         <Grid style={{ width: "20em" }}>
           <Slider
