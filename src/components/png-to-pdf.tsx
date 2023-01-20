@@ -40,7 +40,7 @@ const Tools: React.FC = () => {
       multiple: true,
       readAs: "DataURL", // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
       // accept: '.ics,.pdf',
-      accept: [".jpg", ".jpeg"],
+      accept: [".png"],
       limitFilesConfig: { min: 1 },
       // minFileSize: 1, // in megabytes
       // maxFileSize: 1,
