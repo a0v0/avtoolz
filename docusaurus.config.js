@@ -16,7 +16,71 @@ const config = {
   favicon: "favicon.ico",
   organizationName: "a0v0", // Usually your GitHub org/user name.
   projectName: "aVToolz", // Usually your repo name.
-
+  plugins: [
+    [
+      "@docusaurus/plugin-pwa",
+      {
+        debug: true,
+        offlineModeActivationStrategies: [
+          "appInstalled",
+          "standalone",
+          "queryString",
+        ],
+        pwaHead: [
+          {
+            tagName: "link",
+            rel: "icon",
+            href: "/logo-512x512.png",
+          },
+          {
+            tagName: "link",
+            rel: "manifest",
+            href: "/manifest.json",
+          },
+          {
+            tagName: "meta",
+            name: "theme-color",
+            content: "#00ff9d",
+          },
+          {
+            tagName: "meta",
+            name: "apple-mobile-web-app-capable",
+            content: "yes",
+          },
+          {
+            tagName: "meta",
+            name: "apple-mobile-web-app-status-bar-style",
+            content: "#000",
+          },
+          {
+            tagName: "link",
+            rel: "apple-touch-icon",
+            href: "/logo-512x512.png",
+          },
+          {
+            tagName: "link",
+            rel: "mask-icon",
+            href: "/logo.svg",
+          },
+          {
+            tagName: "meta",
+            name: "msapplication-TileImage",
+            content: "/avtoolz-banner-dark-shadow.webp",
+          },
+          {
+            tagName: "meta",
+            name: "msapplication-TileColor",
+            content: "#000",
+          },
+        ],
+        injectManifestConfig: {
+          // We already add regular static assets (HTML, images...) to be available offline
+          // You can add more files according to your needs
+          globPatterns: ["**/*.{webp}"],
+        },
+      },
+    ],
+  ],
   themes: [
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
