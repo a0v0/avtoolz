@@ -205,7 +205,7 @@ const Tool: React.FC = () => {
                   }}
                 >
                   <Card.Image
-                    src={getStaticAssetPath("/right-arrow.png")}
+                    src={getStaticAssetPath("/right-arrow.webp")}
                     objectFit="contain"
                     width="100%"
                     height={140}

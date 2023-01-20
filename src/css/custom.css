@@ -68,3 +68,7 @@
     font-size: 0.75em;
   }
 }
+
+.welcome-beat {
+  animation: heartbeat 1s ease 1s infinite;
+}

@@ -229,7 +229,7 @@ const Tool: React.FC = () => {
                   }}
                 >
                   <Card.Image
-                    src="/right-arrow.png"
+                    src="/right-arrow.webp"
                     objectFit="contain"
                     width="100%"
                     height={140}
