@@ -40,7 +40,7 @@ const config = {
           {
             tagName: "meta",
             name: "theme-color",
-            content: "#00ff9d",
+            content: "#000b18",
           },
           {
             tagName: "meta",
