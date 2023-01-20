@@ -321,7 +321,13 @@ const Tools: React.FC = () => {
                     borderRadius: 0,
                   }}
                 >
-                  <Badge color="success" variant="bordered">
+                  <Badge
+                    color="success"
+                    variant="bordered"
+                    style={{
+                      background: isDarkTheme ? BACKGROUND_COLOR : null,
+                    }}
+                  >
                     {getFileSizeFromDataUri(item.content).toString()}
                   </Badge>
                 </Card>
@@ -340,7 +346,13 @@ const Tools: React.FC = () => {
                     border: "2px",
                   }}
                 >
-                  <Badge color="error" variant="bordered">
+                  <Badge
+                    color="error"
+                    variant="bordered"
+                    style={{
+                      background: isDarkTheme ? BACKGROUND_COLOR : null,
+                    }}
+                  >
                     X
                   </Badge>
                 </Card>

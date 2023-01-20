@@ -7341,6 +7341,13 @@ pdf-lib@^1.17.1:
     pako "^1.0.11"
     tslib "^1.11.1"
 
+pdf-merger-js@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/pdf-merger-js/-/pdf-merger-js-4.2.0.tgz#463ea9add0e8dc98eb18604523b8e366749f1373"
+  integrity sha512-ox9zpOkMr+QDrjSl8+NHCICDfA7tvQSfhyVxgkdK1Icc7u8CHvAiGg8VvkxRGDKD3K4Re/q84MWfRULYHWispQ==
+  dependencies:
+    pdf-lib "^1.17.1"
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
