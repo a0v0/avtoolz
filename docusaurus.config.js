@@ -14,8 +14,9 @@ const config = {
   titleDelimiter: "•", // Defaults to `|`
   onBrokenMarkdownLinks: "warn",
   favicon: "favicon.ico",
-  organizationName: "Frisbane", // Usually your GitHub org/user name.
-  projectName: "Frisbane Developer Docs", // Usually your repo name.
+  organizationName: "a0v0", // Usually your GitHub org/user name.
+  projectName: "aVToolz", // Usually your repo name.
+
   themes: [
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
@@ -36,6 +37,7 @@ const config = {
   presets: [
     [
       "@docusaurus/preset-classic",
+      // @ts-ignore
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
@@ -55,6 +57,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
+      },
       navbar: {
         title: "aVToolz",
         // hideOnScroll: true,
