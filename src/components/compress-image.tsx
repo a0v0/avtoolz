@@ -36,7 +36,8 @@ enum CompressType {
 }
 
 const Tool: React.FC = () => {
-  const { isDarkTheme } = useColorMode();
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
   const [openFileSelector, { filesContent, plainFiles, clear, loading }] =
     useFilePicker({
       multiple: false,

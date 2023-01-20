@@ -1,11 +1,14 @@
 {
-  "name": "aVToolz",
+  "name": "aVToolz: 🔥A Swiss Army Toolbox to save your day...",
   "short_name": "aVToolz",
+  "orientation": "portrait",
+  "description": "aVToolz is an extremely handy app containg a collection of tools to perform daily tasks. aVToolz offer tools for image conversion, file conversion, text transformation and many more...",
   "theme_color": "#00ff9d",
   "background_color": "#16181a",
   "display": "standalone",
   "scope": "./",
   "start_url": "./index.html",
+  "categories": ["devtools", "utilities", "productivity", "photo"],
   "related_applications": [
     {
       "platform": "webapp",
@@ -14,40 +17,26 @@
   ],
   "icons": [
     {
-      "src": "logo-48x48.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "logo-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "logo-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "logo-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png"
+      "src": "logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
     },
     {
       "src": "logo-192x192.png",
-      "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
-      "src": "logo-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
+      "src": "logo-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
       "src": "logo-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }

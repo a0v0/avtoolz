@@ -33,7 +33,8 @@ const A4 = "A4",
   Big = "50";
 
 const Tools: React.FC = () => {
-  const { isDarkTheme } = useColorMode();
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
 
   const [openFileSelector, { filesContent, plainFiles, clear, loading }] =
     useFilePicker({

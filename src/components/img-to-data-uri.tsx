@@ -24,7 +24,8 @@ const Fit = "Same as Image",
   Portrait = "Portrait";
 
 const Tool: React.FC = () => {
-  const { isDarkTheme } = useColorMode();
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
 
   const [openFileSelector, { filesContent, plainFiles, clear, loading }] =
     useFilePicker({
