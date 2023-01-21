@@ -19,12 +19,11 @@ tasks:
   android:assets:
     desc: Generate android splash screen and logos
     cmds:
-      - npx capacitor-assets generate --iconBackgroundColor '#000b18' --iconBackgroundColorDark '#000b18' --splashBackgroundColor '#000b18' --splashBackgroundColorDark '#000b18' --android
+      - npx capacitor-assets generate --iconBackgroundColor '#000b18' --iconBackgroundColorDark '#000b18' --splashBackgroundColor '#000b18' --splashBackgroundColor '#000b18' --android
 
   android:run:
     desc: Launch android app
     cmds:
-      - task: android:build
       - npx cap run android
 
   android:build:

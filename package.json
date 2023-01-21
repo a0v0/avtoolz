@@ -17,7 +17,9 @@
   "dependencies": {
     "@capacitor/android": "^4.6.2",
     "@capacitor/assets": "^2.0.4",
+    "@capacitor/clipboard": "^4.1.0",
     "@capacitor/core": "^4.6.2",
+    "@capacitor/status-bar": "^4.1.1",
     "@cmfcmf/docusaurus-search-local": "^0.10.0",
     "@docusaurus/core": "^2.0.1",
     "@docusaurus/plugin-content-docs": "^2.0.1",
