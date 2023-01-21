@@ -24,11 +24,15 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install app dependencies
-        run: npm install
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
 
-      - name: Build app
-        run: npm run build
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build:prod # will run `yarn build:prod` command
 
       - name: Capacitor update
         run: npx cap update
