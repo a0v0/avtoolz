@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^4.6.2",
+    "@capacitor/assets": "^2.0.4",
     "@capacitor/core": "^4.6.2",
     "@cmfcmf/docusaurus-search-local": "^0.10.0",
     "@docusaurus/core": "^2.0.1",
