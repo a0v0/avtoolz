@@ -4,7 +4,8 @@ import { getStaticAssetPath } from "@site/src/utils/paths";
 import React from "react";
 
 const Logo: React.FC = () => {
-  const { isDarkTheme } = useColorMode();
+  const { colorMode } = useColorMode();
+  const isDarkTheme = colorMode === "dark";
   return (
     <Image
       src={
