@@ -30,4 +30,4 @@ tasks:
     desc: Build android app
     cmds:
       - yarn build
-      - npx cap sync
+      - npx cap sync android

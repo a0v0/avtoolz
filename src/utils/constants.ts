@@ -3,6 +3,7 @@ import { makeid } from "./id";
 //#####################
 //# General Constants
 //#####################
+export const SPLASH_BACKGROUND_COLOR = "#000b18";
 export const BACKGROUND_COLOR = "#16181a";
 export const SELECTED_BORDER_COLOR = "deepskyblue";
 

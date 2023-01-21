@@ -6,6 +6,7 @@ import React from "react";
 const Logo: React.FC = () => {
   const { colorMode } = useColorMode();
   const isDarkTheme = colorMode === "dark";
+
   return (
     <Image
       src={
