@@ -73,7 +73,7 @@ const config = {
         // hideOnScroll: true,
         logo: {
           alt: "aVToolz Logo",
-          src: "logo.svg",
+          src: "logo.webp",
           href: "/",
           target: "_self", // By default, this value is calculated based on the `href` attribute (the external link will open in a new tab, all others in the current one).
         },
