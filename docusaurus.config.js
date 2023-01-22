@@ -143,8 +143,8 @@ const config = {
         },
         items: [
           {
-            href: "https://github.com/a0v0",
-            label: "aV",
+            href: "https://github.com/a0v0/avtoolz/issues/new?labels=bug",
+            label: "Report Bugs",
             position: "right",
           },
           {
