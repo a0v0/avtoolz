@@ -15,7 +15,6 @@
 
 default_platform(:android)
 
-gradle_path = './android/gradlew'
 
 platform :android do
   desc "Runs all the tests"
@@ -40,11 +39,8 @@ platform :android do
 end
 
 
-lane :playstore do
+lane :buildRelease do
   gradle(
-    gradle_path: gradle_path,
-    task: 'assemble',
-    build_type: 'Release',
-    project_dir: './'
+    task: 'clean assembleRelease',
   )
 end

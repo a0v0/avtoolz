@@ -5,7 +5,7 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init:
-      brew install fastlane
+  - init: |
+      cd apps/merge-pdf/android && bundle update fastlane
       brew install go-task/tap/go-task
     command: yarn run start

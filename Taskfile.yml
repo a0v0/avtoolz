@@ -26,6 +26,7 @@ tasks:
       - bash -c "cp package.json apps/merge-pdf/package.json"
       - cd apps/merge-pdf && npx cap sync android
       - bash -c "rm -r apps/merge-pdf/package.json"
+      - cd apps/merge-pdf/android && fastlane buildRelease
 
   app:merge-pdf:start:
     desc: Start merge pdf app in development mode
