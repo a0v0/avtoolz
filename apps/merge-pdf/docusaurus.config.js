@@ -6,8 +6,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "aVToolz",
-  tagline: "🔥A Swiss Army Toolbox to save your day...",
+  title: "PDF Merger X",
+  tagline: "",
   url: "https://avtoolz.com",
   baseUrl: "/",
   onBrokenLinks: "ignore",
@@ -69,7 +69,7 @@ const config = {
         },
       },
       navbar: {
-        title: "aVToolz",
+        title: "PDF Merger X",
         // hideOnScroll: true,
         logo: {
           alt: "aVToolz Logo",
@@ -106,7 +106,7 @@ const config = {
         additionalLanguages: ["yaml", "bash", "go"],
       },
       colorMode: {
-        defaultMode: "light",
+        defaultMode: "dark",
       },
     }),
 };
