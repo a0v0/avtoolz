@@ -7,4 +7,5 @@
 tasks:
   - init:
       brew install fastlane
+      brew install go-task/tap/go-task
     command: yarn run start
