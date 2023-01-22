@@ -209,10 +209,11 @@ GEM
       xcpretty (~> 0.2, >= 0.0.7)
 
 PLATFORMS
+  x64-mingw-ucrt
   x86_64-linux
 
 DEPENDENCIES
   fastlane
 
 BUNDLED WITH
-   2.4.2
+   2.4.1

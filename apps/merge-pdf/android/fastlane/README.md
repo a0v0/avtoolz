@@ -13,10 +13,10 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### playstore
+### buildRelease
 
 ```sh
-[bundle exec] fastlane playstore
+[bundle exec] fastlane buildRelease
 ```
 
 
