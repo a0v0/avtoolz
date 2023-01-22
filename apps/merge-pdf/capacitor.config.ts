@@ -2,7 +2,7 @@ import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
   appId: "com.avtoolz.mergepdf",
-  appName: "aVToolz",
+  appName: "PDF Merger X",
   webDir: "build",
   bundledWebRuntime: false,
 };

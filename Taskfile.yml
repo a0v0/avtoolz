@@ -23,8 +23,22 @@ tasks:
     desc: Build merge pdf app
     cmds:
       - cd apps/merge-pdf && npx docusaurus build
+      - git-bash -c "cp package.json apps/merge-pdf/package.json"
+      - cd apps/merge-pdf && npx cap sync android
+      - git-bash -c "rm -r apps/merge-pdf/package.json"
 
   app:merge-pdf:start:
     desc: Start merge pdf app in development mode
     cmds:
       - cd apps/merge-pdf && npx docusaurus start
+
+  app:merge-pdf:sync:
+    desc: Start merge pdf app in development mode
+    cmds:
+      - cd apps/merge-pdf && npx docusaurus start
+
+  android:run:
+    desc: Launch android app
+    cmds:
+      - task: app:merge-pdf:build
+      - cd apps/merge-pdf && npx cap run android
