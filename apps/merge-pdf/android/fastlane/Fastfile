@@ -17,6 +17,7 @@ platform :android do
   # end
   desc "Deploy a new version to the Google Play"
     lane :production do
+    setup_ci if ENV['CI']
     
     # Increment Build number
     previous_build_number = google_play_track_version_codes(
