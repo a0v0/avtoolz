@@ -1,0 +1,42 @@
+version: 3
+
+vars:
+  KEYSTORE_PATH: apps/merge-pdf/android/fastlane/keystore.jks
+  STORE_PASSWORD: store_password
+  KEY_ALIAS: key_alias
+  KEY_PASSWORD: store_password
+  AAB_PATH: apps/merge-pdf/android/app/build/outputs/bundle/release/app-release.aab
+  APP_ID: com.avtoolz.mergepdf
+  JAVA_HOME: C:/Users/Administrator/scoop/apps/android-studio/current/jre
+  JSON_KEY_PATH: credentials/play-store-credentials.json
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task -l
+
+  build:
+    desc: Build appbundle locally
+    cmds:
+      - npx docusaurus build
+      - bash -c "cp ../../package.json package.json"
+      - npx cap sync android
+      - bash -c "rm -r package.json"
+      - cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} JAVA_HOME={{.JAVA_HOME}} bundle exec fastlane buildlocal
+
+  release:
+    desc: Build appbundle and release it to play store
+    cmds:
+      - cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} JAVA_HOME={{.JAVA_HOME}} bundle exec fastlane release
+
+  run:browser:
+    desc: Start app in browser
+    cmds:
+      - npx docusaurus start
+
+  run:phone:
+    desc: Start app on virtual device
+    cmds:
+      - task: app:merge-pdf:build
+      - npx cap run android

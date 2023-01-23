@@ -1,54 +1,72 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
 default_platform(:android)
 
-
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
-
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
+  # desc "Deploy a beta version to the Google Play"
+  # lane :beta do
+  #   gradle(
+  #   task: "clean bundleRelease",
+  #   properties: {
+  #     "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+  #     "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+  #     "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+  #     "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+  #     "org.gradle.java.home" => ENV['JAVA_HOME']
+  #   }
+  # )
+  #   upload_to_play_store(track: 'beta')
+  # end
   desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
-  end
+    lane :production do
+    
+    # Increment Build number
+    previous_build_number = google_play_track_version_codes(
+        package_name: ENV['APP_ID'],
+        track: "production",
+        json_key: ENV['JSON_KEY_PATH'],
+      )[0]
+    current_build_number = previous_build_number + 1
+    increment_version_code(
+        version_code: current_build_number
+      )
+    
+    # Commit the changes to origin
+    gitpush  
+    
+    # Build app bundle
+    gradle(
+    task: "clean bundleRelease",
+    properties: {
+      "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+      "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+      "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+      "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      "org.gradle.java.home" => ENV['JAVA_HOME']
+    })
+
+    # Publish app bundle to play store
+    upload_to_play_store(json_key: ENV['PLAY_STORE_JSON_KEY_PATH'], track: 'production')
+
+    end
+  
+end
+
+lane :buildlocal do
+  gradle(
+    task: "clean bundleRelease",
+    properties: {
+      "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+      "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+      "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+      "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      "org.gradle.java.home" => ENV['JAVA_HOME']
+    }
+  )
 end
 
 
-lane :buildRelease do
-  gradle(
-    task: "assemble",
-    build_type: "Release",
-    print_command: false,
-    properties: {
-      "android.injected.signing.store.file" => "keystore.jks",
-      "android.injected.signing.store.password" => "store_password",
-      "android.injected.signing.key.alias" => "key_alias",
-      "android.injected.signing.key.password" => "key_password",
-    }
-  )
+
+lane :gitpush do
+  git_add
+  git_commit(path: "*", message: "Version")
+  push_to_git_remote
 end

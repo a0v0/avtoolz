@@ -71,12 +71,12 @@ const config = {
       navbar: {
         title: "PDF Merger X",
         // hideOnScroll: true,
-        logo: {
-          alt: "aVToolz Logo",
-          src: "logo.webp",
-          href: "/",
-          target: "_self", // By default, this value is calculated based on the `href` attribute (the external link will open in a new tab, all others in the current one).
-        },
+        // logo: {
+        //   alt: "aVToolz Logo",
+        //   src: "logo.webp",
+        //   href: "/",
+        //   target: "_self", // By default, this value is calculated based on the `href` attribute (the external link will open in a new tab, all others in the current one).
+        // },
         items: [
           {
             href: "https://github.com/a0v0/avtoolz/issues/new?labels=bug",
