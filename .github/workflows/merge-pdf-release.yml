@@ -19,6 +19,10 @@ jobs:
           ruby-version: "3.0" # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
       - name: Cache Ruby - Bundler
         uses: actions/cache@v2
         with:
@@ -53,4 +57,6 @@ jobs:
         uses: arduino/setup-task@v1
 
       - name: Distribute app to Production 🚀
-        run: task app:merge-pdf:release
+        run: |
+          task install
+          task app:merge-pdf:release
