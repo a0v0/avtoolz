@@ -46,6 +46,8 @@ lane :playstore do
     version_code: current_build_number
   )
 
+  gitpush
+
   gradle(
     task: "clean bundleRelease",
     properties: {
@@ -68,11 +70,11 @@ end
 
 
 
-# lane :gitpush do
+lane :gitpush do
 
-#   git_add
-#   git_commit(path: "*", message: "Version")
-#   push_to_git_remote
+  git_add
+  git_commit(path: "*", message: "Version")
+  push_to_git_remote
 
 
-# end
+end
