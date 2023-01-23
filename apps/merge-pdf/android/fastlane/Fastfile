@@ -45,7 +45,7 @@ platform :android do
     })
 
     # Publish app bundle to play store
-    upload_to_play_store(json_key: ENV['PLAY_STORE_JSON_KEY_PATH'], track: 'production')
+    upload_to_play_store(json_key: ENV['JSON_KEY_PATH'], track: 'production')
 
     end
   
