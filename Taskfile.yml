@@ -7,27 +7,39 @@ tasks:
       - task -l
 
   install:
-    desc: Install dependencies for documentation
+    desc: Install dependencies
     cmds:
       - yarn install
 
   start:
-    desc: Start documentation site
+    desc: Start complete website
     cmds:
       - yarn start
 
-  android:assets:
+  ########
+  ## For mobile platforms
+  ########
+  app:merge-pdf:build:
+    desc: Build merge pdf app
+    cmds:
+      - cd apps/merge-pdf && npx docusaurus build
+      - bash -c "cp package.json apps/merge-pdf/package.json"
+      - cd apps/merge-pdf && npx cap sync android
+      - bash -c "rm -r apps/merge-pdf/package.json"
+      - cd apps/merge-pdf/android && fastlane buildRelease
+
+  app:merge-pdf:start:
+    desc: Start merge pdf app in development mode
+    cmds:
+      - cd apps/merge-pdf && npx docusaurus start
+
+  app:merge-pdf:run:
+    desc: Launch android app
+    cmds:
+      - task: app:merge-pdf:build
+      - cd apps/merge-pdf && npx cap run android
+
+  app:merge-pdf:assets:
     desc: Generate android splash screen and logos
     cmds:
       - npx capacitor-assets generate --iconBackgroundColor '#000b18' --iconBackgroundColorDark '#000b18' --splashBackgroundColor '#000b18' --splashBackgroundColor '#000b18' --android
-
-  android:run:
-    desc: Launch android app
-    cmds:
-      - npx cap run android
-
-  android:build:
-    desc: Build android app
-    cmds:
-      - yarn build
-      - npx cap sync android

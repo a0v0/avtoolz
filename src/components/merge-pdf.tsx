@@ -35,6 +35,7 @@ const Tool: React.FC = () => {
   const [allFiles, setAllFiles] = useState(filesContent);
 
   const [props, setProps] = useState({
+    pdfSaveUrl: "",
     busy: false,
   });
 
@@ -46,7 +47,7 @@ const Tool: React.FC = () => {
 
   const masterReset = () => {
     setIsPdfGenerated(false);
-    setProps({ ...props, busy: false });
+    setProps({ ...props, busy: false, pdfSaveUrl: "" });
     setAllFiles([]);
     clear();
   };
@@ -63,15 +64,18 @@ const Tool: React.FC = () => {
 
       const mergedPdf = await merger.saveAsBlob();
       const url = URL.createObjectURL(mergedPdf);
-      setProps({ ...props, busy: false });
+      setProps({ ...props, busy: false, pdfSaveUrl: url });
       setIsPdfGenerated(true);
-      DownloadFile(url, PDF_FILENAME + ".pdf");
     } catch (error) {
       setProps({ ...props, busy: false });
       alert(
         "Something went wrong. Please check if the pdf you uploaded are not corrupted"
       );
     }
+  };
+
+  const savePDF = () => {
+    DownloadFile(props.pdfSaveUrl, PDF_FILENAME + ".pdf");
   };
 
   const deleteImage = (index: number) => {
@@ -237,11 +241,30 @@ const Tool: React.FC = () => {
             {props.busy ? (
               <Loading type="points" color="currentColor" size="sm" />
             ) : (
-              "Merge and Download PDF"
+              "Merge"
             )}
           </Button>
         </Grid>
-
+        <Grid>
+          <Button
+            onPress={() => {
+              if (!(plainFiles.length < 1)) {
+                savePDF();
+              }
+            }}
+            color="success"
+            disabled={props.pdfSaveUrl.length < 1}
+            auto
+            ghost
+            style={{ zIndex: 1 }}
+          >
+            {props.busy ? (
+              <Loading type="points" color="currentColor" size="sm" />
+            ) : (
+              "Save PDF"
+            )}
+          </Button>
+        </Grid>
         <Grid>
           <Button
             onPress={() => {
@@ -258,7 +281,9 @@ const Tool: React.FC = () => {
         </Grid>
         {isPdfGenerated ? (
           <Grid>
-            <Text color="#17c964">Pdf generated succesfully!!</Text>
+            <Text color="#17c964">
+              PDF merged. Click "Save PDF" button to save the pdf file.
+            </Text>
           </Grid>
         ) : null}
       </Grid.Container>
