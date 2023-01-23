@@ -23,12 +23,17 @@ tasks:
       - bash -c "cp ../../package.json package.json"
       - npx cap sync android
       - bash -c "rm -r package.json"
-      - cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} JAVA_HOME={{.JAVA_HOME}} bundle exec fastlane buildlocal
-
+      - cmd: cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} JAVA_HOME={{.JAVA_HOME}} bundle exec fastlane buildlocal
+        platforms: [windows]
+      - cmd: cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} bundle exec fastlane buildlocal
+        platforms: [linux]
   release:
     desc: Build appbundle and release it to play store
     cmds:
-      - cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} JAVA_HOME={{.JAVA_HOME}} bundle exec fastlane production
+      - cmd: cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} JAVA_HOME={{.JAVA_HOME}} bundle exec fastlane production
+        platforms: [windows]
+      - cmd: cd android && AAB_PATH={{.ROOT_DIR}}/{{.AAB_PATH}} JSON_KEY_PATH={{.ROOT_DIR}}/{{.JSON_KEY_PATH}} KEYSTORE_PATH={{.ROOT_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} bundle exec fastlane production
+        platforms: [linux/amd64]
 
   run:browser:
     desc: Start app in browser
