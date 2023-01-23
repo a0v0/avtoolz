@@ -66,6 +66,8 @@ end
 
 
 lane :gitpush do
+  sh("git config --global user.email 'av@7hell.ml'")  
+  sh("git config --global user.name 'aV'")
   git_add
   git_commit(path: "*", message: "Version")
   push_to_git_remote
