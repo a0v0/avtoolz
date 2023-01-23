@@ -15,35 +15,39 @@
 
 default_platform(:android)
 
+default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Deploy a beta version to the Google Play"
   lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(track: 'beta')
   end
 
   desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
-  end
+    lane :production do
+      gradle(task: "clean bundleRelease")
+      upload_to_play_store
+    end
+  
 end
 
+lane :playstore do
+  previous_build_number = google_play_track_version_codes(
+    package_name: ENV['APP_ID'],
+    track: "production",
+    json_key: ENV['JSON_KEY_PATH'],
+  )[0]
+  
+  current_build_number = previous_build_number + 1
+  
+  increment_version_code(
+    version_code: current_build_number
+  )
 
-lane :buildRelease do
   gradle(
-    task: "bundle",
-    build_type: "Release",
-    print_command: false,
+    task: "clean bundleRelease",
     properties: {
       "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
       "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
@@ -52,4 +56,23 @@ lane :buildRelease do
       "org.gradle.java.home" => ENV['JAVA_HOME']
     }
   )
+
+  # upload_to_play_store
+
+  # upload_to_play_store(track: 'internal',
+  #   aab_paths: ENV['AAB_PATH'],
+  #   json_key: ENV['PLAY_STORE_JSON_KEY_PATH'],
+  #   )
+
 end
+
+
+
+# lane :gitpush do
+
+#   git_add
+#   git_commit(path: "*", message: "Version")
+#   push_to_git_remote
+
+
+# end

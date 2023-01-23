@@ -1,7 +1,10 @@
 version: 3
 
-env:
-  JAVA_HOME: C:/Users/Administrator/scoop/apps/android-studio/current/jre
+includes:
+  app:merge-pdf:
+    taskfile: ./apps/merge-pdf/Taskfile.yml
+    dir: ./apps/merge-pdf
+    # internal: true
 
 tasks:
   default:
@@ -18,31 +21,3 @@ tasks:
     desc: Start complete website
     cmds:
       - yarn start
-
-  ########
-  ## For mobile platforms
-  ########
-  app:merge-pdf:build:
-    desc: Build merge pdf app
-    vars:
-      KEYSTORE_PATH: apps/merge-pdf/android/fastlane/keystore.jks
-      STORE_PASSWORD: store_password
-      KEY_ALIAS: key_alias
-      KEY_PASSWORD: store_password
-    cmds:
-      - cd apps/merge-pdf && npx docusaurus build
-      - bash -c "cp package.json apps/merge-pdf/package.json"
-      - cd apps/merge-pdf && npx cap sync android
-      - bash -c "rm -r apps/merge-pdf/package.json"
-      - cd apps/merge-pdf/android && KEYSTORE_PATH={{.TASKFILE_DIR}}/{{.KEYSTORE_PATH}} STORE_PASSWORD={{.STORE_PASSWORD}} KEY_ALIAS={{.KEY_ALIAS}} KEY_PASSWORD={{.KEY_PASSWORD}} JAVA_HOME={{.JAVA_HOME}} fastlane buildRelease
-
-  app:merge-pdf:start:
-    desc: Start merge pdf app in development mode
-    cmds:
-      - cd apps/merge-pdf && npx docusaurus start
-
-  app:merge-pdf:run:
-    desc: Launch android app
-    cmds:
-      - task: app:merge-pdf:build
-      - cd apps/merge-pdf && npx cap run android
