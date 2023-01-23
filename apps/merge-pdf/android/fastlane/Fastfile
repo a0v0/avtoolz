@@ -31,7 +31,7 @@ platform :android do
       )
     
     # Commit the changes to origin
-    gitpush  
+    # gitpush  
     
     # Build app bundle
     gradle(
