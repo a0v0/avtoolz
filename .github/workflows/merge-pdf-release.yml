@@ -1,10 +1,11 @@
 name: Release merge-pdf (PDF Merger X) to Playstore
 
 on:
-  push:
-    paths:
-      - "app/**"
-    branches: [master]
+  workflow_dispatch:
+  # push:
+  #   paths:
+  #     - "app/**"
+  #   branches: [master]
 
 jobs:
   deploy:
