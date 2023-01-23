@@ -69,6 +69,6 @@ lane :gitpush do
   sh("git config --global user.email 'av@7hell.ml'")  
   sh("git config --global user.name 'aV'")
   git_add
-  git_commit(path: "*", message: "Version")
+  git_commit(path: "*", message: "PDF Merger X Version Bump")
   push_to_git_remote
 end
