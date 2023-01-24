@@ -86,7 +86,7 @@ const Tool: React.FC = () => {
   };
 
   const savePDF = () => {
-    setProps({ ...props, helperText: "PDF Saved to Download folder." });
+    setProps({ ...props, helperText: "PDF Saved." });
     DownloadFile(props.pdfSaveUrl, PDF_FILENAME + ".pdf");
   };
 
@@ -291,7 +291,7 @@ const Tool: React.FC = () => {
             Reset
           </Button>
         </Grid>
-        {props.helperText.length != 0 ? (
+        {props.helperText.length != 0 && !isPdfGenerated ? (
           <Grid>
             <Text color="red">{props.helperText}</Text>
           </Grid>
