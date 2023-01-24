@@ -17,9 +17,12 @@ import {
   SELECTED_BORDER_COLOR,
 } from "../utils/constants";
 import { DownloadFile } from "../utils/download";
+// import { permissionCheck } from "../utils/permission";
 import { getFileSizeFromDataUri } from "../utils/size-calc";
 
 const Tool: React.FC = () => {
+  // permissionCheck();
+
   const { colorMode } = useColorMode();
   const isDarkTheme = colorMode === "dark";
 
@@ -27,7 +30,6 @@ const Tool: React.FC = () => {
     useFilePicker({
       multiple: true,
       readAs: "DataURL",
-
       accept: [".pdf"],
       limitFilesConfig: { min: 1 },
     });

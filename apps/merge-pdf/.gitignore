@@ -22,3 +22,5 @@ yarn-error.log*
 *.tar
 temp
 swagger.json
+
+package.json

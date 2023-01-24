@@ -48,5 +48,7 @@ tasks:
   run:phone:
     desc: Start app on virtual device
     cmds:
-      - task: app:merge-pdf:build
-      - npx cap run android
+      - npx docusaurus build
+      - bash -c "cp ../../package.json package.json"
+      - npx cap sync android
+      - JAVA_HOME={{.JAVA_HOME}} npx cap run android

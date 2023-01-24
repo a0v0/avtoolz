@@ -13,10 +13,10 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### playstore
+### buildlocal
 
 ```sh
-[bundle exec] fastlane playstore
+[bundle exec] fastlane buildlocal
 ```
 
 
@@ -33,14 +33,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 ## Android
-
-### android beta
-
-```sh
-[bundle exec] fastlane android beta
-```
-
-Deploy a beta version to the Google Play
 
 ### android production
 
