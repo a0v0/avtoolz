@@ -60,7 +60,7 @@ const Tool: React.FC = () => {
       setProps({
         ...props,
         busy: true,
-        helperText: "Hang on, we are merging your pdfs.",
+        helperText: "Hang on, merging your pdfs...",
       });
       const merger = new PDFMerger();
 
@@ -70,7 +70,12 @@ const Tool: React.FC = () => {
 
       const mergedPdf = await merger.saveAsBlob();
       const url = URL.createObjectURL(mergedPdf);
-      setProps({ ...props, busy: false, pdfSaveUrl: url, helperText: "" });
+      setProps({
+        ...props,
+        busy: false,
+        pdfSaveUrl: url,
+        helperText: 'Success. Click "Save PDF" button to save the pdf file.',
+      });
       setIsPdfGenerated(true);
     } catch (error) {
       setProps({ ...props, busy: false, helperText: "" });
@@ -81,6 +86,7 @@ const Tool: React.FC = () => {
   };
 
   const savePDF = () => {
+    setProps({ ...props, helperText: "PDF Saved to Download folder." });
     DownloadFile(props.pdfSaveUrl, PDF_FILENAME + ".pdf");
   };
 
@@ -293,9 +299,7 @@ const Tool: React.FC = () => {
 
         {isPdfGenerated ? (
           <Grid>
-            <Text color="#17c964">
-              PDF merged. Click "Save PDF" button to save the pdf file.
-            </Text>
+            <Text color="#17c964">{props.helperText}</Text>
           </Grid>
         ) : null}
       </Grid.Container>
