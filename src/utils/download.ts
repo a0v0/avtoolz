@@ -1,19 +1,20 @@
 import { FileOpener } from "@capacitor-community/file-opener";
-import { Directory } from "@capacitor/filesystem";
+import { Directory, Filesystem } from "@capacitor/filesystem";
 import { Toast } from "@capacitor/toast";
 import write_blob from "capacitor-blob-writer";
 import { saveAs } from "file-saver";
+
 export function DownloadFile(url: string, filename: string) {
   fetch(url)
     .then((response) => response.blob())
     .then((blob) => {
-      downloadNative(blob, filename, blob.type);
+      downloadNative(blob, filename);
       saveAs(blob, filename);
     })
     .catch(console.error);
 }
 
-function downloadNative(blob: Blob, fileName: string, mimeType: string) {
+function downloadNative(blob: Blob, fileName: string) {
   const file = "Download/" + fileName;
 
   Toast.show({
@@ -62,14 +63,19 @@ function downloadNative(blob: Blob, fileName: string, mimeType: string) {
       });
     },
   }).then(function () {
+    Filesystem.getUri({
+      path: file,
+      directory: Directory.ExternalStorage,
+    }).then((result) =>
+      FileOpener.open({
+        filePath: result.uri,
+        contentType: blob.type,
+        openWithDefault: true,
+      })
+    );
+
     Toast.show({
       text: fileName + " saved to Downloads folder",
     });
-  });
-
-  FileOpener.open({
-    filePath: file,
-    contentType: mimeType,
-    openWithDefault: true,
   });
 }

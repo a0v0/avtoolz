@@ -18,10 +18,12 @@ import {
 } from "../utils/constants";
 import { DownloadFile } from "../utils/download";
 // import { permissionCheck } from "../utils/permission";
+
 import { getFileSizeFromDataUri } from "../utils/size-calc";
 
 const Tool: React.FC = () => {
-  // permissionCheck();
+  // Capacitor Only
+
   const { colorMode } = useColorMode();
   const isDarkTheme = colorMode === "dark";
 
