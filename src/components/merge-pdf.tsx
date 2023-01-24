@@ -22,7 +22,6 @@ import { getFileSizeFromDataUri } from "../utils/size-calc";
 
 const Tool: React.FC = () => {
   // permissionCheck();
-
   const { colorMode } = useColorMode();
   const isDarkTheme = colorMode === "dark";
 
@@ -39,6 +38,7 @@ const Tool: React.FC = () => {
   const [props, setProps] = useState({
     pdfSaveUrl: "",
     busy: false,
+    helperText: "",
   });
 
   const [isPdfGenerated, setIsPdfGenerated] = useState(false);
@@ -49,7 +49,7 @@ const Tool: React.FC = () => {
 
   const masterReset = () => {
     setIsPdfGenerated(false);
-    setProps({ ...props, busy: false, pdfSaveUrl: "" });
+    setProps({ ...props, busy: false, pdfSaveUrl: "", helperText: "" });
     setAllFiles([]);
     clear();
   };
@@ -57,7 +57,11 @@ const Tool: React.FC = () => {
   const convertToPDF = async () => {
     try {
       // busy
-      setProps({ ...props, busy: true });
+      setProps({
+        ...props,
+        busy: true,
+        helperText: "Be patient, large files may take some time to load.",
+      });
       const merger = new PDFMerger();
 
       for (const file of allFiles) {
@@ -66,10 +70,10 @@ const Tool: React.FC = () => {
 
       const mergedPdf = await merger.saveAsBlob();
       const url = URL.createObjectURL(mergedPdf);
-      setProps({ ...props, busy: false, pdfSaveUrl: url });
+      setProps({ ...props, busy: false, pdfSaveUrl: url, helperText: "" });
       setIsPdfGenerated(true);
     } catch (error) {
-      setProps({ ...props, busy: false });
+      setProps({ ...props, busy: false, helperText: "" });
       alert(
         "Something went wrong. Please check if the pdf you uploaded are not corrupted"
       );
@@ -227,6 +231,11 @@ const Tool: React.FC = () => {
       <Spacer y={1} />
 
       <Grid.Container gap={2}>
+        {isPdfGenerated ? (
+          <Grid>
+            <Text color="red">{props.helperText}</Text>
+          </Grid>
+        ) : null}
         <Grid>
           <Button
             onPress={() => {

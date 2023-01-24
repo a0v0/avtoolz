@@ -1,5 +1,6 @@
 import { FileOpener } from "@capacitor-community/file-opener";
 import { Directory } from "@capacitor/filesystem";
+import { Toast } from "@capacitor/toast";
 import write_blob from "capacitor-blob-writer";
 import { saveAs } from "file-saver";
 export function DownloadFile(url: string, filename: string) {
@@ -13,7 +14,11 @@ export function DownloadFile(url: string, filename: string) {
 }
 
 function downloadNative(blob: Blob, fileName: string, mimeType: string) {
-  const file = "Downloads/" + fileName;
+  const file = "Download/" + fileName;
+
+  Toast.show({
+    text: "Processing file. Please wait...",
+  });
 
   write_blob({
     // The 'path' option should be a string describing where to write the file. It
@@ -25,7 +30,7 @@ function downloadNative(blob: Blob, fileName: string, mimeType: string) {
     // The 'directory' option is used to resolve 'path' to a location on the disk.
     // It is ignored if the 'path' option begins with "file://".
 
-    directory: Directory.Data,
+    directory: Directory.ExternalStorage,
 
     // The 'blob' option must be a Blob, which will be written to the file. The file
     // on disk is overwritten, not appended to.
@@ -52,10 +57,14 @@ function downloadNative(blob: Blob, fileName: string, mimeType: string) {
     // See the "Fallback mode" section below for a detailed explanation.
 
     on_fallback(error) {
-      console.error(error);
+      Toast.show({
+        text: "Error. Please try again or check permissions",
+      });
     },
   }).then(function () {
-    console.log("Download Complete.");
+    Toast.show({
+      text: fileName + " saved to Downloads folder",
+    });
   });
 
   FileOpener.open({
