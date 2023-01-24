@@ -98,6 +98,11 @@ const config = {
             label: "GitHub",
             position: "right",
           },
+          {
+            href: "http://avtoolz.com/pdf-tools/merge-pdf",
+            label: "Web Version",
+            position: "right",
+          },
         ],
       },
       prism: {

@@ -10,7 +10,7 @@ const config = {
   tagline: "🔥A Swiss Army Toolbox to save your day...",
   url: "https://avtoolz.com",
   baseUrl: "/",
-  onBrokenLinks: "ignore",
+  onBrokenLinks: "throw",
   titleDelimiter: "•", // Defaults to `|`
   onBrokenMarkdownLinks: "warn",
   favicon: "favicon.ico",

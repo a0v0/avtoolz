@@ -17,9 +17,11 @@ import {
   SELECTED_BORDER_COLOR,
 } from "../utils/constants";
 import { DownloadFile } from "../utils/download";
+// import { permissionCheck } from "../utils/permission";
 import { getFileSizeFromDataUri } from "../utils/size-calc";
 
 const Tool: React.FC = () => {
+  // permissionCheck();
   const { colorMode } = useColorMode();
   const isDarkTheme = colorMode === "dark";
 
@@ -27,7 +29,6 @@ const Tool: React.FC = () => {
     useFilePicker({
       multiple: true,
       readAs: "DataURL",
-
       accept: [".pdf"],
       limitFilesConfig: { min: 1 },
     });
@@ -37,6 +38,7 @@ const Tool: React.FC = () => {
   const [props, setProps] = useState({
     pdfSaveUrl: "",
     busy: false,
+    helperText: "",
   });
 
   const [isPdfGenerated, setIsPdfGenerated] = useState(false);
@@ -47,7 +49,7 @@ const Tool: React.FC = () => {
 
   const masterReset = () => {
     setIsPdfGenerated(false);
-    setProps({ ...props, busy: false, pdfSaveUrl: "" });
+    setProps({ ...props, busy: false, pdfSaveUrl: "", helperText: "" });
     setAllFiles([]);
     clear();
   };
@@ -55,7 +57,11 @@ const Tool: React.FC = () => {
   const convertToPDF = async () => {
     try {
       // busy
-      setProps({ ...props, busy: true });
+      setProps({
+        ...props,
+        busy: true,
+        helperText: "Hang on, merging your pdfs...",
+      });
       const merger = new PDFMerger();
 
       for (const file of allFiles) {
@@ -64,10 +70,15 @@ const Tool: React.FC = () => {
 
       const mergedPdf = await merger.saveAsBlob();
       const url = URL.createObjectURL(mergedPdf);
-      setProps({ ...props, busy: false, pdfSaveUrl: url });
+      setProps({
+        ...props,
+        busy: false,
+        pdfSaveUrl: url,
+        helperText: 'Success. Click "Save PDF" button to save the pdf file.',
+      });
       setIsPdfGenerated(true);
     } catch (error) {
-      setProps({ ...props, busy: false });
+      setProps({ ...props, busy: false, helperText: "" });
       alert(
         "Something went wrong. Please check if the pdf you uploaded are not corrupted"
       );
@@ -75,6 +86,7 @@ const Tool: React.FC = () => {
   };
 
   const savePDF = () => {
+    setProps({ ...props, helperText: "PDF Saved." });
     DownloadFile(props.pdfSaveUrl, PDF_FILENAME + ".pdf");
   };
 
@@ -279,11 +291,15 @@ const Tool: React.FC = () => {
             Reset
           </Button>
         </Grid>
+        {props.helperText.length != 0 && !isPdfGenerated ? (
+          <Grid>
+            <Text color="red">{props.helperText}</Text>
+          </Grid>
+        ) : null}
+
         {isPdfGenerated ? (
           <Grid>
-            <Text color="#17c964">
-              PDF merged. Click "Save PDF" button to save the pdf file.
-            </Text>
+            <Text color="#17c964">{props.helperText}</Text>
           </Grid>
         ) : null}
       </Grid.Container>

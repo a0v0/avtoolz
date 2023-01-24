@@ -1228,6 +1228,11 @@
   resolved "https://registry.npmjs.org/@braintree/sanitize-url/-/sanitize-url-3.1.0.tgz"
   integrity sha512-GcIY79elgB+azP74j8vqkiXz8xLFfIzbQJdlwOPisgbKT00tviJQuEghOXSMVxJ00HoYJbGswr4kcllUc4xCcg==
 
+"@capacitor-community/file-opener@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@capacitor-community/file-opener/-/file-opener-1.0.4.tgz#24b19ca43e3bd90ba3ab84a4be969694863c5c34"
+  integrity sha512-tNxt6HeyPYW5Q0ZarEIG2uBbWEtLYpUnEyyxWXobWccXqJegT19KXwX53/vbzPBy56Z8pEQR8RavRnJOSha1Eg==
+
 "@capacitor/android@^4.6.2":
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-4.6.2.tgz#2589525479a07c153f7ffd610684c3145c322aff"
@@ -1308,10 +1313,25 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/filesystem@^4.1.4":
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/filesystem/-/filesystem-4.1.4.tgz#021ef707ca199d554042ebc85151416dec07020a"
+  integrity sha512-ivko1RNK4hq63xhMacq8D6D97N5/SAafTsrmY/pghYrG6Cl2SEY0+IgRu7V9/VWeN3FSplyUPucjUTAFQxXN5g==
+
+"@capacitor/local-notifications@^4.1.4":
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/local-notifications/-/local-notifications-4.1.4.tgz#dba63ef23c668356179ec83e366f30e92a6b2b24"
+  integrity sha512-nEs0SYkOQG7xT8FiKH7CG6BFOJ7jZkWiYt+JbM38s8sSxsAw1D2qfocNIyXstTUxhrJvKBtbl7oTuKg7mGUeuQ==
+
 "@capacitor/status-bar@^4.1.1":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-4.1.1.tgz#5b9a1acbe5efb30158e35be7a5ef7ffaaadaf804"
   integrity sha512-3wosxMD1XuIFz88+c2GdVEHSJV6u7suOeKQjyWf3zf9eFr622Sg+udZqDbC0dtTWXw97BWyCjv3r1EYJw7XnIA==
+
+"@capacitor/toast@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/toast/-/toast-4.1.0.tgz#1710163aa128f8640d2237587cfb49ad4ee880c5"
+  integrity sha512-hU3GoA1dT+dsMuDOlEeiaU2mdd4VCLvIzgbp7Vk0Mqy9tbg++W4t7hcewlawzJGs6FxH59rIekf2lz7m4ir33w==
 
 "@cmfcmf/docusaurus-search-local@^0.10.0":
   version "0.10.0"
@@ -4524,6 +4544,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001400, caniuse-lite@^1.0.30001426:
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001442.tgz"
   integrity sha512-239m03Pqy0hwxYPYR5JwOIxRJfLTWtle9FV8zosfV5pHg+/51uD4nxcUlM8+mWWGfwKtt8lJNHnD3cWw9VZ6ow==
 
+capacitor-blob-writer@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/capacitor-blob-writer/-/capacitor-blob-writer-1.1.4.tgz#0fd67a17eebc164f5db1ee18e81a92c5374d1423"
+  integrity sha512-WOU69Zos/hI4KRXwnciTad9vKlh44HKDQs5u4oygialFOq0YNFqvFo1hiLzx+ypdSVg9Sg4fgnFHrhIsMpXvWg==
+
 ccount@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/ccount/-/ccount-1.1.0.tgz"
@@ -6498,6 +6523,11 @@ file-loader@^6.2.0:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
+
+file-saver@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
+  integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
 
 file-selector@0.2.4:
   version "0.2.4"

@@ -48,5 +48,12 @@ tasks:
   run:phone:
     desc: Start app on virtual device
     cmds:
-      - task: app:merge-pdf:build
-      - npx cap run android
+      - npx docusaurus build
+      - bash -c "cp ../../package.json package.json"
+      - npx cap sync android
+      - JAVA_HOME={{.JAVA_HOME}} npx cap run android
+
+  assets:
+    desc: Generate android splash screen and logos
+    cmds:
+      - npx capacitor-assets generate --iconBackgroundColor '#000b18' --iconBackgroundColorDark '#000b18' --splashBackgroundColor '#000b18' --splashBackgroundColor '#000b18' --android
