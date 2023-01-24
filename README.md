@@ -1,5 +1,9 @@
 # aVToolz Source Code
 
-## Deploying to Play Store
+## Pending Work
 
-https://dev.to/khromov/build-your-capacitor-android-app-bundle-using-github-actions-24do
+- TODO: add description to table
+
+## New App checklist
+
+- TODO: complete checklist
