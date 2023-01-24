@@ -60,7 +60,7 @@ const Tool: React.FC = () => {
       setProps({
         ...props,
         busy: true,
-        helperText: "Be patient, large files may take some time to load.",
+        helperText: "Hang on, we are merging your pdfs.",
       });
       const merger = new PDFMerger();
 
@@ -231,11 +231,6 @@ const Tool: React.FC = () => {
       <Spacer y={1} />
 
       <Grid.Container gap={2}>
-        {isPdfGenerated ? (
-          <Grid>
-            <Text color="red">{props.helperText}</Text>
-          </Grid>
-        ) : null}
         <Grid>
           <Button
             onPress={() => {
@@ -290,6 +285,12 @@ const Tool: React.FC = () => {
             Reset
           </Button>
         </Grid>
+        {props.helperText.length != 0 ? (
+          <Grid>
+            <Text color="red">{props.helperText}</Text>
+          </Grid>
+        ) : null}
+
         {isPdfGenerated ? (
           <Grid>
             <Text color="#17c964">
