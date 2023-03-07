@@ -4,6 +4,7 @@
 
 ## New App checklist
 
-- TODO: complete checklist
-- [ ] Handle file download correctly on andorid
-- [ ] Clear app data on app exit to prevent bloat
+## Complete checklist
+
+- Handle file download correctly on andorid
+- Clear app data on app exit to prevent bloat
