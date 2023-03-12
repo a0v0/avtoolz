@@ -43,7 +43,7 @@ const Tool: React.FC = () => {
       multiple: false,
       readAs: "DataURL", // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
       // accept: '.ics,.pdf',
-      accept: [".jpg", ".jpeg", ".png"],
+      accept: [".jpg", ".jpeg", ".png", ".webp"],
       limitFilesConfig: { min: 1, max: 1 },
       // minFileSize: 1, // in megabytes
       // maxFileSize: 1,
@@ -274,6 +274,12 @@ const Tool: React.FC = () => {
       </Grid.Container>
 
       <Spacer y={1} />
+      <p style={{ fontWeight: "bold" }}>
+        Supported file formats:{" "}
+        <span style={{ fontStyle: "italic", color: "red" }}>
+          JPG, JPEG, PNG, WebP
+        </span>
+      </p>
       <p style={{ fontWeight: "bold" }}>Select Quality</p>
       <Spacer y={-0.8} />
       <Grid.Container justify="flex-start">
