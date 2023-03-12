@@ -13,7 +13,7 @@ import ImageViewer from "react-simple-image-viewer";
 import { useFilePicker } from "use-file-picker";
 import {
   BACKGROUND_COLOR,
-  IMAGE_EXTENSION,
+  IMAGE_EXTENSIONS,
   SELECTED_BORDER_COLOR,
 } from "../utils/constants";
 import { CopyTextToClipboard } from "../utils/copy";
@@ -32,7 +32,7 @@ const Tool: React.FC = () => {
       multiple: true,
       readAs: "DataURL", // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
       // accept: '.ics,.pdf',
-      accept: IMAGE_EXTENSION,
+      accept: IMAGE_EXTENSIONS,
       limitFilesConfig: { min: 1, max: 1 },
       // minFileSize: 1, // in megabytes
       // maxFileSize: 1,

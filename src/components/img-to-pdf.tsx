@@ -18,6 +18,7 @@ import ImageViewer from "react-simple-image-viewer";
 import { useFilePicker } from "use-file-picker";
 import {
   BACKGROUND_COLOR,
+  IMAGE_EXTENSIONS,
   PDF_FILENAME,
   SELECTED_BORDER_COLOR,
 } from "../utils/constants";
@@ -41,7 +42,7 @@ const Tools: React.FC = () => {
       multiple: true,
       readAs: "DataURL", // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
       // accept: '.ics,.pdf',
-      accept: [".png"],
+      accept: IMAGE_EXTENSIONS,
       limitFilesConfig: { min: 1 },
       // minFileSize: 1, // in megabytes
       // maxFileSize: 1,

@@ -170,7 +170,7 @@ const config = {
         additionalLanguages: ["yaml", "bash", "go"],
       },
       colorMode: {
-        defaultMode: "light",
+        defaultMode: "dark",
       },
     }),
 };

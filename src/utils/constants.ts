@@ -25,7 +25,7 @@ export const IMAGE_FILENAME_MIDDLE = makeid(5);
 export const IMAGE_FILENAME_SUFFIX = "_avtoolz";
 export const IMAGE_FILENAME =
   IMAGE_FILENAME_PREFIX + IMAGE_FILENAME_MIDDLE + IMAGE_FILENAME_SUFFIX;
-export const IMAGE_EXTENSION = [
+export const IMAGE_EXTENSIONS = [
   ".ase",
   ".art",
   ".bmp",
