@@ -1,7 +1,6 @@
 "use client";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
-import { getHrefByTitle } from "@/utils/title";
 import {
   Button,
   Dropdown,
@@ -19,21 +18,15 @@ import {
   Spacer,
 } from "@nextui-org/react";
 import { ChevronDown } from "@nextui-org/shared-icons";
-import { useRouter } from "next/navigation";
 import React from "react";
 import AuthButton from "./auth-button";
 import { GithubIcon } from "./icons";
 import ThemeToggle from "./theme-toggle";
+
 export const XNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const router = useRouter();
 
   const menuItems = ["All Tools", "PDF Tools", "Image Tools"];
-  const handleSelect = (key: React.Key) => {
-    const href = getHrefByTitle(key.toString());
-    open(href == null ? "" : href, "_self");
-    // get href
-  };
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -64,7 +57,6 @@ export const XNavbar = () => {
               </DropdownTrigger>
             </NavbarItem>
             <DropdownMenu
-              onAction={(actionKey) => handleSelect(actionKey)}
               aria-label={element.heading}
               className="w-[340px]"
               itemClasses={{
@@ -76,6 +68,9 @@ export const XNavbar = () => {
                   key={tool.title}
                   description={tool.description}
                   startContent={tool.icon}
+                  // onPress={() => {
+                  //   open(tool.href, "_self");
+                  // }}
                 >
                   {tool.title}
                 </DropdownItem>
