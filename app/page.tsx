@@ -12,6 +12,26 @@ import NextLink from "next/link";
 export default function Home() {
   return (
     <>
+      <div
+        aria-hidden="true"
+        className="fixed hidden dark:md:block dark:opacity-70 -bottom-[40%] -left-[20%] z-[0]"
+      >
+        <Image
+          removeWrapper
+          alt="docs left background"
+          src="/gradient/docs-left.svg"
+        />
+      </div>
+      <div
+        aria-hidden="true"
+        className="fixed hidden dark:md:block dark:opacity-70 -top-[80%] -right-[60%] 2xl:-top-[60%] 2xl:-right-[45%] z-[0] rotate-12"
+      >
+        <Image
+          removeWrapper
+          alt="docs right background"
+          src="/gradient/docs-right.svg"
+        />
+      </div>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <Logo />
         <div className="inline-block max-w-lg text-center justify-center">
@@ -63,27 +83,6 @@ export default function Home() {
         </Snippet>
       </div> */}
       </section>
-
-      <div
-        aria-hidden="true"
-        className="fixed hidden dark:md:block dark:opacity-70 -bottom-[40%] -left-[20%] z-[0]"
-      >
-        <Image
-          removeWrapper
-          alt="docs left background"
-          src="/gradient/docs-left.svg"
-        />
-      </div>
-      <div
-        aria-hidden="true"
-        className="fixed hidden dark:md:block dark:opacity-70 -top-[80%] -right-[60%] 2xl:-top-[60%] 2xl:-right-[45%] z-[0] rotate-12"
-      >
-        <Image
-          removeWrapper
-          alt="docs right background"
-          src="/gradient/docs-right.svg"
-        />
-      </div>
     </>
   );
 }

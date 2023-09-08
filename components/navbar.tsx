@@ -92,7 +92,9 @@ export const XNavbar = () => {
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeToggle />
-          <AuthButton />
+
+          {/* TODO: Implement auth button */}
+          {/* <AuthButton /> */}
         </NavbarItem>
         <NavbarContent className="sm:hidden" justify="end">
           <NavbarItem>
