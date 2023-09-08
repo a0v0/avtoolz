@@ -1,6 +1,7 @@
 "use client";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
+import { useIsMounted } from "@/hooks/use-is-mounted";
 import {
   Button,
   Dropdown,
@@ -17,27 +18,82 @@ import {
   NavbarMenuToggle,
   Spacer,
 } from "@nextui-org/react";
-import { ChevronDown } from "@nextui-org/shared-icons";
-import React from "react";
-import AuthButton from "./auth-button";
+import {
+  ChevronDown,
+  ChevronDownIcon,
+  LinkIcon,
+} from "@nextui-org/shared-icons";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { Key, useRef } from "react";
 import { GithubIcon } from "./icons";
+import ThemeSwitch from "./theme-switch";
 import ThemeToggle from "./theme-toggle";
 
 export const XNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
+  const ref = useRef<HTMLElement>(null);
+  const isMounted = useIsMounted();
   const menuItems = ["All Tools", "PDF Tools", "Image Tools"];
 
+  const handleVersionChange = (key: Key) => {
+    if (key === "v1") {
+      const newWindow = window.open(
+        "https://v1.avtoolz.com",
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+      if (newWindow) newWindow.opener = null;
+    }
+  };
+
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar ref={ref} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
         <NavbarBrand>
           {/* <AcmeLogo /> */}
           <h1 className="font-bold text-inherit">aVToolz</h1>
+          <Spacer x={2} />
+
+          {/* TODO: make link to v1 of site work */}
+          {ref.current ? (
+            <Dropdown placement="bottom-start" portalContainer={ref.current}>
+              <AnimatePresence>
+                {isMounted && (
+                  <motion.div
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0 }}
+                  >
+                    <DropdownTrigger>
+                      <Button
+                        className="hidden text-xs h-6 w-[74px] py-1 min-w-fit sm:flex gap-0.5 bg-default-400/20 dark:bg-default-500/20"
+                        endContent={<ChevronDownIcon className="text-tiny" />}
+                        radius="full"
+                        size="sm"
+                        variant="flat"
+                      >
+                        v2
+                      </Button>
+                    </DropdownTrigger>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <DropdownMenu
+                aria-label="aVToolz versions"
+                defaultSelectedKeys={["latest"]}
+                selectionMode="single"
+                onAction={handleVersionChange}
+              >
+                <DropdownItem key="latest">v2 (latest)</DropdownItem>
+                <DropdownItem key="v1" endContent={<LinkIcon />}>
+                  v1 (deprecated)
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          ) : (
+            <div className="w-[74px]" />
+          )}
         </NavbarBrand>
       </NavbarContent>
 
@@ -96,9 +152,25 @@ export const XNavbar = () => {
           {/* TODO: Implement auth button */}
           {/* <AuthButton /> */}
         </NavbarItem>
+
         <NavbarContent className="sm:hidden" justify="end">
-          <NavbarItem>
+          {/* TODO: Implement auth button on mobile */}
+          {/* <NavbarItem>
             <AuthButton />
+          </NavbarItem> */}
+          <NavbarItem>
+            <Link isExternal href={siteConfig.links.github} aria-label="Github">
+              <GithubIcon className="text-default-500" />
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <ThemeSwitch />
+          </NavbarItem>
+          <NavbarItem>
+            <NavbarMenuToggle
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="sm:hidden"
+            />
           </NavbarItem>
         </NavbarContent>
 
@@ -136,7 +208,7 @@ export const XNavbar = () => {
             </Link>
           </NavbarMenuItem>
         ))}
-        <NavbarMenuItem>
+        {/* <NavbarMenuItem>
           <Link
             isExternal
             showAnchorIcon
@@ -147,7 +219,7 @@ export const XNavbar = () => {
           </Link>
           <Spacer />
           <ThemeToggle />
-        </NavbarMenuItem>
+        </NavbarMenuItem> */}
       </NavbarMenu>
     </Navbar>
   );

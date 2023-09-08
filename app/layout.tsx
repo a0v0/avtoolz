@@ -12,11 +12,26 @@ export const metadata: Metadata = {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
   },
+
+  // TODO: Add keywords
+  // keywords: [],
+
+  openGraph: siteConfig.openGraph,
+
   description: siteConfig.description,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
+  creator: "aV",
+  authors: [
+    {
+      name: "aV",
+      url: "https://github.com/a0v0",
+    },
+  ],
+  viewport:
+    "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",

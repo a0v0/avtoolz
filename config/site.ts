@@ -1,7 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
+// TODO: Modify the site config
 export const siteConfig = {
-  name: "Next.js + NextUI",
+  name: "aVToolz",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {
@@ -61,9 +62,26 @@ export const siteConfig = {
   ],
   links: {
     github: "https://github.com/a0v0/avtoolz",
-    twitter: "https://twitter.com/getnextui",
-    docs: "https://nextui.org",
-    discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev",
+    twitter: "",
+    docs: "", //"https://nextui.org",
+    discord: "", //"https://discord.gg/9b6yyZKmH4",
+    sponsor: "", //"https://patreon.com/jrgarciadev",
+  },
+
+  // TODO: add opengraph metadata
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://avtoolz.com/",
+    siteName: "aVToolz",
+    description: "",
+    images: [
+      {
+        url: "https://avtoolz.com/avtoolz-banner.webp",
+        width: 1200,
+        height: 630,
+        alt: "aVToolz",
+      },
+    ],
   },
 };
