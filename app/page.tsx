@@ -2,6 +2,7 @@
 
 import { GithubIcon, Logo } from "@/components/icons";
 import { subtitle, title } from "@/components/primitives";
+import { ToolsCards } from "@/components/tools-cards";
 import { siteConfig } from "@/config/site";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
@@ -82,6 +83,10 @@ export default function Home() {
           </span>
         </Snippet>
       </div> */}
+      </section>
+
+      <section className="flex flex-col  gap-4 py-8 md:py-10">
+        <ToolsCards />
       </section>
     </>
   );

@@ -42,8 +42,8 @@ export const pdfTools = [
   {
     title: "Split PDF",
     description: "Split PDF into multiple documents.",
-    showFullDescription: false,
-    // icon: <Image src="/icons/split-pdf.webp" width={35} />,
+    showFullDescription: true,
+    icon: <Image src="/icons/split-pdf.webp" width={35} />,
     href: "/tools/split-pdf",
     isExternal: false,
     tags: ["split pdf online"],

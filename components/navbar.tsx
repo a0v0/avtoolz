@@ -122,7 +122,7 @@ export const XNavbar = () => {
             {pdfTools.map((tool) => (
               <DropdownItem
                 key={tool.title}
-                description={tool.description}
+                // description={tool.description}
                 startContent={tool.icon}
                 // onPress={() => {
                 //   open(tool.href, "_self");
@@ -156,7 +156,7 @@ export const XNavbar = () => {
             {imageTools.map((tool) => (
               <DropdownItem
                 key={tool.title}
-                description={tool.description}
+                // description={tool.description}
                 startContent={tool.icon}
                 // onPress={() => {
                 //   open(tool.href, "_self");

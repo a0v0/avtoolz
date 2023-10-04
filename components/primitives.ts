@@ -51,3 +51,23 @@ export const subtitle = tv({
     fullWidth: true,
   },
 });
+
+export const sectionWrapper = tv({
+  base: "relative z-10 flex flex-col gap-2 w-full",
+  variants: {
+    isBlurred: {
+      true: [
+        "bg-transparent",
+        "dark:bg-transparent",
+        "before:bg-background/10",
+        "before:content-['']",
+        "before:block",
+        "before:z-[-1]",
+        "before:absolute",
+        "before:inset-0",
+        "before:backdrop-blur-md",
+        "before:backdrop-saturate-200",
+      ],
+    },
+  },
+});
