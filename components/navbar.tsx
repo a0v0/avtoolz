@@ -1,7 +1,7 @@
 "use client";
 import { siteConfig } from "@/config/site";
-import { tools } from "@/config/tools";
 import { useIsMounted } from "@/hooks/use-is-mounted";
+import { imageTools, pdfTools } from "@/libs/constants";
 import {
   Button,
   Dropdown,
@@ -97,43 +97,76 @@ export const XNavbar = () => {
         </NavbarBrand>
       </NavbarContent>
 
+      {/* Navbar Items */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {tools.map((element) => (
-          <Dropdown>
-            <NavbarItem>
-              <DropdownTrigger>
-                <Button
-                  className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                  endContent={<ChevronDown fill="currentColor" size={16} />}
-                  radius="sm"
-                  variant="light"
-                >
-                  {element.heading}
-                </Button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label={element.heading}
-              className="w-[340px]"
-              itemClasses={{
-                base: "gap-4",
-              }}
-            >
-              {element.tools.map((tool) => (
-                <DropdownItem
-                  key={tool.title}
-                  description={tool.description}
-                  startContent={tool.icon}
-                  // onPress={() => {
-                  //   open(tool.href, "_self");
-                  // }}
-                >
-                  {tool.title}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
-        ))}
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                endContent={<ChevronDown fill="currentColor" size={16} />}
+                radius="sm"
+                variant="light"
+              >
+                PDF Tools
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label={"PDF Tools"}
+            className="w-[340px]"
+            itemClasses={{
+              base: "gap-4",
+            }}
+          >
+            {pdfTools.map((tool) => (
+              <DropdownItem
+                key={tool.title}
+                description={tool.description}
+                startContent={tool.icon}
+                // onPress={() => {
+                //   open(tool.href, "_self");
+                // }}
+              >
+                {tool.title}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                endContent={<ChevronDown fill="currentColor" size={16} />}
+                radius="sm"
+                variant="light"
+              >
+                Image Tools
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label={"Image Tools"}
+            className="w-[340px]"
+            itemClasses={{
+              base: "gap-4",
+            }}
+          >
+            {imageTools.map((tool) => (
+              <DropdownItem
+                key={tool.title}
+                description={tool.description}
+                startContent={tool.icon}
+                // onPress={() => {
+                //   open(tool.href, "_self");
+                // }}
+              >
+                {tool.title}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
       </NavbarContent>
 
       <NavbarContent className="sm:flex basis-1/5 sm:basis-full" justify="end">
