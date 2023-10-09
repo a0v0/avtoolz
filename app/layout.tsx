@@ -1,43 +1,9 @@
 import { XNavbar } from "@/components/navbar";
 import { fontSans } from "@/config/fonts";
-import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
-import { Metadata } from "next";
 import { Providers } from "./providers";
-
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-
-  // TODO: Add keywords
-  // keywords: [],
-
-  openGraph: siteConfig.openGraph,
-
-  description: siteConfig.description,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-  creator: "aV",
-  authors: [
-    {
-      name: "aV",
-      url: "https://github.com/a0v0",
-    },
-  ],
-  viewport:
-    "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-};
 
 export default function RootLayout({
   children,
@@ -68,7 +34,7 @@ export default function RootLayout({
                 isExternal
                 className="flex items-center gap-1 text-current"
                 href="#"
-                title="nextui.org homepage"
+                title="by awesome people"
               >
                 <span className="text-default-600">Crafted with 🥰 in</span>
                 <p className="text-primary">India</p>
