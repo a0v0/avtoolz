@@ -16,15 +16,15 @@ export const pdfTools = [
     tags: siteConfig.keywords,
   },
 
-  {
-    title: "JPG to PDF",
-    description: "Convert JPG images to PDF format.",
-    showFullDescription: true,
-    icon: <Image src="/icons/split-pdf.webp" width={35} />,
-    href: "/tools/jpg-to-pdf",
-    isExternal: false,
-    tags: siteConfig.keywords,
-  },
+  // {
+  //   title: "JPG to PDF",
+  //   description: "Convert JPG images to PDF format.",
+  //   showFullDescription: true,
+  //   icon: <Image src="/icons/split-pdf.webp" width={35} />,
+  //   href: "/tools/jpg-to-pdf",
+  //   isExternal: false,
+  //   tags: siteConfig.keywords,
+  // },
 
   // Compress PDF
   // PDF to Word
@@ -53,12 +53,12 @@ export const imageTools = [
     isExternal: false,
   },
   // Compress PNG
-  {
-    title: "Compress PNG",
-    description: "Compress PNG images without losing quality.",
-    showFullDescription: true,
-    icon: <OpenCollective fill="#FF4ECD" />,
-    href: "/tools/compress-png",
-    isExternal: false,
-  },
+  // {
+  //   title: "Compress PNG",
+  //   description: "Compress PNG images without losing quality.",
+  //   showFullDescription: true,
+  //   icon: <OpenCollective fill="#FF4ECD" />,
+  //   href: "/tools/compress-png",
+  //   isExternal: false,
+  // },
 ];
