@@ -1,10 +1,3 @@
-# aVToolz Source Code
+# aVToolz Old Version (Deprecated)
 
-## Pending Work
-
-## New App checklist
-
-## Complete checklist
-
-- Handle file download correctly on andorid
-- Clear app data on app exit to prevent bloat
+Available at http://v1.avtoolz.com
