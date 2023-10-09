@@ -38,7 +38,7 @@ export const XNavbar = () => {
   const handleVersionChange = (key: Key) => {
     if (key === "v1") {
       const newWindow = window.open(
-        "https://v1.avtoolz.com",
+        "https://avtoolz-v1.vercel.app/",
         "_blank",
         "noopener,noreferrer"
       );
