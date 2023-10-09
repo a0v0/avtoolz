@@ -2,7 +2,6 @@ import { Metadata } from "next";
 
 export type SiteConfig = typeof siteConfig;
 
-// TODO: Modify the site config
 export const siteConfig = {
   name: "aVToolz",
   description: "Make beautiful websites regardless of your design experience.",
