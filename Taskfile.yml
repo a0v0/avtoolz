@@ -1,0 +1,16 @@
+version: "3"
+tasks:
+  start:
+    desc: Start development server
+    cmds:
+      - pnpm dev
+
+  install:
+    desc: Install dependencies
+    cmds:
+      - pnpm install
+
+  build:
+    desc: Build for production
+    cmds:
+      - pnpm build
