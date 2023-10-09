@@ -105,7 +105,6 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
 
-  // TODO: Add keywords
   keywords: siteConfig.keywords,
 
   openGraph: siteConfig.openGraph,
