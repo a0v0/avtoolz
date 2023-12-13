@@ -34,7 +34,7 @@ export default function RootLayout({
                 isExternal
                 className="flex items-center gap-1 text-current"
                 href=""
-                title="Crafted with ❤️‍🔥 on Earth"
+                title="Crafted with ❤️‍🔥 on  Earth"
               >
                 <span className="text-default-600">Crafted with ❤️‍🔥 on</span>
                 <p className="text-primary">Earth</p>
