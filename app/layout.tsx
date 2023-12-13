@@ -33,11 +33,11 @@ export default function RootLayout({
               <Link
                 isExternal
                 className="flex items-center gap-1 text-current"
-                href="#"
-                title="by awesome people"
+                href=""
+                title="Crafted with ❤️‍🔥 on Earth"
               >
-                <span className="text-default-600">Crafted with 🥰 in</span>
-                <p className="text-primary">India</p>
+                <span className="text-default-600">Crafted with ❤️‍🔥 on</span>
+                <p className="text-primary">Earth</p>
               </Link>
             </footer>
           </div>
