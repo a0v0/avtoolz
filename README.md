@@ -1,5 +1,5 @@
 <p align="center">
-  <img  src="https://avtoolz.com/avtoolz-banner-dark-shadow.webp" width="512px"  />
+  <img  src="./public/logo.svg" width="256px"  />
 </p>
 <h4 align="center" style='textAlign: "center", marginTop: "-1vh"'>
   🔥A Swiss Army Toolbox to save your day...

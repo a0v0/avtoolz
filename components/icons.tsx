@@ -4,6 +4,7 @@ import { Image } from "@nextui-org/react";
 import * as React from "react";
 
 export function Logo({ size = 150 }) {
+  // return <Image width={size} src="/logo.svg" />;
   return <Image width={size} src="/logo.svg" />;
 }
 

@@ -33,7 +33,7 @@ export default function RootLayout({
               <Link
                 isExternal
                 className="flex items-center gap-1 text-current"
-                href=""
+                href="https://en.wikipedia.org/wiki/Earth"
                 title="Crafted with ❤️‍🔥 on  Earth"
               >
                 <span className="text-default-600">Crafted with ❤️‍🔥 on</span>

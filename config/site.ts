@@ -4,7 +4,8 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "aVToolz",
-  description: "Make beautiful websites regardless of your design experience.",
+  description:
+    "Discover a suite of powerful office tools, including PDF merging, splitting, compression, conversion, and more.",
   keywords: [
     "Merge PDF",
     "split PDF",
@@ -22,22 +23,6 @@ export const siteConfig = {
     {
       label: "Home",
       href: "/",
-    },
-    {
-      label: "Docs",
-      href: "/docs",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
     },
   ],
   navMenuItems: [
