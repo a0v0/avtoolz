@@ -1,4 +1,5 @@
-import { imageTools, pdfTools } from "@/libs/constants";
+import { Tools } from "@/libs/tools";
+import { ToolCategory } from "@/types/tool";
 import { Spacer } from "@nextui-org/react";
 import { FeaturesGrid } from "./features-grid";
 import { sectionWrapper, title } from "./primitives";
@@ -23,7 +24,9 @@ export const ToolsCards = () => {
               body: "pt-0 pb-2",
               // description: "hidden",
             }}
-            features={pdfTools}
+            features={Tools.filter((tool) =>
+              tool.category.includes(ToolCategory.PDF)
+            )}
           />
         </div>
         <Spacer y={10} />
@@ -41,7 +44,9 @@ export const ToolsCards = () => {
               body: "pt-0 pb-2",
               // description: "hidden",
             }}
-            features={imageTools}
+            features={Tools.filter((tool) =>
+              tool.category.includes(ToolCategory.IMAGE)
+            )}
           />
         </div>
       </section>

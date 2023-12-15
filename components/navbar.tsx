@@ -1,7 +1,9 @@
 "use client";
 import { siteConfig } from "@/config/site";
 import { useIsMounted } from "@/hooks/use-is-mounted";
-import { imageTools, pdfTools } from "@/libs/constants";
+
+import { Tools } from "@/libs/tools";
+import { ToolCategory } from "@/types/tool";
 import {
   Button,
   Dropdown,
@@ -55,7 +57,6 @@ export const XNavbar = () => {
           <h1 className="font-bold text-inherit">aVToolz</h1>
           <Spacer x={2} />
 
-          {/* TODO: make link to v1 of site work */}
           {ref.current ? (
             <Dropdown placement="bottom-start" portalContainer={ref.current}>
               <AnimatePresence>
@@ -119,7 +120,9 @@ export const XNavbar = () => {
               base: "gap-4",
             }}
           >
-            {pdfTools.map((tool) => (
+            {Tools.filter((tool) =>
+              tool.category.includes(ToolCategory.PDF)
+            ).map((tool) => (
               <DropdownItem
                 key={tool.title}
                 // description={tool.description}
@@ -153,7 +156,9 @@ export const XNavbar = () => {
               base: "gap-4",
             }}
           >
-            {imageTools.map((tool) => (
+            {Tools.filter((tool) =>
+              tool.category.includes(ToolCategory.IMAGE)
+            ).map((tool) => (
               <DropdownItem
                 key={tool.title}
                 // description={tool.description}
