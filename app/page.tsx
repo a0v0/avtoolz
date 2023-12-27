@@ -6,7 +6,7 @@ import { ToolsCards } from "@/components/tools-cards";
 import { siteConfig } from "@/config/site";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
-import { Image } from "@nextui-org/react";
+import { Avatar, Image } from "@nextui-org/react";
 import { button as buttonStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 
@@ -27,6 +27,12 @@ export default function Home() {
         aria-hidden="true"
         className="fixed hidden dark:md:block dark:opacity-70 -top-[80%] -right-[60%] 2xl:-top-[60%] 2xl:-right-[45%] z-[0] rotate-12"
       >
+        <Avatar
+          isBordered
+          radius="lg"
+          color="default"
+          src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+        />
         <Image
           removeWrapper
           alt="docs right background"
