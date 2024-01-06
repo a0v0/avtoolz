@@ -1,13 +1,13 @@
-import type { MDX } from "contentlayer/core";
+import type {MDX} from "contentlayer/core";
 
 import * as Local from "contentlayer/source-files";
 
-import { ASSETS_PATH, CONTENT_PATH, FORCE_TAG, TAG } from "./config";
+import {TAG, FORCE_TAG, CONTENT_PATH, ASSETS_PATH} from "./config";
 
+import {getLatestTag} from "@/libs/github/api";
+import {getRawFileFromRepo, getRawAssetFromRepo} from "@/libs/github/raw";
+import {__PROD__, __PREVIEW__, removeFromLast} from "@/utils";
 import localRoutes from "@/config/routes.json";
-import { getLatestTag } from "@/libs/github/api";
-import { getRawAssetFromRepo, getRawFileFromRepo } from "@/libs/github/raw";
-import { __PREVIEW__, __PROD__, removeFromLast } from "@/utils";
 
 export interface Route {
   key?: string;
@@ -45,7 +45,7 @@ export interface RouteContext {
 }
 
 export interface Carry {
-  params: { slug: any };
+  params: {slug: any};
 }
 
 export async function getCurrentTag(tag?: string) {
@@ -66,10 +66,7 @@ export async function fetchRawDoc(doc: string, tag: string) {
 export async function fetchDocsManifest(tag: string) {
   if (!__PROD__ || __PREVIEW__) return localRoutes;
 
-  const res = await getRawFileFromRepo(
-    `${CONTENT_PATH}/docs/manifest.json`,
-    tag
-  );
+  const res = await getRawFileFromRepo(`${CONTENT_PATH}/docs/manifest.json`, tag);
 
   return JSON.parse(res);
 }
@@ -78,10 +75,7 @@ export function getRawAsset(doc: string, tag: string) {
   return getRawAssetFromRepo(`${ASSETS_PATH}${doc}`, tag);
 }
 
-export function findRouteByPath(
-  path: string,
-  routes: Route[]
-): Route | null | undefined {
+export function findRouteByPath(path: string, routes: Route[]): Route | null | undefined {
   for (const route of routes) {
     if (route.path && removeFromLast(route.path, ".") === path) {
       return route;
@@ -92,10 +86,7 @@ export function findRouteByPath(
   }
 }
 
-export function getPaths(
-  nextRoutes: Route[],
-  carry: Carry[] = [{ params: { slug: [] } }]
-) {
+export function getPaths(nextRoutes: Route[], carry: Carry[] = [{params: {slug: []}}]) {
   nextRoutes.forEach((route: Route) => {
     if (route.comingSoon) {
       return;

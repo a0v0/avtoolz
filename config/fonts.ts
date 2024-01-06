@@ -1,11 +1,27 @@
-import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google"
+import {Inter} from "next/font/google";
 
-export const fontSans = FontSans({
-  subsets: ["latin"],
+export const fontSans = Inter({
   variable: "--font-sans",
-})
-
-export const fontMono = FontMono({
+  adjustFontFallback: true,
+  display: "optional",
+  fallback: [
+    "ui-sans-serif",
+    "system-ui",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    '"Segoe UI"',
+    "Roboto",
+    '"Helvetica Neue"',
+    "Arial",
+    '"Noto Sans"',
+    "sans-serif",
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+    '"Noto Color Emoji"',
+  ],
+  preload: true,
+  style: "normal",
   subsets: ["latin"],
-  variable: "--font-mono",
-})
+  weight: ["400", "500", "700"],
+});

@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 "use client";
 
+import { Command } from "cmdk";
+import { useEffect, useState, FC, useMemo, useCallback, useRef } from "react";
+import { matchSorter } from "match-sorter";
 import {
   Button,
   ButtonProps,
@@ -9,29 +12,26 @@ import {
   ModalContent,
 } from "@nextui-org/react";
 import { CloseIcon } from "@nextui-org/shared-icons";
-import { clsx } from "@nextui-org/shared-utils";
-import { isAppleDevice, isWebKit } from "@react-aria/utils";
-import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
-import { Command } from "cmdk";
-import { intersectionBy, isEmpty } from "lodash";
-import { matchSorter } from "match-sorter";
-import { usePathname, useRouter } from "next/navigation";
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import MultiRef from "react-multi-ref";
-import scrollIntoView from "scroll-into-view-if-needed";
 import { tv } from "tailwind-variants";
+import { usePathname, useRouter } from "next/navigation";
+import MultiRef from "react-multi-ref";
+import { clsx } from "@nextui-org/shared-utils";
+import scrollIntoView from "scroll-into-view-if-needed";
+import { isAppleDevice, isWebKit } from "@react-aria/utils";
 import { create } from "zustand";
+import { intersectionBy, isEmpty } from "lodash";
+import { writeStorage, useLocalStorage } from "@rehooks/local-storage";
 
 import {
-  ChevronRightLinearIcon,
   DocumentCodeBoldIcon,
   HashBoldIcon,
+  ChevronRightLinearIcon,
   SearchLinearIcon,
 } from "./icons";
 
 import searchData from "@/config/search-meta.json";
 import { useUpdateEffect } from "@/hooks/use-update-effect";
-// import { trackEvent } from "@/utils/va";
+import { trackEvent } from "@/utils/va";
 
 const hideOnPaths = ["examples"];
 
@@ -204,16 +204,16 @@ export const Cmdk: FC<{}> = () => {
         MAX_RESULTS
       );
 
-      //   trackEvent("Cmdk - Search", {
-      //     name: "cmdk - search",
-      //     action: "search",
-      //     category: "cmdk",
-      //     data: {
-      //       query,
-      //       words,
-      //       matches: matches?.map((match) => match.url).join(", "),
-      //     },
-      //   });
+      trackEvent("Cmdk - Search", {
+        name: "cmdk - search",
+        action: "search",
+        category: "cmdk",
+        data: {
+          query,
+          words,
+          matches: matches?.map((match) => match.url).join(", "),
+        },
+      });
 
       return matches;
     },
@@ -231,12 +231,12 @@ export const Cmdk: FC<{}> = () => {
         e.preventDefault();
         isOpen ? onClose() : onOpen();
 
-        // trackEvent("Cmdk - Open/Close", {
-        //   name: "cmdk - open/close",
-        //   action: "keydown",
-        //   category: "cmdk",
-        //   data: isOpen ? "close" : "open",
-        // });
+        trackEvent("Cmdk - Open/Close", {
+          name: "cmdk - open/close",
+          action: "keydown",
+          category: "cmdk",
+          data: isOpen ? "close" : "open",
+        });
       }
     };
 
@@ -253,12 +253,12 @@ export const Cmdk: FC<{}> = () => {
       router.push(item.url);
       addToRecentSearches(item);
 
-      //   trackEvent("Cmdk - ItemSelect", {
-      //     name: item.content,
-      //     action: "click",
-      //     category: "cmdk",
-      //     data: item.url,
-      //   });
+      trackEvent("Cmdk - ItemSelect", {
+        name: item.content,
+        action: "click",
+        category: "cmdk",
+        data: item.url,
+      });
     },
     [router, recentSearches]
   );
@@ -443,7 +443,7 @@ export const Cmdk: FC<{}> = () => {
             <Command.Input
               autoFocus={!isWebKit()}
               className={slots.input()}
-              placeholder="Search documentation"
+              placeholder="Search tools"
               value={query}
               onKeyDown={onInputKeyDown}
               onValueChange={setQuery}
