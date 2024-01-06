@@ -1,6 +1,6 @@
 version: "3"
 tasks:
-  start:
+  dev:
     desc: Start development server
     cmds:
       - pnpm dev
