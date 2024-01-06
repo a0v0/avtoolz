@@ -1,4 +1,4 @@
-import { OpenCollective } from "@/components/icons";
+import { OpenCollectiveIcon } from "@/components/icons";
 import { ToolCategory, ToolType } from "@/types/tool";
 import { Image } from "@nextui-org/react";
 
@@ -44,7 +44,7 @@ export const Tools: ToolType[] = [
     title: "Compress JPG",
     description: "Compress JPG images without losing quality.",
     showFullDescription: true,
-    icon: <OpenCollective fill="#FF4ECD" />,
+    icon: <OpenCollectiveIcon fill="#FF4ECD" />,
     href: "/tools/compress-jpg",
     isExternal: false,
     tags: [

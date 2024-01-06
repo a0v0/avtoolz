@@ -27,8 +27,8 @@ import {
 } from "@nextui-org/shared-icons";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { Key, useRef } from "react";
-import { GithubIcon } from "./icons";
-import ThemeSwitch from "./theme-switch";
+import { GithubIcon, Logo } from "./icons";
+import ThemeSwitch from "./theme-switch_bkp";
 import ThemeToggle from "./theme-toggle";
 
 export const XNavbar = () => {
@@ -53,7 +53,8 @@ export const XNavbar = () => {
     <Navbar ref={ref} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
         <NavbarBrand>
-          {/* <AcmeLogo /> */}
+          <Logo size={26} />
+          <Spacer x={2} />
           <h1 className="font-bold text-inherit">aVToolz</h1>
           <Spacer x={2} />
 
@@ -176,12 +177,6 @@ export const XNavbar = () => {
 
       <NavbarContent className="sm:flex basis-1/5 sm:basis-full" justify="end">
         <NavbarItem className="hidden sm:flex gap-2">
-          {/* <Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
-						<TwitterIcon className="text-default-500" />
-					</Link> */}
-          {/* <Link isExternal href={siteConfig.links.discord} aria-label="Discord">
-						<DiscordIcon className="text-default-500" />
-					</Link> */}
           <Link isExternal href={siteConfig.links.github} aria-label="Github">
             <GithubIcon className="text-default-500" />
           </Link>
@@ -207,57 +202,20 @@ export const XNavbar = () => {
           <NavbarItem>
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className="sm:hidden"
+              className="w-full h-full pt-1"
             />
           </NavbarItem>
         </NavbarContent>
-
-        {/* <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
-            variant="flat"
-          >
-            Sponsor
-          </Button>
-        </NavbarItem> */}
       </NavbarContent>
 
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              // color={
-              //   index === 2
-              //     ? "primary"
-              //     : index === menuItems.length - 1
-              //     ? "danger"
-              //     : "foreground"
-              // }
-              color="primary"
-              className="w-full"
-              href="#"
-              size="lg"
-            >
+            <Link color="primary" className="w-full" href="#" size="lg">
               {item}
             </Link>
           </NavbarMenuItem>
         ))}
-        {/* <NavbarMenuItem>
-          <Link
-            isExternal
-            showAnchorIcon
-            href={siteConfig.links.github}
-            color="success"
-          >
-            GitHub
-          </Link>
-          <Spacer />
-          <ThemeToggle />
-        </NavbarMenuItem> */}
       </NavbarMenu>
     </Navbar>
   );
