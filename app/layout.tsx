@@ -71,12 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      className="scroll-smooth md:scroll-auto"
-      suppressHydrationWarning
-      dir="ltr"
-      lang="en"
-    >
+    <html suppressHydrationWarning dir="ltr" lang="en">
       <head />
       <body
         className={clsx(

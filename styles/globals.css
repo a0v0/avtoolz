@@ -11,8 +11,7 @@ html {
   padding: 0px !important;
   overflow-x: hidden;
   scroll-padding-top: 64px;
-  /* FIXME: fix smooth scrolling */
-  scroll-behavior:smooth
+  scroll-behavior:smooth !important;
 }
 
 body {
