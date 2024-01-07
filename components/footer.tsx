@@ -28,10 +28,10 @@ export const Footer = () => {
         isExternal
         className="flex items-center gap-1 text-current"
         href="https://en.wikipedia.org/wiki/Earth"
-        title="Crafted with ❤️‍🔥 on  Earth"
+        title="Crafted with 🥰 on  Earth"
       >
         <p className="font-normal">
-          Crafted with ❤️‍🔥 on{" "}
+          Crafted with 🥰 on{" "}
           <span className="text-default-600 text-blue-500">Earth</span>
         </p>
       </Link>

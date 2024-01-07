@@ -2,7 +2,10 @@
 
 import {
   Button,
-  Chip,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Kbd,
   Link,
   NavbarBrand,
@@ -19,26 +22,25 @@ import { dataFocusVisibleClasses } from "@nextui-org/theme";
 import { useFocusRing } from "@react-aria/focus";
 import { usePress } from "@react-aria/interactions";
 import { isAppleDevice } from "@react-aria/utils";
-import { includes } from "lodash";
-import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, Key, ReactNode, useEffect, useRef, useState } from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 
 import { ThemeSwitch } from "@/components";
 import { useCmdkStore } from "@/components/cmdk";
 import { DocsSidebar } from "@/components/docs/sidebar";
 import {
-  DiscordIcon,
   GithubIcon,
   HeartFilledIcon,
   Logo,
   SearchLinearIcon,
-  TwitterIcon,
 } from "@/components/icons";
 import { siteConfig } from "@/config/site";
+import { Tools } from "@/config/tools";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { Route } from "@/libs/docs/page";
+import { ToolCategory } from "@/types/tool";
 import { trackEvent } from "@/utils/va";
+import { ChevronDown } from "@nextui-org/shared-icons";
 
 export interface NavbarProps {
   routes: Route[];
@@ -126,18 +128,6 @@ export const Navbar: FC<NavbarProps> = ({
     "data-[active=true]:text-primary"
   );
 
-  const handleVersionChange = (key: Key) => {
-    if (key === "v1") {
-      const newWindow = window.open(
-        "https://v1.nextui.org",
-        "_blank",
-        "noopener,noreferrer"
-      );
-
-      if (newWindow) newWindow.opener = null;
-    }
-  };
-
   const handlePressNavbarItem = (name: string, url: string) => {
     trackEvent("NavbarItem", {
       name,
@@ -158,7 +148,7 @@ export const Navbar: FC<NavbarProps> = ({
       position="sticky"
       onMenuOpenChange={setIsMenuOpen}
     >
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+      <NavbarContent className="" justify="start">
         <NavbarBrand>
           <Link
             aria-label="Home"
@@ -173,75 +163,82 @@ export const Navbar: FC<NavbarProps> = ({
             <Spacer x={2} />
           </Link>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start items-center">
-          <NavbarItem>
-            <NextLink
-              className={navLinkClasses}
-              color="foreground"
-              data-active={includes(docsPaths, pathname)}
-              href="/docs/guide/introduction"
-              onClick={() =>
-                handlePressNavbarItem("Docs", "/docs/guide/introduction")
-              }
-            >
-              Docs
-            </NextLink>
-          </NavbarItem>
-          <NavbarItem>
-            <NextLink
-              className={navLinkClasses}
-              color="foreground"
-              data-active={includes(pathname, "components")}
-              href="/docs/components/avatar"
-              onClick={() =>
-                handlePressNavbarItem("Components", "/docs/components/avatar")
-              }
-            >
-              Components
-            </NextLink>
-          </NavbarItem>
-          <NavbarItem>
-            <NextLink
-              className={navLinkClasses}
-              color="foreground"
-              data-active={includes(pathname, "blog")}
-              href="/blog"
-              onClick={() => handlePressNavbarItem("Blog", "/blog")}
-            >
-              Blog
-            </NextLink>
-          </NavbarItem>
-          <NavbarItem>
-            <NextLink
-              className={navLinkClasses}
-              color="foreground"
-              data-active={includes(pathname, "figma")}
-              href="/figma"
-              onClick={() => handlePressNavbarItem("Figma", "/figma")}
-            >
-              Figma
-            </NextLink>
-          </NavbarItem>
-          <NavbarItem>
-            <Chip
-              as={NextLink}
-              className="hover:bg-default-100 border-default-200/80 dark:border-default-100/80 transition-colors cursor-pointer"
-              color="secondary"
-              href="/blog/v2.2.0"
-              variant="dot"
-              onClick={() =>
-                handlePressNavbarItem("Introducing v2.2.0", "/blog/v2.2.0")
-              }
-            >
-              Introducing v2.2.0&nbsp;
-              <span aria-label="rocket emoji" role="img">
-                🚀
-              </span>
-            </Chip>
-          </NavbarItem>
-        </ul>
       </NavbarContent>
-
+      {/* Navbar Items */}
+      <NavbarContent className="hidden sm:flex gap-4" justify="start">
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                endContent={<ChevronDown fill="currentColor" size={16} />}
+                radius="sm"
+                variant="light"
+              >
+                PDF Tools
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label={"PDF Tools"}
+            className="w-[340px]"
+            itemClasses={{
+              base: "gap-4",
+            }}
+          >
+            {Tools.filter((tool) =>
+              tool.category.includes(ToolCategory.PDF)
+            ).map((tool) => (
+              <DropdownItem
+                key={tool.title}
+                // description={tool.description}
+                startContent={tool.icon}
+                // onPress={() => {
+                //   open(tool.href, "_self");
+                // }}
+              >
+                {tool.title}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                endContent={<ChevronDown fill="currentColor" size={16} />}
+                radius="sm"
+                variant="light"
+              >
+                Image Tools
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label={"Image Tools"}
+            className="w-[340px]"
+            itemClasses={{
+              base: "gap-4",
+            }}
+          >
+            {Tools.filter((tool) =>
+              tool.category.includes(ToolCategory.IMAGE)
+            ).map((tool) => (
+              <DropdownItem
+                key={tool.title}
+                // description={tool.description}
+                startContent={tool.icon}
+                // onPress={() => {
+                //   open(tool.href, "_self");
+                // }}
+              >
+                {tool.title}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">
           <Link
@@ -271,7 +268,7 @@ export const Navbar: FC<NavbarProps> = ({
             {...pressProps}
           >
             <SearchLinearIcon
-              className="mt-px text-default-600 dark:text-default-500"
+              className="hidden mt-px text-default-600 dark:text-default-500"
               size={20}
             />
           </button>
@@ -289,7 +286,7 @@ export const Navbar: FC<NavbarProps> = ({
         justify="end"
       >
         <NavbarItem className="hidden sm:flex">
-          <Link
+          {/* <Link
             isExternal
             aria-label="Twitter"
             className="p-1"
@@ -310,7 +307,7 @@ export const Navbar: FC<NavbarProps> = ({
             }
           >
             <DiscordIcon className="text-default-600 dark:text-default-500" />
-          </Link>
+          </Link> */}
           <Link
             isExternal
             aria-label="Github"
@@ -324,7 +321,7 @@ export const Navbar: FC<NavbarProps> = ({
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
+        <NavbarItem className="hidden lg:hidden">{searchButton}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
             isExternal
