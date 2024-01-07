@@ -320,6 +320,7 @@ export const Navbar: FC<NavbarProps> = ({
           </Link>
           <ThemeSwitch />
         </NavbarItem>
+        {/* TODO: remove older search content */}
         <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
