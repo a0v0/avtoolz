@@ -18,7 +18,6 @@ import {
   link,
 } from "@nextui-org/react";
 import { clsx } from "@nextui-org/shared-utils";
-import { dataFocusVisibleClasses } from "@nextui-org/theme";
 import { useFocusRing } from "@react-aria/focus";
 import { usePress } from "@react-aria/interactions";
 import { isAppleDevice } from "@react-aria/utils";
@@ -256,7 +255,7 @@ export const Navbar: FC<NavbarProps> = ({
         <NavbarItem className="flex h-full items-center">
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="flex h-full items-center">
+        {/* <NavbarItem className="hidden h-full items-center">
           <button
             className={clsx(
               "transition-opacity p-1 hover:opacity-80 rounded-full cursor-pointer outline-none",
@@ -268,11 +267,11 @@ export const Navbar: FC<NavbarProps> = ({
             {...pressProps}
           >
             <SearchLinearIcon
-              className="hidden mt-px text-default-600 dark:text-default-500"
+              className="mt-px text-default-600 dark:text-default-500"
               size={20}
             />
           </button>
-        </NavbarItem>
+        </NavbarItem> */}
         <NavbarItem className="w-10 h-full">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -321,7 +320,7 @@ export const Navbar: FC<NavbarProps> = ({
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden lg:hidden">{searchButton}</NavbarItem>
+        <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
             isExternal
