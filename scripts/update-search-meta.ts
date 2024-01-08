@@ -24,7 +24,6 @@ async function getSearchMeta() {
               hierarchy: {
                 lvl1: tool.tags.join(" "),
                 lvl2: tool.description,
-                lvl3: tool.category.join(" "),
               },
             },
           ]
