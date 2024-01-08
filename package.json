@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "rimraf .contentlayer && concurrently \"contentlayer dev\" \"next dev\"",
-    "build": "contentlayer build && next build",
+    "dev": "rimraf .contentlayer &&  concurrently \"contentlayer dev\" \"pnpm run update:search-meta && next dev\"",
+    "build": "rimraf .contentlayer && contentlayer build && pnpm run update:search-meta && next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",

@@ -14,3 +14,8 @@ tasks:
     desc: Build for production
     cmds:
       - pnpm build
+
+  update_searach:
+    desc: Generate search index
+    cmds:
+      - pnpm update:search-meta
