@@ -15,7 +15,7 @@ tasks:
     cmds:
       - pnpm build
 
-  update_searach:
+  update_search_index:
     desc: Generate search index
     cmds:
       - pnpm update:search-meta
