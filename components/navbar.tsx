@@ -17,29 +17,24 @@ import {
   Spacer,
   link,
 } from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
-import { useFocusRing } from "@react-aria/focus";
-import { usePress } from "@react-aria/interactions";
-import { isAppleDevice } from "@react-aria/utils";
-import { usePathname } from "next/navigation";
-import { FC, ReactNode, useEffect, useRef, useState } from "react";
+import {clsx} from "@nextui-org/shared-utils";
+import {useFocusRing} from "@react-aria/focus";
+import {usePress} from "@react-aria/interactions";
+import {isAppleDevice} from "@react-aria/utils";
+import {usePathname} from "next/navigation";
+import {FC, ReactNode, useEffect, useRef, useState} from "react";
 
-import { ThemeSwitch } from "@/components";
-import { useCmdkStore } from "@/components/cmdk";
-import { DocsSidebar } from "@/components/docs/sidebar";
-import {
-  GithubIcon,
-  HeartFilledIcon,
-  Logo,
-  SearchLinearIcon,
-} from "@/components/icons";
-import { siteConfig } from "@/config/site";
-import { Tools } from "@/config/tools";
-import { useIsMounted } from "@/hooks/use-is-mounted";
-import { Route } from "@/libs/docs/page";
-import { ToolCategory } from "@/types/tool";
-import { trackEvent } from "@/utils/va";
-import { ChevronDown } from "@nextui-org/shared-icons";
+import {ThemeSwitch} from "@/components";
+import {useCmdkStore} from "@/components/cmdk";
+import {DocsSidebar} from "@/components/docs/sidebar";
+import {GithubIcon, HeartFilledIcon, Logo, SearchLinearIcon} from "@/components/icons";
+import {siteConfig} from "@/config/site";
+import {Tools} from "@/config/tools";
+import {useIsMounted} from "@/hooks/use-is-mounted";
+import {Route} from "@/libs/docs/page";
+import {ToolCategory} from "@/types/tool";
+import {trackEvent} from "@/utils/va";
+import {ChevronDown} from "@nextui-org/shared-icons";
 
 export interface NavbarProps {
   routes: Route[];
@@ -49,13 +44,7 @@ export interface NavbarProps {
   children?: ReactNode;
 }
 
-export const Navbar: FC<NavbarProps> = ({
-  children,
-  routes,
-  mobileRoutes = [],
-  slug,
-  tag,
-}) => {
+export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], slug, tag}) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
   const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
 
@@ -85,10 +74,10 @@ export const Navbar: FC<NavbarProps> = ({
     });
   };
 
-  const { pressProps } = usePress({
+  const {pressProps} = usePress({
     onPress: handleOpenCmdk,
   });
-  const { focusProps, isFocusVisible } = useFocusRing();
+  const {focusProps, isFocusVisible} = useFocusRing();
 
   const docsPaths = [
     "/docs/guide/introduction",
@@ -122,10 +111,7 @@ export const Navbar: FC<NavbarProps> = ({
     return null;
   }
 
-  const navLinkClasses = clsx(
-    link({ color: "foreground" }),
-    "data-[active=true]:text-primary"
-  );
+  const navLinkClasses = clsx(link({color: "foreground"}), "data-[active=true]:text-primary");
 
   const handlePressNavbarItem = (name: string, url: string) => {
     trackEvent("NavbarItem", {
@@ -153,7 +139,7 @@ export const Navbar: FC<NavbarProps> = ({
             aria-label="Home"
             className="flex justify-start items-center tap-highlight-transparent transition-opacity active:opacity-50"
             href="/"
-            style={{ textDecoration: "none" }}
+            style={{textDecoration: "none"}}
             color="foreground"
           >
             <Logo className="max-w-28" size={26} />
@@ -185,9 +171,7 @@ export const Navbar: FC<NavbarProps> = ({
               base: "gap-4",
             }}
           >
-            {Tools.filter((tool) =>
-              tool.category.includes(ToolCategory.PDF)
-            ).map((tool) => (
+            {Tools.filter((tool) => tool.category.includes(ToolCategory.PDF)).map((tool) => (
               <DropdownItem
                 key={tool.title}
                 // description={tool.description}
@@ -221,9 +205,7 @@ export const Navbar: FC<NavbarProps> = ({
               base: "gap-4",
             }}
           >
-            {Tools.filter((tool) =>
-              tool.category.includes(ToolCategory.IMAGE)
-            ).map((tool) => (
+            {Tools.filter((tool) => tool.category.includes(ToolCategory.IMAGE)).map((tool) => (
               <DropdownItem
                 key={tool.title}
                 // description={tool.description}
@@ -245,9 +227,7 @@ export const Navbar: FC<NavbarProps> = ({
             aria-label="Github"
             className="p-1"
             href={siteConfig.links.github}
-            onClick={() =>
-              handlePressNavbarItem("Github", siteConfig.links.github)
-            }
+            onClick={() => handlePressNavbarItem("Github", siteConfig.links.github)}
           >
             <GithubIcon className="text-default-600 dark:text-default-500" />
           </Link>
@@ -280,10 +260,7 @@ export const Navbar: FC<NavbarProps> = ({
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
+      <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         <NavbarItem className="hidden sm:flex">
           {/* <Link
             isExternal
@@ -312,15 +289,12 @@ export const Navbar: FC<NavbarProps> = ({
             aria-label="Github"
             className="p-1"
             href={siteConfig.links.github}
-            onPress={() =>
-              handlePressNavbarItem("Github", siteConfig.links.github)
-            }
+            onPress={() => handlePressNavbarItem("Github", siteConfig.links.github)}
           >
             <GithubIcon className="text-default-600 dark:text-default-500" />
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        {/* TODO: remove older search content */}
         <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
@@ -332,9 +306,7 @@ export const Navbar: FC<NavbarProps> = ({
               <HeartFilledIcon className="text-danger group-data-[hover=true]:animate-heartbeat" />
             }
             variant="flat"
-            onPress={() =>
-              handlePressNavbarItem("Sponsor", siteConfig.links.sponsor)
-            }
+            onPress={() => handlePressNavbarItem("Sponsor", siteConfig.links.sponsor)}
           >
             Sponsor
           </Button>
@@ -346,12 +318,7 @@ export const Navbar: FC<NavbarProps> = ({
       </NavbarContent>
 
       <NavbarMenu>
-        <DocsSidebar
-          className="mt-4"
-          routes={[...mobileRoutes, ...routes]}
-          slug={slug}
-          tag={tag}
-        />
+        <DocsSidebar className="mt-4" routes={[...mobileRoutes, ...routes]} slug={slug} tag={tag} />
         {children}
       </NavbarMenu>
     </NextUINavbar>
