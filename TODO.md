@@ -1,0 +1,3 @@
+- [ ] Add sidebar
+- [ ] Change favicon
+- [ ] Remove useless files from nextui template

@@ -1,7 +1,7 @@
-import {Image} from "@nextui-org/react";
-
+"use client";
 import {Blockquote} from "@/components/docs/components/blockquote";
 import {FigmaButton} from "@/components/figma-button";
+import {Image} from "@nextui-org/react";
 
 export default function FigmaPage() {
   return (

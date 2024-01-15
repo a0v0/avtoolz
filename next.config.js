@@ -1,11 +1,10 @@
-const withContentlayer = require("next-contentlayer").withContentlayer;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@nextui-org/react", "@nextui-org/theme"],
   swcMinify: true,
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
-  redirects: require("./next-redirect.js"),
+  // redirects: require("./next-redirect.js"),
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -23,4 +22,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withContentlayer(nextConfig);
+module.exports = (nextConfig);

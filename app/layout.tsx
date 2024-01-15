@@ -1,18 +1,18 @@
 import "@/styles/globals.css";
 import "@/styles/sandpack.css";
-import { clsx } from "@nextui-org/shared-utils";
-import { Analytics } from "@vercel/analytics/react";
-import { Metadata } from "next";
+import {clsx} from "@nextui-org/shared-utils";
+import {Analytics} from "@vercel/analytics/react";
+import {Metadata} from "next";
 
-import { Providers } from "./providers";
+import {Providers} from "./providers";
 
-import { Cmdk } from "@/components/cmdk";
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
-import { fontSans } from "@/config/fonts";
+import {Cmdk} from "@/components/cmdk";
+import {Footer} from "@/components/footer";
+import {Navbar} from "@/components/navbar";
+import {fontSans} from "@/config/fonts";
 import manifest from "@/config/routes.json";
-import { siteConfig } from "@/config/site";
-import { __PROD__ } from "@/utils";
+import {siteConfig} from "@/config/site";
+import {__PROD__} from "@/utils";
 
 export const metadata: Metadata = {
   title: {
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     "UI Design System",
   ],
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    {media: "(prefers-color-scheme: light)", color: "white"},
+    {media: "(prefers-color-scheme: dark)", color: "black"},
   ],
   icons: {
     icon: "/favicon.ico",
@@ -56,35 +56,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://nextui.org",
     types: {
-      "application/rss+xml": [
-        { url: "https://nextui.org/feed.xml", title: "NextUI RSS Feed" },
-      ],
+      "application/rss+xml": [{url: "https://nextui.org/feed.xml", title: "NextUI RSS Feed"}],
     },
   },
   viewport:
     "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning dir="ltr" lang="en">
       <head />
-      <body
-        className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+      <body className={clsx("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+        <Providers themeProps={{attribute: "class", defaultTheme: "dark"}}>
           <div className="relative flex flex-col" id="app-container">
-            <Navbar
-              mobileRoutes={manifest.mobileRoutes}
-              routes={manifest.routes}
-            />
+            <Navbar mobileRoutes={manifest.mobileRoutes} routes={manifest.routes} />
             {children}
             <Footer />
           </div>
