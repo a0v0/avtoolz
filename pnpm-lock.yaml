@@ -215,6 +215,9 @@ dependencies:
   scroll-into-view-if-needed:
     specifier: 3.0.10
     version: 3.0.10
+  semver:
+    specifier: ^7.5.4
+    version: 7.5.4
   sharp:
     specifier: ^0.32.6
     version: 0.32.6
