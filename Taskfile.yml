@@ -16,10 +16,10 @@ tasks:
     cmds:
       - pnpm build
 
-  update_search_index:
-    desc: Generate search index
-    cmds:
-      - pnpm update:search-meta
+  # update_search_index:
+  #   desc: Generate search index
+  #   cmds:
+  #     - pnpm update:search-meta
 
   disable_telemetry:
     desc: Disable telemetry
