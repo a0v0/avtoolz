@@ -1,6 +1,6 @@
 version: "3"
 tasks:
-  start:
+  dev:
     desc: Start development server
     cmds:
       - pnpm dev
@@ -8,9 +8,33 @@ tasks:
   install:
     desc: Install dependencies
     cmds:
+      - task: disable_telemetry
       - pnpm install
 
   build:
     desc: Build for production
     cmds:
       - pnpm build
+
+  # update_search_index:
+  #   desc: Generate search index
+  #   cmds:
+  #     - pnpm update:search-meta
+
+  clean:
+    desc: Clean repo by removing generated files
+    cmds:
+      - rm -rf .next
+      - rm -rf .contentlayer
+      - rm -rf next-env.d.ts
+
+  prune:
+    desc: Prune dependencies and clean repo
+    cmds:
+      - task: clean
+      - rm -rf node_modules
+
+  disable_telemetry:
+    desc: Disable telemetry
+    cmds:
+      - pnpm exec next telemetry disable

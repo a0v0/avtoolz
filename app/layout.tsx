@@ -1,47 +1,82 @@
-import { XNavbar } from "@/components/navbar";
-import { fontSans } from "@/config/fonts";
 import "@/styles/globals.css";
-import { Link } from "@nextui-org/link";
-import clsx from "clsx";
-import { Providers } from "./providers";
+import "@/styles/sandpack.css";
+import {clsx} from "@nextui-org/shared-utils";
+import {Analytics} from "@vercel/analytics/react";
+import {Metadata} from "next";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import {Providers} from "./providers";
+
+import {Cmdk} from "@/components/cmdk";
+import {Footer} from "@/components/footer";
+import {Navbar} from "@/components/navbar";
+import {fontSans} from "@/config/fonts";
+import manifest from "@/config/routes.json";
+import {siteConfig} from "@/config/site";
+import {__PROD__} from "@/utils";
+
+export const metadata: Metadata = {
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    "NextUI",
+    "React Aria",
+    "Server Components",
+    "React Components",
+    "UI Components",
+    "UI Kit",
+    "UI Library",
+    "UI Framework",
+    "UI Design System",
+  ],
+  themeColor: [
+    {media: "(prefers-color-scheme: light)", color: "white"},
+    {media: "(prefers-color-scheme: dark)", color: "black"},
+  ],
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/manifest.json",
+  twitter: siteConfig.twitter,
+  openGraph: siteConfig.openGraph,
+  authors: [
+    {
+      name: "jrgarciadev",
+      url: "https://jrgarciadev.com",
+    },
+  ],
+  creator: "jrgarciadev",
+  alternates: {
+    canonical: "https://nextui.org",
+    types: {
+      "application/rss+xml": [{url: "https://nextui.org/feed.xml", title: "NextUI RSS Feed"}],
+    },
+  },
+  viewport:
+    "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+};
+
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className="scroll-smooth focus:scroll-auto"
-    >
+    <html suppressHydrationWarning dir="ltr" lang="en">
       <head />
-      <body
-        className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            <XNavbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
-            <footer className="w-full flex items-center justify-center py-3">
-              <Link
-                isExternal
-                className="flex items-center gap-1 text-current"
-                href="#"
-                title="by awesome people"
-              >
-                <span className="text-default-600">Crafted with 🥰 in</span>
-                <p className="text-primary">India</p>
-              </Link>
-            </footer>
+      <body className={clsx("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+        <Providers themeProps={{attribute: "class", defaultTheme: "dark"}}>
+          <div className="relative flex flex-col" id="app-container">
+            <Navbar mobileRoutes={manifest.mobileRoutes} routes={manifest.routes} />
+            {children}
+            <Footer />
           </div>
+          <Cmdk />
         </Providers>
+        {__PROD__ && <Analytics />}
       </body>
     </html>
   );

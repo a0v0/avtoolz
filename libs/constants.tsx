@@ -1,64 +1,28 @@
-import { OpenCollective } from "@/components/icons";
-import { siteConfig } from "@/config/site";
-import { Image } from "@nextui-org/react";
+import {DiscordIcon, GithubIcon, TwitterIcon} from "@/components/icons";
 
 export const TWITTER_USER_NAME = "getnextui";
 export const SITE_URL = "https://nextui.org";
 
-export const pdfTools = [
+export const communityAccounts = [
   {
-    title: "Merge PDF",
-    description: "Combine multiple PDFs into one unified document.",
-    showFullDescription: true,
-    icon: <Image src="/icons/merge-pdf.webp" width={35} />,
-    href: "/tools/merge-pdf",
-    isExternal: false,
-    tags: siteConfig.keywords,
+    title: "Twitter",
+    description: "For announcements, tips and general information.",
+    icon: <TwitterIcon className="text-[#00ACEE]" size={32} />,
+    href: "https://twitter.com/getnextui",
+    isExternal: true,
   },
-
-  // {
-  //   title: "JPG to PDF",
-  //   description: "Convert JPG images to PDF format.",
-  //   showFullDescription: true,
-  //   icon: <Image src="/icons/split-pdf.webp" width={35} />,
-  //   href: "/tools/jpg-to-pdf",
-  //   isExternal: false,
-  //   tags: siteConfig.keywords,
-  // },
-
-  // Compress PDF
-  // PDF to Word
-  // PDF to Powerpoint
-  // PDF to Excel
-  // Word to PDF
-  // Split PDF
-  // {
-  //   title: "Split PDF",
-  //   description: "Split PDF into multiple documents.",
-  //   showFullDescription: true,
-  //   icon: <Image src="/icons/split-pdf.webp" width={35} />,
-  //   href: "/tools/split-pdf",
-  //   isExternal: false,
-  //   tags: siteConfig.keywords,
-  // },
-];
-
-export const imageTools = [
   {
-    title: "Compress JPG",
-    description: "Compress JPG images without losing quality.",
-    showFullDescription: true,
-    icon: <OpenCollective fill="#FF4ECD" />,
-    href: "/tools/compress-jpg",
-    isExternal: false,
+    title: "Discord",
+    description: "To get involved in the community, ask questions and share tips.",
+    icon: <DiscordIcon className="text-[#7289DA]" size={32} />,
+    href: "https://discord.gg/9b6yyZKmH4",
+    isExternal: true,
   },
-  // Compress PNG
-  // {
-  //   title: "Compress PNG",
-  //   description: "Compress PNG images without losing quality.",
-  //   showFullDescription: true,
-  //   icon: <OpenCollective fill="#FF4ECD" />,
-  //   href: "/tools/compress-png",
-  //   isExternal: false,
-  // },
+  {
+    title: "Github",
+    description: "To report bugs, request features and contribute to the project.",
+    icon: <GithubIcon className="text-[#333] dark:text-[#E7E7E7]" size={32} />,
+    href: "https://github.com/nextui-org/nextui",
+    isExternal: true,
+  },
 ];

@@ -1,28 +1,36 @@
-<p align="center">
-  <img  src="https://avtoolz.com/avtoolz-banner-dark-shadow.webp" width="512px"  />
-</p>
-<h4 align="center" style='textAlign: "center", marginTop: "-1vh"'>
-  🔥A Swiss Army Toolbox to save your day...
-</h4>
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-[aVToolz](https://avtoolz.com/) is an extremely handy app containg a collection of tools to perform daily tasks. aVToolz offer tools for image conversion, file conversion, text transformation and many more...
+## Getting Started
 
-New tools are added to this site frequently so do not forget to give a star on [GitHub](https://github.com/a0v0/avtoolz) and opt for notifications whenever a new version comes out. You can also join our [Telegram group](https://t.me/avtoolz) to get notified about new tools and updates.
+First, run the development server:
 
-## ⚡️ Available Tools
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-| App Name                                                            | Description                                                                                                                                                                                      | Category    | Web                                                     | Android                                                                                                                                                                                                                                                                                                   |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Merge PDF](https://avtoolz.com/pdf-tools/merge-pdf)                | Easily merge multiple PDF files into a single document with our free online PDF merger tool. No installation or registration required.                                                           | pdf         | [Open](https://avtoolz.com/pdf-tools/merge-pdf)         | <a href="https://play.google.com/store/apps/details?id=com.avtoolz.mergepdf&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img alt="Get it on Google Play" width="150" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/></a> |
-| [Image to PDF](https://avtoolz.com/pdf-tools/img-to-pdf)            | Convert your image files to PDF format easily and quickly with our online Image to PDF converter. No need to download any software or pay for anything - it's completely free and user-friendly. | image, pdf  | [Open](https://avtoolz.com/pdf-tools/img-to-pdf)        | ❌                                                                                                                                                                                                                                                                                                        |
-| [Compress Image](https://avtoolz.com/image-tools/compress-image)    | Compress your images without losing quality with our free online image compressor tool. Reduce file size for faster website loading times.                                                       | image       | [Open](https://avtoolz.com/image-tools/compress-image)  | ❌                                                                                                                                                                                                                                                                                                        |
-| [Compress PNG](https://avtoolz.com/image-tools/compress-png)        | Compress your PNG files and reduce their size with our online tool. Easy to use, fast and free.                                                                                                  | image       | [Open](https://avtoolz.com/image-tools/compress-png)    | ❌                                                                                                                                                                                                                                                                                                        |
-| [Compress JPG/JPEG](https://avtoolz.com/image-tools/compress-jpg)   | Reduce the size of your JPG images with our online compression tool. Compress JPG files without compromising on quality. Get smaller file sizes in seconds!                                      | image       | [Open](https://avtoolz.com/image-tools/compress-jpg)    | ❌                                                                                                                                                                                                                                                                                                        |
-| [Compress Webp](https://avtoolz.com/image-tools/compress-webp)      | Compress your webp images easily and quickly with our online tool. Reduce the file size while maintaining image quality.                                                                         | image       | [Open](https://avtoolz.com/image-tools/compress-webp)   | ❌                                                                                                                                                                                                                                                                                                        |
-| [SVG to Image](https://avtoolz.com/image-tools/svg-to-img)          | Convert SVG to various image formats with our online tool. Compress files without sacrificing quality for faster loading times.                                                                  | image       | [Open](https://avtoolz.com/image-tools/svg-to-img)      | ❌                                                                                                                                                                                                                                                                                                        |
-| [SVG to PNG](https://avtoolz.com/image-tools/svg-to-png)            | Easily convert your SVG files to PNG format with our online tool. Get high-quality PNG images in just a few clicks, while reducing file size.                                                    | image       | [Open](https://avtoolz.com/image-tools/svg-to-png)      | ❌                                                                                                                                                                                                                                                                                                        |
-| [SVG to JPG](https://avtoolz.com/image-tools/svg-to-jpg)            | Convert your SVG files to high-quality JPG images with our easy-to-use online tool. Compress the file size without sacrificing image quality.                                                    | image       | [Open](https://avtoolz.com/image-tools/svg-to-jpg)      | ❌                                                                                                                                                                                                                                                                                                        |
-| [SVG to WEBP](https://avtoolz.com/image-tools/svg-to-webp)          | Convert SVG to WebP quickly and easily with our online tool. Compress and optimize your images without sacrificing quality.                                                                      | image       | [Open](https://avtoolz.com/image-tools/svg-to-webp)     | ❌                                                                                                                                                                                                                                                                                                        |
-| [Image to DataURI](https://avtoolz.com/image-tools/img-to-data-uri) | Convert images to data URI format with our fast and easy-to-use online tool. Simply upload your image and get the data URI code instantly. Perfect for embedding images in web pages and emails. | image, text | [Open](https://avtoolz.com/image-tools/img-to-data-uri) | ❌                                                                                                                                                                                                                                                                                                        |
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-... adding more 🫡
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
+
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
