@@ -17,7 +17,6 @@
   "engines": {
       "node": ">=20.x"
    },
-  
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.11.1",
     "@mapbox/rehype-prism": "^0.6.0",
