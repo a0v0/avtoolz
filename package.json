@@ -15,9 +15,8 @@
     "postbuild": "next-sitemap"
   },
   "engines": {
-      "node": ">=21.x"
+      "node": ">=20.x"
    },
-  
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.11.1",
     "@mapbox/rehype-prism": "^0.6.0",
@@ -65,7 +64,7 @@
     "match-sorter": "^6.3.1",
     "mini-svg-data-uri": "^1.4.4",
     "mitt": "3.0.0",
-    "next": "13.5.1",
+    "next": "14.0.4",
     "next-contentlayer": "^0.3.4",
     "next-themes": "^0.2.1",
     "nprogress": "^0.2.0",

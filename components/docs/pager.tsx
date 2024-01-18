@@ -1,14 +1,14 @@
 "use client";
 
-import * as React from "react";
 import {Link} from "@nextui-org/react";
-import {useRouter} from "next/navigation";
 import {ChevronIcon} from "@nextui-org/shared-icons";
+import {useRouter} from "next/navigation";
+import * as React from "react";
 
-import manifest from "@/config/routes.json";
-import {removeFromLast} from "@/utils";
-import {Route} from "@/libs/docs/page";
+import manifest from "@/config/routes";
 import {useDocsRoute} from "@/hooks/use-docs-route";
+import {Route} from "@/libs/docs/page";
+import {removeFromLast} from "@/utils";
 import {trackEvent} from "@/utils/va";
 
 export interface FooterNavProps {

@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "aVToolz • Modern, fast, and user-friendly tools for everyone.",
-  description: "Modern, fast, and user-friendly tools for everyone.",
+  name: "aVToolz • Modern, fast, and beautiful tools for everyone.",
+  description: "Modern, fast, and beautiful tools for everyone.",
   ogImage: "https://avtoolz.com/twitter-cards/avtoolz.jpeg",
   author: "Anubhav Mahur",
   email: "",
@@ -13,7 +13,7 @@ export const siteConfig = {
     locale: "en_US",
     url: "https://avtoolz.com",
     siteName: "aVToolz",
-    description: "Modern, fast, and user-friendly tools for everyone.",
+    description: "Modern, fast, and beautiful tools for everyone.",
     images: [
       {
         url: "https://avtoolz.com/twitter-cards/avtoolz.jpeg",
@@ -25,13 +25,13 @@ export const siteConfig = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "aVToolz • Modern, fast, and user-friendly tools for everyone.",
-    description: "Modern, fast, and user-friendly tools for everyone.",
+    title: "aVToolz • Modern, fast, and beautiful tools for everyone.",
+    description: "Modern, fast, and beautiful tools for everyone.",
     image: "https://avtoolz.com/twitter-cards/avtoolz.jpeg",
     creator: "@avtoolz",
   },
   links: {
-    github: "https://github.com/a0v0/avtoolz",
+    // github: "https://github.com/a0v0/avtoolz",
     // twitter: "https://twitter.com/getnextui",
     // docs: "https://nextui-docs-v2.vercel.app",
     // discord: "https://discord.gg/9b6yyZKmH4",

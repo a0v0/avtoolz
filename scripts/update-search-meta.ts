@@ -22,7 +22,7 @@ async function getSearchMeta() {
               type: "lvl1",
               url: tool.href,
               hierarchy: {
-                lvl1: tool.tags.join(" "),
+                lvl1: tool.keywords.split(",").join(" "),
                 lvl2: tool.description,
               },
             },

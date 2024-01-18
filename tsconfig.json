@@ -1,11 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "tailwind-variants": ["./node_modules/tailwind-variants"],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "@/*": [
+        "./*"
+      ],
+      "tailwind-variants": [
+        "./node_modules/tailwind-variants"
+      ],
+      "contentlayer/generated": [
+        "./.contentlayer/generated"
+      ]
     },
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,9 +26,10 @@
       }
     ],
     "strictNullChecks": true,
-    "target": "esnext",
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "declaration": true,
     "sourceMap": true,
     "moduleResolution": "node",
@@ -33,6 +42,14 @@
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "next-redirect.js"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "next-redirect.js"
+  ]
 }

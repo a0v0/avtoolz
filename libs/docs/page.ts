@@ -2,12 +2,12 @@ import type {MDX} from "contentlayer/core";
 
 import * as Local from "contentlayer/source-files";
 
-import {TAG, FORCE_TAG, CONTENT_PATH, ASSETS_PATH} from "./config";
+import {ASSETS_PATH, CONTENT_PATH, FORCE_TAG, TAG} from "./config";
 
+import {routes as localRoutes} from "@/config/routes";
 import {getLatestTag} from "@/libs/github/api";
-import {getRawFileFromRepo, getRawAssetFromRepo} from "@/libs/github/raw";
-import {__PROD__, __PREVIEW__, removeFromLast} from "@/utils";
-import localRoutes from "@/config/routes.json";
+import {getRawAssetFromRepo, getRawFileFromRepo} from "@/libs/github/raw";
+import {__PREVIEW__, __PROD__, removeFromLast} from "@/utils";
 
 export interface Route {
   key?: string;

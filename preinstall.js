@@ -3,7 +3,7 @@ const path = require("path");
 const execSync = require("child_process").execSync;
 
 // Get the root and local tsconfig files
-const rootTsConfigPath = path.resolve(process.cwd(), "../../tsconfig.json");
+const rootTsConfigPath = path.resolve(process.cwd(), "./tsconfig.json");
 const localTsConfigPath = path.resolve(process.cwd(), "./tsconfig.json");
 
 // Check the environment variable

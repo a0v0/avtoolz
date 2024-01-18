@@ -10,7 +10,7 @@ import {Cmdk} from "@/components/cmdk";
 import {Footer} from "@/components/footer";
 import {Navbar} from "@/components/navbar";
 import {fontSans} from "@/config/fonts";
-import manifest from "@/config/routes.json";
+import {routes as manifest} from "@/config/routes";
 import {siteConfig} from "@/config/site";
 import {__PROD__} from "@/utils";
 
