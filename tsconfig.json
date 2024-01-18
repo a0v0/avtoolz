@@ -1,6 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -24,8 +26,6 @@
       }
     ],
     "strictNullChecks": true,
-    "target": "esnext",
-    "module": "esnext",
     "lib": [
       "dom",
       "esnext"

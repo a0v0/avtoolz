@@ -1,6 +1,7 @@
 import {OpenCollectiveIcon} from "@/components/icons";
 import {ToolCategory, ToolType} from "@/types/tool";
 import {Image} from "@nextui-org/react";
+import React from "react";
 
 export const Tools: ToolType[] = [
   {
