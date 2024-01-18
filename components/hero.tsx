@@ -6,7 +6,6 @@ import {subtitle, title} from "./primitives";
 
 function HeroX() {
   return (
-    // <section className="flex flex-col items-center justify-center gap-4  ">
     <section className="flex flex-col gap-4 overflow-hidden lg:overflow-visible w-full flex-nowrap justify-between items-center h-[calc(100vh_-_64px)] 2xl:h-[calc(84vh_-_64px)]">
       <div></div>
       <div className="inline-block  text-center justify-center">

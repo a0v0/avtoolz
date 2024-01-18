@@ -1,5 +1,14 @@
 "use client";
 
+import {ThemeSwitch} from "@/components";
+import {useCmdkStore} from "@/components/cmdk";
+import {DocsSidebar} from "@/components/docs/sidebar";
+import {HeartFilledIcon, Logo, SearchLinearIcon} from "@/components/icons";
+import {routes as manifest} from "@/config/routes";
+import {siteConfig} from "@/config/site";
+import {useIsMounted} from "@/hooks/use-is-mounted";
+import {Route} from "@/libs/docs/page";
+import {trackEvent} from "@/utils/va";
 import {
   Button,
   Dropdown,
@@ -17,24 +26,13 @@ import {
   Spacer,
   link,
 } from "@nextui-org/react";
+import {ChevronDown} from "@nextui-org/shared-icons";
 import {clsx} from "@nextui-org/shared-utils";
 import {useFocusRing} from "@react-aria/focus";
 import {usePress} from "@react-aria/interactions";
 import {isAppleDevice} from "@react-aria/utils";
 import {usePathname} from "next/navigation";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
-
-import {ThemeSwitch} from "@/components";
-import {useCmdkStore} from "@/components/cmdk";
-import {DocsSidebar} from "@/components/docs/sidebar";
-import {HeartFilledIcon, Logo, SearchLinearIcon} from "@/components/icons";
-import {siteConfig} from "@/config/site";
-import {Tools} from "@/config/tools";
-import {useIsMounted} from "@/hooks/use-is-mounted";
-import {Route} from "@/libs/docs/page";
-import {ToolCategory} from "@/types/tool";
-import {trackEvent} from "@/utils/va";
-import {ChevronDown} from "@nextui-org/shared-icons";
 
 export interface NavbarProps {
   routes: Route[];
@@ -150,60 +148,35 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
-        <Dropdown>
-          <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                endContent={<ChevronDown fill="currentColor" size={16} />}
-                radius="sm"
-                variant="light"
-              >
-                PDF Tools
-              </Button>
-            </DropdownTrigger>
-          </NavbarItem>
-          <DropdownMenu
-            aria-label={"PDF Tools"}
-            className="w-[340px]"
-            itemClasses={{
-              base: "gap-4",
-            }}
-          >
-            {Tools.filter((tool) => tool.category.includes(ToolCategory.PDF)).map((tool) => (
-              <DropdownItem key={tool.title} startContent={tool.icon}>
-                {tool.title}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown>
-        <Dropdown>
-          <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                endContent={<ChevronDown fill="currentColor" size={16} />}
-                radius="sm"
-                variant="light"
-              >
-                Image Tools
-              </Button>
-            </DropdownTrigger>
-          </NavbarItem>
-          <DropdownMenu
-            aria-label={"Image Tools"}
-            className="w-[340px]"
-            itemClasses={{
-              base: "gap-4",
-            }}
-          >
-            {Tools.filter((tool) => tool.category.includes(ToolCategory.IMAGE)).map((tool) => (
-              <DropdownItem key={tool.title} startContent={tool.icon}>
-                {tool.title}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown>
+        {manifest.routes.map((category) => (
+          <Dropdown>
+            <NavbarItem>
+              <DropdownTrigger>
+                <Button
+                  className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                  endContent={<ChevronDown fill="currentColor" size={16} />}
+                  radius="sm"
+                  variant="light"
+                >
+                  {category.title}
+                </Button>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu
+              aria-label={category.title}
+              className="w-[340px]"
+              itemClasses={{
+                base: "gap-4",
+              }}
+            >
+              {category.routes.map((tool) => (
+                <DropdownItem href={tool.href} key={tool.title} startContent={tool.icon}>
+                  {tool.title}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        ))}
       </NavbarContent>
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">

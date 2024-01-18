@@ -4,12 +4,15 @@ export enum ToolCategory {
 }
 
 export type ToolType = {
+  key: string;
   title: string;
   description: string;
-  showFullDescription: boolean;
   icon: JSX.Element;
+  showFullDescription: boolean;
   href: string;
   isExternal: boolean;
   category: ToolCategory[];
-  tags: string[];
+  keywords: string; // comma separated
+  updated: boolean;
+  newPost: boolean;
 };
