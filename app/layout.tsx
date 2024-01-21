@@ -1,67 +1,14 @@
-import "@/styles/globals.css";
-import "@/styles/sandpack.css";
-import {clsx} from "@nextui-org/shared-utils";
-import {Analytics} from "@vercel/analytics/react";
-import {Metadata} from "next";
-
-import {Providers} from "./providers";
-
 import {Cmdk} from "@/components/cmdk";
 import {Footer} from "@/components/footer";
 import {Navbar} from "@/components/navbar";
 import {fontSans} from "@/config/fonts";
 import {routes as manifest} from "@/config/routes";
-import {siteConfig} from "@/config/site";
+import "@/styles/globals.css";
+import "@/styles/sandpack.css";
 import {__PROD__} from "@/utils";
-
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  keywords: [
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "NextUI",
-    "React Aria",
-    "Server Components",
-    "React Components",
-    "UI Components",
-    "UI Kit",
-    "UI Library",
-    "UI Framework",
-    "UI Design System",
-  ],
-  themeColor: [
-    {media: "(prefers-color-scheme: light)", color: "white"},
-    {media: "(prefers-color-scheme: dark)", color: "black"},
-  ],
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-32x32.png",
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: "/manifest.json",
-  twitter: siteConfig.twitter,
-  openGraph: siteConfig.openGraph,
-  authors: [
-    {
-      name: "jrgarciadev",
-      url: "https://jrgarciadev.com",
-    },
-  ],
-  creator: "jrgarciadev",
-  alternates: {
-    canonical: "https://nextui.org",
-    types: {
-      "application/rss+xml": [{url: "https://nextui.org/feed.xml", title: "NextUI RSS Feed"}],
-    },
-  },
-  viewport:
-    "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
-};
+import {clsx} from "@nextui-org/shared-utils";
+import {Analytics} from "@vercel/analytics/react";
+import {Providers} from "./providers";
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (

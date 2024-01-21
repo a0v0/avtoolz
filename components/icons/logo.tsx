@@ -1,13 +1,6 @@
-import { IconSvgProps } from "@/types";
-import { Image } from "@nextui-org/react";
+import {SalutingFaceEmoji} from "./fluentui-emoji";
+import {LogoProps} from "./fluentui-emoji/props";
 
-export interface LogoProps extends IconSvgProps {
-  size?: number;
-  className?: string;
-}
-
-export const Logo: React.FC<LogoProps> = ({
-  size = 150,
-  className,
-  ...props
-}) => <Image className={className} width={size} src="/logo.svg" />;
+export const Logo: React.FC<LogoProps> = ({size = 150, className, ...props}) => (
+  <SalutingFaceEmoji size={size} className={className} {...props} />
+);
