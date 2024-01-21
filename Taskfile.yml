@@ -21,18 +21,11 @@ tasks:
   #   cmds:
   #     - pnpm update:search-meta
 
-  clean:
-    desc: Clean repo by removing generated files
-    cmds:
-      - rm -rf .next
-      - rm -rf .contentlayer
-      - rm -rf next-env.d.ts
-
   prune:
     desc: Prune dependencies and clean repo
     cmds:
-      - task: clean
-      - rm -rf node_modules
+      - rm -rf .next next-env.d.ts node_modules
+      - pnpm prune
 
   disable_telemetry:
     desc: Disable telemetry
