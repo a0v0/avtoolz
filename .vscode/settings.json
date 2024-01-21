@@ -10,5 +10,6 @@
     "**/_output/**",
     "**/*.min.*",
     "**/*.map"
-  ]
+  ],
+  "todo-tree.filtering.useBuiltInExcludes": "file and search excludes"
 }
