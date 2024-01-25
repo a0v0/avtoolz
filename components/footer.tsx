@@ -21,10 +21,8 @@ export const Footer = () => {
         href="https://en.wikipedia.org/wiki/Earth"
         title="Crafted with 🥰 on Earth"
       >
-        <p className="font-normal">
-          Crafted with <SmilingFaceWithHeartsEmoji className="inline" size={20} /> on{" "}
-          <h1 className={title({color: "green", size: "xs"})}>Earth</h1>
-        </p>
+        Crafted with <SmilingFaceWithHeartsEmoji className="inline" size={20} /> on{" "}
+        <h1 className={title({color: "green", size: "xs"})}>Earth</h1>
       </Link>
     </footer>
   );
