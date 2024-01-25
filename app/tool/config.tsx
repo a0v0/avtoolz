@@ -4,19 +4,19 @@ import {Image} from "@nextui-org/react";
 import React from "react";
 
 export const Tools: ToolType[] = [
-  {
-    key: "image-to-pdf",
-    title: "Image to PDF",
-    icon: <Image src="/icons/image-to-pdf.webp" width={35} />,
-    description: "Convert your images to PDF format effortlessly using our intuitive online tool.",
-    showFullDescription: true,
-    href: "/tool/image-to-pdf",
-    isExternal: false,
-    keywords: "image to pdf, convert image to pdf, image converter, pdf converter",
-    category: [ToolCategory.PDF],
-    updated: false,
-    newPost: false,
-  },
+  // {
+  //   key: "image-to-pdf",
+  //   title: "Image to PDF",
+  //   icon: <Image src="/icons/image-to-pdf.webp" width={35} />,
+  //   description: "Convert your images to PDF format effortlessly using our intuitive online tool.",
+  //   showFullDescription: true,
+  //   href: "/tool/image-to-pdf",
+  //   isExternal: false,
+  //   keywords: "image to pdf, convert image to pdf, image converter, pdf converter",
+  //   category: [ToolCategory.PDF],
+  //   updated: false,
+  //   newPost: false,
+  // },
 
   {
     key: "merge-pdf",
