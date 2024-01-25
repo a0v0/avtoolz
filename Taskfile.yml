@@ -8,7 +8,6 @@ tasks:
   install:
     desc: Install dependencies
     cmds:
-      - task: disable_telemetry
       - pnpm install
 
   build:
@@ -21,11 +20,7 @@ tasks:
   #   cmds:
   #     - pnpm update:search-meta
 
-  prune:
-    desc: Prune dependencies and clean repo
-    cmds:
-      - rm -rf .next next-env.d.ts node_modules
-      - pnpm prune
+
 
   disable_telemetry:
     desc: Disable telemetry
