@@ -149,8 +149,8 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         {manifest.routes.map((category, index) => (
-          <Dropdown>
-            <NavbarItem key={index}>
+          <Dropdown key={index}>
+            <NavbarItem>
               <DropdownTrigger>
                 <Button
                   className="p-0 bg-transparent data-[hover=true]:bg-transparent"
@@ -169,8 +169,8 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
                 base: "gap-4",
               }}
             >
-              {category.routes.map((tool, index) => (
-                <DropdownItem href={tool.href} key={index} startContent={tool.icon}>
+              {category.routes.map((tool) => (
+                <DropdownItem href={tool.href} startContent={tool.icon}>
                   {tool.title}
                 </DropdownItem>
               ))}

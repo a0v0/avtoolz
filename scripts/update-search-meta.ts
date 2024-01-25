@@ -5,7 +5,7 @@ import path from "path";
 // @ts-ignore
 import prettier from "prettier";
 // @ts-ignore
-import { Tools } from "@/config/tools";
+import { Tools } from "@/app/tool/config";
 
 const configFolder = "config";
 

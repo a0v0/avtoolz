@@ -1,7 +1,7 @@
 import BackgroundEffects from "@/components/background-effects";
 import HeroX from "@/components/hero";
-import { ToolsCards } from "@/components/tools";
-import { getAllSponsors } from "@/utils/get-all-sponsors";
+import {ToolsCards} from "@/components/tools";
+import {getAllSponsors} from "@/utils/get-all-sponsors";
 
 async function getData() {
   try {
