@@ -10,7 +10,7 @@
 1. Clone the repository
 
 ```bash
-git clone https://github.com/a0v0/avtoolz --branch v0.0.0 --single-branch
+git clone https://github.com/a0v0/avtoolz --branch v0.0.1 --single-branch
 ```
 
 2. Install dependencies
