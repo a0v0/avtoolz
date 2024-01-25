@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">PDF Merger X</string>
-    <string name="title_activity_main">PDF Merger X</string>
-    <string name="package_name">com.avtoolz.mergepdf</string>
-    <string name="custom_url_scheme">com.avtoolz.mergepdf</string>
-</resources>

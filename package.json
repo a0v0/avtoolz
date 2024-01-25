@@ -46,6 +46,7 @@
     "file-saver": "^2.0.5",
     "filesize": "^10.0.6",
     "image-conversion": "^2.1.1",
+    "lodash": "^4.17.21",
     "mdx-mermaid": "^1.2.2",
     "mermaid": "^8.11.5",
     "pdf-lib": "^1.17.1",

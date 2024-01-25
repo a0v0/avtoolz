@@ -1,1 +1,0 @@
-self.__BUILD_MANIFEST = {__rewrites:{afterFiles:[{has:void 0,source:"\u002F:nextInternalLocale(en|de)\u002F:path*",destination:"\u002F:nextInternalLocale\u002Ftools\u002F:path*"}],beforeFiles:[],fallback:[]},sortedPages:["\u002F_app"]};self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()
