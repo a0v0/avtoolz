@@ -163,14 +163,15 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
               </DropdownTrigger>
             </NavbarItem>
             <DropdownMenu
+              key={index}
               aria-label={category.title}
               className="w-[340px]"
               itemClasses={{
                 base: "gap-4",
               }}
             >
-              {category.routes.map((tool) => (
-                <DropdownItem href={tool.href} startContent={tool.icon}>
+              {category.routes.map((tool, index) => (
+                <DropdownItem key={index} href={tool.href} startContent={tool.icon}>
                   {tool.title}
                 </DropdownItem>
               ))}

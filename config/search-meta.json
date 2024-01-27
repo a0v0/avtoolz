@@ -1,14 +1,5 @@
 [
   {
-    "content": "Image to PDF",
-    "type": "lvl1",
-    "url": "/tool/image-to-pdf",
-    "hierarchy": {
-      "lvl1": "image to pdf  convert image to pdf  image converter  pdf converter",
-      "lvl2": "Convert your images to PDF format effortlessly using our intuitive online tool."
-    }
-  },
-  {
     "content": "Merge PDF",
     "type": "lvl1",
     "url": "/tool/merge-pdf",

@@ -1,0 +1,60 @@
+{
+  "name": "@avtoolz/uppy-react",
+  "description": "React component wrappers around Uppy's official UI plugins.",
+  "version": "3.2.1",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "private":true,
+  "type": "module",
+  "keywords": [
+    "file uploader",
+    "uppy",
+    "uppy-plugin",
+    "react",
+    "react-components"
+  ],
+  "homepage": "https://uppy.io",
+  "bugs": {
+    "url": "https://github.com/transloadit/uppy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transloadit/uppy.git"
+  },
+  
+  "dependencies": {
+    "@uppy/utils": "^5.7.0",
+    "prop-types": "^15.6.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.8",
+    "react": "^18.1.0"
+  },
+  "peerDependencies": {
+    "@avtoolz/uppy-dashboard": "workspace:*",
+    "@uppy/core": "^3.8.0",   
+     "@uppy/drag-drop": "^3.0.3",
+    "@uppy/file-input": "^3.0.4",
+    "@uppy/progress-bar": "^3.0.4",
+    "@uppy/status-bar": "^3.2.5",
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@avtoolz/uppy-dashboard": {
+      "optional": true
+    },
+    "@uppy/drag-drop": {
+      "optional": true
+    },
+    "@uppy/file-input": {
+      "optional": true
+    },
+    "@uppy/progress-bar": {
+      "optional": true
+    },
+    "@uppy/status-bar": {
+      "optional": true
+    }
+  }
+}

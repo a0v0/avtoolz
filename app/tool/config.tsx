@@ -48,3 +48,6 @@ export const Tools: ToolType[] = [
     newPost: false,
   },
 ];
+export const getToolByHref = (href: string): ToolType | undefined => {
+  return Tools.find((tool) => tool.href === href);
+};
