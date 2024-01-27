@@ -20,8 +20,6 @@ tasks:
   #   cmds:
   #     - pnpm update:search-meta
 
-
-
   disable_telemetry:
     desc: Disable telemetry
     cmds:

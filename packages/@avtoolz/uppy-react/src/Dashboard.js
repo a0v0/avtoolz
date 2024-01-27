@@ -1,8 +1,8 @@
-import DashboardPlugin from "@avtoolz/uppy-dashboard";
-import {Component, createElement as h} from "react";
-import getHTMLProps from "./getHTMLProps.js";
-import nonHtmlPropsHaveChanged from "./nonHtmlPropsHaveChanged.js";
-import {dashboard as basePropTypes} from "./propTypes.js";
+import { createElement as h, Component } from 'react'
+import DashboardPlugin from '@uppy/dashboard'
+import { dashboard as basePropTypes } from './propTypes.js'
+import getHTMLProps from './getHTMLProps.js'
+import nonHtmlPropsHaveChanged from './nonHtmlPropsHaveChanged.js'
 
 /**
  * React Component that renders a Dashboard for an Uppy instance. This component
@@ -10,60 +10,60 @@ import {dashboard as basePropTypes} from "./propTypes.js";
  */
 
 class Dashboard extends Component {
-  componentDidMount() {
-    this.installPlugin();
+  componentDidMount () {
+    this.installPlugin()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     // eslint-disable-next-line react/destructuring-assignment
     if (prevProps.uppy !== this.props.uppy) {
-      this.uninstallPlugin(prevProps);
-      this.installPlugin();
+      this.uninstallPlugin(prevProps)
+      this.installPlugin()
     } else if (nonHtmlPropsHaveChanged(this.props, prevProps)) {
-      const options = {...this.props, target: this.container};
-      delete options.uppy;
-      this.plugin.setOptions(options);
+      const options = { ...this.props, target: this.container }
+      delete options.uppy
+      this.plugin.setOptions(options)
     }
   }
 
-  componentWillUnmount() {
-    this.uninstallPlugin();
+  componentWillUnmount () {
+    this.uninstallPlugin()
   }
 
-  installPlugin() {
-    const {uppy} = this.props;
+  installPlugin () {
+    const { uppy } = this.props
     const options = {
-      id: "react:Dashboard",
+      id: 'react:Dashboard',
       ...this.props,
       target: this.container,
-    };
-    delete options.uppy;
-    uppy.use(DashboardPlugin, options);
+    }
+    delete options.uppy
+    uppy.use(DashboardPlugin, options)
 
-    this.plugin = uppy.getPlugin(options.id);
+    this.plugin = uppy.getPlugin(options.id)
   }
 
-  uninstallPlugin(props = this.props) {
-    const {uppy} = props;
+  uninstallPlugin (props = this.props) {
+    const { uppy } = props
 
-    uppy.removePlugin(this.plugin);
+    uppy.removePlugin(this.plugin)
   }
 
-  render() {
-    return h("div", {
-      className: "uppy-Container",
+  render () {
+    return h('div', {
+      className: 'uppy-Container',
       ref: (container) => {
-        this.container = container;
+        this.container = container
       },
       ...getHTMLProps(this.props),
-    });
+    })
   }
 }
 
-Dashboard.propTypes = basePropTypes;
+Dashboard.propTypes = basePropTypes
 
 Dashboard.defaultProps = {
   inline: true,
-};
+}
 
-export default Dashboard;
+export default Dashboard

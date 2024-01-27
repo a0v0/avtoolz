@@ -2,7 +2,7 @@
 
 import {subtitle, title} from "@/components/primitives";
 
-import {Dashboard} from "@/packages/@avtoolz/uppy-react/types";
+import {Dashboard} from "@avtoolz/uppy-react";
 import {Button} from "@nextui-org/react";
 import Uppy from "@uppy/core";
 import "@uppy/core/dist/style.min.css";

@@ -1,4 +1,4 @@
-import { h, Component, Fragment } from 'preact'
+import { Component, Fragment } from 'preact'
 
 class AddFiles extends Component {
   triggerFileInputClick = () => {
@@ -291,7 +291,7 @@ class AddFiles extends Component {
     return (
       <a
         tabIndex="-1"
-        href="https://uppy.io"
+        href="https://uppy.io/dsa"
         rel="noreferrer noopener"
         target="_blank"
         className="uppy-Dashboard-poweredBy"

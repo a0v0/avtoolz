@@ -14,14 +14,9 @@
     "update:search-meta": "tsx scripts/update-search-meta.ts",
     "postbuild": "next-sitemap"
   },
-  "engines": {
-    "node": ">=20.x"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/@avtoolz/*"
-    ]
-  },
+  "workspaces": [
+    "packages/@avtoolz/*"
+  ],
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.11.3",
     "@mapbox/rehype-prism": "^0.6.0",
