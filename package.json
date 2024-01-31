@@ -1,6 +1,6 @@
 {
-  "name": "@nextui-org/docs",
-  "version": "2.0.0",
+  "name": "@avtoolz/app",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "pnpm run update:search-meta && next dev",
@@ -14,9 +14,6 @@
     "update:search-meta": "tsx scripts/update-search-meta.ts",
     "postbuild": "next-sitemap"
   },
-  "workspaces": [
-    "packages/@avtoolz/*"
-  ],
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.11.3",
     "@mapbox/rehype-prism": "^0.6.0",
@@ -50,12 +47,10 @@
     "@react-stately/tree": "^3.7.5",
     "@rehooks/local-storage": "^2.4.5",
     "@uppy/core": "^3.8.0",
-    "@uppy/dashboard": "^3.7.1",
     "@uppy/drag-drop": "^3.0.3",
+    "@uppy/drop-target": "^2.0.2",
     "@uppy/file-input": "^3.0.4",
     "@uppy/progress-bar": "^3.0.4",
-    "@avtoolz/uppy-react": "workspace:*",
-    "@avtoolz/uppy-dashboard": "workspace:*",
     "@uppy/status-bar": "^3.2.5",
     "@vercel/analytics": "^1.1.2",
     "canvas-confetti": "^1.9.2",
