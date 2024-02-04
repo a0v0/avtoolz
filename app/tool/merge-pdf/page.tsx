@@ -4,8 +4,7 @@ import {subtitle, title} from "@/components/primitives";
 
 import FileUploader from "@/components/file-uploader";
 import {Button, Spacer} from "@nextui-org/react";
-import "@uppy/core/dist/style.min.css";
-import "@uppy/dashboard/dist/style.min.css";
+
 import {usePathname} from "next/navigation";
 import {useState} from "react";
 import {getToolByHref} from "../config";

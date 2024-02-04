@@ -13,7 +13,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndD
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [uppy] = useState(() =>
     new Uppy().use(DropTarget, {
-      target: enableDragAndDropOnBody ? document.body : "",
+      target: document.body,
     }),
   );
 
@@ -26,7 +26,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndD
   };
 
   return (
-    <Card className="lg:max-w-[50rem] md:m-3">
+    <Card className="lg:max-w-[50rem] m-3 ">
       {/* <CardHeader className="flex gap-3">
         <Image
           alt="nextui logo"
@@ -42,7 +42,12 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndD
       </CardHeader> */}
       {/* <Divider /> */}
       <CardBody className="items-center justify-center">
-        <Button color="success" variant="bordered">
+        <Button
+          onPress={() => console.log(uppy.getFiles())}
+          size="lg"
+          color="success"
+          variant="bordered"
+        >
           + Select Files
         </Button>
         <Link href="#" underline="none">
