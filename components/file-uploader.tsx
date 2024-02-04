@@ -1,32 +1,38 @@
-import {Button, Card, CardBody, Link} from "@nextui-org/react";
-import Uppy from "@uppy/core";
-import DropTarget from "@uppy/drop-target";
-import {ChangeEvent, useState} from "react";
+import {Button, Card, CardBody, Link, Spacer} from "@nextui-org/react";
+import {useEffect, useState} from "react";
+import {useDropzone} from "react-dropzone";
 import {subtitle} from "./primitives";
 
 interface FileUploderProps {
-  onFilesSelect: (files: FileList) => void;
+  onFilesSelect: (files: File[]) => void;
   enableDragAndDropOnBody?: boolean;
 }
 
 const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndDropOnBody}) => {
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const [uppy] = useState(() =>
-    new Uppy().use(DropTarget, {
-      target: document.body,
-    }),
-  );
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [isOverlayActive, setIsOverlayActive] = useState(false);
+  const {acceptedFiles, isDragAccept, isDragActive, getRootProps, getInputProps, open} =
+    useDropzone({
+      //  keydown behavior
+      noKeyboard: true,
+    });
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
+  useEffect(() => {
+    if (acceptedFiles) {
+      const files = selectedFiles.concat(acceptedFiles);
       setSelectedFiles(files);
       onFilesSelect(files);
     }
-  };
+  }, [acceptedFiles]);
+
+  useEffect(() => {
+    console.log("dragactive");
+    setIsOverlayActive(isDragAccept);
+  }, [isDragAccept]);
 
   return (
-    <Card className="lg:max-w-[50rem] m-3 ">
+    // TODO: add fullscreen overlay when isDragActive
+    <Card {...getRootProps({className: "dropzone lg:max-w-[50rem] m-3"})}>
       {/* <CardHeader className="flex gap-3">
         <Image
           alt="nextui logo"
@@ -42,14 +48,11 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndD
       </CardHeader> */}
       {/* <Divider /> */}
       <CardBody className="items-center justify-center">
-        <Button
-          onPress={() => console.log(uppy.getFiles())}
-          size="lg"
-          color="success"
-          variant="bordered"
-        >
+        <input {...getInputProps()} />
+        <Button size="lg" onPress={open} color="success" variant="bordered">
           + Select Files
         </Button>
+        <Spacer y={2} />
         <Link href="#" underline="none">
           or
         </Link>
@@ -62,6 +65,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndD
         >
           Drag and Drop your files here...
         </h2>
+        {isDragActive ? "true" : "false"}
       </CardBody>
       {/* <Divider />
       <CardFooter>
@@ -70,6 +74,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndD
         </Link>
       </CardFooter> */}
     </Card>
+
     // <div>
     //   <input type="file" onChange={handleFileChange} multiple />
     //   {/* You can add additional UI elements or styles here */}

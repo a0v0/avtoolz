@@ -12,7 +12,7 @@ import {getToolByHref} from "../config";
 export default function page() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
-  const handleFilesSelect = (files: FileList) => {
+  const handleFilesSelect = (files: File[]) => {
     // You can perform additional actions with the selected files if needed
     const fileList = Array.from(files);
     setUploadedFiles(fileList);
