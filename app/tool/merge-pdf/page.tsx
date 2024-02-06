@@ -29,7 +29,7 @@ export default function page() {
   return (
     <>
       <center>
-        <Spacer y={2} />
+        <Spacer y={3} />
         <h1 className={title({color: "green"})}>{tool?.title}</h1>
         <h2
           className={subtitle({
@@ -44,9 +44,8 @@ export default function page() {
           onFilesSelect={handleFilesSelect}
           enableDragAndDropOnBody
         />{" "}
-        <Spacer y={3} />
       </center>
-      <Spacer y={2} />
+      <Spacer y={6} />
       <Button onPress={_showLogs}>Merge PDF</Button>
       {/* <Dashboard uppy={uppy} /> */}
     </>
