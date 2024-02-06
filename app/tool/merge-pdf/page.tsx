@@ -29,20 +29,25 @@ export default function page() {
   return (
     <>
       <center>
+        <Spacer y={2} />
         <h1 className={title({color: "green"})}>{tool?.title}</h1>
         <h2
           className={subtitle({
             fullWidth: true,
-            class: "text-center",
           })}
         >
           {tool?.description}
         </h2>
-        <FileUploader onFilesSelect={handleFilesSelect} enableDragAndDropOnBody />
+        <Spacer y={6} />
+        <FileUploader
+          primaryColor="#18c964"
+          onFilesSelect={handleFilesSelect}
+          enableDragAndDropOnBody
+        />{" "}
         <Spacer y={3} />
-        <Button onPress={_showLogs}>Merge PDF</Button>
       </center>
-
+      <Spacer y={2} />
+      <Button onPress={_showLogs}>Merge PDF</Button>
       {/* <Dashboard uppy={uppy} /> */}
     </>
   );

@@ -1,4 +1,4 @@
-import {Button, Card, CardBody, Link, Spacer} from "@nextui-org/react";
+import {Card, CardBody, Link, Spacer} from "@nextui-org/react";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {subtitle} from "./primitives";
@@ -6,9 +6,14 @@ import {subtitle} from "./primitives";
 interface FileUploderProps {
   onFilesSelect: (files: File[]) => void;
   enableDragAndDropOnBody?: boolean;
+  primaryColor: string;
 }
 
-const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndDropOnBody}) => {
+const FileUploader: React.FC<FileUploderProps> = ({
+  onFilesSelect,
+  enableDragAndDropOnBody,
+  primaryColor,
+}) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const {acceptedFiles, isDragAccept, isDragActive, getRootProps, getInputProps, open} =
@@ -34,16 +39,27 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, enableDragAndD
   return (
     // TODO: add fullscreen overlay when isDragActive
     <>
-      <Card {...getRootProps({className: "dropzone lg:max-w-[50rem] m-3"})}>
+      <Card
+        style={{
+          backgroundColor: "transparent",
+          borderStyle: "dashed",
+          // border: "2px dashed #a1a1aa",
+          border: "2px dashed ".concat(primaryColor),
+
+          // borderColor:
+        }}
+        {...getRootProps({className: "dropzone"})}
+      >
         <CardBody className="items-center justify-center">
           <input {...getInputProps()} />
-          <Button size="lg" onPress={open} color="success" variant="bordered">
-            + Select Files
-          </Button>
+          <Card onPress={open} isPressable className="w-72 ">
+            <CardBody className="text-center">
+              <h1 className={subtitle({fullWidth: true, size: "sm"})}>+ Select Files</h1>
+            </CardBody>
+          </Card>
+
           <Spacer y={2} />
-          <Link href="#" underline="none">
-            or
-          </Link>
+          <Link underline="none">or</Link>
           <h2
             className={subtitle({
               fullWidth: true,
