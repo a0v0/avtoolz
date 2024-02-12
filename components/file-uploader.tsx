@@ -21,7 +21,6 @@ const FileUploader: React.FC<FileUploderProps> = ({
       //  keydown behavior
       noKeyboard: true,
     });
-
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
@@ -56,11 +55,13 @@ const FileUploader: React.FC<FileUploderProps> = ({
       <Card
         style={{display: isOverlayVisible ? "block" : "none"}}
         {...getRootProps({
-          className: "dropzone fixed inset-0 bg-black bg-opacity-50  z-50",
+          className: "dropzone fixed inset-0 bg-black bg-opacity-70 z-50",
         })}
       >
         <CardBody
-          className=" justify-center items-center h-screen"
+          style={{color: "white"}}
+          // style={{color: theme === "light" ? "white" : "null"}}
+          className="justify-center items-center h-screen "
           onClick={() => setIsOverlayVisible(false)}
         >
           <Logo size={50} />
@@ -104,4 +105,4 @@ const FileUploader: React.FC<FileUploderProps> = ({
 export default FileUploader;
 
 // TODO: file preview
-// TODO: file previews
+// TODO: error dialog on incompatible files
