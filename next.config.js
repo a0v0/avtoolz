@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@nextui-org/react", "@nextui-org/theme"],
@@ -22,4 +21,4 @@ const nextConfig = {
   },
 };
 
-module.exports = (nextConfig);
+module.exports = nextConfig;

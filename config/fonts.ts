@@ -5,12 +5,12 @@ export const fontSans = Inter({
   adjustFontFallback: true,
   display: "optional",
   fallback: [
+    "Roboto",
     "ui-sans-serif",
     "system-ui",
     "-apple-system",
     "BlinkMacSystemFont",
     '"Segoe UI"',
-    "Roboto",
     '"Helvetica Neue"',
     "Arial",
     '"Noto Sans"',

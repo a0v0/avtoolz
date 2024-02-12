@@ -5,28 +5,24 @@ import {subtitle} from "./primitives";
 
 interface FileUploderProps {
   onFilesSelect: (files: File[]) => void;
-  enableDragAndDropOnBody?: boolean;
+
   primaryColor: string;
 }
 
 const FileUploader: React.FC<FileUploderProps> = ({
   onFilesSelect,
-  enableDragAndDropOnBody,
+
   primaryColor,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [isOverlayActive, setIsOverlayActive] = useState(false);
   const {acceptedFiles, isDragAccept, isDragActive, getRootProps, getInputProps, open} =
     useDropzone({
       //  keydown behavior
       noKeyboard: true,
-      onDragEnter: () => {
-        setIsOverlayActive(true);
-      },
-      onDragLeave: () => {
-        setIsOverlayActive(false);
-      },
     });
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
   useEffect(() => {
     if (acceptedFiles) {
@@ -36,24 +32,49 @@ const FileUploader: React.FC<FileUploderProps> = ({
     }
   }, [acceptedFiles]);
 
+  useEffect(() => {
+    setIsOverlayVisible(isDragging);
+  }, [isDragging]);
+
+  useEffect(() => {
+    setIsOverlayVisible(isDragActive);
+  }, [isDragActive]);
+
+  document.addEventListener("dragover", (e) => {
+    setIsDragging(true);
+  });
+  document.addEventListener("dragend", (e) => {
+    setIsDragging(false);
+  });
+  document.addEventListener("dragleave", (e) => {
+    setIsDragging(false);
+  });
+
   return (
-    // TODO: add fullscreen overlay when isDragActive
     <>
+      <Card
+        style={{display: isOverlayVisible ? "block" : "none"}}
+        {...getRootProps({
+          className: "dropzone fixed inset-0 bg-black bg-opacity-50  z-50",
+        })}
+      >
+        <CardBody onClick={() => setIsOverlayVisible(false)}>
+          {isDragActive ? "true" : "false"}
+        </CardBody>
+      </Card>
+
       <Card
         style={{
           backgroundColor: "transparent",
           borderStyle: "dashed",
-          // border: "2px dashed #a1a1aa",
           border: "2px dashed ".concat(primaryColor),
-
-          // borderColor:
         }}
-        {...getRootProps({className: "dropzone"})}
       >
         <CardBody className="items-center justify-center">
           <input {...getInputProps()} />
-          <Card onPress={open} isPressable className="w-72 ">
-            <CardBody className="text-center">
+
+          <Card onPress={open} className="w-72 " isPressable>
+            <CardBody className="text-center ">
               <h1 className={subtitle({fullWidth: true, size: "sm"})}>+ Select Files</h1>
             </CardBody>
           </Card>
@@ -71,7 +92,6 @@ const FileUploader: React.FC<FileUploderProps> = ({
           </h2>
         </CardBody>
       </Card>
-      {isDragActive ? <div> j</div> : null}
     </>
   );
 };

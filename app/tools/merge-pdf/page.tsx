@@ -7,7 +7,7 @@ import {Button, Spacer} from "@nextui-org/react";
 
 import {usePathname} from "next/navigation";
 import {useState} from "react";
-import {getToolByHref} from "../config";
+import {getToolByHref} from "../../../config/config";
 
 export default function page() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -39,14 +39,13 @@ export default function page() {
           {tool?.description}
         </h2>
         <Spacer y={6} />
-        <FileUploader
-          primaryColor="#18c964"
-          onFilesSelect={handleFilesSelect}
-          enableDragAndDropOnBody
-        />{" "}
+        <FileUploader primaryColor="#18c964" onFilesSelect={handleFilesSelect} />{" "}
       </center>
-      <Spacer y={6} />
-      <Button onPress={_showLogs}>Merge PDF</Button>
+      <div className="lg:mx-14 md:mx-14">
+        <Spacer y={6} />
+        <Button onPress={_showLogs}>Merge PDF</Button>
+      </div>
+
       {/* <Dashboard uppy={uppy} /> */}
     </>
   );
