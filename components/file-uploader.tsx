@@ -1,7 +1,8 @@
 import {Card, CardBody, Link, Spacer} from "@nextui-org/react";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
-import {subtitle} from "./primitives";
+import {Logo} from "./icons";
+import {subtitle, title} from "./primitives";
 
 interface FileUploderProps {
   onFilesSelect: (files: File[]) => void;
@@ -58,8 +59,12 @@ const FileUploader: React.FC<FileUploderProps> = ({
           className: "dropzone fixed inset-0 bg-black bg-opacity-50  z-50",
         })}
       >
-        <CardBody onClick={() => setIsOverlayVisible(false)}>
-          {isDragActive ? "true" : "false"}
+        <CardBody
+          className=" justify-center items-center h-screen"
+          onClick={() => setIsOverlayVisible(false)}
+        >
+          <Logo size={50} />
+          now drop them <h1 className={title({color: "green", size: "xs"})}>Sire!</h1>
         </CardBody>
       </Card>
 
@@ -88,7 +93,7 @@ const FileUploader: React.FC<FileUploderProps> = ({
               size: "xs",
             })}
           >
-            Drag and Drop your files here...
+            drop your files here...
           </h2>
         </CardBody>
       </Card>
@@ -97,3 +102,6 @@ const FileUploader: React.FC<FileUploderProps> = ({
 };
 
 export default FileUploader;
+
+// TODO: file preview
+// TODO: file previews
