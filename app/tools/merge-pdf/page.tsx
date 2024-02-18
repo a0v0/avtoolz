@@ -39,12 +39,14 @@ export default function page() {
           {tool?.description}
         </h2>
         <Spacer y={6} />
-        <FileUploader primaryColor="#18c964" onFilesSelect={handleFilesSelect} />{" "}
+        <FileUploader primaryColor="#18c964" onFilesSelect={handleFilesSelect} />
+        {uploadedFiles.length > 0 ? (
+          <>
+            <Spacer y={6} />
+            <Button onPress={_showLogs}>Merge PDF</Button>
+          </>
+        ) : null}
       </center>
-      <div className="lg:mx-14 md:mx-14">
-        <Spacer y={6} />
-        <Button onPress={_showLogs}>Merge PDF</Button>
-      </div>
 
       {/* <Dashboard uppy={uppy} /> */}
     </>
