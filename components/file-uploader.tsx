@@ -110,7 +110,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
           onClick={() => setIsOverlayVisible(false)}
         >
           <Logo size={50} />
-          drop'em all <h1 className={title({color: "green", size: "xs"})}>Sire!</h1>
+          drop them all <h1 className={title({color: "green", size: "xs"})}>Sire!</h1>
         </CardBody>
       </Card>
       <SortableFilePreviewList files={selectedFiles} />
