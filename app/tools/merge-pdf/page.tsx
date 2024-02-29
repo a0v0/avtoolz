@@ -1,13 +1,11 @@
 "use client";
 
-import {subtitle, title} from "@/components/primitives";
-
 import FileUploader from "@/components/file-uploader";
+import {subtitle, title} from "@/components/primitives";
+import {getToolByHref} from "@/config/config";
 import {Button, Spacer} from "@nextui-org/react";
-
 import {usePathname} from "next/navigation";
 import {useState} from "react";
-import {getToolByHref} from "../../../config/config";
 
 export default function page() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);

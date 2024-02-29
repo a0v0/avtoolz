@@ -113,7 +113,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
           now drop them <h1 className={title({color: "green", size: "xs"})}>Sire!</h1>
         </CardBody>
       </Card>
-      <SortableFilePreviewList />
+      <SortableFilePreviewList files={selectedFiles} />
       {isPreviewVsible ? (
         <DndContext>
           <SortableContext

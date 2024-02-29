@@ -24,6 +24,8 @@ export interface Props {
   wrapperStyle?: React.CSSProperties;
   value: React.ReactNode;
   onRemove?(): void;
+  file: File;
+
   renderItem?(args: {
     dragOverlay: boolean;
     dragging: boolean;
@@ -61,6 +63,7 @@ export const Item = React.memo(
         transform,
         value,
         wrapperStyle,
+        file,
         ...props
       },
       ref,
@@ -122,8 +125,8 @@ export const Item = React.memo(
             <Card style={style} className=" ">
               <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                 <p className="text-tiny uppercase font-bold">{value}</p>
-                <small className="text-default-500">12 Tracks</small>
-                <h4 className="font-bold text-large">Frontend Radio</h4>
+                <small className="text-default-500">{file.name}</small>
+                <h4 className="font-bold text-large">{file.type}</h4>
               </CardHeader>
               <CardBody className="overflow-visible py-2">
                 <p className="text-tiny uppercase font-bold">{value}</p>

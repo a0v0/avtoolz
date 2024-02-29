@@ -51,6 +51,7 @@ export interface Props {
   measuring?: MeasuringConfiguration;
   modifiers?: Modifiers;
   renderItem?: any;
+  files: File[];
   removable?: boolean;
   reorderItems?: typeof arrayMove;
   strategy?: SortingStrategy;
@@ -70,7 +71,7 @@ export interface Props {
     isDragging: boolean;
     id: UniqueIdentifier;
   }): React.CSSProperties;
-  isDisabled?(id: UniqueIdentifier): boolean;
+  isDisabled?(): boolean;
 }
 
 const dropAnimationConfig: DropAnimation = {
@@ -114,6 +115,7 @@ export function Sortable({
   style,
   useDragOverlay = true,
   wrapperStyle = () => ({}),
+  files,
 }: Props) {
   const [items, setItems] = useState<UniqueIdentifier[]>(
     () => initialItems ?? createRange<UniqueIdentifier>(itemCount, (index) => index + 1),
@@ -216,15 +218,16 @@ export function Sortable({
       <Wrapper style={style} center>
         <SortableContext items={items} strategy={strategy}>
           <Container>
-            {items.map((value, index) => (
+            {files.map((file, index) => (
               <SortableItem
-                key={value}
-                id={value}
+                key={index}
+                file={file}
+                id={index}
                 handle={handle}
                 index={index}
                 style={getItemStyles}
                 wrapperStyle={wrapperStyle}
-                disabled={isDisabled(value)}
+                disabled={isDisabled()}
                 renderItem={renderItem}
                 onRemove={handleRemove}
                 animateLayoutChanges={animateLayoutChanges}
@@ -240,6 +243,7 @@ export function Sortable({
             <DragOverlay adjustScale={adjustScale} dropAnimation={dropAnimation}>
               {activeId ? (
                 <Item
+                  file={files[activeIndex]}
                   value={items[activeIndex]}
                   handle={handle}
                   renderItem={renderItem}
@@ -272,7 +276,7 @@ interface SortableItemProps {
   animateLayoutChanges?: AnimateLayoutChanges;
   disabled?: boolean;
   getNewIndex?: NewIndexGetter;
-  id: UniqueIdentifier;
+  id: any;
   index: number;
   handle: boolean;
   useDragOverlay?: boolean;
@@ -280,6 +284,7 @@ interface SortableItemProps {
   style(values: any): React.CSSProperties;
   renderItem?(args: any): React.ReactElement;
   wrapperStyle: Props["wrapperStyle"];
+  file: File;
 }
 
 export function SortableItem({
@@ -294,6 +299,7 @@ export function SortableItem({
   renderItem,
   useDragOverlay,
   wrapperStyle,
+  file,
 }: SortableItemProps) {
   const {
     active,
@@ -337,6 +343,7 @@ export function SortableItem({
         isSorting,
         overIndex,
       })}
+      file={file}
       onRemove={onRemove ? () => onRemove(id) : undefined}
       transform={transform}
       transition={transition}
@@ -359,4 +366,10 @@ const props: Partial<SortableProps> = {
   }),
 };
 
-export const SortableFilePreviewList = () => <Sortable {...props} />;
+export interface SortableFilePreviewListProps {
+  files: File[];
+}
+
+export const SortableFilePreviewList: React.FC<SortableFilePreviewListProps> = ({files}) => (
+  <Sortable {...props} files={files} />
+);
