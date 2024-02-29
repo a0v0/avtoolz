@@ -5,9 +5,9 @@ import {Card, CardBody, CardHeader, Link, Spacer} from "@nextui-org/react";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 
-import {SortableFilePreviewList} from "./sortable-file-preview/sortable";
 import {Logo} from "./icons";
 import {subtitle, title} from "./primitives";
+import {SortableFilePreviewList} from "./sortable-file-preview/sortable";
 // import { SortableItem } from "./sortable";
 
 interface FileUploderProps {
@@ -110,7 +110,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
           onClick={() => setIsOverlayVisible(false)}
         >
           <Logo size={50} />
-          now drop them <h1 className={title({color: "green", size: "xs"})}>Sire!</h1>
+          now drop them here <h1 className={title({color: "green", size: "xs"})}>Sire!</h1>
         </CardBody>
       </Card>
       <SortableFilePreviewList files={selectedFiles} />
