@@ -1,6 +1,6 @@
 "use client";
 
-import FileUploader from "@/components/file-uploader";
+import FileUploader from "@/components/file-uploader/file-uploader";
 import {subtitle, title} from "@/components/primitives";
 import {getToolByHref} from "@/config/config";
 import {Button, Spacer} from "@nextui-org/react";
