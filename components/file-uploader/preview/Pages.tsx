@@ -33,6 +33,7 @@ import {Layout, Page, Position} from "./Page";
 interface Props {
   layout: Layout;
   files: File[];
+  focusRingColor: string;
 }
 
 const measuring: MeasuringConfiguration = {
@@ -60,7 +61,7 @@ const dropAnimation: DropAnimation = {
   }),
 };
 
-export function FilePreview({layout, files}: Props) {
+export function FilePreview({layout, files, focusRingColor}: Props) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [items, setItems] = useState(() =>
     createRange<UniqueIdentifier>(10, (index) => `${index + 1}`),
@@ -81,9 +82,10 @@ export function FilePreview({layout, files}: Props) {
       measuring={measuring}
     >
       <SortableContext items={items}>
-        <div className="gap-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
+        <div className="gap-3 mt-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
           {items.map((id, index) => (
             <SortablePage
+              focusRingColor={focusRingColor}
               id={id}
               index={index + 1}
               key={id}
@@ -97,7 +99,13 @@ export function FilePreview({layout, files}: Props) {
       </SortableContext>
       <DragOverlay dropAnimation={dropAnimation}>
         {activeId ? (
-          <PageOverlay file={files[activeId]} id={activeId} layout={layout} items={items} />
+          <PageOverlay
+            focusRingColor={focusRingColor}
+            file={files[activeId]}
+            id={activeId}
+            layout={layout}
+            items={items}
+          />
         ) : null}
       </DragOverlay>
     </DndContext>
@@ -152,7 +160,12 @@ function PageOverlay({
   );
 }
 
-function SortablePage({id, activeIndex, ...props}: PageProps & {activeIndex: number}) {
+function SortablePage({
+  id,
+  activeIndex,
+  focusRingColor,
+  ...props
+}: PageProps & {activeIndex: number}) {
   const {
     attributes,
     listeners,
@@ -171,6 +184,7 @@ function SortablePage({id, activeIndex, ...props}: PageProps & {activeIndex: num
   return (
     <Page
       ref={setNodeRef}
+      focusRingColor={focusRingColor}
       id={id}
       active={isDragging}
       style={{

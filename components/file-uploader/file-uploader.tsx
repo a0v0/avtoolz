@@ -20,7 +20,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
       //  keydown behavior
       noKeyboard: true,
     });
-  const [isPreviewVsible, setIsPreviewVsible] = useState(false);
+  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
 
   useEffect(() => {
     if (acceptedFiles) {
@@ -32,9 +32,9 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
 
   useEffect(() => {
     if (selectedFiles.length > 0) {
-      setIsPreviewVsible(true);
+      setIsPreviewVisible(true);
     } else {
-      setIsPreviewVsible(false);
+      setIsPreviewVisible(false);
     }
   }, [selectedFiles]);
 
@@ -76,10 +76,10 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
       </Card>
 
       {/* file preview here */}
-      <center>
-        <FilePreview files={selectedFiles} layout={Layout.Grid} />
-      </center>
-      {isPreviewVsible ? null : (
+
+      {isPreviewVisible ? (
+        <FilePreview focusRingColor={primaryColor} files={selectedFiles} layout={Layout.Grid} />
+      ) : (
         <Card
           style={{
             backgroundColor: "transparent",
