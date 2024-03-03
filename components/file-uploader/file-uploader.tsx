@@ -31,9 +31,9 @@ import {Logo} from "../icons";
 import {subtitle, title} from "../primitives";
 import type {Props as PageProps} from "./preview/Page";
 import {Layout, Page, Position} from "./preview/Page";
+import {useFileUploaderStore} from "./store";
 
 interface FileUploderProps {
-  onFilesSelect: (files: File[]) => void;
   primaryColor: string;
 }
 
@@ -61,40 +61,36 @@ const dropAnimation: DropAnimation = {
     className: {},
   }),
 };
-const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor}) => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+const FileUploader: React.FC<FileUploderProps> = ({primaryColor}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [items, setItems] = useState<UniqueIdentifier[]>([]);
+  const activeIndex = activeId ? items.indexOf(activeId) : -1;
+  const {files, addFiles, updateFiles} = useFileUploaderStore();
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates}),
+  );
   const {acceptedFiles, isDragAccept, isDragActive, getRootProps, getInputProps, open} =
     useDropzone({
       //  keydown behavior
       noKeyboard: true,
     });
-  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const [items, setItems] = useState<UniqueIdentifier[]>([]);
-  const activeIndex = activeId ? items.indexOf(activeId) : -1;
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates}),
-  );
 
   useEffect(() => {
     if (acceptedFiles) {
-      const files = selectedFiles.concat(acceptedFiles);
-      setSelectedFiles(files);
-      onFilesSelect(files);
-      setItems(files.map((file, index) => index.toString()));
+      addFiles(acceptedFiles);
     }
   }, [acceptedFiles]);
 
   useEffect(() => {
-    if (selectedFiles.length > 0) {
-      setIsPreviewVisible(true);
-    } else {
-      setIsPreviewVisible(false);
+    if (files.length > 0) {
+      setItems(files.map((_, index) => index.toString()));
+      console.log(files);
     }
-  }, [selectedFiles]);
+  }, [files]);
 
   useEffect(() => {
     setIsOverlayVisible(isDragging);
@@ -129,7 +125,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
         const newIndex = overIndex;
 
         setItems((items) => arrayMove(items, activeIndex, newIndex));
-        setSelectedFiles((files) => arrayMove(files, activeIndex, newIndex));
+        updateFiles(arrayMove(files, activeIndex, newIndex));
       }
     }
 
@@ -138,7 +134,8 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
 
   function handleRemove(id: UniqueIdentifier) {
     setItems((items) => items.filter((itemId) => itemId !== id));
-    setSelectedFiles((files) => files.filter((_, index) => index !== id));
+    updateFiles(files.filter((_, index) => index !== Number(id)));
+    // setSelectedFiles((files) => files.filter((_, index) => index !== id));
   }
 
   return (
@@ -162,7 +159,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
 
       {/* file preview here */}
 
-      {isPreviewVisible ? (
+      {files.length > 0 ? (
         // <FilePreview focusRingColor={primaryColor} files={selectedFiles} layout={Layout.Grid} />
         <DndContext
           onDragStart={handleDragStart}
@@ -183,7 +180,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
                   layout={Layout.Grid}
                   activeIndex={activeIndex}
                   onRemove={() => handleRemove(id)}
-                  file={selectedFiles[index]}
+                  file={files[index]}
                 />
               ))}
             </div>
@@ -192,7 +189,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
             {activeId ? (
               <PageOverlay
                 focusRingColor={primaryColor}
-                file={selectedFiles[activeId]}
+                file={files[activeId]}
                 id={activeId}
                 layout={Layout.Grid}
                 items={items}
@@ -309,7 +306,5 @@ function always() {
 export default FileUploader;
 
 // TODO: file preview
-// TODO: file reorder capability
 // TODO: error dialog on incompatible files
-// FIXME: fix reset button
 // FIXME: fix large preview on long file names
