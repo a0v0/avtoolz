@@ -1,9 +1,10 @@
 import {Card, CardBody, CardFooter, CardHeader, Chip, Image} from "@nextui-org/react";
 import classNames from "classnames";
+import prettyBytes from "pretty-bytes";
 import {HTMLAttributes, forwardRef} from "react";
-
 import styles from "./Page.module.css";
 
+import {getFileType} from "@/libs/file";
 import {UniqueIdentifier} from "@dnd-kit/core";
 export enum Position {
   Before = -1,
@@ -70,46 +71,24 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
           <CardBody className="pb-1">
             <Image
               className="object-cover"
-              height={200}
+              // height={200}
               src="https://nextui.org/images/fruit-1.jpeg"
-              width={200}
+              // width={200}
             />
           </CardBody>
-          <CardFooter className="pt-0 text-small grid gap-1 justify-between">
-            <b className="over opacity-75">{file?.name}</b>
-            <div className=" justify-between text-center grid m-0  p-0 grid-cols-2 ">
+          <CardFooter className="overflow-ellipsis pt-0 text-small grid gap-1 justify-between">
+            <b className=" opacity-75">{file?.name} sad asd asd saddasasd</b>
+            <div className="grid m-0  p-0 grid-cols-2 ">
               <Chip size="sm" color="success" variant="flat">
-                {file?.type}
+                {file.type ? getFileType(file) : "invalid type"}
               </Chip>
               <Chip size="sm" color="success" variant="flat">
-                {file?.size}
+                {prettyBytes(file?.size)}
               </Chip>
             </div>
           </CardFooter>
         </Card>
       </button>
-
-      {/* <Card shadow="sm" key={index}>
-     
-        <CardBody className=" overflow-visible p-0">
-        
-          <button {...props}>
-            <Image
-              shadow="sm"
-              radius="sm"
-              width="100%"
-              className="w-full object-cover h-[140px] cursor-pointer"
-              src={"https://nextui.org/images/fruit-1.jpeg"}
-            />
-          </button>
-        </CardBody>
-        <CardFooter className="pt-1 text-small grid justify-between">
-          <b>Sample pDF.pdf</b>
-          <Chip size="sm" color="success" variant="flat">
-            {1} MB
-          </Chip>
-        </CardFooter>
-      </Card> */}
     </li>
   );
 });

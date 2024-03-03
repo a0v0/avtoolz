@@ -29,20 +29,12 @@ import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
 import {subtitle, title} from "../primitives";
-import {Layout} from "./preview/Page";
-
-import {createRange} from "@/components/utilities";
 import type {Props as PageProps} from "./preview/Page";
-import {Page, Position} from "./preview/Page";
+import {Layout, Page, Position} from "./preview/Page";
 
 interface FileUploderProps {
   onFilesSelect: (files: File[]) => void;
   primaryColor: string;
-}
-interface Props {
-  layout: Layout;
-  files: File[];
-  focusRingColor: string;
 }
 
 const measuring: MeasuringConfiguration = {
@@ -80,9 +72,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
     });
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const [items, setItems] = useState(() =>
-    createRange<UniqueIdentifier>(10, (index) => `${index + 1}`),
-  );
+  const [items, setItems] = useState<UniqueIdentifier[]>([]);
   const activeIndex = activeId ? items.indexOf(activeId) : -1;
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -94,6 +84,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
       const files = selectedFiles.concat(acceptedFiles);
       setSelectedFiles(files);
       onFilesSelect(files);
+      setItems(files.map((file, index) => index.toString()));
     }
   }, [acceptedFiles]);
 
@@ -122,6 +113,33 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
   document.addEventListener("dragleave", (e) => {
     setIsDragging(false);
   });
+  function handleDragStart({active}: DragStartEvent) {
+    setActiveId(active.id);
+  }
+
+  function handleDragCancel() {
+    setActiveId(null);
+  }
+
+  function handleDragEnd({over}: DragEndEvent) {
+    if (over) {
+      const overIndex = items.indexOf(over.id);
+
+      if (activeIndex !== overIndex) {
+        const newIndex = overIndex;
+
+        setItems((items) => arrayMove(items, activeIndex, newIndex));
+        setSelectedFiles((files) => arrayMove(files, activeIndex, newIndex));
+      }
+    }
+
+    setActiveId(null);
+  }
+
+  function handleRemove(id: UniqueIdentifier) {
+    setItems((items) => items.filter((itemId) => itemId !== id));
+    setSelectedFiles((files) => files.filter((_, index) => index !== id));
+  }
 
   return (
     <>
@@ -164,7 +182,7 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
                   key={id}
                   layout={Layout.Grid}
                   activeIndex={activeIndex}
-                  onRemove={() => setItems((items) => items.filter((itemId) => itemId !== id))}
+                  onRemove={() => handleRemove(id)}
                   file={selectedFiles[index]}
                 />
               ))}
@@ -215,28 +233,6 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
       )}
     </>
   );
-
-  function handleDragStart({active}: DragStartEvent) {
-    setActiveId(active.id);
-  }
-
-  function handleDragCancel() {
-    setActiveId(null);
-  }
-
-  function handleDragEnd({over}: DragEndEvent) {
-    if (over) {
-      const overIndex = items.indexOf(over.id);
-
-      if (activeIndex !== overIndex) {
-        const newIndex = overIndex;
-
-        setItems((items) => arrayMove(items, activeIndex, newIndex));
-      }
-    }
-
-    setActiveId(null);
-  }
 };
 
 function PageOverlay({
@@ -315,3 +311,5 @@ export default FileUploader;
 // TODO: file preview
 // TODO: file reorder capability
 // TODO: error dialog on incompatible files
+// FIXME: fix reset button
+// FIXME: fix large preview on long file names

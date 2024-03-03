@@ -19,9 +19,13 @@ export default function page() {
   const path = usePathname();
   const tool = getToolByHref(path);
 
-  function _showLogs() {
+  function _mergePDF() {
     // console.log(uppy.getFiles()[0]);
     console.log(uploadedFiles);
+  }
+
+  function _reset() {
+    setUploadedFiles([]);
   }
 
   return (
@@ -39,10 +43,15 @@ export default function page() {
         <Spacer y={6} />
         <FileUploader primaryColor="#18c964" onFilesSelect={handleFilesSelect} />
         {uploadedFiles.length > 0 ? (
-          <>
-            <Spacer y={6} />
-            <Button onPress={_showLogs}>Merge PDF</Button>
-          </>
+          <div className="grid grid-cols-2 gap-2">
+            <Button color="success" variant="bordered" onPress={_mergePDF}>
+              Merge PDF
+            </Button>
+
+            <Button color="danger" variant="bordered" onPress={_reset}>
+              Reset
+            </Button>
+          </div>
         ) : null}
       </center>
 
