@@ -1,16 +1,74 @@
+import type {
+  DragEndEvent,
+  DragStartEvent,
+  MeasuringConfiguration,
+  UniqueIdentifier,
+} from "@dnd-kit/core";
+import {
+  DndContext,
+  DragOverlay,
+  DropAnimation,
+  KeyboardSensor,
+  MeasuringStrategy,
+  PointerSensor,
+  closestCenter,
+  defaultDropAnimationSideEffects,
+  useDndContext,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  useSortable,
+} from "@dnd-kit/sortable";
+import {CSS, isKeyboardEvent} from "@dnd-kit/utilities";
 import {Card, CardBody, Link, Spacer} from "@nextui-org/react";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
 import {subtitle, title} from "../primitives";
 import {Layout} from "./preview/Page";
-import {FilePreview} from "./preview/Pages";
+
+import {createRange} from "@/components/utilities";
+import type {Props as PageProps} from "./preview/Page";
+import {Page, Position} from "./preview/Page";
 
 interface FileUploderProps {
   onFilesSelect: (files: File[]) => void;
   primaryColor: string;
 }
+interface Props {
+  layout: Layout;
+  files: File[];
+  focusRingColor: string;
+}
 
+const measuring: MeasuringConfiguration = {
+  droppable: {
+    strategy: MeasuringStrategy.Always,
+  },
+};
+
+const dropAnimation: DropAnimation = {
+  keyframes({transform}) {
+    return [
+      {transform: CSS.Transform.toString(transform.initial)},
+      {
+        transform: CSS.Transform.toString({
+          scaleX: 0.98,
+          scaleY: 0.98,
+          x: transform.final.x - 10,
+          y: transform.final.y - 10,
+        }),
+      },
+    ];
+  },
+  sideEffects: defaultDropAnimationSideEffects({
+    className: {},
+  }),
+};
 const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor}) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -21,6 +79,15 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
       noKeyboard: true,
     });
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [items, setItems] = useState(() =>
+    createRange<UniqueIdentifier>(10, (index) => `${index + 1}`),
+  );
+  const activeIndex = activeId ? items.indexOf(activeId) : -1;
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates}),
+  );
 
   useEffect(() => {
     if (acceptedFiles) {
@@ -78,7 +145,43 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
       {/* file preview here */}
 
       {isPreviewVisible ? (
-        <FilePreview focusRingColor={primaryColor} files={selectedFiles} layout={Layout.Grid} />
+        // <FilePreview focusRingColor={primaryColor} files={selectedFiles} layout={Layout.Grid} />
+        <DndContext
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          measuring={measuring}
+        >
+          <SortableContext items={items}>
+            <div className="gap-3 mt-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
+              {items.map((id, index) => (
+                <SortablePage
+                  focusRingColor={primaryColor}
+                  id={id}
+                  index={index + 1}
+                  key={id}
+                  layout={Layout.Grid}
+                  activeIndex={activeIndex}
+                  onRemove={() => setItems((items) => items.filter((itemId) => itemId !== id))}
+                  file={selectedFiles[index]}
+                />
+              ))}
+            </div>
+          </SortableContext>
+          <DragOverlay dropAnimation={dropAnimation}>
+            {activeId ? (
+              <PageOverlay
+                focusRingColor={primaryColor}
+                file={selectedFiles[activeId]}
+                id={activeId}
+                layout={Layout.Grid}
+                items={items}
+              />
+            ) : null}
+          </DragOverlay>
+        </DndContext>
       ) : (
         <Card
           style={{
@@ -112,7 +215,100 @@ const FileUploader: React.FC<FileUploderProps> = ({onFilesSelect, primaryColor})
       )}
     </>
   );
+
+  function handleDragStart({active}: DragStartEvent) {
+    setActiveId(active.id);
+  }
+
+  function handleDragCancel() {
+    setActiveId(null);
+  }
+
+  function handleDragEnd({over}: DragEndEvent) {
+    if (over) {
+      const overIndex = items.indexOf(over.id);
+
+      if (activeIndex !== overIndex) {
+        const newIndex = overIndex;
+
+        setItems((items) => arrayMove(items, activeIndex, newIndex));
+      }
+    }
+
+    setActiveId(null);
+  }
 };
+
+function PageOverlay({
+  id,
+  items,
+  ...props
+}: Omit<PageProps, "index"> & {items: UniqueIdentifier[]}) {
+  const {activatorEvent, over} = useDndContext();
+  const isKeyboardSorting = isKeyboardEvent(activatorEvent);
+  const activeIndex = items.indexOf(id);
+  const overIndex = over?.id ? items.indexOf(over?.id) : -1;
+
+  return (
+    <Page
+      id={id}
+      {...props}
+      clone
+      insertPosition={
+        isKeyboardSorting && overIndex !== activeIndex
+          ? overIndex > activeIndex
+            ? Position.After
+            : Position.Before
+          : undefined
+      }
+    />
+  );
+}
+
+function SortablePage({
+  id,
+  activeIndex,
+  focusRingColor,
+  ...props
+}: PageProps & {activeIndex: number}) {
+  const {
+    attributes,
+    listeners,
+    index,
+    isDragging,
+    isSorting,
+    over,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({
+    id,
+    animateLayoutChanges: always,
+  });
+
+  return (
+    <Page
+      ref={setNodeRef}
+      focusRingColor={focusRingColor}
+      id={id}
+      active={isDragging}
+      style={{
+        transition,
+        transform: isSorting ? undefined : CSS.Translate.toString(transform),
+      }}
+      insertPosition={
+        over?.id === id ? (index > activeIndex ? Position.After : Position.Before) : undefined
+      }
+      {...props}
+      {...attributes}
+      {...listeners}
+    />
+  );
+}
+
+function always() {
+  return true;
+}
 
 export default FileUploader;
 
