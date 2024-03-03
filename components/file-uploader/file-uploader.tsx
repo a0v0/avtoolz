@@ -37,31 +37,6 @@ interface FileUploderProps {
   primaryColor: string;
 }
 
-const measuring: MeasuringConfiguration = {
-  droppable: {
-    strategy: MeasuringStrategy.Always,
-  },
-};
-
-const dropAnimation: DropAnimation = {
-  keyframes({transform}) {
-    return [
-      {transform: CSS.Transform.toString(transform.initial)},
-      {
-        transform: CSS.Transform.toString({
-          scaleX: 0.98,
-          scaleY: 0.98,
-          x: transform.final.x - 10,
-          y: transform.final.y - 10,
-        }),
-      },
-    ];
-  },
-  sideEffects: defaultDropAnimationSideEffects({
-    className: {},
-  }),
-};
-
 const FileUploader: React.FC<FileUploderProps> = ({primaryColor}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -135,8 +110,32 @@ const FileUploader: React.FC<FileUploderProps> = ({primaryColor}) => {
   function handleRemove(id: UniqueIdentifier) {
     setItems((items) => items.filter((itemId) => itemId !== id));
     updateFiles(files.filter((_, index) => index !== Number(id)));
-    // setSelectedFiles((files) => files.filter((_, index) => index !== id));
   }
+
+  const measuring: MeasuringConfiguration = {
+    droppable: {
+      strategy: MeasuringStrategy.Always,
+    },
+  };
+
+  const dropAnimation: DropAnimation = {
+    keyframes({transform}) {
+      return [
+        {transform: CSS.Transform.toString(transform.initial)},
+        {
+          transform: CSS.Transform.toString({
+            scaleX: 0.98,
+            scaleY: 0.98,
+            x: transform.final.x - 10,
+            y: transform.final.y - 10,
+          }),
+        },
+      ];
+    },
+    sideEffects: defaultDropAnimationSideEffects({
+      className: {},
+    }),
+  };
 
   return (
     <>
