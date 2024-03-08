@@ -1,11 +1,10 @@
-import {Card, CardBody, CardFooter, CardHeader, Chip, Image} from "@nextui-org/react";
+import {getFileType} from "@/libs/file";
+import {UniqueIdentifier} from "@dnd-kit/core";
+import {Card, CardBody, CardHeader, Chip, Image} from "@nextui-org/react";
 import classNames from "classnames";
 import prettyBytes from "pretty-bytes";
 import {HTMLAttributes, forwardRef} from "react";
 import styles from "./Page.module.css";
-
-import {getFileType} from "@/libs/file";
-import {UniqueIdentifier} from "@dnd-kit/core";
 export enum Position {
   Before = -1,
   After = 1,
@@ -57,10 +56,10 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
       ref={ref}
     >
       <button
-        className={`cursor-move hover:ring hover:ring-opacity-100 rounded-lg hover:ring-inherit hover:ring-[${focusRingColor}]`}
+        className={` cursor-move hover:ring hover:ring-opacity-100 rounded-lg hover:ring-inherit hover:ring-[${focusRingColor}]`}
         {...props}
       >
-        <Card radius="lg" className="border-none hover:outline-dashed">
+        <Card radius="lg" className="w-[150px] border-none hover:outline-dashed">
           <CardHeader className="justify-end m-0 pb-0 pt-1 px-1">
             <Card onPress={onRemove} isPressable>
               <Chip size="sm" variant="bordered" color="danger">
@@ -75,18 +74,19 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
               src="https://nextui.org/images/fruit-1.jpeg"
               // width={200}
             />
-          </CardBody>
-          <CardFooter className="overflow-ellipsis pt-0 text-small grid gap-1 justify-between">
-            <b className=" opacity-75">{file?.name} sad asd asd saddasasd</b>
-            <div className="grid m-0  p-0 grid-cols-2 ">
-              <Chip size="sm" color="success" variant="flat">
-                {file.type ? getFileType(file) : "invalid type"}
-              </Chip>
-              <Chip size="sm" color="success" variant="flat">
-                {prettyBytes(file?.size)}
-              </Chip>
+            <div className="text-ellipsis py-2 text-small gap-1 justify-between">
+              <p className="font-bold opacity-75">{file?.name}</p>
+
+              <div className="grid m-0  p-0 grid-cols-2 ">
+                <Chip size="sm" color="success" variant="flat">
+                  {file.type ? getFileType(file) : "invalid type"}
+                </Chip>
+                <Chip size="sm" color="success" variant="flat">
+                  {prettyBytes(file?.size)}
+                </Chip>
+              </div>
             </div>
-          </CardFooter>
+          </CardBody>
         </Card>
       </button>
     </li>

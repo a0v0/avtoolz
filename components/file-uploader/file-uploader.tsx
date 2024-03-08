@@ -306,4 +306,3 @@ export default FileUploader;
 
 // TODO: file preview
 // TODO: error dialog on incompatible files
-// FIXME: fix large preview on long file names
