@@ -305,4 +305,5 @@ function always() {
 export default FileUploader;
 
 // TODO: file preview
-// TODO: error dialog on incompatible files
+// TODO: add file type filter
+// TODO: add more button to add more files
