@@ -33,12 +33,11 @@ export default function page() {
         <FileUploader primaryColor="#18c964" acceptedFileTypes={["application/pdf"]} />
         {files.length > 0 ? (
           <div className="grid grid-cols-2 gap-2">
-            <Button color="success" variant="bordered" onPress={_mergePDF}>
-              Merge PDF
-            </Button>
-
             <Button color="danger" variant="bordered" onPress={reset}>
               Reset
+            </Button>
+            <Button color="success" variant="bordered" onPress={_mergePDF}>
+              Merge PDF
             </Button>
           </div>
         ) : null}
