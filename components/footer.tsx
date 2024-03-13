@@ -19,10 +19,11 @@ export const Footer = () => {
       <Link isExternal href="https://en.wikipedia.org/wiki/Earth">
         <h1 className={title({color: "green", size: "xs"})}>Earth</h1>
       </Link>{" "}
-      by{" "}
+      {/* TODO: uncomment once the number of contributers becomes more than one */}
+      {/* by{" "}
       <Link isExternal href="https://en.wikipedia.org/wiki/Humans">
         <h1 className={title({color: "yellow", size: "xs"})}>Humans</h1>
-      </Link>
+      </Link> */}
     </footer>
   );
 };

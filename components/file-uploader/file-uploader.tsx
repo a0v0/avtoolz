@@ -24,7 +24,21 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import {CSS, isKeyboardEvent} from "@dnd-kit/utilities";
-import {Card, CardBody, Link, Spacer} from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Spacer,
+  useDisclosure,
+} from "@nextui-org/react";
+
+import {MimeType} from "@/libs/mime";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
@@ -33,11 +47,12 @@ import type {Props as PageProps} from "./preview/Page";
 import {Layout, Page, Position} from "./preview/Page";
 import {useFileUploaderStore} from "./store";
 
-interface FileUploderProps {
+interface FileUploaderProps {
   primaryColor: string;
+  acceptedFileTypes: MimeType[];
 }
 
-const FileUploader: React.FC<FileUploderProps> = ({primaryColor}) => {
+const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTypes}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -48,10 +63,19 @@ const FileUploader: React.FC<FileUploderProps> = ({primaryColor}) => {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates}),
   );
-  const {acceptedFiles, isDragAccept, isDragActive, getRootProps, getInputProps, open} =
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const {acceptedFiles, fileRejections, isDragActive, getRootProps, getInputProps, open} =
     useDropzone({
       //  keydown behavior
+
+      accept: acceptedFileTypes.reduce((acc, fileType) => {
+        return {...acc, [fileType]: []};
+      }, {}),
+
       noKeyboard: true,
+      onDropRejected: (fileRejections) => {
+        console.log(fileRejections);
+      },
     });
 
   useEffect(() => {
@@ -59,6 +83,13 @@ const FileUploader: React.FC<FileUploderProps> = ({primaryColor}) => {
       addFiles(acceptedFiles);
     }
   }, [acceptedFiles]);
+
+  // show error model on file rejection
+  useEffect(() => {
+    if (fileRejections.length > 0) {
+      onOpen();
+    }
+  }, [fileRejections]);
 
   useEffect(() => {
     if (files.length > 0) {
@@ -227,6 +258,35 @@ const FileUploader: React.FC<FileUploderProps> = ({primaryColor}) => {
           </CardBody>
         </Card>
       )}
+
+      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Unsupported file type</ModalHeader>
+              <ModalBody>
+                <p>
+                  The file <b style={{color: "red"}}>{fileRejections[0].file.name}</b> is not
+                  supported.
+                </p>
+                <p>Please make sure the file type is one of the following:</p>
+                <ul>
+                  {acceptedFileTypes.map((fileType) => (
+                    <li style={{color: "#18c964"}} key={fileType}>
+                      {fileType}
+                    </li>
+                  ))}
+                </ul>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="flat" onPress={onClose}>
+                  OK
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 };
@@ -305,5 +365,4 @@ function always() {
 export default FileUploader;
 
 // TODO: file preview
-// TODO: add file type filter
 // TODO: add more button to add more files

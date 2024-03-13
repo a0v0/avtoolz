@@ -14,7 +14,6 @@ export default function page() {
   const tool = getToolByHref(path);
 
   function _mergePDF() {
-    // TODO: write merge PDF logic
     console.log(files);
   }
 
@@ -31,7 +30,7 @@ export default function page() {
           {tool?.description}
         </h2>
         <Spacer y={6} />
-        <FileUploader primaryColor="#18c964" />
+        <FileUploader primaryColor="#18c964" acceptedFileTypes={["application/pdf"]} />
         {files.length > 0 ? (
           <div className="grid grid-cols-2 gap-2">
             <Button color="success" variant="bordered" onPress={_mergePDF}>
@@ -44,8 +43,6 @@ export default function page() {
           </div>
         ) : null}
       </center>
-
-      {/* <Dashboard uppy={uppy} /> */}
     </>
   );
 }
