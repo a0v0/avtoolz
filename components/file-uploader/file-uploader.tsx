@@ -74,7 +74,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
 
       noKeyboard: true,
       onDropRejected: (fileRejections) => {
-        console.log(fileRejections);
+        onOpen();
       },
     });
 
@@ -84,17 +84,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
     }
   }, [acceptedFiles]);
 
-  // show error model on file rejection
-  useEffect(() => {
-    if (fileRejections.length > 0) {
-      onOpen();
-    }
-  }, [fileRejections]);
-
   useEffect(() => {
     if (files.length > 0) {
       setItems(files.map((_, index) => index.toString()));
-      console.log(files);
     }
   }, [files]);
 
