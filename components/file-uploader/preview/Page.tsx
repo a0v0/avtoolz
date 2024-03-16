@@ -1,10 +1,12 @@
 import {getFileType} from "@/libs/file";
 import {UniqueIdentifier} from "@dnd-kit/core";
-import {Card, CardBody, CardHeader, Chip, Image} from "@nextui-org/react";
+import {Card, CardBody, CardHeader, Chip} from "@nextui-org/react";
 import classNames from "classnames";
 import prettyBytes from "pretty-bytes";
 import {HTMLAttributes, forwardRef} from "react";
+import {useFileUploaderStore} from "../store";
 import styles from "./Page.module.css";
+
 export enum Position {
   Before = -1,
   After = 1,
@@ -15,6 +17,7 @@ export enum Layout {
   Vertical = "vertical",
   Grid = "grid",
 }
+
 export interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
   active?: boolean;
   clone?: boolean;
@@ -43,6 +46,8 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
   },
   ref,
 ) {
+  const {getPreview} = useFileUploaderStore();
+
   return (
     <li
       className={classNames(
@@ -59,7 +64,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
         className={` cursor-move hover:ring hover:ring-opacity-100 rounded-lg hover:ring-inherit hover:ring-[${focusRingColor}]`}
         {...props}
       >
-        <Card radius="lg" className="w-[150px] border-none hover:outline-dashed">
+        <Card radius="lg" className="w-[175px]  border-none hover:outline-dashed">
           <CardHeader className="justify-end m-0 pb-0 pt-1 px-1">
             <Card onPress={onRemove} isPressable>
               <Chip size="sm" variant="bordered" color="danger">
@@ -67,20 +72,20 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
               </Chip>
             </Card>
           </CardHeader>
-          <CardBody className="pb-1">
-            <Image
-              className="object-cover"
-              // height={200}
-              src="https://nextui.org/images/fruit-1.jpeg"
-              // width={200}
-            />
+          <CardBody className="pb-1 overflow-hidden">
+            <div
+              className="h-40 center "
+              style={{backgroundImage: `url(${getPreview(file)})`, backgroundSize: "cover"}}
+            >
+              {/* <Image className="object-cover h-32" src={getPreview(file)} /> */}
+            </div>
             <div className="text-ellipsis py-2 text-small gap-1 justify-between">
-              <p className="font-bold opacity-75">{file?.name}</p>
+              <p className=" max-h-[3.5rem] truncate font-bold  opacity-75">{file?.name}</p>
 
-              <div className="grid m-0  p-0 grid-cols-2 ">
+              <div className=" m-0  p-0  ">
                 <Chip size="sm" color="success" variant="flat">
                   {file.type ? getFileType(file) : "invalid type"}
-                </Chip>
+                </Chip>{" "}
                 <Chip size="sm" color="success" variant="flat">
                   {prettyBytes(file?.size)}
                 </Chip>

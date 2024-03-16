@@ -30,7 +30,10 @@ export default function page() {
           {tool?.description}
         </h2>
         <Spacer y={6} />
-        <FileUploader primaryColor="#18c964" acceptedFileTypes={["application/pdf"]} />
+        <FileUploader
+          primaryColor="#18c964"
+          acceptedFileTypes={["application/pdf", "image/jpeg", "image/svg+xml"]}
+        />
         {files.length > 0 ? (
           <div className="grid grid-cols-2 gap-2">
             <Button color="danger" variant="bordered" onPress={reset}>
