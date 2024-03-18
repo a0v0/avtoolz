@@ -1,20 +1,24 @@
+import {UniqueIdentifier} from "@dnd-kit/core";
 import {create} from "zustand";
 
 type State = {
   files: File[];
   previews: {file: File; thumb: string}[];
+  items: UniqueIdentifier[];
 };
 
 type Action = {
   reset: () => void;
   addFiles: (files: File[]) => void;
   updateFiles: (files: File[]) => void;
+  setItems: (items: UniqueIdentifier[]) => void;
 };
 
 // define the initial state
 const initialState: State = {
   files: [],
   previews: [],
+  items: [],
 };
 
 export const useFileUploaderStore = create<State & Action>((set) => ({
@@ -31,4 +35,5 @@ export const useFileUploaderStore = create<State & Action>((set) => ({
   reset: () => {
     set(initialState);
   },
+  setItems: (items) => set({items}),
 }));

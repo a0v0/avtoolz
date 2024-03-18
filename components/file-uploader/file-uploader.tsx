@@ -56,9 +56,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const [items, setItems] = useState<UniqueIdentifier[]>([]);
+  const {files, addFiles, updateFiles, items, setItems} = useFileUploaderStore();
   const activeIndex = activeId ? items.indexOf(activeId) : -1;
-  const {files, addFiles, updateFiles} = useFileUploaderStore();
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates}),
@@ -122,7 +121,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
       if (activeIndex !== overIndex) {
         const newIndex = overIndex;
 
-        setItems((items) => arrayMove(items, activeIndex, newIndex));
+        setItems(arrayMove(items, activeIndex, newIndex));
         updateFiles(arrayMove(files, activeIndex, newIndex));
       }
     }
@@ -131,7 +130,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   }
 
   function handleRemove(id: UniqueIdentifier) {
-    setItems((items) => items.filter((itemId) => itemId !== id));
+    setItems(items.filter((itemId) => itemId !== id));
     updateFiles(files.filter((_, index) => index !== Number(id)));
   }
 
@@ -356,5 +355,4 @@ function always() {
 
 export default FileUploader;
 
-// TODO: file preview
 // TODO: add more button to add more files

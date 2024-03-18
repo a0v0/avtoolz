@@ -78,12 +78,20 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
             </Card>
           </CardHeader>
           <CardBody className="pb-1 overflow-hidden">
-            <div
-              className="h-40 center "
-              style={{backgroundImage: `url(${_getPreview(file)})`, backgroundSize: "cover"}}
-            >
-              {/* <Image className="object-cover h-32" src={getPreview(file)} /> */}
-            </div>
+            {file.type === "application/pdf" ? (
+              // <PdfThumbnail pdfUrl={URL.createObjectURL(file)}></PdfThumbnail>
+
+              <div
+                className="h-40 center "
+                style={{backgroundImage: `url(/icons/pdf.svg)`, backgroundSize: "cover"}}
+              ></div>
+            ) : (
+              <div
+                className="h-40 center "
+                style={{backgroundImage: `url(${_getPreview(file)})`, backgroundSize: "cover"}}
+              ></div>
+            )}
+
             <div className="text-ellipsis py-2 text-small gap-1 justify-between">
               <p className=" max-h-[3.5rem] truncate font-bold  opacity-75">{file?.name}</p>
 
