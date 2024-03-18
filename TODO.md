@@ -1,4 +1,5 @@
 TODO: write merge PDF logic
+TODO: add fileicon for unsupported file types
 
 ```
 import { useColorMode } from "@docusaurus/theme-common";

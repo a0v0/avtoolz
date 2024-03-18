@@ -46,7 +46,12 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
   },
   ref,
 ) {
-  const {getPreview} = useFileUploaderStore();
+  const {previews} = useFileUploaderStore();
+
+  const _getPreview = (file: File) => {
+    const preview = previews.find((p) => p.file === file);
+    return preview?.thumb;
+  };
 
   return (
     <li
@@ -75,7 +80,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
           <CardBody className="pb-1 overflow-hidden">
             <div
               className="h-40 center "
-              style={{backgroundImage: `url(${getPreview(file)})`, backgroundSize: "cover"}}
+              style={{backgroundImage: `url(${_getPreview(file)})`, backgroundSize: "cover"}}
             >
               {/* <Image className="object-cover h-32" src={getPreview(file)} /> */}
             </div>
