@@ -1,7 +1,6 @@
 import BackgroundEffects from "@/components/background-effects";
 import HeroX from "@/components/hero";
 import {ToolsCards} from "@/components/tools";
-import Script from "next/script";
 
 // async function getData() {
 //   try {
@@ -22,24 +21,9 @@ export default async function Home() {
     <main className="container mx-auto max-w-7xl px-6 flex-grow">
       <section className="flex flex-col items-center justify-center">
         <BackgroundEffects />
-
-        {/* <Hero /> */}
         <HeroX />
         <ToolsCards />
-        {/* <FeaturesGrid features={landingContent.topFeatures} />
-        <Sponsors />
-        <CustomThemes />
-        <A11yOtb />
-        <DarkMode />
-        <Customization />
-        <LastButNotLeast />
-        <Support sponsors={data.sponsors} />
-        <Spacer y={24} />
-        <InstallBanner />
-        <Community /> */}
-        {/* <Spacer y={24} /> */}
-      </section>{" "}
-      <Script src="/wasm/wasm_exec.js" />
+      </section>
     </main>
   );
 }
