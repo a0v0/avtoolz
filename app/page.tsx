@@ -1,6 +1,7 @@
 import BackgroundEffects from "@/components/background-effects";
 import HeroX from "@/components/hero";
 import {ToolsCards} from "@/components/tools";
+import Script from "next/script";
 
 // async function getData() {
 //   try {
@@ -37,7 +38,8 @@ export default async function Home() {
         <InstallBanner />
         <Community /> */}
         {/* <Spacer y={24} /> */}
-      </section>
+      </section>{" "}
+      <Script src="/wasm/wasm_exec.js" />
     </main>
   );
 }

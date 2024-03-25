@@ -1,3 +1,4 @@
+import {MimeType} from "@/libs/mime";
 import type {
   DragEndEvent,
   DragStartEvent,
@@ -37,8 +38,6 @@ import {
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
-
-import {MimeType} from "@/libs/mime";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
@@ -46,6 +45,7 @@ import {subtitle, title} from "../primitives";
 import type {Props as PageProps} from "./preview/Page";
 import {Layout, Page, Position} from "./preview/Page";
 import {useFileUploaderStore} from "./store";
+import {WasmComponent} from "./wasm";
 
 interface FileUploaderProps {
   primaryColor: string;
@@ -56,7 +56,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const {files, addFiles, updateFiles, items, setItems} = useFileUploaderStore();
+  const {files, addFiles, updateFiles, items, setItems, previews, setPreview} =
+    useFileUploaderStore();
   const activeIndex = activeId ? items.indexOf(activeId) : -1;
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -65,21 +66,54 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const {acceptedFiles, fileRejections, isDragActive, getRootProps, getInputProps, open} =
     useDropzone({
-      //  keydown behavior
-
       accept: acceptedFileTypes.reduce((acc, fileType) => {
         return {...acc, [fileType]: []};
       }, {}),
-
       noKeyboard: true,
       onDropRejected: (fileRejections) => {
         onOpen();
       },
     });
+  const measuring: MeasuringConfiguration = {
+    droppable: {
+      strategy: MeasuringStrategy.Always,
+    },
+  };
+  const dropAnimation: DropAnimation = {
+    keyframes({transform}) {
+      return [
+        {transform: CSS.Transform.toString(transform.initial)},
+        {
+          transform: CSS.Transform.toString({
+            scaleX: 0.98,
+            scaleY: 0.98,
+            x: transform.final.x - 10,
+            y: transform.final.y - 10,
+          }),
+        },
+      ];
+    },
+    sideEffects: defaultDropAnimationSideEffects({
+      className: {},
+    }),
+  };
 
   useEffect(() => {
     if (acceptedFiles) {
       addFiles(acceptedFiles);
+      acceptedFiles.forEach((file) => {
+        // TODO: convert without worker
+        const worker = new Worker(new URL("./workers/generate-pdf-preview.ts", import.meta.url));
+        worker.onmessage = (event) => {
+          console.log("Message received from worker", event.data);
+          setPreview(file, event.data);
+          console.log("Preview set", previews);
+        };
+        // read the file
+
+        // Send data to the worker
+        worker.postMessage({file});
+      });
     }
   }, [acceptedFiles]);
 
@@ -133,31 +167,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
     setItems(items.filter((itemId) => itemId !== id));
     updateFiles(files.filter((_, index) => index !== Number(id)));
   }
-
-  const measuring: MeasuringConfiguration = {
-    droppable: {
-      strategy: MeasuringStrategy.Always,
-    },
-  };
-
-  const dropAnimation: DropAnimation = {
-    keyframes({transform}) {
-      return [
-        {transform: CSS.Transform.toString(transform.initial)},
-        {
-          transform: CSS.Transform.toString({
-            scaleX: 0.98,
-            scaleY: 0.98,
-            x: transform.final.x - 10,
-            y: transform.final.y - 10,
-          }),
-        },
-      ];
-    },
-    sideEffects: defaultDropAnimationSideEffects({
-      className: {},
-    }),
-  };
 
   return (
     <>
@@ -354,5 +363,3 @@ function always() {
 }
 
 export default FileUploader;
-
-// TODO: add more button to add more files

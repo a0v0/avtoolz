@@ -12,6 +12,7 @@ type Action = {
   addFiles: (files: File[]) => void;
   updateFiles: (files: File[]) => void;
   setItems: (items: UniqueIdentifier[]) => void;
+  setPreview: (file: File, thumb: string) => void;
 };
 
 // define the initial state
@@ -24,7 +25,6 @@ const initialState: State = {
 export const useFileUploaderStore = create<State & Action>((set) => ({
   ...initialState,
   addFiles: (files) => {
-    // TODO: also generate pdf preview
     const previews = files.map((file) => ({file, thumb: URL.createObjectURL(file)}));
     set((state) => ({
       files: [...state.files, ...files],
@@ -36,4 +36,12 @@ export const useFileUploaderStore = create<State & Action>((set) => ({
     set(initialState);
   },
   setItems: (items) => set({items}),
+  setPreview: (file, thumb) => {
+    set((state) => {
+      const previews = state.previews.map((preview) =>
+        preview.file === file ? {...preview, thumb} : preview,
+      );
+      return {previews};
+    });
+  },
 }));

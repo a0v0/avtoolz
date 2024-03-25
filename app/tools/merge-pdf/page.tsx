@@ -9,7 +9,6 @@ import {usePathname} from "next/navigation";
 
 export default function page() {
   const {files, reset} = useFileUploaderStore();
-
   const path = usePathname();
   const tool = getToolByHref(path);
 

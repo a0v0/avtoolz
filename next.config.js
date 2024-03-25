@@ -11,6 +11,7 @@ const nextConfig = {
     // ignoreBuildErrors: process.env.IS_VERCEL_ENV === "true",
     ignoreBuildErrors: true,
   },
+
   images: {
     domains: [
       "opencollective-production.s3.us-west-1.amazonaws.com",
