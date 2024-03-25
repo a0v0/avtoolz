@@ -5,7 +5,6 @@ type State = {
   files: File[];
   previews: {file: File; thumb: string}[];
   items: UniqueIdentifier[];
-  isLoading: boolean;
 };
 
 type Action = {
@@ -14,7 +13,6 @@ type Action = {
   updateFiles: (files: File[]) => void;
   setItems: (items: UniqueIdentifier[]) => void;
   setPreview: (file: File, thumb: string) => void;
-  setIsLoading: (isLoading: boolean) => void;
 };
 
 // define the initial state
@@ -22,16 +20,13 @@ const initialState: State = {
   files: [],
   previews: [],
   items: [],
-  isLoading: false,
 };
 
 export const useFileUploaderStore = create<State & Action>((set) => ({
   ...initialState,
   addFiles: (files) => {
-    const previews = files.map((file) => ({file, thumb: URL.createObjectURL(file)}));
     set((state) => ({
       files: [...state.files, ...files],
-      previews: [...state.previews, ...previews],
     }));
   },
   updateFiles: (files) => set({files}),
@@ -39,12 +34,25 @@ export const useFileUploaderStore = create<State & Action>((set) => ({
     set(initialState);
   },
   setItems: (items) => set({items}),
-  setPreview: (file: File, thumb: string) => {
-    set((state) => ({
-      previews: state.previews.map((preview) =>
-        preview.file === file ? {...preview, thumb} : preview,
-      ),
-    }));
+
+  setPreview: (file, thumb) => {
+    set((state) => {
+      const existingPreviewIndex = state.previews.findIndex((preview) => preview.file === file);
+
+      // Check if a preview already exists for the file
+      if (existingPreviewIndex !== -1) {
+        // Update the existing preview
+        return {
+          previews: [
+            ...state.previews.slice(0, existingPreviewIndex),
+            {...state.previews[existingPreviewIndex], thumb},
+            ...state.previews.slice(existingPreviewIndex + 1),
+          ],
+        };
+      } else {
+        // Add a new preview for the file
+        return {previews: [...state.previews, {file, thumb}]};
+      }
+    });
   },
-  setIsLoading: (isLoading) => set({isLoading}),
 }));

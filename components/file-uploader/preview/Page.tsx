@@ -1,12 +1,17 @@
 import {getFileType} from "@/libs/file";
 import {UniqueIdentifier} from "@dnd-kit/core";
-import {Card, CardBody, CardHeader, Chip, CircularProgress} from "@nextui-org/react";
+import {Card, CardBody, CardHeader, Chip, Image} from "@nextui-org/react";
 import classNames from "classnames";
 import prettyBytes from "pretty-bytes";
-import {HTMLAttributes, forwardRef} from "react";
+import {HTMLAttributes, forwardRef, useEffect, useState} from "react";
+import {pdfjs} from "react-pdf";
 import {useFileUploaderStore} from "../store";
 import styles from "./Page.module.css";
 
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.js",
+  import.meta.url,
+).toString();
 export enum Position {
   Before = -1,
   After = 1,
@@ -46,7 +51,62 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
   },
   ref,
 ) {
-  const {previews, isLoading} = useFileUploaderStore();
+  const {previews, setPreview} = useFileUploaderStore();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function genPDFThumb() {
+      const blob = new Blob([file], {type: "application/pdf"});
+      const url = URL.createObjectURL(blob);
+      const loadingTask = pdfjs.getDocument(url);
+      try {
+        const pdfDocument = await loadingTask.promise;
+
+        // Get the first page.
+        const page = await pdfDocument.getPage(1);
+        // Render the page on a Node canvas with 100% scale.
+        const viewport = page.getViewport({scale: 1.0});
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        if (context) {
+          const renderContext = {
+            canvasContext: context,
+            viewport,
+          };
+          const renderTask = page.render(renderContext);
+          await renderTask.promise;
+          const image = canvas.toDataURL();
+          setPreview(file, image);
+        }
+
+        page.cleanup();
+      } catch (reason) {
+        console.log(reason);
+      }
+    }
+    if (file.type === "application/pdf") {
+      // check if the thumbnail already exists
+      const existingPreview = previews.find((preview) => preview.file === file);
+      if (existingPreview) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        genPDFThumb();
+        setIsLoading(false);
+      }
+    } else {
+      const existingPreview = previews.find((preview) => preview.file === file);
+      if (existingPreview) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        setPreview(file, URL.createObjectURL(file));
+        setIsLoading(false);
+      }
+    }
+  }, [file]);
 
   return (
     <li
@@ -75,12 +135,19 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
           <CardBody className="pb-1 overflow-hidden">
             <div
               className="h-40 center"
-              style={{
-                backgroundImage: `url(${previews.find((p) => p.file === file)?.thumb})`,
-                backgroundSize: "cover",
-              }}
+              style={
+                {
+                  // backgroundImage: `url(${previews.find((preview) => preview.file === file)?.thumb})`,
+                  // backgroundSize: "cover",
+                }
+              }
             >
-              {isLoading ? <CircularProgress color="primary" aria-label="Loading..." /> : null}
+              <Image
+                className="h-40 object-cover w-full"
+                width={"auto"}
+                style={{objectFit: "cover"}}
+                src={previews.find((preview) => preview.file === file)?.thumb}
+              />
             </div>
 
             <div className="text-ellipsis py-2 text-small gap-1 justify-between">

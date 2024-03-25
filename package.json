@@ -54,7 +54,6 @@
     "@react-stately/tree": "^3.7.6",
     "@rehooks/local-storage": "^2.4.5",
     "@vercel/analytics": "^1.2.2",
-    "canvas": "^2.11.2",
     "canvas-confetti": "^1.9.2",
     "classnames": "^2.5.1",
     "cmdk": "^0.2.1",

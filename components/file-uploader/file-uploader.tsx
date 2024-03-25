@@ -1,3 +1,4 @@
+import {MimeType} from "@/libs/mime";
 import type {
   DragEndEvent,
   DragStartEvent,
@@ -37,10 +38,6 @@ import {
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
-
-import {pdfjs} from "react-pdf";
-// import * as pdfjsWorker from "pdfjs-dist/legacy/build/pdf.worker.mjs";
-import {MimeType} from "@/libs/mime";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
@@ -48,11 +45,6 @@ import {subtitle, title} from "../primitives";
 import type {Props as PageProps} from "./preview/Page";
 import {Layout, Page, Position} from "./preview/Page";
 import {useFileUploaderStore} from "./store";
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.js",
-  import.meta.url,
-).toString();
 
 interface FileUploaderProps {
   primaryColor: string;
@@ -63,17 +55,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const {
-    files,
-    addFiles,
-    updateFiles,
-    items,
-    setItems,
-    previews,
-    setPreview,
-    isLoading,
-    setIsLoading,
-  } = useFileUploaderStore();
+  const {files, addFiles, updateFiles, items, setItems, previews, setPreview} =
+    useFileUploaderStore();
   const activeIndex = activeId ? items.indexOf(activeId) : -1;
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -117,46 +100,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   useEffect(() => {
     if (acceptedFiles) {
       addFiles(acceptedFiles);
-      acceptedFiles.forEach((file) => {
-        async function genPDFThumb() {
-          setIsLoading(true);
-          const blob = new Blob([file], {type: "application/pdf"});
-          const url = URL.createObjectURL(blob);
-          const loadingTask = pdfjs.getDocument(url);
-          try {
-            const pdfDocument = await loadingTask.promise;
-            console.log("# PDF document loaded.");
-            // Get the first page.
-            const page = await pdfDocument.getPage(1);
-            // Render the page on a Node canvas with 100% scale.
-            const viewport = page.getViewport({scale: 1.0});
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-            if (context) {
-              const renderContext = {
-                canvasContext: context,
-                viewport,
-              };
-              const renderTask = page.render(renderContext);
-              await renderTask.promise;
-
-              const image = canvas.toDataURL();
-              setPreview(file, image);
-              console.log("Preview set", previews);
-            }
-
-            page.cleanup();
-            setIsLoading(false);
-          } catch (reason) {
-            console.log(reason);
-          }
-        }
-        if (file.type === "application/pdf") {
-          genPDFThumb();
-        }
-      });
     }
   }, [acceptedFiles]);
 
@@ -174,15 +117,18 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
     setIsOverlayVisible(isDragActive);
   }, [isDragActive]);
 
-  document.addEventListener("dragover", (e) => {
-    setIsDragging(true);
-  });
-  document.addEventListener("dragend", (e) => {
-    setIsDragging(false);
-  });
-  document.addEventListener("dragleave", (e) => {
-    setIsDragging(false);
-  });
+  useEffect(() => {
+    document.addEventListener("dragover", (e) => {
+      setIsDragging(true);
+    });
+    document.addEventListener("dragend", (e) => {
+      setIsDragging(false);
+    });
+    document.addEventListener("dragleave", (e) => {
+      setIsDragging(false);
+    });
+  }, []);
+
   function handleDragStart({active}: DragStartEvent) {
     setActiveId(active.id);
   }
@@ -262,6 +208,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
             {activeId ? (
               <PageOverlay
                 focusRingColor={primaryColor}
+                // @ts-ignore
                 file={files[activeId]}
                 id={activeId}
                 layout={Layout.Grid}
