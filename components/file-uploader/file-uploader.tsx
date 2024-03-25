@@ -1,4 +1,3 @@
-import {MimeType} from "@/libs/mime";
 import type {
   DragEndEvent,
   DragStartEvent,
@@ -38,7 +37,10 @@ import {
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
-import {createMuPdf} from "mupdf-js";
+
+import {pdfjs} from "react-pdf";
+// import * as pdfjsWorker from "pdfjs-dist/legacy/build/pdf.worker.mjs";
+import {MimeType} from "@/libs/mime";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
@@ -46,6 +48,11 @@ import {subtitle, title} from "../primitives";
 import type {Props as PageProps} from "./preview/Page";
 import {Layout, Page, Position} from "./preview/Page";
 import {useFileUploaderStore} from "./store";
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.js",
+  import.meta.url,
+).toString();
 
 interface FileUploaderProps {
   primaryColor: string;
@@ -56,8 +63,17 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const {files, addFiles, updateFiles, items, setItems, previews, setPreview} =
-    useFileUploaderStore();
+  const {
+    files,
+    addFiles,
+    updateFiles,
+    items,
+    setItems,
+    previews,
+    setPreview,
+    isLoading,
+    setIsLoading,
+  } = useFileUploaderStore();
   const activeIndex = activeId ? items.indexOf(activeId) : -1;
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -97,33 +113,45 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
       className: {},
     }),
   };
-  const [imgp, setImgp] = useState("");
+
   useEffect(() => {
     if (acceptedFiles) {
       addFiles(acceptedFiles);
       acceptedFiles.forEach((file) => {
-        // TODO: convert without worker
-        // const worker = new Worker(new URL("./workers/generate-pdf-preview.ts", import.meta.url));
-        // worker.onmessage = (event) => {
-        //   console.log("Message received from worker", event.data);
-        //   setPreview(file, event.data);
-        //   console.log("Preview set", previews);
-        // };
-        // // read the file
-
-        // // Send data to the worker
-        // worker.postMessage({file});
         async function genPDFThumb() {
-          const mupdf = await createMuPdf();
-          const buf = await file.arrayBuffer();
-          const arrayBuf = new Uint8Array(buf);
-          const doc = mupdf.load(arrayBuf);
-          // Each of these returns a string:
-          const png = mupdf.drawPageAsPNG(doc, 1, 300);
-          console.log(png);
-          setPreview(file, png);
-          setImgp(png);
-          console.log(previews);
+          setIsLoading(true);
+          const blob = new Blob([file], {type: "application/pdf"});
+          const url = URL.createObjectURL(blob);
+          const loadingTask = pdfjs.getDocument(url);
+          try {
+            const pdfDocument = await loadingTask.promise;
+            console.log("# PDF document loaded.");
+            // Get the first page.
+            const page = await pdfDocument.getPage(1);
+            // Render the page on a Node canvas with 100% scale.
+            const viewport = page.getViewport({scale: 1.0});
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            if (context) {
+              const renderContext = {
+                canvasContext: context,
+                viewport,
+              };
+              const renderTask = page.render(renderContext);
+              await renderTask.promise;
+
+              const image = canvas.toDataURL();
+              setPreview(file, image);
+              console.log("Preview set", previews);
+            }
+
+            page.cleanup();
+            setIsLoading(false);
+          } catch (reason) {
+            console.log(reason);
+          }
         }
         if (file.type === "application/pdf") {
           genPDFThumb();
@@ -185,7 +213,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
 
   return (
     <>
-      <img src={imgp} alt="pdf" />
       <Card
         style={{display: isOverlayVisible ? "block" : "none"}}
         {...getRootProps({

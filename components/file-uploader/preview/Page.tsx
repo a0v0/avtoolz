@@ -1,6 +1,6 @@
 import {getFileType} from "@/libs/file";
 import {UniqueIdentifier} from "@dnd-kit/core";
-import {Card, CardBody, CardHeader, Chip} from "@nextui-org/react";
+import {Card, CardBody, CardHeader, Chip, CircularProgress} from "@nextui-org/react";
 import classNames from "classnames";
 import prettyBytes from "pretty-bytes";
 import {HTMLAttributes, forwardRef} from "react";
@@ -46,7 +46,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
   },
   ref,
 ) {
-  const {previews} = useFileUploaderStore();
+  const {previews, isLoading} = useFileUploaderStore();
 
   return (
     <li
@@ -79,7 +79,9 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
                 backgroundImage: `url(${previews.find((p) => p.file === file)?.thumb})`,
                 backgroundSize: "cover",
               }}
-            ></div>
+            >
+              {isLoading ? <CircularProgress color="primary" aria-label="Loading..." /> : null}
+            </div>
 
             <div className="text-ellipsis py-2 text-small gap-1 justify-between">
               <p className=" max-h-[3.5rem] truncate font-bold  opacity-75">{file?.name}</p>

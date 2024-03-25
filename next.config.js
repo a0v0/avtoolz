@@ -11,7 +11,11 @@ const nextConfig = {
     // ignoreBuildErrors: process.env.IS_VERCEL_ENV === "true",
     ignoreBuildErrors: true,
   },
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
 
+    return config;
+  },
   // images: {
   //   domains: [
   //     "opencollective-production.s3.us-west-1.amazonaws.com",
