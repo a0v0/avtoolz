@@ -36,12 +36,11 @@ export const useFileUploaderStore = create<State & Action>((set) => ({
     set(initialState);
   },
   setItems: (items) => set({items}),
-  setPreview: (file, thumb) => {
-    set((state) => {
-      const previews = state.previews.map((preview) =>
+  setPreview: (file: File, thumb: string) => {
+    set((state) => ({
+      previews: state.previews.map((preview) =>
         preview.file === file ? {...preview, thumb} : preview,
-      );
-      return {previews};
-    });
+      ),
+    }));
   },
 }));

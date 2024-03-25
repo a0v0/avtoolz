@@ -12,14 +12,21 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  images: {
-    domains: [
-      "opencollective-production.s3.us-west-1.amazonaws.com",
-      "avatars.githubusercontent.com",
-      "logo.clearbit.com",
-      "i.pravatar.cc",
-    ],
-  },
+  // images: {
+  //   domains: [
+  //     "opencollective-production.s3.us-west-1.amazonaws.com",
+  //     "avatars.githubusercontent.com",
+  //     "logo.clearbit.com",
+  //     "i.pravatar.cc",
+  //   ],
+  // },
+
+  rewrites: async () => [
+    {
+      source: "/tools/libmupdf.wasm",
+      destination: "/wasm/libmupdf.wasm",
+    },
+  ],
 };
 
 module.exports = nextConfig;

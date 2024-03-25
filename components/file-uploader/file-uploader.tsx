@@ -38,6 +38,7 @@ import {
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
+import {createMuPdf} from "mupdf-js";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
@@ -45,7 +46,6 @@ import {subtitle, title} from "../primitives";
 import type {Props as PageProps} from "./preview/Page";
 import {Layout, Page, Position} from "./preview/Page";
 import {useFileUploaderStore} from "./store";
-import {WasmComponent} from "./wasm";
 
 interface FileUploaderProps {
   primaryColor: string;
@@ -97,22 +97,37 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
       className: {},
     }),
   };
-
+  const [imgp, setImgp] = useState("");
   useEffect(() => {
     if (acceptedFiles) {
       addFiles(acceptedFiles);
       acceptedFiles.forEach((file) => {
         // TODO: convert without worker
-        const worker = new Worker(new URL("./workers/generate-pdf-preview.ts", import.meta.url));
-        worker.onmessage = (event) => {
-          console.log("Message received from worker", event.data);
-          setPreview(file, event.data);
-          console.log("Preview set", previews);
-        };
-        // read the file
+        // const worker = new Worker(new URL("./workers/generate-pdf-preview.ts", import.meta.url));
+        // worker.onmessage = (event) => {
+        //   console.log("Message received from worker", event.data);
+        //   setPreview(file, event.data);
+        //   console.log("Preview set", previews);
+        // };
+        // // read the file
 
-        // Send data to the worker
-        worker.postMessage({file});
+        // // Send data to the worker
+        // worker.postMessage({file});
+        async function genPDFThumb() {
+          const mupdf = await createMuPdf();
+          const buf = await file.arrayBuffer();
+          const arrayBuf = new Uint8Array(buf);
+          const doc = mupdf.load(arrayBuf);
+          // Each of these returns a string:
+          const png = mupdf.drawPageAsPNG(doc, 1, 300);
+          console.log(png);
+          setPreview(file, png);
+          setImgp(png);
+          console.log(previews);
+        }
+        if (file.type === "application/pdf") {
+          genPDFThumb();
+        }
       });
     }
   }, [acceptedFiles]);
@@ -170,6 +185,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
 
   return (
     <>
+      <img src={imgp} alt="pdf" />
       <Card
         style={{display: isOverlayVisible ? "block" : "none"}}
         {...getRootProps({

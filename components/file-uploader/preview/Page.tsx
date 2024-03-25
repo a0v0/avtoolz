@@ -73,15 +73,13 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
             </Card>
           </CardHeader>
           <CardBody className="pb-1 overflow-hidden">
-            {previews.find((p) => p.file === file)?.thumb ? (
-              <div
-                className="h-40 center"
-                style={{
-                  backgroundImage: `url(${previews.find((p) => p.file === file)?.thumb})`,
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            ) : null}
+            <div
+              className="h-40 center"
+              style={{
+                backgroundImage: `url(${previews.find((p) => p.file === file)?.thumb})`,
+                backgroundSize: "cover",
+              }}
+            ></div>
 
             <div className="text-ellipsis py-2 text-small gap-1 justify-between">
               <p className=" max-h-[3.5rem] truncate font-bold  opacity-75">{file?.name}</p>

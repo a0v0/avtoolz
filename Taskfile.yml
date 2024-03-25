@@ -15,12 +15,7 @@ tasks:
     cmds:
       - pnpm build
 
-  # update_search_index:
-  #   desc: Generate search index
-  #   cmds:
-  #     - pnpm update:search-meta
-
   disable_telemetry:
-    desc: Disable telemetry
+    desc: Disable nextjs telemetry
     cmds:
       - pnpm exec next telemetry disable
