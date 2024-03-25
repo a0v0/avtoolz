@@ -1,18 +1,11 @@
 "use client";
 
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  LinkProps,
-  SlotsToClasses,
-} from "@nextui-org/react";
-import { useRouter } from "next/navigation";
-import React, { ReactNode } from "react";
-import { tv } from "tailwind-variants";
-
-import { trackEvent } from "@/utils/va";
-import { LinkIcon } from "@nextui-org/shared-icons";
+import {trackEvent} from "@/utils/va";
+import {Card, CardBody, CardHeader, LinkProps, SlotsToClasses} from "@nextui-org/react";
+import {LinkIcon} from "@nextui-org/shared-icons";
+import {useRouter} from "next/navigation";
+import React, {ReactNode} from "react";
+import {tv} from "tailwind-variants";
 
 const styles = tv({
   slots: {
@@ -40,11 +33,7 @@ interface FeaturesGridProps {
   classNames?: SlotsToClasses<FeaturesGridSlots>;
 }
 
-export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
-  features,
-  classNames,
-  ...props
-}) => {
+export const FeaturesGrid: React.FC<FeaturesGridProps> = ({features, classNames, ...props}) => {
   const router = useRouter();
 
   const slots = styles();
@@ -70,30 +59,22 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
   };
 
   return (
-    <div className={slots.base({ class: classNames?.base })} {...props}>
-      {features.map((feat: Feature, index: number) => (
+    <div className={slots.base({class: classNames?.base})} {...props}>
+      {features.map((feat: Feature) => (
         <Card
-          key={`${feat.title}_${index}`}
+          key={feat.title}
           isBlurred
-          className={slots.card({ class: classNames?.card })}
+          className={slots.card({class: classNames?.card})}
           isPressable={!!feat.href}
           onPress={() => handleClick(feat)}
         >
-          <CardHeader className={slots.header({ class: classNames?.header })}>
-            <div
-              className={slots.iconWrapper({ class: classNames?.iconWrapper })}
-            >
-              {feat.icon}
-            </div>
-            <p className={slots.title({ class: classNames?.title })}>
-              {feat.title}
-            </p>
-            {feat.isExternal && (
-              <LinkIcon className="text-white" height={18} width={18} />
-            )}
+          <CardHeader className={slots.header({class: classNames?.header})}>
+            <div className={slots.iconWrapper({class: classNames?.iconWrapper})}>{feat.icon}</div>
+            <p className={slots.title({class: classNames?.title})}>{feat.title}</p>
+            {feat.isExternal && <LinkIcon className="text-white" height={18} width={18} />}
           </CardHeader>
           {feat.description ? (
-            <CardBody className={slots.body({ class: classNames?.body })}>
+            <CardBody className={slots.body({class: classNames?.body})}>
               <p
                 className={slots.description({
                   class: classNames?.description,

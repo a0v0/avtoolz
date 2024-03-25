@@ -2,6 +2,7 @@
 const nextConfig = {
   transpilePackages: ["@nextui-org/react", "@nextui-org/theme"],
   swcMinify: true,
+
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   // redirects: require("./next-redirect.js"),
   eslint: {
@@ -16,21 +17,6 @@ const nextConfig = {
 
     return config;
   },
-  // images: {
-  //   domains: [
-  //     "opencollective-production.s3.us-west-1.amazonaws.com",
-  //     "avatars.githubusercontent.com",
-  //     "logo.clearbit.com",
-  //     "i.pravatar.cc",
-  //   ],
-  // },
-
-  rewrites: async () => [
-    {
-      source: "/tools/libmupdf.wasm",
-      destination: "/wasm/libmupdf.wasm",
-    },
-  ],
 };
 
 module.exports = nextConfig;
