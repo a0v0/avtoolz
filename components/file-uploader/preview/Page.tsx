@@ -1,4 +1,5 @@
 import {getFileType} from "@/libs/file";
+import {getFileIcon} from "@/utils/fileIcon";
 import {UniqueIdentifier} from "@dnd-kit/core";
 import {Card, CardBody, CardHeader, Chip, Image} from "@nextui-org/react";
 import classNames from "classnames";
@@ -53,6 +54,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
 ) {
   const {previews, setPreview, setError} = useFileUploaderStore();
 
+  // Generate a thumbnail for files
   useEffect(() => {
     async function genPDFThumb() {
       const blob = new Blob([file], {type: "application/pdf"});
@@ -99,12 +101,14 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
       } else {
         genPDFThumb();
       }
-    } else {
+    } else if (file.type.startsWith("image")) {
       const existingPreview = previews.find((preview) => preview.file === file);
       if (existingPreview) {
       } else {
         setPreview(file, URL.createObjectURL(file));
       }
+    } else {
+      setPreview(file, "");
     }
   }, [file]);
 
@@ -141,7 +145,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
                 src={
                   previews.find((preview) => preview.file === file)?.thumb
                     ? previews.find((preview) => preview.file === file)?.thumb
-                    : "/icons/pdf.svg"
+                    : getFileIcon(file)
                 }
               />
             </div>
