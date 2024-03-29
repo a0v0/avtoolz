@@ -5,6 +5,7 @@ type State = {
   files: File[];
   previews: {file: File; thumb: string}[];
   items: UniqueIdentifier[];
+  error: string;
 };
 
 type Action = {
@@ -13,6 +14,7 @@ type Action = {
   updateFiles: (files: File[]) => void;
   setItems: (items: UniqueIdentifier[]) => void;
   setPreview: (file: File, thumb: string) => void;
+  setError: (error: string) => void;
 };
 
 // define the initial state
@@ -20,6 +22,7 @@ const initialState: State = {
   files: [],
   previews: [],
   items: [],
+  error: "",
 };
 
 export const useFileUploaderStore = create<State & Action>((set) => ({
@@ -55,4 +58,5 @@ export const useFileUploaderStore = create<State & Action>((set) => ({
       }
     });
   },
+  setError: (error) => set({error}),
 }));

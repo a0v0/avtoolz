@@ -3,7 +3,7 @@ import {UniqueIdentifier} from "@dnd-kit/core";
 import {Card, CardBody, CardHeader, Chip, Image} from "@nextui-org/react";
 import classNames from "classnames";
 import prettyBytes from "pretty-bytes";
-import {HTMLAttributes, forwardRef, useEffect, useState} from "react";
+import {HTMLAttributes, forwardRef, useEffect} from "react";
 import {pdfjs} from "react-pdf";
 import {useFileUploaderStore} from "../store";
 import styles from "./Page.module.css";
@@ -51,12 +51,16 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
   },
   ref,
 ) {
-  const {previews, setPreview} = useFileUploaderStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const {previews, setPreview, setError} = useFileUploaderStore();
 
   useEffect(() => {
     async function genPDFThumb() {
       const blob = new Blob([file], {type: "application/pdf"});
+      // if blob size is greater than 10MB, return set preview as null
+      if (blob.size > 10 * 1024 * 1024) {
+        setPreview(file, "");
+        return;
+      }
       const url = URL.createObjectURL(blob);
       const loadingTask = pdfjs.getDocument(url);
       try {
@@ -84,26 +88,22 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
         page.cleanup();
       } catch (reason) {
         console.log(reason);
+        setError("inavlid");
       }
     }
+
     if (file.type === "application/pdf") {
       // check if the thumbnail already exists
       const existingPreview = previews.find((preview) => preview.file === file);
       if (existingPreview) {
-        setIsLoading(false);
       } else {
-        setIsLoading(true);
         genPDFThumb();
-        setIsLoading(false);
       }
     } else {
       const existingPreview = previews.find((preview) => preview.file === file);
       if (existingPreview) {
-        setIsLoading(false);
       } else {
-        setIsLoading(true);
         setPreview(file, URL.createObjectURL(file));
-        setIsLoading(false);
       }
     }
   }, [file]);
@@ -133,20 +133,16 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
             </Card>
           </CardHeader>
           <CardBody className="pb-1 overflow-hidden">
-            <div
-              className="h-40 center"
-              style={
-                {
-                  // backgroundImage: `url(${previews.find((preview) => preview.file === file)?.thumb})`,
-                  // backgroundSize: "cover",
-                }
-              }
-            >
+            <div className="h-40 center">
               <Image
                 className="h-40 object-cover w-full"
                 width={"auto"}
                 style={{objectFit: "cover"}}
-                src={previews.find((preview) => preview.file === file)?.thumb}
+                src={
+                  previews.find((preview) => preview.file === file)?.thumb
+                    ? previews.find((preview) => preview.file === file)?.thumb
+                    : "/icons/pdf.svg"
+                }
               />
             </div>
 

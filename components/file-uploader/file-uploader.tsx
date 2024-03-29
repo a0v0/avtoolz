@@ -55,8 +55,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const {files, addFiles, updateFiles, items, setItems, previews, setPreview} =
-    useFileUploaderStore();
+  const {files, addFiles, updateFiles, items, setItems, error} = useFileUploaderStore();
   const activeIndex = activeId ? items.indexOf(activeId) : -1;
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -167,7 +166,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
       >
         <CardBody
           style={{color: "white"}}
-          // style={{color: theme === "light" ? "white" : "null"}}
           className="justify-center items-center h-screen "
           onClick={() => setIsOverlayVisible(false)}
         >
@@ -176,10 +174,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
         </CardBody>
       </Card>
 
-      {/* file preview here */}
-
       {files.length > 0 ? (
-        // <FilePreview focusRingColor={primaryColor} files={selectedFiles} layout={Layout.Grid} />
         <DndContext
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
