@@ -9,6 +9,7 @@
       "tailwind-variants": ["./node_modules/tailwind-variants"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     },
+
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,

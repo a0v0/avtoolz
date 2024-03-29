@@ -1,5 +1,5 @@
 import {ToolCategory} from "@/types/tool";
-import {Tools} from "../app/tool/config";
+import {Tools} from "./config";
 
 export const routes = {
   routes: [

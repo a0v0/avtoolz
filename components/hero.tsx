@@ -21,7 +21,7 @@ function HeroX() {
             class: "text-center",
           })}
         >
-          Modern, fast, and beautiful tools for everyone.
+          Fast, beautiful and modern tools for everyone.
         </h2>{" "}
         <Button
           as={Link}

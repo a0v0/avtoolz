@@ -1,37 +1,31 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 "use client";
 
-import { Command } from "cmdk";
-import { useEffect, useState, FC, useMemo, useCallback, useRef } from "react";
-import { matchSorter } from "match-sorter";
-import {
-  Button,
-  ButtonProps,
-  Kbd,
-  Modal,
-  ModalContent,
-} from "@nextui-org/react";
-import { CloseIcon } from "@nextui-org/shared-icons";
-import { tv } from "tailwind-variants";
-import { usePathname, useRouter } from "next/navigation";
+import {Button, ButtonProps, Kbd, Modal, ModalContent} from "@nextui-org/react";
+import {CloseIcon} from "@nextui-org/shared-icons";
+import {clsx} from "@nextui-org/shared-utils";
+import {isAppleDevice, isWebKit} from "@react-aria/utils";
+import {useLocalStorage, writeStorage} from "@rehooks/local-storage";
+import {Command} from "cmdk";
+import {intersectionBy, isEmpty} from "lodash";
+import {matchSorter} from "match-sorter";
+import {usePathname, useRouter} from "next/navigation";
+import {FC, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import MultiRef from "react-multi-ref";
-import { clsx } from "@nextui-org/shared-utils";
 import scrollIntoView from "scroll-into-view-if-needed";
-import { isAppleDevice, isWebKit } from "@react-aria/utils";
-import { create } from "zustand";
-import { intersectionBy, isEmpty } from "lodash";
-import { writeStorage, useLocalStorage } from "@rehooks/local-storage";
+import {tv} from "tailwind-variants";
+import {create} from "zustand";
 
 import {
+  ChevronRightLinearIcon,
   DocumentCodeBoldIcon,
   HashBoldIcon,
-  ChevronRightLinearIcon,
   SearchLinearIcon,
 } from "./icons";
 
 import searchData from "@/config/search-meta.json";
-import { useUpdateEffect } from "@/hooks/use-update-effect";
-import { trackEvent } from "@/utils/va";
+import {useUpdateEffect} from "@/hooks/use-update-effect";
+import {trackEvent} from "@/utils/va";
 
 const hideOnPaths = ["examples"];
 
@@ -43,8 +37,8 @@ export interface CmdkStore {
 
 export const useCmdkStore = create<CmdkStore>((set) => ({
   isOpen: false,
-  onClose: () => set({ isOpen: false }),
-  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({isOpen: false}),
+  onOpen: () => set({isOpen: true}),
 }));
 
 const cmdk = tv({
@@ -110,14 +104,7 @@ const cmdk = tv({
       "group-data-[active=true]:text-primary-foreground",
       "select-none",
     ],
-    emptyWrapper: [
-      "flex",
-      "flex-col",
-      "text-center",
-      "items-center",
-      "justify-center",
-      "h-32",
-    ],
+    emptyWrapper: ["flex", "flex-col", "text-center", "items-center", "justify-center", "h-32"],
   },
 });
 
@@ -133,12 +120,7 @@ interface SearchResultItem {
   };
 }
 
-const MATCH_KEYS = [
-  "hierarchy.lvl1",
-  "hierarchy.lvl2",
-  "hierarchy.lvl3",
-  "content",
-];
+const MATCH_KEYS = ["hierarchy.lvl1", "hierarchy.lvl2", "hierarchy.lvl3", "content"];
 const RECENT_SEARCHES_KEY = "recent-searches";
 const MAX_RECENT_SEARCHES = 10;
 const MAX_RESULTS = 20;
@@ -155,27 +137,20 @@ export const Cmdk: FC<{}> = () => {
   const listRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const { isOpen, onClose, onOpen } = useCmdkStore();
+  const {isOpen, onClose, onOpen} = useCmdkStore();
 
-  const [recentSearches] =
-    useLocalStorage<SearchResultItem[]>(RECENT_SEARCHES_KEY);
+  const [recentSearches] = useLocalStorage<SearchResultItem[]>(RECENT_SEARCHES_KEY);
 
   const addToRecentSearches = (item: SearchResultItem) => {
     let searches = recentSearches ?? [];
 
     // Avoid adding the same search again
     if (!searches.find((i) => i.objectID === item.objectID)) {
-      writeStorage(
-        RECENT_SEARCHES_KEY,
-        [item, ...searches].slice(0, MAX_RECENT_SEARCHES)
-      );
+      writeStorage(RECENT_SEARCHES_KEY, [item, ...searches].slice(0, MAX_RECENT_SEARCHES));
     } else {
       // Move the search to the top
       searches = searches.filter((i) => i.objectID !== item.objectID);
-      writeStorage(
-        RECENT_SEARCHES_KEY,
-        [item, ...searches].slice(0, MAX_RECENT_SEARCHES)
-      );
+      writeStorage(RECENT_SEARCHES_KEY, [item, ...searches].slice(0, MAX_RECENT_SEARCHES));
     }
   };
 
@@ -196,13 +171,10 @@ export const Cmdk: FC<{}> = () => {
       const matchesForEachWord = words.map((word) =>
         matchSorter(data, word, {
           keys: MATCH_KEYS,
-        })
+        }),
       );
 
-      const matches = intersectionBy(...matchesForEachWord, "objectID").slice(
-        0,
-        MAX_RESULTS
-      );
+      const matches = intersectionBy(...matchesForEachWord, "objectID").slice(0, MAX_RESULTS);
 
       trackEvent("Cmdk - Search", {
         name: "cmdk - search",
@@ -217,7 +189,7 @@ export const Cmdk: FC<{}> = () => {
 
       return matches;
     },
-    [query]
+    [query],
   );
 
   const items = !isEmpty(results) ? results : recentSearches ?? [];
@@ -260,7 +232,7 @@ export const Cmdk: FC<{}> = () => {
         data: item.url,
       });
     },
-    [router, recentSearches]
+    [router, recentSearches],
   );
 
   const onInputKeyDown = useCallback(
@@ -298,7 +270,7 @@ export const Cmdk: FC<{}> = () => {
         }
       }
     },
-    [activeItem, items, router]
+    [activeItem, items, router],
   );
 
   useUpdateEffect(() => {
@@ -332,7 +304,7 @@ export const Cmdk: FC<{}> = () => {
           isIconOnly
           className={clsx(
             "border data-[hover=true]:bg-content2 border-default-400 dark:border-default-100",
-            className
+            className,
           )}
           radius="full"
           size="sm"
@@ -343,7 +315,7 @@ export const Cmdk: FC<{}> = () => {
         </Button>
       );
     },
-    []
+    [],
   );
 
   const renderItem = useCallback(
@@ -351,11 +323,7 @@ export const Cmdk: FC<{}> = () => {
       const isLvl1 = item.type === "lvl1";
 
       const mainIcon = isRecent ? (
-        <SearchLinearIcon
-          className={slots.leftIcon()}
-          size={20}
-          strokeWidth={2}
-        />
+        <SearchLinearIcon className={slots.leftIcon()} size={20} strokeWidth={2} />
       ) : isLvl1 ? (
         <DocumentCodeBoldIcon className={slots.leftIcon()} />
       ) : (
@@ -382,14 +350,10 @@ export const Cmdk: FC<{}> = () => {
             onItemSelect(item);
           }}
         >
-          <div className={slots.leftWrapper()}>
+          <div key={item.objectID} className={slots.leftWrapper()}>
             {mainIcon}
             <div className={slots.itemContent()}>
-              {!isLvl1 && (
-                <span className={slots.itemParentTitle()}>
-                  {item.hierarchy.lvl1}
-                </span>
-              )}
+              {!isLvl1 && <span className={slots.itemParentTitle()}>{item.hierarchy.lvl1}</span>}
               <p className={slots.itemTitle()}>{item.content}</p>
             </div>
           </div>
@@ -398,7 +362,7 @@ export const Cmdk: FC<{}> = () => {
         </Command.Item>
       );
     },
-    [activeItem, onItemSelect, CloseButton, slots]
+    [activeItem, onItemSelect, CloseButton, slots],
   );
 
   const shouldOpen = !hideOnPaths.some((path) => pathname.includes(path));
@@ -433,11 +397,7 @@ export const Cmdk: FC<{}> = () => {
       onClose={() => onClose()}
     >
       <ModalContent>
-        <Command
-          className={slots.base()}
-          label="Quick search command"
-          shouldFilter={false}
-        >
+        <Command className={slots.base()} label="Quick search command" shouldFilter={false}>
           <div className={slots.header()}>
             <SearchLinearIcon className={slots.searchIcon()} strokeWidth={2} />
             <Command.Input
@@ -464,9 +424,7 @@ export const Cmdk: FC<{}> = () => {
                         Try adding more characters to your search term.
                       </p>
                     ) : (
-                      <p className="text-default-400">
-                        Try searching for something else.
-                      </p>
+                      <p className="text-default-400">Try searching for something else.</p>
                     )}
                   </div>
                 </div>
@@ -488,9 +446,7 @@ export const Cmdk: FC<{}> = () => {
                       </div>
                     }
                   >
-                    {recentSearches.map((item, index) =>
-                      renderItem(item, index, true)
-                    )}
+                    {recentSearches.map((item, index) => renderItem(item, index, true))}
                   </Command.Group>
                 )
               ))}

@@ -14,15 +14,15 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="w-full flex items-center justify-center py-3">
-      <Link
-        isExternal
-        className="flex items-center gap-1 text-current"
-        href="https://en.wikipedia.org/wiki/Earth"
-        title="Crafted with 🥰 on Earth"
-      >
-        Crafted with <SmilingFaceWithHeartsEmoji className="inline" size={20} /> on{" "}
+    <footer className="w-full flex gap-1 items-center justify-center py-3 text-current">
+      Crafted with <SmilingFaceWithHeartsEmoji className="inline" size={20} /> on{" "}
+      <Link isExternal href="https://en.wikipedia.org/wiki/Earth">
         <h1 className={title({color: "green", size: "xs"})}>Earth</h1>
+      </Link>{" "}
+      {/* FIXME: add github link to collaborators */}
+      by{" "}
+      <Link isExternal href="https://en.wikipedia.org/wiki/Humans">
+        <h1 className={title({color: "yellow", size: "xs"})}>Humans</h1>
       </Link>
     </footer>
   );

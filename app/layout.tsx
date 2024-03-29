@@ -1,3 +1,4 @@
+import BackgroundEffects from "@/components/background-effects";
 import {Cmdk} from "@/components/cmdk";
 import {Footer} from "@/components/footer";
 import {Navbar} from "@/components/navbar";
@@ -15,10 +16,12 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html suppressHydrationWarning dir="ltr" lang="en">
       <head />
       <body className={clsx("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+        <BackgroundEffects />
         <Providers themeProps={{attribute: "class", defaultTheme: "dark"}}>
           <div className="relative flex flex-col" id="app-container">
             <Navbar mobileRoutes={manifest.mobileRoutes} routes={manifest.routes} />
             {children}
+            {/* FIXME: add footer to bottom always */}
             <Footer />
           </div>
           <Cmdk />
