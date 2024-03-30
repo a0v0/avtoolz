@@ -34,7 +34,7 @@ export default function page() {
       const result = event.data;
       setIsLoading(false);
       console.log("🍎 Result: ", result);
-      downloadFile(result, files[0].name + "-merged.pdf");
+      downloadFile(result, files[0].name.split(".")[0] + "-merged.pdf");
     };
 
     plusWorker.postMessage(files);
