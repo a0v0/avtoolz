@@ -3,10 +3,7 @@ export function downloadFile(blob: Blob, filename: string) {
     throw new Error("Invalid data or filename provided");
   }
 
-  // Create a new Blob object with the provided data (avoiding object URL)
-  const newBlob = new Blob([blob], {type: blob.type});
-
-  const url = window.URL.createObjectURL(newBlob);
+  const url = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
   link.download = filename;
