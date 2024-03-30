@@ -68,6 +68,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
         return {...acc, [fileType]: []};
       }, {}),
       noKeyboard: true,
+      noClick: true,
       onDropRejected: (fileRejections) => {
         onOpen();
       },
@@ -197,6 +198,24 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
                   file={files[index]}
                 />
               ))}
+              {items.length > 0 ? (
+                <div className="m-auto h-44">
+                  <Card
+                    onPress={open}
+                    isPressable
+                    radius="lg"
+                    className="h-32 w-32 bg-center rounded-full    border-dashed border-4 border-gray-300 hover:border-gray-500"
+                  >
+                    <input {...getInputProps()} />
+                    <CardBody
+                      style={{fontSize: "25px"}}
+                      className="font-bold text-center justify-center"
+                    >
+                      +
+                    </CardBody>
+                  </Card>
+                </div>
+              ) : null}
             </div>
           </SortableContext>
           <DragOverlay dropAnimation={dropAnimation}>

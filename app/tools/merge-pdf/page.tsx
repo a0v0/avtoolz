@@ -61,6 +61,7 @@ export default function page() {
         </h2>
         <Spacer y={6} />
         <FileUploader primaryColor="#18c964" acceptedFileTypes={["application/pdf"]} />
+        <Spacer y={6} />
         {files.length > 0 ? (
           <div className="grid grid-cols-2 gap-2">
             <Button color="danger" variant="bordered" onPress={reset}>
@@ -96,5 +97,3 @@ export default function page() {
     </>
   );
 }
-
-// TODO: add "Add more files" button
