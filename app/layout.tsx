@@ -21,7 +21,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           <div className="relative flex flex-col" id="app-container">
             <Navbar mobileRoutes={manifest.mobileRoutes} routes={manifest.routes} />
             {children}
-            {/* FIXME: add footer to bottom always */}
             <Footer />
           </div>
           <Cmdk />
