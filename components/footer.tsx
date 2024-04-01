@@ -19,9 +19,8 @@ export const Footer = () => {
       <Link isExternal href="https://en.wikipedia.org/wiki/Earth">
         <h1 className={title({color: "green", size: "xs"})}>Earth</h1>
       </Link>{" "}
-      {/* FIXME: add github link to collaborators */}
       by{" "}
-      <Link isExternal href="https://en.wikipedia.org/wiki/Humans">
+      <Link isExternal href="https://github.com/a0v0/avtoolz/graphs/contributors">
         <h1 className={title({color: "yellow", size: "xs"})}>Humans</h1>
       </Link>
     </footer>
