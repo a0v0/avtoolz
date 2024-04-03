@@ -218,7 +218,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
               ) : null}
             </div>
           </SortableContext>
-          <DragOverlay dropAnimation={dropAnimation}>
+          <DragOverlay
+            dropAnimation={{
+              duration: 100,
+              easing: "cubic-bezier(1,1,1,1)",
+            }}
+          >
             {activeId ? (
               <PageOverlay
                 focusRingColor={primaryColor}
