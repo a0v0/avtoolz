@@ -3,7 +3,7 @@
 import {ThemeSwitch} from "@/components";
 import {useCmdkStore} from "@/components/cmdk";
 import {DocsSidebar} from "@/components/docs/sidebar";
-import {HeartFilledIcon, Logo, SearchLinearIcon} from "@/components/icons";
+import {GithubIcon, Logo, SearchLinearIcon} from "@/components/icons";
 import {routes as manifest} from "@/config/routes";
 import {siteConfig} from "@/config/site";
 import {useIsMounted} from "@/hooks/use-is-mounted";
@@ -181,7 +181,16 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
       </NavbarContent>
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">
-          <ThemeSwitch />
+          <ThemeSwitch />{" "}
+          <Link
+            isExternal
+            aria-label="Github"
+            className="p-1"
+            href={siteConfig.links.github}
+            onPress={() => handlePressNavbarItem("Github", siteConfig.links.github)}
+          >
+            <GithubIcon className="text-default-600 dark:text-default-500" />
+          </Link>
         </NavbarItem>
 
         <NavbarItem className="w-10 h-full">
@@ -195,23 +204,19 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
       <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         <NavbarItem className="hidden sm:flex">
           <ThemeSwitch />
-        </NavbarItem>
-        <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Button
+          <Link
             isExternal
-            as={Link}
-            className="group text-sm font-normal text-default-600 bg-default-400/20 dark:bg-default-500/20"
-            href={siteConfig.links.sponsor}
-            startContent={
-              <HeartFilledIcon className="text-danger group-data-[hover=true]:animate-heartbeat" />
-            }
-            variant="flat"
-            onPress={() => handlePressNavbarItem("Sponsor", siteConfig.links.sponsor)}
+            aria-label="Github"
+            className="p-1"
+            href={siteConfig.links.github}
+            onPress={() => handlePressNavbarItem("Github", siteConfig.links.github)}
           >
-            Sponsor
-          </Button>
+            <GithubIcon className="text-default-600 dark:text-default-500" />
+          </Link>
         </NavbarItem>
+
+        <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
+
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="hidden sm:flex lg:hidden ml-4"
