@@ -32,10 +32,6 @@ export const siteConfig = {
   },
   links: {
     github: "https://github.com/a0v0/avtoolz",
-    // twitter: "https://twitter.com/getnextui",
-    // docs: "https://nextui-docs-v2.vercel.app",
-    // discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/a0v0",
-    portfolio: "https://github.com/a0v0",
   },
 };

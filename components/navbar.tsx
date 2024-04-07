@@ -6,7 +6,6 @@ import {DocsSidebar} from "@/components/docs/sidebar";
 import {GithubIcon, Logo, SearchLinearIcon} from "@/components/icons";
 import {routes as manifest} from "@/config/routes";
 import {siteConfig} from "@/config/site";
-import {useIsMounted} from "@/hooks/use-is-mounted";
 import {Route} from "@/libs/docs/page";
 import {trackEvent} from "@/utils/va";
 import {
@@ -24,12 +23,9 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
   Spacer,
-  link,
 } from "@nextui-org/react";
 import {ChevronDown} from "@nextui-org/shared-icons";
 import {clsx} from "@nextui-org/shared-utils";
-import {useFocusRing} from "@react-aria/focus";
-import {usePress} from "@react-aria/interactions";
 import {isAppleDevice} from "@react-aria/utils";
 import {usePathname} from "next/navigation";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
@@ -47,7 +43,6 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
   const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
 
   const ref = useRef<HTMLElement>(null);
-  const isMounted = useIsMounted();
 
   const pathname = usePathname();
 
@@ -71,17 +66,6 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
       category: "cmdk",
     });
   };
-
-  const {pressProps} = usePress({
-    onPress: handleOpenCmdk,
-  });
-  const {focusProps, isFocusVisible} = useFocusRing();
-
-  const docsPaths = [
-    "/docs/guide/introduction",
-    "/docs/guide/installation",
-    "/docs/guide/upgrade-to-v2",
-  ];
 
   const searchButton = (
     <Button
@@ -108,8 +92,6 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
   if (pathname.includes("/examples")) {
     return null;
   }
-
-  const navLinkClasses = clsx(link({color: "foreground"}), "data-[active=true]:text-primary");
 
   const handlePressNavbarItem = (name: string, url: string) => {
     trackEvent("NavbarItem", {
