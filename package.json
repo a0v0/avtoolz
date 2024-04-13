@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm run update:search-meta && next dev",
+    "dev": "pnpm run update:search-meta && open-cli http://localhost:3000 && next dev",
     "build": "pnpm run update:search-meta && next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
