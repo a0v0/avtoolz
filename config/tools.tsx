@@ -7,7 +7,7 @@ export const Tools: ToolType[] = [
     key: "image-to-pdf",
     title: "Image to PDF",
     icon: <Image src="/icons/image-to-pdf.webp" width={35} />,
-    description: "Convert your images to PDF format effortlessly using our intuitive online tool.",
+    description: "Convert images to PDF files quickly and easily.",
     showFullDescription: true,
     href: "/image-to-pdf",
     isExternal: false,
