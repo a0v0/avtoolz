@@ -23,9 +23,8 @@ import {WorkerInput, WorkerOutput} from "./worker";
 const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
+  "image/png",
   // TODO: add support for these too
-  // "image/png",
-  // "image/webp",
   // "image/svg+xml",
   // "image/bmp",
   // "image/tiff",
@@ -43,8 +42,7 @@ export default function page() {
 
   function _startProcess() {
     setIsLoading(true);
-    const canvas = document.createElement("canvas");
-    const offscreen = canvas.transferControlToOffscreen();
+
     const worker = new Worker(new URL("./worker.ts", import.meta.url));
     worker.onmessage = (event: MessageEvent<WorkerOutput>) => {
       setIsLoading(false);
@@ -58,10 +56,9 @@ export default function page() {
     };
 
     const workerInput: WorkerInput = {
-      canvas: offscreen,
       files: files,
     };
-    worker.postMessage(workerInput, [offscreen]);
+    worker.postMessage(workerInput);
   }
 
   useEffect(() => {

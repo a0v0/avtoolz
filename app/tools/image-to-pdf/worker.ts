@@ -1,9 +1,7 @@
-import {base64toBlob} from "@/utils/file";
-import {PDFDocument, PDFPage} from "pdf-lib";
+import {jsPDF} from "jspdf";
 
 export interface WorkerInput {
   files: File[];
-  canvas: OffscreenCanvas;
 }
 
 export interface WorkerOutput {
@@ -12,38 +10,25 @@ export interface WorkerOutput {
 }
 
 const onmessage = (input: MessageEvent<WorkerInput>) => {
-  const {files, canvas} = input.data;
+  const {files} = input.data;
 
   async function _start() {
     try {
-      const pdfDoc = await PDFDocument.create();
+      const pdfDoc = new jsPDF();
+      pdfDoc.deletePage(1);
       for (const file of files) {
-        // TODO: use wasm to convert images to jpg
-        // see https://stackoverflow.com/questions/1864756/web-workers-and-canvas
-        var page: PDFPage;
-
-        var img = new Image();
-        img.src = URL.createObjectURL(file);
-        img.onload = async function () {
-          canvas.width = img.width;
-          canvas.height = img.height;
-
-          var ctx = canvas.getContext("2d");
-
-          // @ts-ignore
-          ctx.drawImage(img, 0, 0);
-          const imgData = await canvas.convertToBlob({type: "image/jpeg"});
-
-          const imagedat = await pdfDoc.embedJpg(await imgData.arrayBuffer());
-
-          page = pdfDoc.addPage([imagedat.width, imagedat.height]);
-
-          page.drawImage(imagedat);
-        };
+        var img = URL.createObjectURL(file);
+        var imgProps = pdfDoc.getImageProperties(img);
+        var page = pdfDoc.addPage(
+          [imgProps.height, imgProps.width],
+          imgProps.height > imgProps.width ? "portrait" : "landscape",
+        );
+        page.addImage(img, imgProps.fileType, 0, 0, imgProps.width, imgProps.height);
+        URL.revokeObjectURL(img);
       }
 
       var workerOutput: WorkerOutput = {
-        blob: base64toBlob(await pdfDoc.saveAsBase64(), "application/pdf"),
+        blob: pdfDoc.output("blob"),
         error: [],
       };
       postMessage(workerOutput);

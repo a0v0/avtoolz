@@ -27,3 +27,9 @@ task dev
 ```
 
 For more commands, see [Taskfile](./Taskfile.yml)
+
+## Gallery
+
+|                               |                               |
+| ----------------------------- | ----------------------------- |
+| ![1](./archive/gallery/1.png) | ![2](./archive/gallery/2.png) |

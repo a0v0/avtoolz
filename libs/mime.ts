@@ -2048,3 +2048,27 @@ export type MimeType =
   | MultipartMimeType
   | TextMimeType
   | VideoMimeType;
+
+export function mimeToExtension(mimeType: MimeType): string | undefined {
+  // Regex patterns for special cases
+  const svgRegex = /image\/svg\+xml/;
+  const sealedMovRegex = /video\/vnd\.sealedmedia\.softseal\.mov/;
+  const uriCatalogueRegex = /text\/vnd\.si\.uricatalogue/;
+
+  // Handle cases based on regex matches
+  if (svgRegex.test(mimeType)) {
+    return "svg";
+  } else if (sealedMovRegex.test(mimeType)) {
+    return "mov";
+  } else if (uriCatalogueRegex.test(mimeType)) {
+    return mimeType.split(";")[0]; // Remove comment after ";"
+  } else {
+    // Extract extension and remove trailing parameters/version info
+    const match = mimeType.match(/\/([^;]+)/);
+    if (match) {
+      return match[1];
+    }
+  }
+
+  return undefined;
+}
