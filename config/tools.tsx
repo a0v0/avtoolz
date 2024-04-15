@@ -9,7 +9,7 @@ export const Tools: ToolType[] = [
     icon: <Image src="/icons/image-to-pdf.webp" width={35} />,
     description: "Convert images to PDF files quickly and easily.",
     showFullDescription: true,
-    href: "/image-to-pdf",
+    href: "/tools/image-to-pdf",
     isExternal: false,
     keywords: "image to pdf, convert image to pdf, image converter, pdf converter",
     category: [ToolCategory.PDF],

@@ -8,12 +8,10 @@ import type {
 import {
   DndContext,
   DragOverlay,
-  DropAnimation,
   KeyboardSensor,
   MeasuringStrategy,
   PointerSensor,
   closestCenter,
-  defaultDropAnimationSideEffects,
   useDndContext,
   useSensor,
   useSensors,
@@ -77,24 +75,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
     droppable: {
       strategy: MeasuringStrategy.Always,
     },
-  };
-  const dropAnimation: DropAnimation = {
-    keyframes({transform}) {
-      return [
-        {transform: CSS.Transform.toString(transform.initial)},
-        {
-          transform: CSS.Transform.toString({
-            scaleX: 0.98,
-            scaleY: 0.98,
-            x: transform.final.x - 10,
-            y: transform.final.y - 10,
-          }),
-        },
-      ];
-    },
-    sideEffects: defaultDropAnimationSideEffects({
-      className: {},
-    }),
   };
 
   useEffect(() => {

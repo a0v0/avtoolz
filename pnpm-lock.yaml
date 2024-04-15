@@ -182,6 +182,9 @@ dependencies:
   parse-numeric-range:
     specifier: 1.2.0
     version: 1.2.0
+  pdf-lib:
+    specifier: ^1.17.1
+    version: 1.17.1
   pdf-merger-js:
     specifier: ^5.1.1
     version: 5.1.1
