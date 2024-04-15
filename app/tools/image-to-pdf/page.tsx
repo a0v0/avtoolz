@@ -4,6 +4,7 @@ import FileUploader from "@/components/file-uploader/file-uploader";
 import {useFileUploaderStore} from "@/components/file-uploader/store";
 import {subtitle, title} from "@/components/primitives";
 import {getToolByHref} from "@/config/tools";
+import {MimeType} from "@/libs/mime";
 import {downloadFile} from "@/utils/download";
 import {
   Button,
@@ -17,6 +18,20 @@ import {
 } from "@nextui-org/react";
 import {usePathname} from "next/navigation";
 import {useEffect, useState} from "react";
+import {WorkerInput, WorkerOutput} from "./worker";
+
+const allowedFileTypes: MimeType[] = [
+  "image/jpeg",
+  "image/webp",
+  "image/png",
+  // TODO: add support for these too
+  // "image/svg+xml",
+  // "image/bmp",
+  // "image/tiff",
+  // "image/gif",
+  // "image/heif",
+  // "image/heic",
+];
 
 export default function page() {
   const {files, reset, error} = useFileUploaderStore();
@@ -25,19 +40,25 @@ export default function page() {
   const [isLoading, setIsLoading] = useState(false);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-  function _mergePDF() {
+  function _startProcess() {
     setIsLoading(true);
 
-    const plusWorker = new Worker(new URL("./worker.ts", import.meta.url));
-
-    plusWorker.onmessage = (event) => {
-      const result = event.data;
+    const worker = new Worker(new URL("./worker.ts", import.meta.url));
+    worker.onmessage = (event: MessageEvent<WorkerOutput>) => {
       setIsLoading(false);
-      console.log("🍎 Result: ", result);
-      downloadFile(result, files[0].name.split(".")[0] + "-merged.pdf");
+      const {blob, error} = event.data;
+      if (error?.length == 0) {
+        downloadFile(blob, files[0].name.split(".")[0] + "-merged.pdf");
+      } else {
+        onOpen();
+        reset();
+      }
     };
 
-    plusWorker.postMessage(files);
+    const workerInput: WorkerInput = {
+      files: files,
+    };
+    worker.postMessage(workerInput);
   }
 
   useEffect(() => {
@@ -60,15 +81,20 @@ export default function page() {
           {tool?.description}
         </h2>
         <Spacer y={6} />
-        <FileUploader primaryColor="#18c964" acceptedFileTypes={["application/pdf"]} />
+        <FileUploader primaryColor="#18c964" acceptedFileTypes={allowedFileTypes} />
         <Spacer y={6} />
         {files.length > 0 ? (
           <div className="grid grid-cols-2 gap-2">
             <Button color="danger" variant="bordered" onPress={reset}>
               Reset
             </Button>
-            <Button color="success" variant="bordered" isLoading={isLoading} onPress={_mergePDF}>
-              Merge PDF
+            <Button
+              color="success"
+              variant="bordered"
+              isLoading={isLoading}
+              onPress={_startProcess}
+            >
+              Convert to PDF
             </Button>
           </div>
         ) : null}

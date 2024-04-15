@@ -130,36 +130,38 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
-        {manifest.routes.map((category, index) => (
-          <Dropdown key={index}>
-            <NavbarItem>
-              <DropdownTrigger>
-                <Button
-                  className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                  endContent={<ChevronDown fill="currentColor" size={16} />}
-                  radius="sm"
-                  variant="light"
-                >
-                  {category.title}
-                </Button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-              key={index}
-              aria-label={category.title}
-              className="w-[340px]"
-              itemClasses={{
-                base: "gap-4",
-              }}
-            >
-              {category.routes.map((tool, index) => (
-                <DropdownItem key={index} href={tool.href} startContent={tool.icon}>
-                  {tool.title}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
-        ))}
+        {manifest.routes.map((category, index) =>
+          category.routes.length > 0 ? (
+            <Dropdown key={index}>
+              <NavbarItem>
+                <DropdownTrigger>
+                  <Button
+                    className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                    endContent={<ChevronDown fill="currentColor" size={16} />}
+                    radius="sm"
+                    variant="light"
+                  >
+                    {category.title}
+                  </Button>
+                </DropdownTrigger>
+              </NavbarItem>
+              <DropdownMenu
+                key={index}
+                aria-label={category.title}
+                className="w-[340px]"
+                itemClasses={{
+                  base: "gap-4",
+                }}
+              >
+                {category.routes.map((tool, index) => (
+                  <DropdownItem key={index} href={tool.href} startContent={tool.icon}>
+                    {tool.title}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          ) : null,
+        )}
       </NavbarContent>
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">

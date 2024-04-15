@@ -1,4 +1,5 @@
-import {MimeType} from "@/libs/mime";
+import {MimeType, mimeToExtension} from "@/libs/mime";
+import {getRandomId} from "@/utils/random";
 import type {
   DragEndEvent,
   DragStartEvent,
@@ -8,12 +9,10 @@ import type {
 import {
   DndContext,
   DragOverlay,
-  DropAnimation,
   KeyboardSensor,
   MeasuringStrategy,
   PointerSensor,
   closestCenter,
-  defaultDropAnimationSideEffects,
   useDndContext,
   useSensor,
   useSensors,
@@ -29,6 +28,8 @@ import {
   Button,
   Card,
   CardBody,
+  Chip,
+  Divider,
   Link,
   Modal,
   ModalBody,
@@ -77,24 +78,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
     droppable: {
       strategy: MeasuringStrategy.Always,
     },
-  };
-  const dropAnimation: DropAnimation = {
-    keyframes({transform}) {
-      return [
-        {transform: CSS.Transform.toString(transform.initial)},
-        {
-          transform: CSS.Transform.toString({
-            scaleX: 0.98,
-            scaleY: 0.98,
-            x: transform.final.x - 10,
-            y: transform.final.y - 10,
-          }),
-        },
-      ];
-    },
-    sideEffects: defaultDropAnimationSideEffects({
-      className: {},
-    }),
   };
 
   useEffect(() => {
@@ -247,7 +230,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
           <CardBody className="items-center justify-center">
             <input {...getInputProps()} />
 
-            <Card onPress={open} className="w-72 " isPressable>
+            <Card onPress={open} className="w-72" isPressable>
               <CardBody className="text-center ">
                 <h1 className={subtitle({fullWidth: true, size: "sm"})}>+ Select Files</h1>
               </CardBody>
@@ -264,6 +247,16 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
             >
               drop your files here...
             </h2>
+            <Divider className="my-2" />
+            <div className="max-w-96 gap-2 text-center">
+              {acceptedFileTypes.map((fileType) => (
+                <Chip key={getRandomId()} className="m-[2px]" color="success" variant="flat">
+                  {mimeToExtension(fileType) != undefined
+                    ? mimeToExtension(fileType)?.toUpperCase()
+                    : fileType}
+                </Chip>
+              ))}
+            </div>
           </CardBody>
         </Card>
       )}

@@ -19,3 +19,12 @@ tasks:
     desc: Disable nextjs telemetry
     cmds:
       - pnpm exec next telemetry disable
+
+  # Sometimes git is not tracking the files that are in .gitignore
+  # This task will fix that
+  # See: https://stackoverflow.com/questions/25436312/gitignore-not-working
+  fix_gitignore:
+    desc: Fix gitignore
+    cmds:
+      - git rm -rf --cached .
+      - git add .
