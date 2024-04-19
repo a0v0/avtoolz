@@ -28,3 +28,8 @@ tasks:
     cmds:
       - git rm -rf --cached .
       - git add .
+
+  start:
+    desc: Start server
+    cmds:
+      - pnpm start

@@ -39,6 +39,7 @@ import {
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
+import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Logo} from "../icons";
@@ -56,7 +57,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const {files, addFiles, updateFiles, items, setItems, error} = useFileUploaderStore();
+  const {files, addFiles, updateFiles, items, setItems, reset} = useFileUploaderStore(
+    (state) => state,
+  );
   const activeIndex = activeId ? items.indexOf(activeId) : -1;
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -79,18 +82,24 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
       strategy: MeasuringStrategy.Always,
     },
   };
+  const router = useRouter();
 
+  // add files to store
   useEffect(() => {
     if (acceptedFiles) {
       addFiles(acceptedFiles);
     }
   }, [acceptedFiles]);
-
   useEffect(() => {
     if (files.length > 0) {
       setItems(files.map((_, index) => index.toString()));
     }
   }, [files]);
+
+  // reset state when route changes
+  useEffect(() => {
+    reset();
+  }, [router]);
 
   useEffect(() => {
     setIsOverlayVisible(isDragging);
