@@ -19,7 +19,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <BackgroundEffects />
         <Providers themeProps={{attribute: "class", defaultTheme: "dark"}}>
           <div className="relative flex flex-col" id="app-container">
-            <Navbar mobileRoutes={manifest.mobileRoutes} routes={manifest.routes} />
+            <Navbar routes={manifest.routes.filter((r) => r.routes.length > 0)} />
             {children}
             <Footer />
           </div>

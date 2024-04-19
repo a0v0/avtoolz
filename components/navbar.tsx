@@ -28,17 +28,15 @@ import {ChevronDown} from "@nextui-org/shared-icons";
 import {clsx} from "@nextui-org/shared-utils";
 import {isAppleDevice} from "@react-aria/utils";
 import {usePathname} from "next/navigation";
-import {FC, ReactNode, useEffect, useRef, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 
 export interface NavbarProps {
   routes: Route[];
-  mobileRoutes?: Route[];
   tag?: string;
   slug?: string;
-  children?: ReactNode;
 }
 
-export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], slug, tag}) => {
+export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
   const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
 
@@ -208,8 +206,7 @@ export const Navbar: FC<NavbarProps> = ({children, routes, mobileRoutes = [], sl
       </NavbarContent>
 
       <NavbarMenu>
-        <DocsSidebar className="mt-4" routes={[...mobileRoutes, ...routes]} slug={slug} tag={tag} />
-        {children}
+        <DocsSidebar className="mt-t" routes={[...routes]} slug={slug} tag={tag} />
       </NavbarMenu>
     </NextUINavbar>
   );

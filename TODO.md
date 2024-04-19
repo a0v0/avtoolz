@@ -1,4 +1,3 @@
-<!-- TODO: create release only when a new tag is released -->
 <!-- TODO: add seo -->
 <!-- wasm notes -->
 
