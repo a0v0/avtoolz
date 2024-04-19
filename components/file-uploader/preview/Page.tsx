@@ -105,8 +105,6 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
       const existingPreview = previews.find((preview) => preview.file === file);
       if (existingPreview) {
       } else {
-        // TODO: file is an image convert to png
-
         setPreview(file, URL.createObjectURL(file));
       }
     } else {
