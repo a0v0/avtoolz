@@ -1,7 +1,7 @@
 "use client";
 
-import FileUploader from "@/components/file-uploader/file-uploader";
 import {useFileUploaderStore} from "@/components/file-uploader/store";
+import {FilePondUploader} from "@/components/filepond";
 import {subtitle, title} from "@/components/primitives";
 import {getToolByHref} from "@/config/tools";
 import {downloadFile} from "@/utils/download";
@@ -60,7 +60,8 @@ export default function page() {
           {tool?.description}
         </h2>
         <Spacer y={6} />
-        <FileUploader primaryColor="#18c964" acceptedFileTypes={["application/pdf"]} />
+        {/* <FileUploader primaryColor="#18c964" acceptedFileTypes={["application/pdf"]} /> */}
+        <FilePondUploader maxFiles={2} />
         <Spacer y={6} />
         {files.length > 0 ? (
           <div className="grid grid-cols-2 gap-2">
