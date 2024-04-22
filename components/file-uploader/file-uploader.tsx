@@ -72,6 +72,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
         return {...acc, [fileType]: []};
       }, {}),
       noKeyboard: true,
+
       noClick: true,
       onDropRejected: (fileRejections) => {
         onOpen();
@@ -177,7 +178,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
           measuring={measuring}
         >
           <SortableContext items={items}>
-            <div className="gap-11 mt-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
+            <div className="lg:md:w-[780px]  grid   md:lg:grid-cols-4 grid-cols-2  pt-2 justify-items-center">
               {items.map((id, index) => (
                 <SortablePage
                   focusRingColor={primaryColor}
@@ -191,12 +192,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
                 />
               ))}
               {items.length > 0 ? (
-                <div className="m-auto h-44">
+                <div className="m-auto h-44 content-center">
                   <Card
                     onPress={open}
                     isPressable
                     radius="lg"
-                    className="h-32 w-32 bg-center rounded-full    border-dashed border-4 border-gray-300 hover:border-gray-500"
+                    className="h-32 w-32 rounded-full   align-middle   border-dashed border-4 border-gray-300 hover:border-gray-500"
                   >
                     <input {...getInputProps()} />
                     <CardBody
@@ -235,8 +236,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
             borderStyle: "dashed",
             border: "2px dashed ".concat(primaryColor),
           }}
+          className="lg:md:w-[780px]"
         >
-          <CardBody className="items-center justify-center">
+          <CardBody className=" items-center justify-center">
             <input {...getInputProps()} />
 
             <Card onPress={open} className="w-72" isPressable>
