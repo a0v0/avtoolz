@@ -1,4 +1,12 @@
-<!-- TODO: add seo -->
+## To Do
+
+- TODO: add seo
+
+## Checkpoints for new tool
+
+- [ ] Logic
+- [ ] Breadcumbs
+
 <!-- wasm notes -->
 
 ```
