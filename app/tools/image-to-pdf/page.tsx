@@ -84,7 +84,7 @@ export default function page() {
         <FileUploader primaryColor="#18c964" acceptedFileTypes={allowedFileTypes} />
         <Spacer y={6} />
         {files.length > 0 ? (
-          <div className="grid grid-cols-2 gap-2">
+          <div className="lg:md:w-[780px]  grid grid-cols-2 gap-2 ">
             <Button color="danger" variant="bordered" onPress={reset}>
               Reset
             </Button>

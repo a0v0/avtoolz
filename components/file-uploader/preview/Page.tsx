@@ -117,7 +117,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
       className={classNames(
         styles.Wrapper,
         active && styles.active,
-        clone && styles.clone,
+        // clone && styles.clone,
         insertPosition === Position.Before && styles.insertBefore,
         insertPosition === Position.After && styles.insertAfter,
       )}
@@ -153,7 +153,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
             <div className="text-ellipsis py-2 text-small gap-1 justify-between">
               <p className=" max-h-[3.5rem] truncate font-bold  opacity-75">{file?.name}</p>
 
-              <div className=" m-0  p-0  ">
+              <div className="m-0  p-0">
                 <Chip size="sm" color="success" variant="flat">
                   {file.type ? getFileType(file) : "invalid type"}
                 </Chip>{" "}
