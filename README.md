@@ -1,35 +1,24 @@
 # aVToolz
 
-## Requirements
+## Features
 
-- [Node.js](https://nodejs.org/en/)
-- [pnpm](https://pnpm.io/)
-- [Taskfile](https://taskfile.dev/#/installation?id=install-script)
+### Tools
 
-## Running Locally
-
-1. Clone the repository
-
-```bash
-git clone https://github.com/a0v0/avtoolz && cd avtoolz
-```
-
-2. Install dependencies
-
-```bash
-task install
-```
-
-3. Run the development server
-
-```bash
-task dev
-```
-
-For more commands, see [Taskfile](./Taskfile.yml)
+| Tool         | Description                           | Status | Category | Link                                           |
+| ------------ | ------------------------------------- | ------ | -------- | ---------------------------------------------- |
+| Merge PDFs   | Merge multiple PDFs into a single PDF | Done   | PDF      | [open](https://avtoolz.com/tools/merge-pdf)    |
+| Image to PDF | Convert images to PDF                 | Done   | PDF      | [open](https://avtoolz.com/tools/image-to-pdf) |
 
 ## Gallery
 
 |                               |                               |
 | ----------------------------- | ----------------------------- |
 | ![1](./archive/gallery/1.png) | ![2](./archive/gallery/2.png) |
+
+## Contributing
+
+To contribute to this project, please see [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+## License
+
+This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE - see the [LICENSE.md](./LICENSE) file for details.
