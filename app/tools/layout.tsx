@@ -13,10 +13,7 @@ export default function ToolLayout({children}: {children: React.ReactNode}) {
   return (
     <main className="h-screen overflow-auto px-2">
       <Breadcrumbs className="flex justify-center mt-4">
-        <BreadcrumbItem
-          onPress={() => router.push("/")}
-          startContent={<HomeRoundedIcon fontSize="small" />}
-        >
+        <BreadcrumbItem href="/" startContent={<HomeRoundedIcon fontSize="small" />}>
           Home
         </BreadcrumbItem>
         {/* TODO: route to tools page */}

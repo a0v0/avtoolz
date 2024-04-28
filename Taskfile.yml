@@ -24,7 +24,7 @@ tasks:
   # This task will fix that
   # See: https://stackoverflow.com/questions/25436312/gitignore-not-working
   fix_gitignore:
-    desc: Fix gitignore
+    desc: Fix git not tracking files in .gitignore
     cmds:
       - git rm -rf --cached .
       - git add .

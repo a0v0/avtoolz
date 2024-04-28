@@ -1,6 +1,7 @@
-## To Do
+## To DOs
 
 - TODO: add seo
+- TODO: rewrite README.md see https://github.com/lobehub/sd-webui-lobe-theme
 
 ## Checkpoints for new tool
 
