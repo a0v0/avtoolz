@@ -1,9 +1,7 @@
 "use client";
 
-import {trackEvent} from "@/utils/va";
 import {Card, CardBody, CardHeader, LinkProps, SlotsToClasses} from "@nextui-org/react";
 import {LinkIcon} from "@nextui-org/shared-icons";
-import {useRouter} from "next/navigation";
 import React, {ReactNode} from "react";
 import {tv} from "tailwind-variants";
 
@@ -34,29 +32,7 @@ interface FeaturesGridProps {
 }
 
 export const FeaturesGrid: React.FC<FeaturesGridProps> = ({features, classNames, ...props}) => {
-  const router = useRouter();
-
   const slots = styles();
-
-  const handleClick = (feat: Feature) => {
-    trackEvent("FeaturesGrid - Click", {
-      name: feat.title,
-      action: "click",
-      category: "docs",
-      data: feat.href ?? "",
-    });
-
-    if (!feat.href) {
-      return;
-    }
-
-    if (feat.isExternal) {
-      window.open(feat.href, "_blank");
-
-      return;
-    }
-    router.push(feat.href);
-  };
 
   return (
     <div className={slots.base({class: classNames?.base})} {...props}>
@@ -66,7 +42,8 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({features, classNames,
           isBlurred
           className={slots.card({class: classNames?.card})}
           isPressable={!!feat.href}
-          onPress={() => handleClick(feat)}
+          as={"a"}
+          href={feat.href}
         >
           <CardHeader className={slots.header({class: classNames?.header})}>
             <div className={slots.iconWrapper({class: classNames?.iconWrapper})}>{feat.icon}</div>
