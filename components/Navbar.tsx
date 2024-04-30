@@ -1,5 +1,4 @@
 "use client";
-
 import {ThemeSwitch} from "@/components";
 import {useCmdkStore} from "@/components/cmdk";
 import {DocsSidebar} from "@/components/docs/sidebar";
@@ -35,7 +34,6 @@ export interface NavbarProps {
   tag?: string;
   slug?: string;
 }
-
 export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
   const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
@@ -128,6 +126,16 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
+        <NavbarItem>
+          <Button
+            className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+            href="/tools"
+            radius="sm"
+            variant="light"
+          >
+            All Tools
+          </Button>
+        </NavbarItem>
         {manifest.routes.map((category, index) =>
           category.routes.length > 0 ? (
             <Dropdown key={index}>
@@ -163,7 +171,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       </NavbarContent>
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">
-          <ThemeSwitch />{" "}
+          <ThemeSwitch />
           <Link
             isExternal
             aria-label="Github"
@@ -185,14 +193,27 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
 
       <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         <NavbarItem className="hidden sm:flex">
-          <ThemeSwitch />
           <Link
             isExternal
-            aria-label="Github"
-            className="p-1"
-            href={siteConfig.links.github}
-            onPress={() => handlePressNavbarItem("Github", siteConfig.links.github)}
+            isBlock
+            showAnchorIcon
+            href={siteConfig.links.githubRoadmap}
+            color="success"
           >
+            Roadmap
+          </Link>
+
+          <Link
+            isExternal
+            isBlock
+            showAnchorIcon
+            href={siteConfig.links.githubIssues}
+            color="danger"
+          >
+            Report Bugs
+          </Link>
+          <ThemeSwitch />
+          <Link isExternal aria-label="Github" className="p-1" href={siteConfig.links.github}>
             <GithubIcon className="text-default-600 dark:text-default-500" />
           </Link>
         </NavbarItem>
@@ -206,6 +227,25 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       </NavbarContent>
 
       <NavbarMenu>
+        <div className="ml-3">
+          <NavbarItem>
+            <Link color="success" isBlock href="/tools">
+              All Tools
+            </Link>
+          </NavbarItem>
+          <Spacer y={2} />
+          <NavbarItem>
+            <Link
+              isBlock
+              color="success"
+              isExternal
+              href={siteConfig.links.githubRoadmap}
+              showAnchorIcon
+            >
+              Roadmap
+            </Link>
+          </NavbarItem>
+        </div>
         <DocsSidebar className="mt-t" routes={[...routes]} slug={slug} tag={tag} />
       </NavbarMenu>
     </NextUINavbar>

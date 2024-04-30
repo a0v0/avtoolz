@@ -16,13 +16,15 @@ export default function ToolLayout({children}: {children: React.ReactNode}) {
         <BreadcrumbItem href="/" startContent={<HomeRoundedIcon fontSize="small" />}>
           Home
         </BreadcrumbItem>
-        {/* TODO: route to tools page */}
-        <BreadcrumbItem startContent={<GridViewRoundedIcon fontSize="small" />}>
+
+        <BreadcrumbItem href="/tools" startContent={<GridViewRoundedIcon fontSize="small" />}>
           Tools
         </BreadcrumbItem>
-        <BreadcrumbItem startContent={<BuildCircleRoundedIcon fontSize="small" />}>
-          {tool?.title}
-        </BreadcrumbItem>
+        {path.includes("/tools/") ? (
+          <BreadcrumbItem startContent={<BuildCircleRoundedIcon fontSize="small" />}>
+            {tool?.title}
+          </BreadcrumbItem>
+        ) : null}
       </Breadcrumbs>
       {children}
     </main>
