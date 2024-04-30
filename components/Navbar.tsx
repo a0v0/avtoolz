@@ -89,15 +89,6 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
     return null;
   }
 
-  const handlePressNavbarItem = (name: string, url: string) => {
-    trackEvent("NavbarItem", {
-      name,
-      action: "press",
-      category: "navbar",
-      data: url,
-    });
-  };
-
   return (
     <NextUINavbar
       ref={ref}
@@ -127,14 +118,9 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarItem>
-          <Button
-            className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-            href="/tools"
-            radius="sm"
-            variant="light"
-          >
+          <Link isBlock color="foreground" href={"/tools"}>
             All Tools
-          </Button>
+          </Link>
         </NavbarItem>
         {manifest.routes.map((category, index) =>
           category.routes.length > 0 ? (
@@ -172,13 +158,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">
           <ThemeSwitch />
-          <Link
-            isExternal
-            aria-label="Github"
-            className="p-1"
-            href={siteConfig.links.github}
-            onPress={() => handlePressNavbarItem("Github", siteConfig.links.github)}
-          >
+          <Link isExternal aria-label="Github" className="p-1" href={siteConfig.links.github}>
             <GithubIcon className="text-default-600 dark:text-default-500" />
           </Link>
         </NavbarItem>
