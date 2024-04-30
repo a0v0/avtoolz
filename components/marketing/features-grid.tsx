@@ -2,6 +2,7 @@
 
 import {Card, CardBody, CardHeader, LinkProps, SlotsToClasses} from "@nextui-org/react";
 import {LinkIcon} from "@nextui-org/shared-icons";
+import Link from "next/link";
 import React, {ReactNode} from "react";
 import {tv} from "tailwind-variants";
 
@@ -42,7 +43,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({features, classNames,
           isBlurred
           className={slots.card({class: classNames?.card})}
           isPressable={!!feat.href}
-          as={"a"}
+          as={Link}
           href={feat.href}
         >
           <CardHeader className={slots.header({class: classNames?.header})}>

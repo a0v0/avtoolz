@@ -3,5 +3,4 @@ module.exports = {
   siteUrl: "https://avtoolz.com",
   generateRobotsTxt: true,
   changefreq: "daily",
-  exclude: ["/examples/*"],
 };
