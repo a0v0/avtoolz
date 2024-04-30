@@ -27,7 +27,7 @@ function HeroX() {
           as={Link}
           endContent={<ArrowRightIcon />}
           color="success"
-          href="/#all_tools"
+          href="/tools"
           variant="ghost"
         >
           Browse All

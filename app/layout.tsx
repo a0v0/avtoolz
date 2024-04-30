@@ -1,7 +1,7 @@
 import BackgroundEffects from "@/components/background-effects";
 import {Cmdk} from "@/components/cmdk";
 import {Footer} from "@/components/footer";
-import {Navbar} from "@/components/navbar";
+import {Navbar} from "@/components/Navbar";
 import {fontSans} from "@/config/fonts";
 import {routes as manifest} from "@/config/routes";
 import "@/styles/globals.css";
