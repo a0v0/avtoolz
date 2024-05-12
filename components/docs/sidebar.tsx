@@ -1,23 +1,23 @@
 "use client";
 
-import {FC} from "react";
-import {ChevronIcon} from "@nextui-org/shared-icons";
-import {CollectionBase, Expandable, MultipleSelection, Node, ItemProps} from "@react-types/shared";
 import {BaseItem} from "@nextui-org/aria-utils";
-import React, {useRef, useMemo} from "react";
-import {useFocusRing} from "@react-aria/focus";
-import {TreeState, useTreeState} from "@react-stately/tree";
-import {useSelectableCollection} from "@react-aria/selection";
-import {usePress} from "@react-aria/interactions";
-import {clsx, dataAttr} from "@nextui-org/shared-utils";
 import {
-  SpacerProps,
-  Spacer,
-  Link as NextUILink,
   Chip,
   dataFocusVisibleClasses,
+  Link,
+  Link as NextUILink,
+  Spacer,
+  SpacerProps,
 } from "@nextui-org/react";
-import Link from "next/link";
+import {ChevronIcon} from "@nextui-org/shared-icons";
+import {clsx, dataAttr} from "@nextui-org/shared-utils";
+import {useFocusRing} from "@react-aria/focus";
+import {usePress} from "@react-aria/interactions";
+import {useSelectableCollection} from "@react-aria/selection";
+import {TreeState, useTreeState} from "@react-stately/tree";
+import {CollectionBase, Expandable, ItemProps, MultipleSelection, Node} from "@react-types/shared";
+import {FC, useMemo, useRef} from "react";
+
 import {isEmpty} from "lodash";
 import {usePathname, useRouter} from "next/navigation";
 

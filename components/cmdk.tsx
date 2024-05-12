@@ -332,7 +332,7 @@ export const Cmdk: FC<{}> = () => {
 
       return (
         <Command.Item
-          key={item.objectID}
+          key={`${item}-${index}`}
           ref={menuNodes.ref(index)}
           className={slots.itemWrapper()}
           data-active={index === activeItem}
@@ -350,7 +350,7 @@ export const Cmdk: FC<{}> = () => {
             onItemSelect(item);
           }}
         >
-          <div key={item.objectID} className={slots.leftWrapper()}>
+          <div key={`${item}-${index}`} className={slots.leftWrapper()}>
             {mainIcon}
             <div className={slots.itemContent()}>
               {!isLvl1 && <span className={slots.itemParentTitle()}>{item.hierarchy.lvl1}</span>}

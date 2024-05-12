@@ -1,5 +1,5 @@
-import {NewNextJSIcon, ViteIcon, RemixIcon, AstroIcon} from "@/components/icons";
-import {FeaturesGrid} from "@/components/marketing/features-grid";
+import {AstroIcon, NewNextJSIcon, RemixIcon, ViteIcon} from "@/components/icons";
+import {ToolsGrid} from "@/components/marketing/features-grid";
 
 const frameworks = [
   {
@@ -30,7 +30,7 @@ const frameworks = [
 
 export const Frameworks = () => {
   return (
-    <FeaturesGrid
+    <ToolsGrid
       classNames={{
         base: "mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4",
         iconWrapper: "bg-default-300/20",

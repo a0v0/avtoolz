@@ -1,7 +1,7 @@
 "use client";
 import {routes as manifest} from "@/config/routes";
 import {Spacer} from "@nextui-org/react";
-import {FeaturesGrid} from "../marketing/features-grid";
+import {ToolsGrid} from "../marketing/features-grid";
 import {sectionWrapper, title} from "../primitives";
 
 export const ToolsCards = () => {
@@ -29,7 +29,7 @@ export const ToolsCards = () => {
                   # {category.title}
                 </h1>
               </div>
-              <FeaturesGrid
+              <ToolsGrid
                 classNames={{
                   base: "lg:grid-cols-3",
                   iconWrapper: "bg-transparent",

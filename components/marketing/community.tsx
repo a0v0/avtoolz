@@ -1,10 +1,10 @@
 "use client";
-import { Spacer } from "@nextui-org/react";
+import {Spacer} from "@nextui-org/react";
 
-import { sectionWrapper, subtitle, title, titleWrapper } from "../primitives";
+import {sectionWrapper, subtitle, title, titleWrapper} from "../primitives";
 
-import { FeaturesGrid } from "@/components/marketing/features-grid";
-import { communityAccounts } from "@/libs/constants";
+import {ToolsGrid} from "@/components/marketing/features-grid";
+import {communityAccounts} from "@/libs/constants";
 
 export const Community = () => {
   return (
@@ -15,9 +15,9 @@ export const Community = () => {
     >
       <div className="max-w-4xl flex flex-col gap-8">
         <div>
-          <div className={titleWrapper({ class: "items-center" })}>
+          <div className={titleWrapper({class: "items-center"})}>
             <div className="inline-flex items-center">
-              <h1 className={title({ size: "lg" })}>Community</h1>&nbsp;&nbsp;
+              <h1 className={title({size: "lg"})}>Community</h1>&nbsp;&nbsp;
             </div>
           </div>
           <p
@@ -28,7 +28,7 @@ export const Community = () => {
             Get involved in our community. Everyone is welcome!
           </p>
           <Spacer y={12} />
-          <FeaturesGrid
+          <ToolsGrid
             classNames={{
               base: "lg:grid-cols-3",
               iconWrapper: "bg-transparent",

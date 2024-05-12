@@ -1,15 +1,14 @@
 "use client";
 
-import {Button, Link} from "@nextui-org/react";
+import {Button, Code, Link} from "@nextui-org/react";
 import {ArrowRightIcon} from "@nextui-org/shared-icons";
 import {clsx} from "@nextui-org/shared-utils";
 import NextLink from "next/link";
-import {Code} from "@nextui-org/react";
 
-import {FeaturesGrid} from "./features-grid";
+import {ToolsGrid} from "./features-grid";
 
+import {GithubIcon, NextJsIcon, NoteLinearIcon} from "@/components/icons";
 import {sectionWrapper, subtitle, title} from "@/components/primitives";
-import {GithubIcon, NoteLinearIcon, NextJsIcon} from "@/components/icons";
 import {useIsMounted} from "@/hooks/use-is-mounted";
 import {trackEvent} from "@/utils/va";
 
@@ -102,7 +101,7 @@ export const InstallBanner = () => {
           </div>
         </div>
         <div className="col-span-12 md:col-span-6">
-          <FeaturesGrid
+          <ToolsGrid
             classNames={{
               base: "lg:grid-cols-2",
             }}

@@ -1,8 +1,7 @@
 "use client";
 
-import {Card, CardBody, CardHeader, LinkProps, SlotsToClasses} from "@nextui-org/react";
+import {Card, CardBody, CardHeader, Link, LinkProps, SlotsToClasses} from "@nextui-org/react";
 import {LinkIcon} from "@nextui-org/shared-icons";
-import Link from "next/link";
 import React, {ReactNode} from "react";
 import {tv} from "tailwind-variants";
 
@@ -21,44 +20,44 @@ const styles = tv({
 
 export type FeaturesGridSlots = keyof ReturnType<typeof styles>;
 
-export interface Feature extends LinkProps {
+export interface Tool extends LinkProps {
   title: string;
   icon: ReactNode;
   description?: string | ReactNode;
 }
 
-interface FeaturesGridProps {
-  features: Feature[];
+interface ToolsGridProps {
+  features: Tool[];
   classNames?: SlotsToClasses<FeaturesGridSlots>;
 }
 
-export const FeaturesGrid: React.FC<FeaturesGridProps> = ({features, classNames, ...props}) => {
+export const ToolsGrid: React.FC<ToolsGridProps> = ({features, classNames, ...props}) => {
   const slots = styles();
 
   return (
     <div className={slots.base({class: classNames?.base})} {...props}>
-      {features.map((feat: Feature) => (
+      {features.map((tool: Tool) => (
         <Card
-          key={feat.title}
+          key={tool.title}
           isBlurred
           className={slots.card({class: classNames?.card})}
-          isPressable={!!feat.href}
+          isPressable={!!tool.href}
           as={Link}
-          href={feat.href}
+          href={tool.href}
         >
           <CardHeader className={slots.header({class: classNames?.header})}>
-            <div className={slots.iconWrapper({class: classNames?.iconWrapper})}>{feat.icon}</div>
-            <p className={slots.title({class: classNames?.title})}>{feat.title}</p>
-            {feat.isExternal && <LinkIcon className="text-white" height={18} width={18} />}
+            <div className={slots.iconWrapper({class: classNames?.iconWrapper})}>{tool.icon}</div>
+            <p className={slots.title({class: classNames?.title})}>{tool.title}</p>
+            {tool.isExternal && <LinkIcon className="text-white" height={18} width={18} />}
           </CardHeader>
-          {feat.description ? (
+          {tool.description ? (
             <CardBody className={slots.body({class: classNames?.body})}>
               <p
                 className={slots.description({
                   class: classNames?.description,
                 })}
               >
-                {feat.description}
+                {tool.description}
               </p>
             </CardBody>
           ) : null}

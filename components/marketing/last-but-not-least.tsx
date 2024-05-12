@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 
-import {title, subtitle, titleWrapper, sectionWrapper} from "@/components/primitives";
-import {FeaturesGrid} from "@/components/marketing/features-grid";
+import {ToolsGrid} from "@/components/marketing/features-grid";
+import {sectionWrapper, subtitle, title, titleWrapper} from "@/components/primitives";
 import landingContent from "@/content/landing";
 
 export const LastButNotLeast = () => {
@@ -27,7 +27,7 @@ export const LastButNotLeast = () => {
             A fully-featured React UI library.
           </p>
         </div>
-        <FeaturesGrid features={landingContent.fullFeatures} />
+        <ToolsGrid features={landingContent.fullFeatures} />
       </div>
     </section>
   );
