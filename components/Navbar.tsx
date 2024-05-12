@@ -146,11 +146,9 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
                 }}
               >
                 {category.routes.map((tool, index) => (
-                  <Link className="text-white" href={tool.href}>
-                    <DropdownItem key={index} startContent={tool.icon}>
-                      {tool.title}
-                    </DropdownItem>
-                  </Link>
+                  <DropdownItem href={tool.href} key={index} startContent={tool.icon}>
+                    {tool.title}
+                  </DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>
