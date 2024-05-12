@@ -1,14 +1,14 @@
 "use client";
 
-import NextLink from "next/link";
-import {Button, Link, Chip} from "@nextui-org/react";
+import {Link} from "@nextui-org/link";
+import {Button, Chip} from "@nextui-org/react";
 import {ArrowRightIcon} from "@nextui-org/shared-icons";
 import dynamic from "next/dynamic";
-
+import NextLink from "next/link";
 import {FloatingComponents} from "./floating-components";
 
-import {title, subtitle} from "@/components/primitives";
 import {GithubIcon} from "@/components/icons";
+import {subtitle, title} from "@/components/primitives";
 import {trackEvent} from "@/utils/va";
 
 const BgLooper = dynamic(() => import("./bg-looper").then((mod) => mod.BgLooper), {
