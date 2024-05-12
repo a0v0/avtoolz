@@ -6,7 +6,6 @@ import {GithubIcon, Logo, SearchLinearIcon} from "@/components/icons";
 import {routes as manifest} from "@/config/routes";
 import {siteConfig} from "@/config/site";
 import {Route} from "@/libs/docs/page";
-import {trackEvent} from "@/utils/va";
 import {
   Button,
   Dropdown,
@@ -26,7 +25,7 @@ import {
 import {ChevronDown} from "@nextui-org/shared-icons";
 import {clsx} from "@nextui-org/shared-utils";
 import {isAppleDevice} from "@react-aria/utils";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {FC, useEffect, useRef, useState} from "react";
 
 export interface NavbarProps {
@@ -37,11 +36,9 @@ export interface NavbarProps {
 export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
   const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
-
+  const router = useRouter();
   const ref = useRef<HTMLElement>(null);
-
   const pathname = usePathname();
-
   const cmdkStore = useCmdkStore();
 
   useEffect(() => {
@@ -56,11 +53,6 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
 
   const handleOpenCmdk = () => {
     cmdkStore.onOpen();
-    trackEvent("Navbar - Search", {
-      name: "navbar - search",
-      action: "press",
-      category: "cmdk",
-    });
   };
 
   const searchButton = (
@@ -84,10 +76,6 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       Quick Search...
     </Button>
   );
-
-  if (pathname.includes("/examples")) {
-    return null;
-  }
 
   return (
     <NextUINavbar
@@ -118,7 +106,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarItem>
-          <Link isBlock color="foreground" href={"/tools"}>
+          <Link isBlock color="foreground" href="/tools">
             All Tools
           </Link>
         </NavbarItem>
@@ -146,7 +134,11 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
                 }}
               >
                 {category.routes.map((tool, index) => (
-                  <DropdownItem href={tool.href} key={index} startContent={tool.icon}>
+                  <DropdownItem
+                    onPress={() => router.push(tool.href)}
+                    key={index}
+                    startContent={tool.icon}
+                  >
                     {tool.title}
                   </DropdownItem>
                 ))}
@@ -207,25 +199,24 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       </NavbarContent>
 
       <NavbarMenu>
-        <div className="ml-3">
-          <NavbarItem>
-            <Link color="success" isBlock href="/tools">
-              All Tools
-            </Link>
-          </NavbarItem>
+        {/* <div className="ml-3"> */}
+        <NavbarItem>
+          <Link color="success" isBlock href="/tools">
+            All Tools
+          </Link>
           <Spacer y={2} />
-          <NavbarItem>
-            <Link
-              isBlock
-              color="success"
-              isExternal
-              href={siteConfig.links.githubRoadmap}
-              showAnchorIcon
-            >
-              Roadmap
-            </Link>
-          </NavbarItem>
-        </div>
+          <Link
+            isBlock
+            color="success"
+            isExternal
+            href={siteConfig.links.githubRoadmap}
+            showAnchorIcon
+          >
+            Roadmap
+          </Link>
+        </NavbarItem>
+
+        {/* </div> */}
         <DocsSidebar className="mt-t" routes={[...routes]} slug={slug} tag={tag} />
       </NavbarMenu>
     </NextUINavbar>

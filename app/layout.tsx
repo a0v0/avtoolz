@@ -49,8 +49,8 @@ export async function generateMetadata(_: any, state: any): Promise<Metadata> {
         "application/rss+xml": [{url: "https://avtoolz.com/feed.xml", title: "aVToolz RSS Feed"}],
       },
     },
-    viewport:
-      "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+    // viewport:
+    //   "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
   };
 }
 
