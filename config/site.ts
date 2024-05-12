@@ -1,13 +1,26 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "aVToolz • Fast, beautiful and modern tools for everyone.",
+  name: "aVToolz",
+  tagline: "Fast, beautiful and modern tools for everyone.",
   description: "Fast, beautiful and modern tools for everyone.",
   ogImage: "https://avtoolz.com/twitter-cards/avtoolz.jpeg",
-  author: "Anubhav Mahur",
-  email: "",
   siteUrl: "https://avtoolz.com",
   creator: "@a0v0",
+  keywords: [
+    "aVToolz",
+    "pdf-converter",
+    "image-converter",
+    "image-editor",
+    "pdf-editor",
+    "text-tools",
+    "audio-tools",
+    "video-tools",
+    "web-tools",
+    "developer-tools",
+    "ai-tools",
+    "AI",
+  ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -16,6 +29,7 @@ export const siteConfig = {
     description: "Fast, beautiful and modern tools for everyone.",
     images: [
       {
+        // TODO: add og image
         url: "https://avtoolz.com/twitter-cards/avtoolz.jpeg",
         width: 1200,
         height: 630,
