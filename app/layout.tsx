@@ -12,7 +12,7 @@ import {__PROD__} from "@/utils";
 import {getPathnameFromMetadataState} from "@/utils/links";
 import {clsx} from "@nextui-org/shared-utils";
 import {Analytics} from "@vercel/analytics/react";
-import {Metadata} from "next";
+import {Metadata, Viewport} from "next";
 import {Providers} from "./providers";
 
 export async function generateMetadata(_: any, state: any): Promise<Metadata> {
@@ -34,10 +34,7 @@ export async function generateMetadata(_: any, state: any): Promise<Metadata> {
     title: title,
     description: description,
     keywords: siteConfig.keywords,
-    themeColor: [
-      {media: "(prefers-color-scheme: light)", color: "white"},
-      {media: "(prefers-color-scheme: dark)", color: "black"},
-    ],
+
     icons: {
       icon: "/favicon.ico",
     },
@@ -49,11 +46,18 @@ export async function generateMetadata(_: any, state: any): Promise<Metadata> {
         "application/rss+xml": [{url: "https://avtoolz.com/feed.xml", title: "aVToolz RSS Feed"}],
       },
     },
-    // viewport:
-    //   "viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
   };
 }
-
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    {media: "(prefers-color-scheme: light)", color: "white"},
+    {media: "(prefers-color-scheme: dark)", color: "black"},
+  ],
+};
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning dir="ltr" lang="en">

@@ -1,10 +1,10 @@
-import {FeaturesGrid} from "@/components/marketing/features-grid";
+import {ToolsGrid} from "@/components/marketing/features-grid";
 import {communityAccounts} from "@/libs/constants";
 
 export const Community = () => {
   return (
     <div className="max-w-4xl flex flex-col gap-8">
-      <FeaturesGrid
+      <ToolsGrid
         classNames={{
           base: "lg:grid-cols-3",
           iconWrapper: "bg-transparent",

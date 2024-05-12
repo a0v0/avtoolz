@@ -199,7 +199,6 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       </NavbarContent>
 
       <NavbarMenu>
-        {/* <div className="ml-3"> */}
         <NavbarItem>
           <Link color="success" isBlock href="/tools">
             All Tools
@@ -214,9 +213,18 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
           >
             Roadmap
           </Link>
+          <Spacer y={2} />
+          <Link
+            isExternal
+            isBlock
+            showAnchorIcon
+            href={siteConfig.links.githubIssues}
+            color="danger"
+          >
+            Report Bugs
+          </Link>
         </NavbarItem>
 
-        {/* </div> */}
         <DocsSidebar className="mt-t" routes={[...routes]} slug={slug} tag={tag} />
       </NavbarMenu>
     </NextUINavbar>

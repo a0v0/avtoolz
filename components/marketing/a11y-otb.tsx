@@ -3,41 +3,41 @@
 /* eslint-disable react/display-name */
 import {
   Button,
-  Image,
-  Link as NextUILink,
   Dropdown,
+  DropdownItem,
+  DropdownMenu,
   DropdownSection,
   DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
+  Image,
+  Link as NextUILink,
   Tooltip,
 } from "@nextui-org/react";
-import {useInView} from "framer-motion";
-import {clsx} from "@nextui-org/shared-utils";
 import {
   AddNoteBulkIcon,
   CopyDocumentBulkIcon,
-  EditDocumentBulkIcon,
   DeleteDocumentBulkIcon,
+  EditDocumentBulkIcon,
 } from "@nextui-org/shared-icons";
-import Link from "next/link";
+import {clsx} from "@nextui-org/shared-utils";
+import {useInView} from "framer-motion";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import {useEffect, useRef, useState} from "react";
 
-import {FeaturesGrid} from "./features-grid";
+import {ToolsGrid} from "./features-grid";
 
-import landingContent from "@/content/landing";
 import {GradientBox} from "@/components";
 import {
+  EyeBoldIcon,
+  FatrowsBoldIcon,
+  InfoBoldIcon,
   KeyboardBoldIcon,
+  KeyboardOpenBoldIcon,
   MouseCircleBoldIcon,
   SquaresBoldIcon,
-  FatrowsBoldIcon,
-  EyeBoldIcon,
-  KeyboardOpenBoldIcon,
-  InfoBoldIcon,
 } from "@/components/icons";
-import {title, subtitle, titleWrapper, sectionWrapper} from "@/components/primitives";
+import {sectionWrapper, subtitle, title, titleWrapper} from "@/components/primitives";
+import landingContent from "@/content/landing";
 import {useIsMobile} from "@/hooks/use-media-query";
 
 const DemoCodeModal = dynamic(() => import("../demo-code-modal").then((mod) => mod.DemoCodeModal), {
@@ -115,7 +115,7 @@ export const A11yOtb = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="flex flex-col mt-8 lg:mt-16 gap-6">
-            <FeaturesGrid
+            <ToolsGrid
               classNames={{
                 base: "grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4",
                 header: "pb-3",

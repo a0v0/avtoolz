@@ -1,17 +1,17 @@
 "use client";
 
-import {FC, useMemo, useRef} from "react";
 import {Avatar, AvatarProps, Button, Spacer, Tooltip} from "@nextui-org/react";
 import {clamp, get} from "lodash";
+import {FC, useMemo, useRef} from "react";
 
-import {sectionWrapper, titleWrapper, title, subtitle} from "../primitives";
+import {sectionWrapper, subtitle, title, titleWrapper} from "../primitives";
 
-import {FeaturesGrid} from "./features-grid";
+import {ToolsGrid} from "./features-grid";
 
-import {OpenCollectiveIcon, PatreonIcon, HeartBoldIcon, PlusLinearIcon} from "@/components/icons";
-import {Sponsor, SPONSOR_TIERS, SPONSOR_COLORS, getTier} from "@/libs/docs/sponsors";
+import {HeartBoldIcon, OpenCollectiveIcon, PatreonIcon, PlusLinearIcon} from "@/components/icons";
 import {SonarPulse} from "@/components/sonar-pulse";
 import {useIsMobile} from "@/hooks/use-media-query";
+import {getTier, Sponsor, SPONSOR_COLORS, SPONSOR_TIERS} from "@/libs/docs/sponsors";
 import {trackEvent} from "@/utils/va";
 
 export interface SupportProps {
@@ -164,7 +164,7 @@ export const Support: FC<SupportProps> = ({sponsors = []}) => {
             contributions will help to make NextUI better.
           </p>
           <Spacer y={12} />
-          <FeaturesGrid
+          <ToolsGrid
             classNames={{
               base: "lg:grid-cols-2",
             }}
