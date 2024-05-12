@@ -1,6 +1,7 @@
 "use client";
-import {Button, Link} from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
 import {ArrowRightIcon} from "@nextui-org/shared-icons";
+import Link from "next/link";
 import {Logo} from "./icons";
 import {subtitle, title} from "./primitives";
 
