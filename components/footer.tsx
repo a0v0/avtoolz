@@ -1,6 +1,5 @@
 "use client";
-
-import {Link} from "@nextui-org/react";
+import {Link} from "@nextui-org/link";
 import {SmilingFaceWithHeartsEmoji} from "./icons/fluentui-emoji";
 import {title} from "./primitives";
 

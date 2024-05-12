@@ -1,6 +1,6 @@
 "use client";
-
-import {Card, CardBody, CardHeader, Link, LinkProps, SlotsToClasses} from "@nextui-org/react";
+import {Link} from "@nextui-org/link";
+import {Card, CardBody, CardHeader, LinkProps, SlotsToClasses} from "@nextui-org/react";
 import {LinkIcon} from "@nextui-org/shared-icons";
 import React, {ReactNode} from "react";
 import {tv} from "tailwind-variants";
