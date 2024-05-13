@@ -1,7 +1,7 @@
 ## To DOs
 
 - TODO: rewrite README.md see https://github.com/lobehub/sd-webui-lobe-theme
-
+- TODO: add image for github social preview
 <!-- wasm notes -->
 
 ```
