@@ -178,7 +178,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({primaryColor, acceptedFileTy
           measuring={measuring}
         >
           <SortableContext items={items}>
-            <div className="lg:md:w-[780px]  grid   md:lg:grid-cols-4 grid-cols-2  pt-2 justify-items-center">
+            <div className="lg:md:w-[780px] m-4 flex flex-wrap gap-10  pt-2 justify-items-center">
               {items.map((id, index) => (
                 <SortablePage
                   focusRingColor={primaryColor}

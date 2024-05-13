@@ -11,7 +11,7 @@ function Breadcrumb() {
   const tool = getToolByHref(path);
 
   return (
-    <Breadcrumbs className="flex justify-center mt-4">
+    <Breadcrumbs className="flex justify-center my-5">
       <BreadcrumbItem href="/" startContent={<HomeRoundedIcon fontSize="small" />}>
         Home
       </BreadcrumbItem>
