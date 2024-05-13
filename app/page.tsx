@@ -1,5 +1,5 @@
 import BackgroundEffects from "@/components/background-effects";
-import HeroX from "@/components/hero";
+import Hero from "@/components/hero";
 import {ToolsCards} from "@/components/tools";
 
 export default async function Home() {
@@ -7,7 +7,7 @@ export default async function Home() {
     <main className="container mx-auto max-w-7xl px-6 flex-grow">
       <section className="flex flex-col items-center ">
         <BackgroundEffects />
-        <HeroX />
+        <Hero />
         <ToolsCards />
       </section>
     </main>

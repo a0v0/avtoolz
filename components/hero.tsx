@@ -1,14 +1,13 @@
 "use client";
+import {Link} from "@nextui-org/link";
 import {Button} from "@nextui-org/react";
 import {ArrowRightIcon} from "@nextui-org/shared-icons";
-// import Link from "next/link";
-import {Link} from "@nextui-org/link";
 import {Logo} from "./icons";
 import {subtitle, title} from "./primitives";
 
-function HeroX() {
+function Hero() {
   return (
-    <main id="checl" className="h-screen text-center  mt-24">
+    <main className="h-screen text-center  mt-24">
       <center>
         <Logo />
       </center>
@@ -36,4 +35,4 @@ function HeroX() {
   );
 }
 
-export default HeroX;
+export default Hero;

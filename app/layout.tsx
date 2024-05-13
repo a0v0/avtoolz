@@ -7,7 +7,7 @@ import {routes as manifest} from "@/config/routes";
 import {siteConfig} from "@/config/site";
 import {getToolByHref} from "@/config/tools";
 import "@/styles/globals.css";
-import "@/styles/sandpack.css";
+// import "@/styles/sandpack.css";
 import {__PROD__} from "@/utils";
 import {getPathnameFromMetadataState} from "@/utils/links";
 import {clsx} from "@nextui-org/shared-utils";
@@ -61,7 +61,7 @@ export const viewport: Viewport = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning dir="ltr" lang="en">
-      {/* <head /> */}
+      <head />
       <body className={clsx("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <BackgroundEffects />
         <Providers themeProps={{attribute: "class", defaultTheme: "dark"}}>
