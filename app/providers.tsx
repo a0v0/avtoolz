@@ -1,9 +1,9 @@
 "use client";
 
-import {NextUIProvider} from "@nextui-org/react";
-import {ThemeProvider as NextThemesProvider} from "next-themes";
-import {ThemeProviderProps} from "next-themes/dist/types";
-import {useRouter} from "next/navigation";
+import { NextUIProvider } from "@nextui-org/system";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { ThemeProviderProps } from "next-themes/dist/types";
+import { useRouter } from "next/navigation";
 import NextTopLoader from "nextjs-toploader";
 import * as React from "react";
 

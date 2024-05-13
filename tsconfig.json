@@ -20,7 +20,6 @@
       "@/*": ["./*"],
       "tailwind-variants": ["./node_modules/tailwind-variants"]
     },
-
     "plugins": [
       {
         "name": "next"
