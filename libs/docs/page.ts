@@ -1,7 +1,3 @@
-import type {MDX} from "contentlayer/core";
-
-import * as Local from "contentlayer/source-files";
-
 import {ASSETS_PATH, CONTENT_PATH, FORCE_TAG, TAG} from "./config";
 
 import {routes as localRoutes} from "@/config/routes";
@@ -27,11 +23,11 @@ export interface Route {
 
 export interface Doc {
   _id: string;
-  _raw: Local.RawDocumentData;
+
   type: string;
   title: string;
   description: string;
-  body: MDX;
+
   slug: string;
   slugAsParams: string;
   url: string;

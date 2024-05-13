@@ -1,13 +1,6 @@
 ## To DOs
 
-- TODO: add seo
-- TODO: add link to public roadmap
 - TODO: rewrite README.md see https://github.com/lobehub/sd-webui-lobe-theme
-
-## Checkpoints for new tool
-
-- [ ] Logic
-- [ ] Breadcumbs
 
 <!-- wasm notes -->
 
