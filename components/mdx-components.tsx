@@ -1,17 +1,17 @@
 /* eslint-disable react/display-name */
-import {clsx} from "@nextui-org/shared-utils";
 import * as Components from "@nextui-org/react";
-import {Language} from "prism-react-renderer";
+import {clsx} from "@nextui-org/shared-utils";
 import NextImage from "next/image";
+import {Language} from "prism-react-renderer";
 
 import {ThemeSwitch} from "./theme-switch";
 
 import {Sandpack} from "@/components/sandpack";
-import {CarbonAd} from "@/components/ads/carbon-ad";
-import * as DocsComponents from "@/components/docs/components";
-import * as BlogComponents from "@/components/blog/components";
-import {Codeblock} from "@/components/docs/components";
+
 import {VirtualAnchor, virtualAnchorEncode} from "@/components";
+import * as BlogComponents from "@/components/blog/components";
+import * as DocsComponents from "@/components/docs/components";
+import {Codeblock} from "@/components/docs/components";
 import {trackEvent} from "@/utils/va";
 
 const Table: React.FC<{children?: React.ReactNode}> = ({children}) => {
@@ -217,7 +217,7 @@ export const MDXComponents = {
   thead: Thead,
   tr: Trow,
   td: Tcol,
-  CarbonAd,
+
   code: Code,
   ul: List,
   a: (props: React.HTMLAttributes<HTMLAnchorElement>) => <Link {...props} />,

@@ -69,7 +69,7 @@ export default function page() {
   }, [error]);
 
   return (
-    <>
+    <div className="m-2">
       <center>
         <Spacer y={3} />
         <h1 className={title({color: "green"})}>{tool?.title}</h1>
@@ -120,6 +120,6 @@ export default function page() {
           )}
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }
