@@ -1,6 +1,10 @@
-import {SalutingFaceEmoji} from "./fluentui-emoji";
-import {LogoProps} from "./fluentui-emoji/props";
+import FluentUIEmoji, {EmpojiType} from "../fluentui-emoji";
 
-export const Logo: React.FC<LogoProps> = ({size = 150, className, ...props}) => (
-  <SalutingFaceEmoji size={size} className={className} {...props} />
+interface LogoProps {
+  size?: number;
+  className?: string;
+}
+
+export const Logo: React.FC<LogoProps> = ({size, className}) => (
+  <FluentUIEmoji size={size} className={className} emojiType={EmpojiType.SALUTING_FACE} />
 );
