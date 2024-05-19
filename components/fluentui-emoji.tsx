@@ -1,4 +1,4 @@
-import {Image} from "@nextui-org/react";
+import Image from "next/image";
 
 export enum EmpojiType {
   SMILING_FACE_WITH_HEARTS = "/emoji/smiling_face_with_heart.svg",
@@ -12,7 +12,15 @@ export interface FluentUIEmojiProps {
 }
 
 function FluentUIEmoji({size = 150, className, emojiType}: FluentUIEmojiProps) {
-  return <Image className={className} height={size} width={size} src={emojiType.valueOf()} />;
+  return (
+    <Image
+      alt="avtoolz logo"
+      className={className}
+      height={size}
+      width={size}
+      src={emojiType.valueOf()}
+    />
+  );
 }
 
 export default FluentUIEmoji;

@@ -7,8 +7,6 @@ import {VisuallyHidden} from "@react-aria/visually-hidden";
 import {useTheme} from "next-themes";
 import {FC} from "react";
 
-import {Icon} from "@iconify/react";
-
 export interface ThemeSwitchProps {
   className?: string;
   classNames?: SwitchProps["classNames"];
@@ -62,7 +60,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({className, classNames}) => {
       >
         {!isSelected || isSSR ? (
           <Link
-            anchorIcon={<Icon icon="mage:sun-fill" width="24" height="24" />}
+            anchorIcon={<span className="icon-[mage--sun-fill] size-6"></span>}
             showAnchorIcon={true}
             isExternal
             isBlock
@@ -75,7 +73,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({className, classNames}) => {
             className="p-1 text-inherit focus:outline-none border-transparent focus:border-transparent focus:ring-0"
             color="foreground"
           >
-            <Icon icon="mage:moon-fill" width="24" height="24" />
+            <span className="icon-[mage--moon-fill] size-6"></span>
           </Link>
         )}
       </div>

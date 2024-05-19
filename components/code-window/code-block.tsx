@@ -1,5 +1,5 @@
 // Inspired by https://github.dev/modulz/stitches-site code demo
-import { clsx } from "@nextui-org/shared-utils";
+import {clsx} from "@nextui-org/shared-utils";
 import hastToHtml from "hast-util-to-html";
 import rangeParser from "parse-numeric-range";
 import React from "react";
@@ -10,11 +10,11 @@ import diff from "refractor/lang/diff";
 import js from "refractor/lang/javascript";
 import jsx from "refractor/lang/jsx";
 
-import { Pre } from "./pre";
-import { WindowActions } from "./window-actions";
+import {Pre} from "./pre";
+import {WindowActions} from "./window-actions";
 
-import highlightLine from "@/libs/rehype-highlight-line";
-import highlightWord from "@/libs/rehype-highlight-word";
+import highlightLine from "@/lib/rehype-highlight-line";
+import highlightWord from "@/lib/rehype-highlight-word";
 
 refractor.register(js);
 refractor.register(jsx);
@@ -78,15 +78,13 @@ function wrapEachCharacter(textNode: any, tag: string, count: number) {
     parent.insertBefore(element, textNode);
 
     // skip a couple of frames to trigger transition
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => (element.style.opacity = "1"))
-    );
+    requestAnimationFrame(() => requestAnimationFrame(() => (element.style.opacity = "1")));
   });
 
   parent.removeChild(textNode);
 }
 
-function CodeTypewriter({ value, className, css, ...props }: any) {
+function CodeTypewriter({value, className, css, ...props}: any) {
   const wrapperRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -110,71 +108,56 @@ function CodeTypewriter({ value, className, css, ...props }: any) {
   return (
     <Pre className={className} css={css} {...props}>
       <code
-        dangerouslySetInnerHTML={{ __html: value }}
+        dangerouslySetInnerHTML={{__html: value}}
         ref={wrapperRef}
         className={className}
-        style={{ opacity: 0 }}
+        style={{opacity: 0}}
       />
     </Pre>
   );
 }
 
-const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
-  (_props, forwardedRef) => {
-    const {
-      language,
-      value,
-      title,
-      highlightLines = "0",
-      className = "",
-      mode,
-      showLineNumbers,
-      showWindowIcons,
-      ...props
-    } = _props;
+const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>((_props, forwardedRef) => {
+  const {
+    language,
+    value,
+    title,
+    highlightLines = "0",
+    className = "",
+    mode,
+    showLineNumbers,
+    showWindowIcons,
+    ...props
+  } = _props;
 
-    let result: any = refractor.highlight(value || "", language);
+  let result: any = refractor.highlight(value || "", language);
 
-    result = highlightLine(result, rangeParser(highlightLines));
+  result = highlightLine(result, rangeParser(highlightLines));
 
-    result = highlightWord(result);
+  result = highlightWord(result);
 
-    // convert to html
-    result = hastToHtml(result);
+  // convert to html
+  result = hastToHtml(result);
 
-    const classes = `language-${language}`;
-    const codeClasses = clsx(
-      "absolute w-full px-4 pb-6",
-      showWindowIcons ? "top-10" : "top-0"
-    );
+  const classes = `language-${language}`;
+  const codeClasses = clsx("absolute w-full px-4 pb-6", showWindowIcons ? "top-10" : "top-0");
 
-    if (mode === "typewriter") {
-      return (
-        <CodeTypewriter
-          className={classes}
-          css={css}
-          value={result}
-          {...props}
-        />
-      );
-    }
-
-    return (
-      <Pre
-        ref={forwardedRef}
-        className={clsx("code-block", classes, className)}
-        data-line-numbers={showLineNumbers}
-        {...props}
-      >
-        {showWindowIcons && <WindowActions title={title} />}
-        <code
-          dangerouslySetInnerHTML={{ __html: result }}
-          className={clsx(classes, codeClasses)}
-        />
-      </Pre>
-    );
+  if (mode === "typewriter") {
+    return <CodeTypewriter className={classes} css={css} value={result} {...props} />;
   }
-);
+
+  return (
+    <Pre
+      ref={forwardedRef}
+      className={clsx("code-block", classes, className)}
+      data-line-numbers={showLineNumbers}
+      {...props}
+    >
+      {showWindowIcons && <WindowActions title={title} />}
+      <code dangerouslySetInnerHTML={{__html: result}} className={clsx(classes, codeClasses)} />
+    </Pre>
+  );
+});
 
 CodeBlock.displayName = "NextUI - CodeBlock";
 

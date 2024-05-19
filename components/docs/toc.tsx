@@ -1,14 +1,14 @@
 "use client";
 
-import {FC, useRef, useEffect} from "react";
-import {clsx} from "@nextui-org/shared-utils";
 import {Divider, Spacer} from "@nextui-org/react";
 import {ChevronCircleTopLinearIcon} from "@nextui-org/shared-icons";
+import {clsx} from "@nextui-org/shared-utils";
+import {FC, useEffect, useRef} from "react";
 import scrollIntoView from "scroll-into-view-if-needed";
 
-import {Heading} from "@/libs/docs/utils";
-import {useScrollSpy} from "@/hooks/use-scroll-spy";
 import {useScrollPosition} from "@/hooks/use-scroll-position";
+import {useScrollSpy} from "@/hooks/use-scroll-spy";
+import {Heading} from "@/lib/docs/utils";
 
 export interface DocsTocProps {
   headings: Heading[];

@@ -4,7 +4,7 @@ import FileUploader from "@/components/file-uploader/file-uploader";
 import {useFileUploaderStore} from "@/components/file-uploader/store";
 import {subtitle, title} from "@/components/primitives";
 import {getToolByHref} from "@/config/tools";
-import {MimeType} from "@/libs/mime";
+import {MimeType} from "@/lib/mime";
 import {downloadFile} from "@/utils/download";
 import {
   Button,

@@ -19,7 +19,7 @@ import {ChevronRightLinearIcon, HashBoldIcon} from "./icons";
 
 import searchData from "@/config/search-meta.json";
 import {useUpdateEffect} from "@/hooks/use-update-effect";
-import {Icon} from "@iconify/react";
+import {cn} from "@/lib/utils";
 
 const hideOnPaths = ["examples"];
 
@@ -280,7 +280,7 @@ export const Cmdk: FC<{}> = () => {
           variant="bordered"
           onPress={onPress}
         >
-          <Icon icon="solar:close-circle-bold-duotone" width="24" height="24" />
+          <span className="icon-[solar--close-circle-bold-duotone] size-6"></span>
         </Button>
       );
     },
@@ -293,10 +293,9 @@ export const Cmdk: FC<{}> = () => {
 
       const mainIcon = isRecent ? (
         // <SearchLinearIcon className={slots.leftIcon()} size={20} strokeWidth={2} />
-
-        <Icon icon="mingcute:search-3-line" width="24" height="24" strokeWidth={2} />
+        <span className="icon-[mingcute--search-3-line] size-6"></span>
       ) : isLvl1 ? (
-        <Icon icon="solar:document-bold" width="24" height="24" className={slots.leftIcon()} />
+        <span className={cn("icon-[solar--document-bold] size-6", slots.leftIcon())}></span>
       ) : (
         <HashBoldIcon className={slots.leftIcon()} />
       );
@@ -370,13 +369,9 @@ export const Cmdk: FC<{}> = () => {
       <ModalContent>
         <Command className={slots.base()} label="Quick search command" shouldFilter={false}>
           <div className={slots.header()}>
-            <Icon
-              className={slots.searchIcon()}
-              icon="mingcute:search-3-line"
-              width="24"
-              height="24"
-              strokeWidth={2}
-            />
+            <span
+              className={cn("icon-[mingcute--search-3-line] size-6", slots.searchIcon())}
+            ></span>
             <Command.Input
               autoFocus={!isWebKit()}
               className={slots.input()}

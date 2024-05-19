@@ -19,7 +19,7 @@ import {ScrollArea} from "../scroll-area";
 
 import {getRoutePaths} from "./utils";
 
-import {Route} from "@/libs/docs/page";
+import {Route} from "@/lib/docs/page";
 import {TreeKeyboardDelegate} from "@/utils/tree-keyboard-delegate";
 import {trackEvent} from "@/utils/va";
 

@@ -1,5 +1,5 @@
 "use client";
-import {Icon} from "@iconify/react";
+
 import {Link} from "@nextui-org/link";
 import {Button} from "@nextui-org/react";
 import {Logo} from "./icons";
@@ -24,7 +24,7 @@ function Hero() {
       </h2>
       <Button
         as={Link}
-        endContent={<Icon icon="solar:arrow-right-bold-duotone" width="24" height="24" />}
+        endContent={<span className="icon-[solar--arrow-right-bold-duotone] size-6"></span>}
         color="success"
         variant="ghost"
         href="/tools"

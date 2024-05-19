@@ -5,8 +5,8 @@ import {DocsSidebar} from "@/components/docs/sidebar";
 import {Logo} from "@/components/icons";
 import {routes as manifest} from "@/config/routes";
 import {siteConfig} from "@/config/site";
-import {Route} from "@/libs/docs/page";
-import {Icon} from "@iconify/react";
+import {Route} from "@/lib/docs/page";
+
 import {
   Button,
   Dropdown,
@@ -65,13 +65,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
         </Kbd>
       }
       startContent={
-        <Icon
-          className="text-base text-default-400 pointer-events-none flex-shrink-0"
-          icon="mingcute:search-3-line"
-          width="24"
-          height="24"
-          strokeWidth={2}
-        />
+        <span className="icon-[mingcute--search-3-line] size-6 text-base text-default-400 pointer-events-none flex-shrink-0"></span>
       }
       onPress={handleOpenCmdk}
     >
@@ -120,12 +114,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
                   <Button
                     className="bg-transparent data-[hover=true]:bg-transparent"
                     endContent={
-                      <Icon
-                        fill="currentColor"
-                        icon="iconamoon:arrow-down-2-bold"
-                        width="24"
-                        height="24"
-                      />
+                      <span className="icon-[iconamoon--arrow-down-2-bold] size-6 text-base text-default-400 pointer-events-none flex-shrink-0"></span>
                     }
                     radius="sm"
                     variant="light"
@@ -168,11 +157,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
             href={siteConfig.links.github}
             color="foreground"
           >
-            <Icon
-              icon="mdi:github"
-              fontSize={24}
-              className="text-default-600 dark:text-default-500"
-            />
+            <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500"></span>
           </Link>
           <Link
             color="success"
@@ -181,11 +166,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
             className="p-1 text-inherit "
             onClick={handleOpenCmdk}
           >
-            <Icon
-              icon="mingcute:search-3-line"
-              fontSize={24}
-              className="text-default-600 dark:text-default-500"
-            />
+            <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500"></span>
           </Link>
         </NavbarItem>
 
@@ -229,11 +210,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
             color="foreground"
             href={siteConfig.links.github}
           >
-            <Icon
-              icon="mdi:github"
-              fontSize={24}
-              className="text-default-600 dark:text-default-500"
-            />
+            <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500"></span>
           </Link>
         </NavbarItem>
 

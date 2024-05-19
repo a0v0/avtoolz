@@ -1,12 +1,13 @@
 import {ToolCategory, ToolType} from "@/types/tool";
-import {Image} from "@nextui-org/react";
+import Image from "next/image";
+
 import React from "react";
 
 export const Tools: ToolType[] = [
   {
     key: "image-to-pdf",
     title: "Image to PDF",
-    icon: <Image src="/icons/image-to-pdf.webp" width={35} />,
+    icon: <Image alt="image-to-pdf" src="/icons/image-to-pdf.webp" width={35} height={35} />,
     description: "Convert images to PDF files quickly and easily.",
     showFullDescription: true,
     href: "/tools/image-to-pdf",
@@ -22,7 +23,7 @@ export const Tools: ToolType[] = [
     title: "Merge PDF",
     description: "Combine multiple PDFs into one unified document.",
     showFullDescription: true,
-    icon: <Image src="/icons/merge-pdf.webp" width={35} />,
+    icon: <Image alt="merge-pdf" src="/icons/merge-pdf.webp" width={35} height={35} />,
     href: "/tools/merge-pdf",
     isExternal: false,
     keywords:

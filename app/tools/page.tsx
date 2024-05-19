@@ -1,4 +1,4 @@
-import {ToolsGrid} from "@/components/marketing/features-grid";
+import {ToolsGrid} from "@/components/tools-grid";
 import {Tools} from "@/config/tools";
 
 function page() {

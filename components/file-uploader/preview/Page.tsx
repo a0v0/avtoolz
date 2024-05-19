@@ -1,4 +1,4 @@
-import {getFileType} from "@/libs/file";
+import {getFileType} from "@/lib/file";
 import {getFileIcon} from "@/utils/fileIcon";
 import {UniqueIdentifier} from "@dnd-kit/core";
 import {Card, CardBody, CardHeader, Chip, Image} from "@nextui-org/react";
