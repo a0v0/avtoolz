@@ -2,10 +2,11 @@
 import {ThemeSwitch} from "@/components";
 import {useCmdkStore} from "@/components/cmdk";
 import {DocsSidebar} from "@/components/docs/sidebar";
-import {GithubIcon, Logo, SearchLinearIcon} from "@/components/icons";
+import {Logo} from "@/components/icons";
 import {routes as manifest} from "@/config/routes";
 import {siteConfig} from "@/config/site";
-import {Route} from "@/libs/docs/page";
+import {Route} from "@/lib/docs/page";
+
 import {
   Button,
   Dropdown,
@@ -22,7 +23,6 @@ import {
   Navbar as NextUINavbar,
   Spacer,
 } from "@nextui-org/react";
-import {ChevronDown} from "@nextui-org/shared-icons";
 import {clsx} from "@nextui-org/shared-utils";
 import {isAppleDevice} from "@react-aria/utils";
 import {usePathname, useRouter} from "next/navigation";
@@ -65,11 +65,7 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
         </Kbd>
       }
       startContent={
-        <SearchLinearIcon
-          className="text-base text-default-400 pointer-events-none flex-shrink-0"
-          size={18}
-          strokeWidth={2}
-        />
+        <span className="icon-[mingcute--search-3-line] size-6 text-base text-default-400 pointer-events-none flex-shrink-0"></span>
       }
       onPress={handleOpenCmdk}
     >
@@ -116,8 +112,10 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
               <NavbarItem>
                 <DropdownTrigger>
                   <Button
-                    className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                    endContent={<ChevronDown fill="currentColor" size={16} />}
+                    className="bg-transparent data-[hover=true]:bg-transparent"
+                    endContent={
+                      <span className="icon-[iconamoon--arrow-down-2-bold] size-6 text-base text-default-400 pointer-events-none flex-shrink-0"></span>
+                    }
                     radius="sm"
                     variant="light"
                   >
@@ -150,8 +148,25 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">
           <ThemeSwitch />
-          <Link isExternal aria-label="Github" className="p-1" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-600 dark:text-default-500" />
+
+          <Link
+            isBlock
+            isExternal
+            aria-label="Github"
+            className="p-1 text-inherit"
+            href={siteConfig.links.github}
+            color="foreground"
+          >
+            <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500"></span>
+          </Link>
+          <Link
+            color="success"
+            // isBlock
+            aria-label="Search"
+            className="p-1 text-inherit "
+            onClick={handleOpenCmdk}
+          >
+            <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500"></span>
           </Link>
         </NavbarItem>
 
@@ -184,9 +199,18 @@ export const Navbar: FC<NavbarProps> = ({routes, slug, tag}) => {
           >
             Report Bugs
           </Link>
+
           <ThemeSwitch />
-          <Link isExternal aria-label="Github" className="p-1" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-600 dark:text-default-500" />
+
+          <Link
+            isBlock
+            isExternal
+            aria-label="Github"
+            className="p-1 text-inherit"
+            color="foreground"
+            href={siteConfig.links.github}
+          >
+            <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500"></span>
           </Link>
         </NavbarItem>
 

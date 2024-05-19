@@ -1,8 +1,8 @@
 "use client";
 import {routes as manifest} from "@/config/routes";
 import {Spacer} from "@nextui-org/react";
-import {ToolsGrid} from "../marketing/features-grid";
 import {sectionWrapper, title} from "../primitives";
+import {ToolsGrid} from "../tools-grid";
 
 export const ToolsCards = () => {
   return (

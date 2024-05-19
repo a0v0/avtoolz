@@ -1,8 +1,6 @@
 "use client";
 import {getToolByHref} from "@/config/tools";
-import BuildCircleRoundedIcon from "@mui/icons-material/BuildCircleRounded";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+
 import {BreadcrumbItem, Breadcrumbs} from "@nextui-org/react";
 import {usePathname} from "next/navigation";
 
@@ -12,15 +10,25 @@ function Breadcrumb() {
 
   return (
     <Breadcrumbs className="flex justify-center my-5">
-      <BreadcrumbItem href="/" startContent={<HomeRoundedIcon fontSize="small" />}>
+      <BreadcrumbItem
+        href="/"
+        startContent={<span className="icon-[solar--home-smile-angle-bold] size-5"></span>}
+      >
         Home
       </BreadcrumbItem>
 
-      <BreadcrumbItem href="/tools" startContent={<GridViewRoundedIcon fontSize="small" />}>
+      <BreadcrumbItem
+        href="/tools"
+        startContent={<span className="icon-[fluent--grid-24-filled] size-5"></span>}
+      >
         Tools
       </BreadcrumbItem>
       {path.includes("/tools/") ? (
-        <BreadcrumbItem startContent={<BuildCircleRoundedIcon fontSize="small" />}>
+        <BreadcrumbItem
+          startContent={
+            <span className="icon-[bi--wrench-adjustable-circle-fill] size-[18px]"></span>
+          }
+        >
           {tool?.title}
         </BreadcrumbItem>
       ) : null}

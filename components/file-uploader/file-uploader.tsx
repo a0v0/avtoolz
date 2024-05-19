@@ -1,4 +1,4 @@
-import {MimeType, mimeToExtension} from "@/libs/mime";
+import {MimeType, mimeToExtension} from "@/lib/mime";
 import {getRandomId} from "@/utils/random";
 import type {
   DragEndEvent,

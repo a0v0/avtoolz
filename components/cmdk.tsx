@@ -2,7 +2,6 @@
 "use client";
 
 import {Button, ButtonProps, Kbd, Modal, ModalContent} from "@nextui-org/react";
-import {CloseIcon} from "@nextui-org/shared-icons";
 import {clsx} from "@nextui-org/shared-utils";
 import {isAppleDevice, isWebKit} from "@react-aria/utils";
 import {useLocalStorage, writeStorage} from "@rehooks/local-storage";
@@ -16,16 +15,11 @@ import scrollIntoView from "scroll-into-view-if-needed";
 import {tv} from "tailwind-variants";
 import {create} from "zustand";
 
-import {
-  ChevronRightLinearIcon,
-  DocumentCodeBoldIcon,
-  HashBoldIcon,
-  SearchLinearIcon,
-} from "./icons";
+import {ChevronRightLinearIcon, HashBoldIcon} from "./icons";
 
 import searchData from "@/config/search-meta.json";
 import {useUpdateEffect} from "@/hooks/use-update-effect";
-import {trackEvent} from "@/utils/va";
+import {cn} from "@/lib/utils";
 
 const hideOnPaths = ["examples"];
 
@@ -176,17 +170,6 @@ export const Cmdk: FC<{}> = () => {
 
       const matches = intersectionBy(...matchesForEachWord, "objectID").slice(0, MAX_RESULTS);
 
-      trackEvent("Cmdk - Search", {
-        name: "cmdk - search",
-        action: "search",
-        category: "cmdk",
-        data: {
-          query,
-          words,
-          matches: matches?.map((match) => match.url).join(", "),
-        },
-      });
-
       return matches;
     },
     [query],
@@ -202,13 +185,6 @@ export const Cmdk: FC<{}> = () => {
       if (e?.key?.toLowerCase() === "k" && e[hotkey]) {
         e.preventDefault();
         isOpen ? onClose() : onOpen();
-
-        trackEvent("Cmdk - Open/Close", {
-          name: "cmdk - open/close",
-          action: "keydown",
-          category: "cmdk",
-          data: isOpen ? "close" : "open",
-        });
       }
     };
 
@@ -224,13 +200,6 @@ export const Cmdk: FC<{}> = () => {
       onClose();
       router.push(item.url);
       addToRecentSearches(item);
-
-      trackEvent("Cmdk - ItemSelect", {
-        name: item.content,
-        action: "click",
-        category: "cmdk",
-        data: item.url,
-      });
     },
     [router, recentSearches],
   );
@@ -311,7 +280,7 @@ export const Cmdk: FC<{}> = () => {
           variant="bordered"
           onPress={onPress}
         >
-          <CloseIcon />
+          <span className="icon-[solar--close-circle-bold-duotone] size-6"></span>
         </Button>
       );
     },
@@ -323,9 +292,10 @@ export const Cmdk: FC<{}> = () => {
       const isLvl1 = item.type === "lvl1";
 
       const mainIcon = isRecent ? (
-        <SearchLinearIcon className={slots.leftIcon()} size={20} strokeWidth={2} />
+        // <SearchLinearIcon className={slots.leftIcon()} size={20} strokeWidth={2} />
+        <span className="icon-[mingcute--search-3-line] size-6"></span>
       ) : isLvl1 ? (
-        <DocumentCodeBoldIcon className={slots.leftIcon()} />
+        <span className={cn("icon-[solar--document-bold] size-6", slots.leftIcon())}></span>
       ) : (
         <HashBoldIcon className={slots.leftIcon()} />
       );
@@ -399,7 +369,9 @@ export const Cmdk: FC<{}> = () => {
       <ModalContent>
         <Command className={slots.base()} label="Quick search command" shouldFilter={false}>
           <div className={slots.header()}>
-            <SearchLinearIcon className={slots.searchIcon()} strokeWidth={2} />
+            <span
+              className={cn("icon-[mingcute--search-3-line] size-6", slots.searchIcon())}
+            ></span>
             <Command.Input
               autoFocus={!isWebKit()}
               className={slots.input()}

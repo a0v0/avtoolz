@@ -1,9 +1,9 @@
-import React, {forwardRef, useEffect} from "react";
 import {clsx, dataAttr, getUniqueID} from "@nextui-org/shared-utils";
-import BaseHighlight, {Language, PrismTheme, defaultProps} from "prism-react-renderer";
 import {debounce} from "lodash";
+import BaseHighlight, {Language, PrismTheme, defaultProps} from "prism-react-renderer";
+import React, {forwardRef, useEffect} from "react";
 
-import defaultTheme from "@/libs/prism-theme";
+import defaultTheme from "@/lib/prism-theme";
 import {trackEvent} from "@/utils/va";
 
 interface CodeblockProps {

@@ -1,4 +1,4 @@
-import {addTagToSlug} from "@/libs/docs/page";
+import {addTagToSlug} from "@/lib/docs/page";
 import {removeFromLast} from "@/utils";
 
 export const getRoutePaths = (path: string, tag?: string) => {

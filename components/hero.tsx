@@ -1,7 +1,7 @@
 "use client";
+
 import {Link} from "@nextui-org/link";
 import {Button} from "@nextui-org/react";
-import {ArrowRightIcon} from "@nextui-org/shared-icons";
 import {Logo} from "./icons";
 import {subtitle, title} from "./primitives";
 
@@ -24,7 +24,7 @@ function Hero() {
       </h2>
       <Button
         as={Link}
-        endContent={<ArrowRightIcon />}
+        endContent={<span className="icon-[solar--arrow-right-bold-duotone] size-6"></span>}
         color="success"
         variant="ghost"
         href="/tools"

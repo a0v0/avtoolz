@@ -1,5 +1,5 @@
 import {AstroIcon, NewNextJSIcon, RemixIcon, ViteIcon} from "@/components/icons";
-import {ToolsGrid} from "@/components/marketing/features-grid";
+import {ToolsGrid} from "@/components/tools-grid";
 
 const frameworks = [
   {

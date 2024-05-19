@@ -2,8 +2,8 @@ import {Button, ButtonProps, Code, Link, Tooltip} from "@nextui-org/react";
 import {ReactNode} from "react";
 import Balancer from "react-wrap-balancer";
 
-import {GithubIcon, NpmIcon, AdobeIcon, StorybookIcon, NextJsIcon} from "@/components/icons";
-import {COMPONENT_PATH, COMPONENT_THEME_PATH} from "@/libs/github/constants";
+import {AdobeIcon, GithubIcon, NextJsIcon, NpmIcon, StorybookIcon} from "@/components/icons";
+import {COMPONENT_PATH, COMPONENT_THEME_PATH} from "@/lib/github/constants";
 import {trackEvent} from "@/utils/va";
 
 export interface ComponentLinksProps {

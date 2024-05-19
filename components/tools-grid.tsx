@@ -18,7 +18,7 @@ const styles = tv({
   },
 });
 
-export type FeaturesGridSlots = keyof ReturnType<typeof styles>;
+export type ToolsGridSlots = keyof ReturnType<typeof styles>;
 
 export interface Tool extends LinkProps {
   title: string;
@@ -28,7 +28,7 @@ export interface Tool extends LinkProps {
 
 interface ToolsGridProps {
   features: Tool[];
-  classNames?: SlotsToClasses<FeaturesGridSlots>;
+  classNames?: SlotsToClasses<ToolsGridSlots>;
 }
 
 export const ToolsGrid: React.FC<ToolsGridProps> = ({features, classNames, ...props}) => {

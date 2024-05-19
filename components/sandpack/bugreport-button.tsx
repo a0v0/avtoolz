@@ -1,10 +1,9 @@
-import React from "react";
-import {usePathname} from "next/navigation";
-import {Tooltip, Button} from "@nextui-org/react";
+import {Button, Tooltip} from "@nextui-org/react";
 import {capitalize, last} from "lodash";
+import {usePathname} from "next/navigation";
 
 import {BugIcon} from "@/components/icons";
-import {ISSUE_REPORT_URL} from "@/libs/github/constants";
+import {ISSUE_REPORT_URL} from "@/lib/github/constants";
 import {trackEvent} from "@/utils/va";
 
 export const BugReportButton = () => {

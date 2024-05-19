@@ -1,8 +1,8 @@
 import {ASSETS_PATH, CONTENT_PATH, FORCE_TAG, TAG} from "./config";
 
 import {routes as localRoutes} from "@/config/routes";
-import {getLatestTag} from "@/libs/github/api";
-import {getRawAssetFromRepo, getRawFileFromRepo} from "@/libs/github/raw";
+import {getLatestTag} from "@/lib/github/api";
+import {getRawAssetFromRepo, getRawFileFromRepo} from "@/lib/github/raw";
 import {__PREVIEW__, __PROD__, removeFromLast} from "@/utils";
 
 export interface Route {

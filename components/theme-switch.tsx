@@ -1,14 +1,11 @@
 "use client";
 
-import {FC} from "react";
-import {VisuallyHidden} from "@react-aria/visually-hidden";
-import {SwitchProps, useSwitch} from "@nextui-org/react";
-import {useTheme} from "next-themes";
+import {Link, SwitchProps, useSwitch} from "@nextui-org/react";
 import {clsx} from "@nextui-org/shared-utils";
 import {useIsSSR} from "@react-aria/ssr";
-
-import {SunFilledIcon, MoonFilledIcon} from "@/components/icons";
-import {trackEvent} from "@/utils/va";
+import {VisuallyHidden} from "@react-aria/visually-hidden";
+import {useTheme} from "next-themes";
+import {FC} from "react";
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -21,12 +18,6 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({className, classNames}) => {
 
   const onChange = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
-
-    trackEvent("ThemeChange", {
-      action: "click",
-      category: "theme",
-      data: theme === "light" ? "dark" : "light",
-    });
   };
 
   const {Component, slots, isSelected, getBaseProps, getInputProps, getWrapperProps} = useSwitch({
@@ -67,7 +58,24 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({className, classNames}) => {
           ),
         })}
       >
-        {!isSelected || isSSR ? <SunFilledIcon size={22} /> : <MoonFilledIcon size={22} />}
+        {!isSelected || isSSR ? (
+          <Link
+            anchorIcon={<span className="icon-[mage--sun-fill] size-6"></span>}
+            showAnchorIcon={true}
+            isExternal
+            isBlock
+            className="p-1 text-inherit focus:outline-none border-transparent focus:border-transparent focus:ring-0"
+            color="foreground"
+          ></Link>
+        ) : (
+          <Link
+            isBlock
+            className="p-1 text-inherit focus:outline-none border-transparent focus:border-transparent focus:ring-0"
+            color="foreground"
+          >
+            <span className="icon-[mage--moon-fill] size-6"></span>
+          </Link>
+        )}
       </div>
     </Component>
   );
