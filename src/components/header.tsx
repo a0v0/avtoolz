@@ -22,20 +22,24 @@ import { usePathname, useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-import { useCmdkStore } from '@/components/cmdk';
-import { ThemeSwitch } from '@/components/theme-switch';
-import { type Route, routes as AllRoutes } from '@/config/routes';
+// ThemeSwitch
+// import { ThemeSwitch } from '@/components';
+// import { DocsSidebar } from '@/components/docs/sidebar';
+import type { Route } from '@/config/routes';
+import { routes as manifest } from '@/config/routes';
 import { siteConfig } from '@/config/site';
 
+import { useCmdkStore } from './cmdk';
 import { Logo } from './icons/logo';
 import { DocsSidebar } from './sidebar';
+import { ThemeSwitch } from './theme-switch';
 
-export interface NavbarProps {
+export interface HeaderProps {
   routes: Route[];
   tag?: string;
   slug?: string;
 }
-export const Header: FC<NavbarProps> = ({ routes, slug, tag }) => {
+export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
   const [commandKey, setCommandKey] = useState<'ctrl' | 'command'>('ctrl');
   const router = useRouter();
@@ -57,7 +61,6 @@ export const Header: FC<NavbarProps> = ({ routes, slug, tag }) => {
     cmdkStore.onOpen();
   };
 
-  // TODO: make search button work
   const searchButton = (
     <Button
       aria-label="Quick search"
@@ -109,7 +112,7 @@ export const Header: FC<NavbarProps> = ({ routes, slug, tag }) => {
             All Tools
           </Link>
         </NavbarItem>
-        {AllRoutes.items.map((category, index) =>
+        {manifest.items.map((category, index) =>
           category.routes.length > 0 ? (
             <Dropdown key={index}>
               <NavbarItem>

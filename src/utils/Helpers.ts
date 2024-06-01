@@ -1,6 +1,9 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+import { Tools } from '@/config/tools';
+import type { ToolType } from '@/types/tool';
+
 import { AppConfig } from './AppConfig';
 
 export const getBaseUrl = () => {
@@ -62,4 +65,8 @@ export const getPathnameFromMetadataState = (state: any): string => {
     .find((state) => state?.hasOwnProperty?.('urlPathname'));
 
   return res?.urlPathname.replace(/\?.+/, '') ?? '';
+};
+
+export const getToolByHref = (href: string): ToolType | undefined => {
+  return Tools.find((tool) => tool.href === href);
 };

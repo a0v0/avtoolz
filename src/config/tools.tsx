@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-// import React from 'react';
 import { ToolCategory, type ToolType } from '@/types/tool';
 
 export const Tools: ToolType[] = [
@@ -48,10 +47,3 @@ export const Tools: ToolType[] = [
     newPost: false,
   },
 ];
-
-export const getToolByHref = (href: string): ToolType | undefined => {
-  return Tools.find((tool) => tool.href === href);
-};
-
-// needed otherwise the server fails to start
-// React;

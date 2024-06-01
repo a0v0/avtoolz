@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
-/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable jsx-a11y/no-autofocus */
 
 'use client';
@@ -20,12 +18,14 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 import { tv } from 'tailwind-variants';
 import { create } from 'zustand';
 
-import searchData from '@/config/search-meta.json';
+import { Tools } from '@/config/tools';
 import { useUpdateEffect } from '@/hooks/use-update-effect';
 import { cn } from '@/utils/Helpers';
 
 import { ChevronRightLinearIcon } from './icons/chevron-right';
 import { HashBoldIcon } from './icons/hash';
+
+const hideOnPaths = ['examples'];
 
 export interface CmdkStore {
   isOpen: boolean;
@@ -152,6 +152,17 @@ export const Cmdk: FC<{}> = () => {
   const [recentSearches] =
     useLocalStorage<SearchResultItem[]>(RECENT_SEARCHES_KEY);
 
+  const searchData: SearchResultItem[] = Tools.map((tool) => ({
+    content: tool.title,
+    objectID: tool.href,
+    url: tool.href,
+    type: 'lvl1',
+    hierarchy: {
+      lvl1: tool.keywords.split(',').join(' '),
+      lvl2: tool.description,
+    },
+  }));
+
   const addToRecentSearches = (item: SearchResultItem) => {
     let searches = recentSearches ?? [];
 
@@ -175,18 +186,16 @@ export const Cmdk: FC<{}> = () => {
     function getResults() {
       if (query.length < 2) return [];
 
-      const data = searchData as SearchResultItem[];
-
       const words = query.split(' ');
 
       if (words.length === 1) {
-        return matchSorter(data, query, {
+        return matchSorter(searchData, query, {
           keys: MATCH_KEYS,
         }).slice(0, MAX_RESULTS);
       }
 
       const matchesForEachWord = words.map((word) =>
-        matchSorter(data, word, {
+        matchSorter(searchData, word, {
           keys: MATCH_KEYS,
         }),
       );

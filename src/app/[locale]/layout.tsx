@@ -4,13 +4,13 @@ import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 
+import { Cmdk } from '@/components/cmdk';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import { routes } from '@/config/routes';
 import { siteConfig } from '@/config/site';
-import { getToolByHref } from '@/config/tools';
 import { AppConfig } from '@/utils/AppConfig';
-import { getPathnameFromMetadataState } from '@/utils/Helpers';
+import { getPathnameFromMetadataState, getToolByHref } from '@/utils/Helpers';
 
 import { Providers } from '../providers';
 
@@ -105,6 +105,7 @@ export default function RootLayout(props: {
             <Header routes={routes.items.filter((r) => r.routes.length > 0)} />
             {props.children}
             <Footer />
+            <Cmdk />
           </NextIntlClientProvider>
         </Providers>
       </body>

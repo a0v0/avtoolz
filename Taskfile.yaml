@@ -11,8 +11,11 @@ tasks:
 
   storybook:
     desc: Run storybook
-    cmd: pnpm run storybook
-
-  dev:
+    cmd: pnpm storybook
+  run:
     desc: Run development server
-    cmd: pnpm run dev
+    cmd: pnpm dev
+
+  lint:
+    desc: Lint code
+    cmd: pnpm lint

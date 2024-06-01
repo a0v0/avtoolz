@@ -26,6 +26,7 @@ storybook-static
 
 # cache
 .swc/
+.pnpm-store
 
 # production
 /build
