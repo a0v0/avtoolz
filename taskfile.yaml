@@ -1,0 +1,18 @@
+version: 3
+silent: true
+tasks:
+  default:
+    desc: Show all tasks
+    cmd: task -a
+
+  install:
+    desc: Install dependencies
+    cmd: pnpm i
+
+  storybook:
+    desc: Run storybook
+    cmd: pnpm run storybook
+
+  dev:
+    desc: Run development server
+    cmd: pnpm run dev

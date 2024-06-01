@@ -1,36 +1,89 @@
 import '@/styles/global.css';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 
+import { Footer } from '@/components/footer';
+import { Header } from '@/components/header';
+import { routes } from '@/config/routes';
+import { siteConfig } from '@/config/site';
+import { getToolByHref } from '@/config/tools';
 import { AppConfig } from '@/utils/AppConfig';
+import { getPathnameFromMetadataState } from '@/utils/Helpers';
 
-export const metadata: Metadata = {
-  icons: [
-    {
-      rel: 'apple-touch-icon',
-      url: '/apple-touch-icon.png',
+import { Providers } from '../providers';
+
+// export const metadata: Metadata = {
+//   icons: [
+//     {
+//       rel: 'apple-touch-icon',
+//       url: '/apple-touch-icon.png',
+//     },
+//     {
+//       rel: 'icon',
+//       type: 'image/png',
+//       sizes: '32x32',
+//       url: '/favicon-32x32.png',
+//     },
+//     {
+//       rel: 'icon',
+//       type: 'image/png',
+//       sizes: '16x16',
+//       url: '/favicon-16x16.png',
+//     },
+//     {
+//       rel: 'icon',
+//       url: '/favicon.ico',
+//     },
+//   ],
+// };
+
+export async function generateMetadata(_: any, state: any): Promise<Metadata> {
+  // TODO: migrate to a better solution once nextjs allows reading pathname in generateMetadata
+  const pathname = getPathnameFromMetadataState(state);
+  const tool = getToolByHref(pathname ?? '');
+  let title = `${siteConfig.name} • ${siteConfig.tagline}`;
+  let { description } = siteConfig;
+
+  if (tool) {
+    title = `${tool.title} • ${siteConfig.name}`;
+    description = tool.description;
+  } else if (pathname === '/tools') {
+    title = `Tools • ${siteConfig.name}`;
+    description = 'All the available tools in aVToolz.';
+  }
+
+  return {
+    title,
+    description,
+    keywords: siteConfig.keywords,
+
+    icons: {
+      icon: '/favicon.ico',
     },
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '32x32',
-      url: '/favicon-32x32.png',
+    manifest: '/manifest',
+    openGraph: siteConfig.openGraph,
+    alternates: {
+      canonical: 'https://avtoolz.com',
+      types: {
+        'application/rss+xml': [
+          { url: 'https://avtoolz.com/feed.xml', title: 'aVToolz RSS Feed' },
+        ],
+      },
     },
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '16x16',
-      url: '/favicon-16x16.png',
-    },
-    {
-      rel: 'icon',
-      url: '/favicon.ico',
-    },
+  };
+}
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
 };
-
 export default function RootLayout(props: {
   children: React.ReactNode;
   params: { locale: string };
@@ -42,14 +95,18 @@ export default function RootLayout(props: {
   const messages = useMessages();
 
   return (
-    <html lang={props.params.locale}>
+    <html suppressHydrationWarning lang={props.params.locale}>
       <body>
-        <NextIntlClientProvider
-          locale={props.params.locale}
-          messages={messages}
-        >
-          {props.children}
-        </NextIntlClientProvider>
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          <NextIntlClientProvider
+            locale={props.params.locale}
+            messages={messages}
+          >
+            <Header routes={routes.items.filter((r) => r.routes.length > 0)} />
+            {props.children}
+            <Footer />
+          </NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
   );

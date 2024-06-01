@@ -18,12 +18,7 @@
     // Configuration for TypeScript files
     {
       "files": ["**/*.ts", "**/*.tsx", "**/*.mts"],
-      "plugins": [
-        "@typescript-eslint",
-        "unused-imports",
-        "tailwindcss",
-        "simple-import-sort"
-      ],
+      "plugins": ["unused-imports", "tailwindcss", "simple-import-sort"],
       "extends": [
         "plugin:tailwindcss/recommended",
         "airbnb",
