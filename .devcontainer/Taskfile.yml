@@ -1,0 +1,15 @@
+version: 3
+
+tasks:
+  default:
+    cmds:
+      - task: setup
+
+  setup:
+    desc: Install dependencies
+    silent: true
+    cmds:
+      - curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > ~/install
+      - fish ~/install --noninteractive
+      - fish -c "set -U fish_greeting"
+      - fish -c "omf install randomrussel"

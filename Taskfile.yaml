@@ -1,0 +1,30 @@
+version: 3
+silent: true
+tasks:
+  default:
+    desc: Show all tasks
+    cmd: task -a
+
+  install:
+    desc: Install dependencies
+    cmd: pnpm i
+
+  storybook:
+    desc: Run storybook
+    cmd: pnpm storybook
+  run:
+    desc: Run development server
+    cmd: pnpm dev
+
+  lint:
+    desc: Lint code
+    cmd: pnpm lint
+    
+  # Sometimes git is not tracking the files that are in .gitignore
+  # This task will fix that
+  # See: https://stackoverflow.com/questions/25436312/gitignore-not-working
+  fix_gitignore:
+    desc: Fix git not tracking files in .gitignore
+    cmds:
+      - git rm -rf --cached .
+      - git add .
