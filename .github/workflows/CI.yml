@@ -42,8 +42,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
+          cache: "pnpm"
+      - run: pnpm ci
 
       - name: Set SENTRY_AUTH_TOKEN env if secret exists
         run: |
