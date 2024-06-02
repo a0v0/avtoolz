@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-'use client';
+"use client";
 
-import type { SwitchProps } from '@nextui-org/react';
-import { Link, useSwitch } from '@nextui-org/react';
-import { clsx } from '@nextui-org/shared-utils';
-import { useIsSSR } from '@react-aria/ssr';
-import { VisuallyHidden } from '@react-aria/visually-hidden';
-import { useTheme } from 'next-themes';
-import type { FC } from 'react';
+import type { SwitchProps } from "@nextui-org/react";
+import { Link, useSwitch } from "@nextui-org/react";
+import { clsx } from "@nextui-org/shared-utils";
+import { useIsSSR } from "@react-aria/ssr";
+import { VisuallyHidden } from "@react-aria/visually-hidden";
+import { useTheme } from "next-themes";
+import type { FC } from "react";
 
 export interface ThemeSwitchProps {
   className?: string;
-  classNames?: SwitchProps['classNames'];
+  classNames?: SwitchProps["classNames"];
 }
 
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({
@@ -23,10 +23,10 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
   const isSSR = useIsSSR();
 
   const onChange = () => {
-    if (theme === 'light') {
-      setTheme('dark');
+    if (theme === "light") {
+      setTheme("dark");
     } else {
-      setTheme('light');
+      setTheme("light");
     }
   };
 
@@ -37,18 +37,19 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     getBaseProps,
     getInputProps,
   } = useSwitch({
-    isSelected: theme === 'light',
-    'aria-label': `Switch to ${theme === 'light' ? 'dark' : 'light'} mode`,
+    isSelected: theme === "light",
+    "aria-label": `Switch to ${theme === "light" ? "dark" : "light"} mode`,
     onChange,
   });
 
   return (
     <Component
       {...getBaseProps({
+        id: "theme-switch",
         className: clsx(
-          'size-8 cursor-pointer p-1 transition-opacity hover:opacity-80',
+          "size-8 cursor-pointer p-1 transition-opacity hover:opacity-80",
           className,
-          classNames?.base,
+          classNames?.base
         ),
       })}
     >

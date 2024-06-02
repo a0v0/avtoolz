@@ -13,3 +13,6 @@ tasks:
       - fish ~/install --noninteractive
       - fish -c "set -U fish_greeting"
       - fish -c "omf install randomrussel"
+      - npx playwright install chromium --with-deps
+
+      
