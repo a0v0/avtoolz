@@ -1,19 +1,36 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
-test.describe("theme toggle check", () => {
-  test("dark mode should be set properly", async ({ page }) => {
-    // TODO: Add dark mode test
+test.describe("check theme toggle switch", () => {
+  test("light mode working?", async ({ page }) => {
     await page.goto("/");
-    // find theme toggle button
-    // click theme toggle button
-    await page.locator("#app-container > main > section > main > a").click();
-    // await expect(page).toHaveAttribute("data-theme", "dark");
-    // check if dark mode is set
-    // refresh page
-    // check if dark mode persists
+    await page
+      .locator("ul")
+      .filter({ hasText: "RoadmapReport Bugs Quick" })
+      .getByLabel("Switch to light mode")
+      .getByRole("link")
+      .click();
+    await expect(page.locator("html")).toHaveAttribute("class", "light");
+    await page.reload();
+    await expect(page.locator("html")).toHaveAttribute("class", "light");
   });
 
-  test("light mode should be set properly", async ({ page }) => {
-    // TODO: Add light mode tests
+  test("dark mode working?", async ({ page }) => {
+    await page.goto("/");
+    // default theme is dark so first switch to light
+    await page
+      .locator("ul")
+      .filter({ hasText: "RoadmapReport Bugs Quick" })
+      .getByLabel("Switch to light mode")
+      .getByRole("link")
+      .click();
+    await page
+      .locator("ul")
+      .filter({ hasText: "RoadmapReport Bugs Quick" })
+      .getByLabel("Switch to dark mode")
+      .getByRole("link")
+      .click();
+    await expect(page.locator("html")).toHaveAttribute("class", "dark");
+    await page.reload();
+    await expect(page.locator("html")).toHaveAttribute("class", "dark");
   });
 });
