@@ -16,3 +16,4 @@ tasks:
       - npx playwright install chromium --with-deps
 
       
+# FIXME: add headed browser support for playwright

@@ -43,43 +43,44 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
   });
 
   return (
-    <Component
-      {...getBaseProps({
-        id: "theme-switch",
-        className: clsx(
-          "size-8 cursor-pointer p-1 transition-opacity hover:opacity-80",
-          className,
-          classNames?.base
-        ),
-      })}
-    >
-      <VisuallyHidden>
-        <input {...getInputProps()} />
-      </VisuallyHidden>
+    <div id="theme-toggle">
+      <Component
+        {...getBaseProps({
+          className: clsx(
+            "size-8 cursor-pointer p-1 transition-opacity hover:opacity-80",
+            className,
+            classNames?.base
+          ),
+        })}
+      >
+        <VisuallyHidden>
+          <input {...getInputProps()} />
+        </VisuallyHidden>
 
-      {!isSelected || isSSR ? (
-        <Link
-          anchorIcon={
-            <span className="icon-[mage--sun-fill] size-6 text-default-600 dark:text-default-500" />
-          }
-          showAnchorIcon
-          isExternal
-          isBlock
-          className="border-transparent p-1 text-inherit focus:border-transparent focus:outline-none focus:ring-0"
-          color="foreground"
-        />
-      ) : (
-        <Link
-          anchorIcon={
-            <span className="icon-[mage--moon-fill] size-6 text-default-600 dark:text-default-500" />
-          }
-          showAnchorIcon
-          isExternal
-          isBlock
-          className="border-transparent p-1 text-inherit focus:border-transparent focus:outline-none focus:ring-0"
-          color="foreground"
-        />
-      )}
-    </Component>
+        {!isSelected || isSSR ? (
+          <Link
+            anchorIcon={
+              <span className="icon-[mage--sun-fill] size-6 text-default-600 dark:text-default-500" />
+            }
+            showAnchorIcon
+            isExternal
+            isBlock
+            className="border-transparent p-1 text-inherit focus:border-transparent focus:outline-none focus:ring-0"
+            color="foreground"
+          />
+        ) : (
+          <Link
+            anchorIcon={
+              <span className="icon-[mage--moon-fill] size-6 text-default-600 dark:text-default-500" />
+            }
+            showAnchorIcon
+            isExternal
+            isBlock
+            className="border-transparent p-1 text-inherit focus:border-transparent focus:outline-none focus:ring-0"
+            color="foreground"
+          />
+        )}
+      </Component>{" "}
+    </div>
   );
 };
