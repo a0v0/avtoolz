@@ -9,7 +9,7 @@ tasks:
     desc: Install dependencies
     cmds:
       - pnpm install
-      - pnpx playwright install-deps chromium
+      - pnpx playwright install chromium #--with-deps
 
   storybook:
     desc: Run storybook
@@ -34,4 +34,12 @@ tasks:
 
   test:
     desc: Run tests
-    cmd: pnpm test:e2e
+    cmds:
+      - pnpm test
+      - pnpm test:e2e
+
+  update:
+    desc: Update dependencies
+    cmds:
+      - pnpm update
+      # - pnpx playwright install chromium #--with-deps
