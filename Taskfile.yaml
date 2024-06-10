@@ -7,11 +7,14 @@ tasks:
 
   install:
     desc: Install dependencies
-    cmd: pnpm i
+    cmds:
+      - pnpm install
+      - pnpx playwright install-deps chromium
 
   storybook:
     desc: Run storybook
     cmd: pnpm storybook
+
   run:
     desc: Run development server
     cmd: pnpm dev
@@ -19,7 +22,7 @@ tasks:
   lint:
     desc: Lint code
     cmd: pnpm lint
-    
+
   # Sometimes git is not tracking the files that are in .gitignore
   # This task will fix that
   # See: https://stackoverflow.com/questions/25436312/gitignore-not-working
@@ -28,3 +31,7 @@ tasks:
     cmds:
       - git rm -rf --cached .
       - git add .
+
+  test:
+    desc: Run tests
+    cmd: pnpm test:e2e

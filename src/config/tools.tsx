@@ -1,11 +1,11 @@
-import Image from 'next/image';
-
-import { ToolCategory, type ToolType } from '@/types/tool';
+import { ToolCategory, type ToolType } from "@/types/tool";
+import Image from "next/image";
+import React from "react";
 
 export const Tools: ToolType[] = [
   {
-    key: 'image-to-pdf',
-    title: 'Image to PDF',
+    key: "image-to-pdf",
+    title: "Image to PDF",
     icon: (
       <Image
         alt="image-to-pdf"
@@ -14,21 +14,21 @@ export const Tools: ToolType[] = [
         height={35}
       />
     ),
-    description: 'Convert images to PDF files quickly and easily.',
+    description: "Convert images to PDF files quickly and easily.",
     showFullDescription: true,
-    href: '/tools/image-to-pdf',
+    href: "/tools/image-to-pdf",
     isExternal: false,
     keywords:
-      'image to pdf, convert image to pdf, image converter, pdf converter',
+      "image to pdf, convert image to pdf, image converter, pdf converter",
     category: [ToolCategory.PDF],
     updated: false,
     newPost: false,
   },
 
   {
-    key: 'merge-pdf',
-    title: 'Merge PDF',
-    description: 'Combine multiple PDFs into one unified document.',
+    key: "merge-pdf",
+    title: "Merge PDF",
+    description: "Combine multiple PDFs into one unified document.",
     showFullDescription: true,
     icon: (
       <Image
@@ -38,12 +38,14 @@ export const Tools: ToolType[] = [
         height={35}
       />
     ),
-    href: '/tools/merge-pdf',
+    href: "/tools/merge-pdf",
     isExternal: false,
     keywords:
-      'merge pdf, combine pdf, pdf merger, merge pdf documents, pdf merge online, merge pdf files, pdf merge tool',
+      "merge pdf, combine pdf, pdf merger, merge pdf documents, pdf merge online, merge pdf files, pdf merge tool",
     category: [ToolCategory.PDF],
     updated: false,
     newPost: false,
   },
 ];
+
+React;

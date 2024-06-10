@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("check theme toggle switch", () => {
+test.describe("theme toggle", () => {
   test("light mode working?", async ({ page }) => {
     await page.goto("/");
     await page
@@ -34,3 +34,5 @@ test.describe("check theme toggle switch", () => {
     await expect(page.locator("html")).toHaveAttribute("class", "dark");
   });
 });
+
+// TODO: write test to check if footer is present on all pages

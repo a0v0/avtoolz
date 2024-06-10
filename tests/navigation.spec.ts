@@ -10,5 +10,6 @@ test("should navigate to homepage", async ({ page }) => {
 test("should navigate to tools page", async ({ page }) => {
   await page.goto("/tools");
   await expect(page).toHaveTitle("aVToolz - Free Online Tools");
-  
 });
+
+// TODO: breadcrumbs navigation check
