@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { NextUIProvider } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import type { ThemeProviderProps } from 'next-themes/dist/types';
-import NextTopLoader from 'nextjs-toploader';
-import * as React from 'react';
+import { NextUIProvider } from "@nextui-org/react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import type { ThemeProviderProps } from "next-themes/dist/types";
+import { useRouter } from "next/navigation";
+import NextTopLoader from "nextjs-toploader";
+import * as React from "react";
 
 export interface ProvidersProps {
   children: React.ReactNode;

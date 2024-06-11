@@ -1,6 +1,4 @@
-import { ToolCategory } from '@/types/tool';
-
-import { Tools } from './tools';
+import { ToolCategory, Tools } from "./tools";
 
 export interface Route {
   key?: string;
@@ -21,28 +19,28 @@ export interface Route {
 export const routes = {
   items: [
     {
-      key: 'pdf-tools',
-      title: 'PDF Tools',
+      key: "pdf-tools",
+      title: "PDF Tools",
       defaultOpen: true,
-      color: 'green',
+      color: "green",
       keywords:
-        'PDF tools, PDF editor, PDF converter, PDF viewer, PDF management',
+        "PDF tools, PDF editor, PDF converter, PDF viewer, PDF management",
       routes: Tools.filter((tool) =>
-        tool.category.includes(ToolCategory.PDF),
+        tool.category.includes(ToolCategory.PDF)
       ).map((tool) => ({
         ...tool,
         path: tool.href,
       })),
     },
     {
-      key: 'image-tools',
-      title: 'Image Tools',
+      key: "image-tools",
+      title: "Image Tools",
       defaultOpen: true,
-      color: 'violet',
+      color: "violet",
       keywords:
-        'Image tools, Image editor, Image converter, Image viewer, Image management',
+        "Image tools, Image editor, Image converter, Image viewer, Image management",
       routes: Tools.filter((tool) =>
-        tool.category.includes(ToolCategory.IMAGE),
+        tool.category.includes(ToolCategory.IMAGE)
       ).map((tool) => ({
         ...tool,
         path: tool.href,

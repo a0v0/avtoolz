@@ -1,21 +1,14 @@
 import Hero from "@/components/hero";
-
-// export async function generateMetadata(props: { params: { locale: string } }) {
-//   const t = await getTranslations({
-//     locale: props.params.locale,
-//     namespace: 'Index',
-//   });
-
-//   return {
-//     title: t('meta_title'),
-//     description: t('meta_description'),
-//   };
-// }
+import { ToolsCards } from "@/components/ToolsGrid";
 
 export default function Index() {
   return (
-    <>
-      <Hero />
-    </>
+    <main className="container mx-auto max-w-7xl px-6 flex-grow">
+      <section className="flex flex-col items-center ">
+        {/* <BackgroundEffects /> */}
+        <Hero />
+        <ToolsCards />
+      </section>
+    </main>
   );
 }

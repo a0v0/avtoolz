@@ -7,13 +7,10 @@
     "sign_in_link": "Sign in",
     "sign_up_link": "Sign up"
   },
-  "BaseTemplate": {
-    "description": "Starter code for your Nextjs Boilerplate with Tailwind CSS",
-    "made_with": "Made with"
-  },
-  "Index": {
-    "meta_title": "Next.js Boilerplate Presentation",
-    "meta_description": "Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
+  "home": {
+    "hero": {
+      "tagline": "Fast, beautiful and modern tools for everyone."
+    }
   },
   "Guestbook": {
     "meta_title": "Guestbook",

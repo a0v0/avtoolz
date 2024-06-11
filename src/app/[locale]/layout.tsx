@@ -1,18 +1,19 @@
-import '@/styles/global.css';
+import "@/styles/global.css";
 
-import type { Metadata, Viewport } from 'next';
-import { notFound } from 'next/navigation';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
+import type { Metadata, Viewport } from "next";
+import { NextIntlClientProvider, useMessages } from "next-intl";
+import { notFound } from "next/navigation";
 
-import { Cmdk } from '@/components/cmdk';
-import { Footer } from '@/components/footer';
-import { Header } from '@/components/header';
-import { routes } from '@/config/routes';
-import { siteConfig } from '@/config/site';
-import { AppConfig } from '@/utils/AppConfig';
-import { getPathnameFromMetadataState, getToolByHref } from '@/utils/Helpers';
+import { Cmdk } from "@/components/cmdk";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { routes } from "@/config/routes";
+import { siteConfig } from "@/config/site";
+import { AppConfig } from "@/utils/AppConfig";
+import { getPathnameFromMetadataState } from "@/utils/Helpers";
 
-import { Providers } from '../providers';
+import { getToolByHref } from "@/config/tools";
+import { Providers } from "../providers";
 
 // export const metadata: Metadata = {
 //   icons: [
@@ -42,16 +43,16 @@ import { Providers } from '../providers';
 export async function generateMetadata(_: any, state: any): Promise<Metadata> {
   // TODO: migrate to a better solution once nextjs allows reading pathname in generateMetadata
   const pathname = getPathnameFromMetadataState(state);
-  const tool = getToolByHref(pathname ?? '');
+  const tool = getToolByHref(pathname ?? "");
   let title = `${siteConfig.name} • ${siteConfig.tagline}`;
   let { description } = siteConfig;
 
   if (tool) {
     title = `${tool.title} • ${siteConfig.name}`;
     description = tool.description;
-  } else if (pathname === '/tools') {
+  } else if (pathname === "/tools") {
     title = `Tools • ${siteConfig.name}`;
-    description = 'All the available tools in aVToolz.';
+    description = "All the available tools in aVToolz.";
   }
 
   return {
@@ -60,28 +61,28 @@ export async function generateMetadata(_: any, state: any): Promise<Metadata> {
     keywords: siteConfig.keywords,
 
     icons: {
-      icon: '/favicon.ico',
+      icon: "/favicon.ico",
     },
-    manifest: '/manifest',
+    manifest: "/manifest",
     openGraph: siteConfig.openGraph,
     alternates: {
-      canonical: 'https://avtoolz.com',
+      canonical: "https://avtoolz.com",
       types: {
-        'application/rss+xml': [
-          { url: 'https://avtoolz.com/feed.xml', title: 'aVToolz RSS Feed' },
+        "application/rss+xml": [
+          { url: "https://avtoolz.com/feed.xml", title: "aVToolz RSS Feed" },
         ],
       },
     },
   };
 }
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
 };
 export default function RootLayout(props: {
@@ -97,7 +98,7 @@ export default function RootLayout(props: {
   return (
     <html suppressHydrationWarning lang={props.params.locale}>
       <body>
-        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <NextIntlClientProvider
             locale={props.params.locale}
             messages={messages}

@@ -1,6 +1,24 @@
-import { ToolCategory, type ToolType } from "@/types/tool";
 import Image from "next/image";
 import React from "react";
+
+export interface ToolType {
+  key: string;
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  showFullDescription: boolean;
+  href: string;
+  isExternal: boolean;
+  category: ToolCategory[];
+  keywords: string; // comma separated
+  updated: boolean;
+  newPost: boolean;
+}
+
+export enum ToolCategory {
+  IMAGE = "image",
+  PDF = "pdf",
+}
 
 export const Tools: ToolType[] = [
   {
@@ -47,5 +65,14 @@ export const Tools: ToolType[] = [
     newPost: false,
   },
 ];
+
+// function to get tools by category
+export const getToolsByCategory = (category: ToolCategory): ToolType[] => {
+  return Tools.filter((tool) => tool.category.includes(category));
+};
+
+export const getToolByHref = (href: string): ToolType | undefined => {
+  return Tools.find((tool) => tool.href === href);
+};
 
 React;

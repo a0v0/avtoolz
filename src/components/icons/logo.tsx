@@ -1,4 +1,4 @@
-import FluentUIEmoji, { EmpojiType } from './fluentui-emoji';
+import FluentUIEmoji, { EmpojiType } from "./fluentui-emoji";
 
 interface LogoProps {
   size?: number;

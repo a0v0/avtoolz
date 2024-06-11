@@ -1,11 +1,11 @@
-"use client";
-
-import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/react";
 import { Logo } from "@/components/icons/logo";
 import { subtitle, title } from "@/libs/primitives";
+import { Link } from "@nextui-org/link";
+import { Button } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 
 function Hero() {
+  const t = useTranslations("home.hero");
   return (
     <main className="h-screen text-center  mt-24">
       <center>
@@ -20,7 +20,7 @@ function Hero() {
           class: "text-center",
         })}
       >
-        Fast, beautiful and modern tools for everyone.
+        {t("tagline")}
       </h2>
       <Button
         as={Link}

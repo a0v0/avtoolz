@@ -1,10 +1,7 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-import { Tools } from '@/config/tools';
-import type { ToolType } from '@/types/tool';
-
-import { AppConfig } from './AppConfig';
+import { AppConfig } from "./AppConfig";
 
 export const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -15,7 +12,7 @@ export const getBaseUrl = () => {
     return `https://${process.env.VERCEL_URL}`;
   }
 
-  return 'http://localhost:3000';
+  return "http://localhost:3000";
 };
 
 export const getI18nPath = (url: string, locale: string) => {
@@ -36,11 +33,11 @@ export function removeFromLast<T>(path: string, key: string): string | T {
   return i === -1 ? path : path.substring(0, i);
 }
 export function addTagToSlug(slug: string, tag?: string) {
-  return tag ? slug.replace('/docs', `/docs/tag/${tag}`) : slug;
+  return tag ? slug.replace("/docs", `/docs/tag/${tag}`) : slug;
 }
 
 export const getRoutePaths = (path: string, tag?: string) => {
-  const pagePath = path ? removeFromLast<string>(path, '.') : path;
+  const pagePath = path ? removeFromLast<string>(path, ".") : path;
   const pathname = pagePath ? addTagToSlug(pagePath, tag) : pagePath;
 
   return {
@@ -62,11 +59,7 @@ export const getRoutePaths = (path: string, tag?: string) => {
 export const getPathnameFromMetadataState = (state: any): string => {
   const res = Object.getOwnPropertySymbols(state || {})
     .map((p) => state[p])
-    .find((state) => state?.hasOwnProperty?.('urlPathname'));
+    .find((state) => state?.hasOwnProperty?.("urlPathname"));
 
-  return res?.urlPathname.replace(/\?.+/, '') ?? '';
-};
-
-export const getToolByHref = (href: string): ToolType | undefined => {
-  return Tools.find((tool) => tool.href === href);
+  return res?.urlPathname.replace(/\?.+/, "") ?? "";
 };
