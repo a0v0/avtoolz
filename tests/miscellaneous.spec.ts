@@ -35,4 +35,4 @@ test.describe("theme toggle", () => {
   });
 });
 
-// TODO: write test to check if footer is present on all pages
+// TODO: add test for search spotlight

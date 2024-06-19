@@ -26,7 +26,7 @@ export const Tools: ToolType[] = [
     title: "Image to PDF",
     icon: (
       <Image
-        alt="image-to-pdf"
+        alt="Thumbnail for the Image to PDF tool"
         src="/icons/image-to-pdf.webp"
         width={35}
         height={35}
@@ -50,7 +50,7 @@ export const Tools: ToolType[] = [
     showFullDescription: true,
     icon: (
       <Image
-        alt="merge-pdf"
+        alt="Thumbnail for the Merge PDF tool"
         src="/icons/merge-pdf.webp"
         width={35}
         height={35}

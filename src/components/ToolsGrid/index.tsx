@@ -5,16 +5,20 @@ import { Spacer } from "@nextui-org/react";
 import { sectionWrapper, title } from "@/libs/primitives";
 import { ToolsGrid } from "./grid";
 
-export const ToolsCards = () => {
+export const AllTools = () => {
   return (
     <section id="all_tools" className={sectionWrapper({})}>
       {manifest.items.map((category) =>
         category.routes.length > 0 ? (
-          <div key={category.key} className="flex flex-col gap-8">
+          <div
+            id={category.key + "_cat"}
+            key={category.key}
+            className="flex flex-col gap-8"
+          >
             <h1
               id={category.key + "_title"}
               className={title({
-                size: "lg",
+                size: "md",
                 color: category.color as
                   | "violet"
                   | "yellow"

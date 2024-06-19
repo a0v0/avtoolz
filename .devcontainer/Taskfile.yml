@@ -3,15 +3,18 @@ version: 3
 tasks:
   default:
     cmds:
-      - task: setup
+      - task -l
 
   setup:
     desc: Install dependencies
     silent: true
     cmds:
+      - git config --global --add safe.directory /workspaces/avtoolz
       - curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > ~/install
       - fish ~/install --noninteractive
       - fish -c "set -U fish_greeting"
       - fish -c "omf install randomrussel"
+      - fish -c "omf install foreign-env"
+      - echo 'fenv source ~/.profile' > ~/.config/fish/config.fish
       - npx playwright install chromium --with-deps
 # FIXME: add headed browser support for playwright

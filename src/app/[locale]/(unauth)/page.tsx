@@ -1,5 +1,4 @@
 import Hero from "@/components/hero";
-import { ToolsCards } from "@/components/ToolsGrid";
 
 export default function Index() {
   return (
@@ -7,7 +6,6 @@ export default function Index() {
       <section className="flex flex-col items-center ">
         {/* <BackgroundEffects /> */}
         <Hero />
-        <ToolsCards />
       </section>
     </main>
   );

@@ -1,21 +1,20 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-	"name": "avtoolz",
+	"name": "aVtoolz",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
 	"features": {
 		"ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {},
-		"ghcr.io/audacioustux/devcontainers/taskfile:1": {}
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "task -t .devcontainer/Taskfile.yml && task install",
+	"postCreateCommand": "task -t .devcontainer/Taskfile.yml setup && task install",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
@@ -49,6 +48,21 @@
 			]
 		}
 	},
+	"runArgs": [
+		// Uncomment for USB Debugging suport
+		"--privileged",
+		"--mount",
+		"source=/dev/bus/usb,target=/dev/bus/usb,type=bind",
+		// Uncomment for Android Emulator passthrough support (Work in Progress)
+		"--device",
+		"/dev/kvm",
+		"--device",
+		"/dev/dri:/dev/dri",
+		"-v",
+		"/tmp/.X11-unix:/tmp/.X11-unix",
+		"-e",
+		"DISPLAY"
+	],
 	"containerEnv": {
 		"DISPLAY": "host.docker.internal:0.0"
 	},

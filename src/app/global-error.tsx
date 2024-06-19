@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import * as Sentry from '@sentry/nextjs';
-import Error from 'next/error';
-import { useEffect } from 'react';
+import * as Sentry from "@sentry/nextjs";
+import Error from "next/error";
+import { useEffect } from "react";
 
 export default function GlobalError(props: {
   error: Error & { digest?: string };
@@ -21,3 +21,5 @@ export default function GlobalError(props: {
     </html>
   );
 }
+
+// TODO: add retro 404 page
