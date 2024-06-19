@@ -1,7 +1,9 @@
 import { getToolsByCategory, ToolCategory } from "@/config/tools";
 import { expect, test } from "@playwright/test";
 
-test("Hero section rendered properly?", async ({ page }) => {
+test("Verify that the Hero section is rendered correctly and is interactive", async ({
+  page,
+}) => {
   await page.goto("/");
 
   // hero logo

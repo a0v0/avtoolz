@@ -43,3 +43,9 @@ tasks:
     cmds:
       - pnpm update
       # - pnpx playwright install chromium #--with-deps
+
+  clean:
+    desc: Clean project
+    cmds:
+      - pnpm clean
+      - sudo rm -rf .pnpm-store node_modules test-results
