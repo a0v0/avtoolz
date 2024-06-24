@@ -11,5 +11,3 @@ test("should navigate to tools page", async ({ page }) => {
   await page.goto("/tools");
   await expect(page).toHaveTitle("Tools • aVToolz");
 });
-
-// TODO: breadcrumbs navigation check

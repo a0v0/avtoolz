@@ -41,7 +41,7 @@ import { Providers } from "../providers";
 // };
 
 export async function generateMetadata(_: any, state: any): Promise<Metadata> {
-  // TODO: migrate to a better solution once nextjs allows reading pathname in generateMetadata
+  // FIXME: migrate to a better solution once nextjs allows reading pathname in generateMetadata
   const pathname = getPathnameFromMetadataState(state);
   const tool = getToolByHref(pathname ?? "");
   let title = `${siteConfig.name} • ${siteConfig.tagline}`;

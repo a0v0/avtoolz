@@ -47,5 +47,4 @@ tasks:
   clean:
     desc: Clean project
     cmds:
-      - pnpm clean
-      - sudo rm -rf .pnpm-store node_modules test-results
+      - sudo rm -rf .pnpm-store node_modules test-results .next
