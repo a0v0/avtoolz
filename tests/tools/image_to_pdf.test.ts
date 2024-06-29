@@ -18,17 +18,13 @@ test.describe("image to pdf tools working check", () => {
 
   test.beforeAll("Setup", async ({ browser }) => {
     fs.mkdirSync(tempTestDir, { recursive: true });
-
     const page = await browser.newPage();
     await page.goto("/tools/image-to-pdf");
-
     await page.locator("#fileInput").setInputFiles(pdfFiles);
-
     // Convert and download file to temp dir
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: "Convert to PDF" }).click();
     const download = await downloadPromise;
-    // download to temp dir
     const filePath = path.join(
       __dirname,
       tempTestDir,
