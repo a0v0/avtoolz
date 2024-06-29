@@ -8,7 +8,6 @@ import { pdfjs } from "react-pdf";
 import { useFileUploaderStore } from "../store";
 import styles from "./preview.module.css";
 
-// const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.min.mjs");
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url
