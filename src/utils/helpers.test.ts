@@ -1,5 +1,5 @@
-import { AppConfig } from "./AppConfig";
-import { getI18nPath } from "./Helpers";
+import { AppConfig } from "./appConfig";
+import { getI18nPath } from "./helpers";
 
 describe("Helpers", () => {
   describe("getI18nPath function", () => {

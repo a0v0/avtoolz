@@ -1,10 +1,10 @@
 {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "testing.openTesting": "neverOpen",
-    "i18n-ally.localesPaths": [
-        "src/locales"
-    ],
-    "i18n-ally.keystyle": "nested",
-    "i18n-ally.sourceLanguage": "en",
-    "typescript.tsdk": "node_modules/typescript/lib"
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "testing.openTesting": "neverOpen",
+  "i18n-ally.localesPaths": ["src/locales"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "en",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "todo-tree.tree.showBadges": false,
+  "todo-tree.tree.disableCompactFolders": true
 }

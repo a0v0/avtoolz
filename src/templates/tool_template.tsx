@@ -1,18 +1,31 @@
+import autoAnimate from "@formkit/auto-animate";
+import { Card } from "@nextui-org/react";
+import React, { useEffect, useRef } from "react";
+
 interface ToolTemplateProps {
   leftChildren?: React.ReactNode;
   rightChildren?: React.ReactNode;
 }
 
 function ToolTemplate(props: ToolTemplateProps) {
+  const parent = useRef(null);
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
+
   return (
-    <div className="container mx-auto bg-red-300 flex flex-row">
+    <div
+      ref={parent}
+      className="container mx-auto lg:flex justify-center flex-row  min-h-[calc(90vh_-_108px)]"
+    >
       {props.rightChildren ? (
         <>
-          <div className="bg-blue-400 basis-4/6 ">{props.leftChildren}</div>
-          <div className="bg-green-400 basis-2/6">{props.rightChildren}</div>
+          <div className="  ">{props.leftChildren}</div>
+
+          <Card className=" p-4 h-fit">{props.rightChildren}</Card>
         </>
       ) : (
-        <div className="bg-blue-400 w-full">{props.leftChildren}</div>
+        <div className=" w-full">{props.leftChildren}</div>
       )}
     </div>
   );

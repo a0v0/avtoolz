@@ -1,40 +1,40 @@
-'use client';
+"use client";
 
-import { BaseItem } from '@nextui-org/aria-utils';
-import type { SpacerProps } from '@nextui-org/react';
+import { BaseItem } from "@nextui-org/aria-utils";
+import type { SpacerProps } from "@nextui-org/react";
 import {
   Chip,
   dataFocusVisibleClasses,
   Link,
   Link as NextUILink,
   Spacer,
-} from '@nextui-org/react';
-import { ChevronIcon } from '@nextui-org/shared-icons';
-import { clsx, dataAttr } from '@nextui-org/shared-utils';
-import { useFocusRing } from '@react-aria/focus';
-import { usePress } from '@react-aria/interactions';
-import { useSelectableCollection } from '@react-aria/selection';
-import type { TreeState } from '@react-stately/tree';
-import { useTreeState } from '@react-stately/tree';
+} from "@nextui-org/react";
+import { ChevronIcon } from "@nextui-org/shared-icons";
+import { clsx, dataAttr } from "@nextui-org/shared-utils";
+import { useFocusRing } from "@react-aria/focus";
+import { usePress } from "@react-aria/interactions";
+import { useSelectableCollection } from "@react-aria/selection";
+import type { TreeState } from "@react-stately/tree";
+import { useTreeState } from "@react-stately/tree";
 import type {
   CollectionBase,
   Expandable,
   ItemProps,
   MultipleSelection,
   Node,
-} from '@react-types/shared';
-import { isEmpty } from 'lodash';
-import { usePathname, useRouter } from 'next/navigation';
-import type { FC } from 'react';
-import { useMemo, useRef } from 'react';
+} from "@react-types/shared";
+import { isEmpty } from "lodash";
+import { usePathname, useRouter } from "next/navigation";
+import type { FC } from "react";
+import { useMemo, useRef } from "react";
 
-import type { Route } from '@/config/routes';
-import { getRoutePaths } from '@/utils/Helpers';
-import { TreeKeyboardDelegate } from '@/utils/tree-keyboard-delegate';
+import type { Route } from "@/config/routes";
+import { getRoutePaths } from "@/utils/helpers";
+import { TreeKeyboardDelegate } from "@/utils/tree-keyboard-delegate";
 
-import { ScrollArea } from './scroll-area';
+import { ScrollArea } from "./scroll-area";
 
-export interface Props<T> extends Omit<ItemProps<T>, 'title'>, Route {
+export interface Props<T> extends Omit<ItemProps<T>, "title">, Route {
   slug?: string;
   tag?: string;
 }
@@ -42,7 +42,7 @@ export interface Props<T> extends Omit<ItemProps<T>, 'title'>, Route {
 export type BaseItemProps<T extends object> = Props<T>;
 
 const Item = BaseItem as <T extends object>(
-  props: BaseItemProps<T>,
+  props: BaseItemProps<T>
 ) => JSX.Element;
 
 /**
@@ -52,10 +52,10 @@ interface TreeItemProps<T> {
   item: Node<T>;
   state: TreeState<T>;
   level?: number;
-  spaceLeft?: SpacerProps['x'];
+  spaceLeft?: SpacerProps["x"];
 }
 
-const spacesByLevel: Record<number, SpacerProps['x']> = {
+const spacesByLevel: Record<number, SpacerProps["x"]> = {
   0: 0,
   1: 4,
   2: 8,
@@ -72,8 +72,8 @@ function TreeItem<T>(props: TreeItemProps<T>) {
   const paths = item.props.path
     ? getRoutePaths(item.props.path, item.props?.tag)
     : {
-        pagePath: '',
-        pathname: '',
+        pagePath: "",
+        pathname: "",
       };
 
   const isNew = item.props?.newPost;
@@ -90,7 +90,7 @@ function TreeItem<T>(props: TreeItemProps<T>) {
 
   const hasChildNodes = !isEmpty([...childNodes]);
 
-  const Component = hasChildNodes ? 'ul' : 'li';
+  const Component = hasChildNodes ? "ul" : "li";
 
   const { pressProps } = usePress({
     onPress: () => {
@@ -111,11 +111,11 @@ function TreeItem<T>(props: TreeItemProps<T>) {
       aria-expanded={dataAttr(hasChildNodes ? isExpanded : undefined)}
       aria-selected={dataAttr(isSelected)}
       className={clsx(
-        'gap-3outline-none flex w-full flex-col tap-highlight-transparent',
+        "gap-3outline-none flex w-full flex-col tap-highlight-transparent",
 
-        hasChildNodes ? 'mb-4' : 'first:mt-4',
+        hasChildNodes ? "mb-4" : "first:mt-4",
         // focus ring
-        ...dataFocusVisibleClasses,
+        ...dataFocusVisibleClasses
       )}
       data-focus-visible={isFocusVisible}
       data-focused={isFocused}
@@ -127,8 +127,8 @@ function TreeItem<T>(props: TreeItemProps<T>) {
           <span className="flex items-center gap-3">
             <span>{rendered}</span>
             <ChevronIcon
-              className={clsx('transition-transform', {
-                '-rotate-90': isExpanded,
+              className={clsx("transition-transform", {
+                "-rotate-90": isExpanded,
               })}
             />
           </span>
@@ -136,15 +136,15 @@ function TreeItem<T>(props: TreeItemProps<T>) {
           <NextUILink
             as={Link}
             className={clsx(
-              'w-full',
-              'font-normal',
-              'before:mr-4',
+              "w-full",
+              "font-normal",
+              "before:mr-4",
               "before:content-['']",
-              'before:block',
-              'before:bg-default-300',
-              'before:w-1',
-              'before:h-1',
-              'before:rounded-full',
+              "before:block",
+              "before:bg-default-300",
+              "before:w-1",
+              "before:h-1",
+              "before:rounded-full"
             )}
             color="foreground"
             href={paths.pathname}
@@ -152,11 +152,11 @@ function TreeItem<T>(props: TreeItemProps<T>) {
             <span
               className={clsx(
                 isSelected
-                  ? 'font-medium text-primary dark:text-foreground'
-                  : 'opacity-80 dark:opacity-60',
+                  ? "font-medium text-primary dark:text-foreground"
+                  : "opacity-80 dark:opacity-60",
                 {
-                  'pointer-events-none': item.props?.comingSoon,
-                },
+                  "pointer-events-none": item.props?.comingSoon,
+                }
               )}
             >
               {rendered}
@@ -221,7 +221,7 @@ function TreeHeading({ item }: { item: any }) {
 }
 
 function Tree<T extends object>(
-  props: CollectionBase<T> & Expandable & MultipleSelection,
+  props: CollectionBase<T> & Expandable & MultipleSelection
 ) {
   const state = useTreeState(props);
 
@@ -229,7 +229,7 @@ function Tree<T extends object>(
 
   const keyboardDelegate = useMemo(
     () => new TreeKeyboardDelegate(state.collection, state.disabledKeys),
-    [state.collection, state.disabledKeys],
+    [state.collection, state.disabledKeys]
   );
 
   const { collectionProps } = useSelectableCollection({
@@ -246,7 +246,7 @@ function Tree<T extends object>(
       {...collectionProps}
     >
       {[...state.collection].map((item) => {
-        if (item.type === 'section') {
+        if (item.type === "section") {
           return <TreeHeading key={item.key} item={item} />;
         }
 
@@ -280,8 +280,8 @@ export const DocsSidebar: FC<DocsSidebarProps> = ({
   return (
     <div
       className={clsx(
-        'z-0 mt-2 lg:fixed lg:top-20 lg:h-[calc(100vh-121px)]',
-        className,
+        "z-0 mt-2 lg:fixed lg:top-20 lg:h-[calc(100vh-121px)]",
+        className
       )}
     >
       <Tree defaultExpandedKeys={expandedKeys} items={routes || []}>

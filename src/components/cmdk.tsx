@@ -1,31 +1,31 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 
-'use client';
+"use client";
 
-import type { ButtonProps } from '@nextui-org/react';
-import { Button, Kbd, Modal, ModalContent } from '@nextui-org/react';
-import { clsx } from '@nextui-org/shared-utils';
-import { isAppleDevice, isWebKit } from '@react-aria/utils';
-import { useLocalStorage, writeStorage } from '@rehooks/local-storage';
-import { Command } from 'cmdk';
-import { intersectionBy, isEmpty } from 'lodash';
-import { matchSorter } from 'match-sorter';
-import { usePathname, useRouter } from 'next/navigation';
-import type { FC } from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import MultiRef from 'react-multi-ref';
-import scrollIntoView from 'scroll-into-view-if-needed';
-import { tv } from 'tailwind-variants';
-import { create } from 'zustand';
+import type { ButtonProps } from "@nextui-org/react";
+import { Button, Kbd, Modal, ModalContent } from "@nextui-org/react";
+import { clsx } from "@nextui-org/shared-utils";
+import { isAppleDevice, isWebKit } from "@react-aria/utils";
+import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
+import { Command } from "cmdk";
+import { intersectionBy, isEmpty } from "lodash";
+import { matchSorter } from "match-sorter";
+import { usePathname, useRouter } from "next/navigation";
+import type { FC } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import MultiRef from "react-multi-ref";
+import scrollIntoView from "scroll-into-view-if-needed";
+import { tv } from "tailwind-variants";
+import { create } from "zustand";
 
-import { Tools } from '@/config/tools';
-import { useUpdateEffect } from '@/hooks/use-update-effect';
-import { cn } from '@/utils/Helpers';
+import { Tools } from "@/config/tools";
+import { useUpdateEffect } from "@/hooks/use-update-effect";
+import { cn } from "@/utils/helpers";
 
-import { ChevronRightLinearIcon } from './icons/chevron-right';
-import { HashBoldIcon } from './icons/hash';
+import { ChevronRightLinearIcon } from "./icons/chevron-right";
+import { HashBoldIcon } from "./icons/hash";
 
-const hideOnPaths = ['examples'];
+const hideOnPaths = ["examples"];
 
 export interface CmdkStore {
   isOpen: boolean;
@@ -41,74 +41,74 @@ export const useCmdkStore = create<CmdkStore>((set) => ({
 
 const cmdk = tv({
   slots: {
-    base: 'max-h-full overflow-y-auto',
+    base: "max-h-full overflow-y-auto",
     header: [
-      'flex',
-      'items-center',
-      'w-full',
-      'px-4',
-      'border-b',
-      'border-default-400/50',
-      'dark:border-default-100',
+      "flex",
+      "items-center",
+      "w-full",
+      "px-4",
+      "border-b",
+      "border-default-400/50",
+      "dark:border-default-100",
     ],
-    searchIcon: 'text-lg text-default-400',
+    searchIcon: "text-lg text-default-400",
     input: [
-      'w-full',
-      'px-2',
-      'h-14',
-      'font-sans',
-      'text-lg',
-      'outline-none',
-      'rounded-none',
-      'bg-transparent',
-      'text-default-700',
-      'placeholder-default-500',
-      'dark:text-default-500',
-      'dark:placeholder:text-default-300',
+      "w-full",
+      "px-2",
+      "h-14",
+      "font-sans",
+      "text-lg",
+      "outline-none",
+      "rounded-none",
+      "bg-transparent",
+      "text-default-700",
+      "placeholder-default-500",
+      "dark:text-default-500",
+      "dark:placeholder:text-default-300",
     ],
-    list: ['px-4', 'mt-2', 'pb-4', 'overflow-y-auto', 'max-h-[50vh]'],
+    list: ["px-4", "mt-2", "pb-4", "overflow-y-auto", "max-h-[50vh]"],
     itemWrapper: [
-      'px-4',
-      'mt-2',
-      'group',
-      'flex',
-      'h-16',
-      'justify-between',
-      'items-center',
-      'rounded-lg',
-      'shadow',
-      'bg-content2/50',
-      'active:opacity-70',
-      'cursor-pointer',
-      'transition-opacity',
-      'data-[active=true]:bg-primary',
-      'data-[active=true]:text-primary-foreground',
+      "px-4",
+      "mt-2",
+      "group",
+      "flex",
+      "h-16",
+      "justify-between",
+      "items-center",
+      "rounded-lg",
+      "shadow",
+      "bg-content2/50",
+      "active:opacity-70",
+      "cursor-pointer",
+      "transition-opacity",
+      "data-[active=true]:bg-primary",
+      "data-[active=true]:text-primary-foreground",
     ],
-    leftWrapper: ['flex', 'gap-3', 'items-center', 'w-full', 'max-w-full'],
+    leftWrapper: ["flex", "gap-3", "items-center", "w-full", "max-w-full"],
     leftIcon: [
-      'text-default-500 dark:text-default-300',
-      'group-data-[active=true]:text-primary-foreground',
+      "text-default-500 dark:text-default-300",
+      "group-data-[active=true]:text-primary-foreground",
     ],
-    itemContent: ['flex', 'flex-col', 'gap-0', 'justify-center', 'max-w-[80%]'],
+    itemContent: ["flex", "flex-col", "gap-0", "justify-center", "max-w-[80%]"],
     itemParentTitle: [
-      'text-default-400',
-      'text-xs',
-      'group-data-[active=true]:text-primary-foreground',
-      'select-none',
+      "text-default-400",
+      "text-xs",
+      "group-data-[active=true]:text-primary-foreground",
+      "select-none",
     ],
     itemTitle: [
-      'truncate',
-      'text-default-500',
-      'group-data-[active=true]:text-primary-foreground',
-      'select-none',
+      "truncate",
+      "text-default-500",
+      "group-data-[active=true]:text-primary-foreground",
+      "select-none",
     ],
     emptyWrapper: [
-      'flex',
-      'flex-col',
-      'text-center',
-      'items-center',
-      'justify-center',
-      'h-32',
+      "flex",
+      "flex-col",
+      "text-center",
+      "items-center",
+      "justify-center",
+      "h-32",
     ],
   },
 });
@@ -117,7 +117,7 @@ interface SearchResultItem {
   content: string;
   objectID: string;
   url: string;
-  type: 'lvl1' | 'lvl2' | 'lvl3';
+  type: "lvl1" | "lvl2" | "lvl3";
   hierarchy: {
     lvl1: string | null;
     lvl2?: string | null;
@@ -126,24 +126,24 @@ interface SearchResultItem {
 }
 
 const MATCH_KEYS = [
-  'hierarchy.lvl1',
-  'hierarchy.lvl2',
-  'hierarchy.lvl3',
-  'content',
+  "hierarchy.lvl1",
+  "hierarchy.lvl2",
+  "hierarchy.lvl3",
+  "content",
 ];
-const RECENT_SEARCHES_KEY = 'recent-searches';
+const RECENT_SEARCHES_KEY = "recent-searches";
 const MAX_RECENT_SEARCHES = 10;
 const MAX_RESULTS = 20;
 
 export const Cmdk: FC<{}> = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [activeItem, setActiveItem] = useState(0);
   const [menuNodes] = useState(() => new MultiRef<number, HTMLElement>());
   const slots = useMemo(() => cmdk(), []);
 
   const pathname = usePathname();
 
-  const eventRef = useRef<'mouse' | 'keyboard'>();
+  const eventRef = useRef<"mouse" | "keyboard">();
   const listRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -156,9 +156,9 @@ export const Cmdk: FC<{}> = () => {
     content: tool.title,
     objectID: tool.href,
     url: tool.href,
-    type: 'lvl1',
+    type: "lvl1",
     hierarchy: {
-      lvl1: tool.keywords.split(',').join(' '),
+      lvl1: tool.keywords.split(",").join(" "),
       lvl2: tool.description,
     },
   }));
@@ -170,14 +170,14 @@ export const Cmdk: FC<{}> = () => {
     if (!searches.find((i) => i.objectID === item.objectID)) {
       writeStorage(
         RECENT_SEARCHES_KEY,
-        [item, ...searches].slice(0, MAX_RECENT_SEARCHES),
+        [item, ...searches].slice(0, MAX_RECENT_SEARCHES)
       );
     } else {
       // Move the search to the top
       searches = searches.filter((i) => i.objectID !== item.objectID);
       writeStorage(
         RECENT_SEARCHES_KEY,
-        [item, ...searches].slice(0, MAX_RECENT_SEARCHES),
+        [item, ...searches].slice(0, MAX_RECENT_SEARCHES)
       );
     }
   };
@@ -186,7 +186,7 @@ export const Cmdk: FC<{}> = () => {
     function getResults() {
       if (query.length < 2) return [];
 
-      const words = query.split(' ');
+      const words = query.split(" ");
 
       if (words.length === 1) {
         return matchSorter(searchData, query, {
@@ -197,17 +197,17 @@ export const Cmdk: FC<{}> = () => {
       const matchesForEachWord = words.map((word) =>
         matchSorter(searchData, word, {
           keys: MATCH_KEYS,
-        }),
+        })
       );
 
-      const matches = intersectionBy(...matchesForEachWord, 'objectID').slice(
+      const matches = intersectionBy(...matchesForEachWord, "objectID").slice(
         0,
-        MAX_RESULTS,
+        MAX_RESULTS
       );
 
       return matches;
     },
-    [query],
+    [query]
   );
 
   const items = !isEmpty(results) ? results : recentSearches ?? [];
@@ -215,18 +215,18 @@ export const Cmdk: FC<{}> = () => {
   // Toggle the menu when ⌘K / CTRL K is pressed
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      const hotkey = isAppleDevice() ? 'metaKey' : 'ctrlKey';
+      const hotkey = isAppleDevice() ? "metaKey" : "ctrlKey";
 
-      if (e?.key?.toLowerCase() === 'k' && e[hotkey]) {
+      if (e?.key?.toLowerCase() === "k" && e[hotkey]) {
         e.preventDefault();
         isOpen ? onClose() : onOpen();
       }
     };
 
-    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [isOpen]);
 
@@ -236,34 +236,34 @@ export const Cmdk: FC<{}> = () => {
       router.push(item.url);
       addToRecentSearches(item);
     },
-    [router, recentSearches],
+    [router, recentSearches]
   );
 
   const onInputKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      eventRef.current = 'keyboard';
+      eventRef.current = "keyboard";
       switch (e.key) {
-        case 'ArrowDown': {
+        case "ArrowDown": {
           e.preventDefault();
           if (activeItem + 1 < items.length) {
             setActiveItem(activeItem + 1);
           }
           break;
         }
-        case 'ArrowUp': {
+        case "ArrowUp": {
           e.preventDefault();
           if (activeItem - 1 >= 0) {
             setActiveItem(activeItem - 1);
           }
           break;
         }
-        case 'Control':
-        case 'Alt':
-        case 'Shift': {
+        case "Control":
+        case "Alt":
+        case "Shift": {
           e.preventDefault();
           break;
         }
-        case 'Enter': {
+        case "Enter": {
           if (items?.length <= 0) {
             break;
           }
@@ -274,7 +274,7 @@ export const Cmdk: FC<{}> = () => {
         }
       }
     },
-    [activeItem, items, router],
+    [activeItem, items, router]
   );
 
   useUpdateEffect(() => {
@@ -282,15 +282,15 @@ export const Cmdk: FC<{}> = () => {
   }, [query]);
 
   useUpdateEffect(() => {
-    if (!listRef.current || eventRef.current === 'mouse') return;
+    if (!listRef.current || eventRef.current === "mouse") return;
     const node = menuNodes.map.get(activeItem);
 
     if (!node) return;
     scrollIntoView(node, {
-      scrollMode: 'if-needed',
-      behavior: 'smooth',
-      block: 'end',
-      inline: 'end',
+      scrollMode: "if-needed",
+      behavior: "smooth",
+      block: "end",
+      inline: "end",
       boundary: listRef.current,
     });
   }, [activeItem]);
@@ -300,15 +300,15 @@ export const Cmdk: FC<{}> = () => {
       onPress,
       className,
     }: {
-      onPress?: ButtonProps['onPress'];
-      className?: ButtonProps['className'];
+      onPress?: ButtonProps["onPress"];
+      className?: ButtonProps["className"];
     }) => {
       return (
         <Button
           isIconOnly
           className={clsx(
-            'border border-default-400 data-[hover=true]:bg-content2 dark:border-default-100',
-            className,
+            "border border-default-400 data-[hover=true]:bg-content2 dark:border-default-100",
+            className
           )}
           radius="full"
           size="sm"
@@ -319,19 +319,19 @@ export const Cmdk: FC<{}> = () => {
         </Button>
       );
     },
-    [],
+    []
   );
 
   const renderItem = useCallback(
     (item: SearchResultItem, index: number, isRecent = false) => {
-      const isLvl1 = item.type === 'lvl1';
+      const isLvl1 = item.type === "lvl1";
 
       const mainIcon = isRecent ? (
         // <SearchLinearIcon className={slots.leftIcon()} size={20} strokeWidth={2} />
         <span className="icon-[mingcute--search-3-line] size-6" />
       ) : isLvl1 ? (
         <span
-          className={cn('icon-[solar--document-bold] size-6', slots.leftIcon())}
+          className={cn("icon-[solar--document-bold] size-6", slots.leftIcon())}
         />
       ) : (
         <HashBoldIcon className={slots.leftIcon()} />
@@ -345,12 +345,12 @@ export const Cmdk: FC<{}> = () => {
           data-active={index === activeItem}
           value={item.content}
           onMouseEnter={() => {
-            eventRef.current = 'mouse';
+            eventRef.current = "mouse";
 
             setActiveItem(index);
           }}
           onSelect={() => {
-            if (eventRef.current === 'keyboard') {
+            if (eventRef.current === "keyboard") {
               return;
             }
 
@@ -373,7 +373,7 @@ export const Cmdk: FC<{}> = () => {
         </Command.Item>
       );
     },
-    [activeItem, onItemSelect, CloseButton, slots],
+    [activeItem, onItemSelect, CloseButton, slots]
   );
 
   const shouldOpen = !hideOnPaths.some((path) => pathname.includes(path));
@@ -384,21 +384,21 @@ export const Cmdk: FC<{}> = () => {
       backdrop="opaque"
       classNames={{
         base: [
-          'mt-[20vh]',
-          'border-small',
-          'dark:border-default-100',
-          'supports-[backdrop-filter]:bg-background/80',
-          'dark:supports-[backdrop-filter]:bg-background/30',
-          'supports-[backdrop-filter]:backdrop-blur-md',
-          'supports-[backdrop-filter]:backdrop-saturate-150',
+          "mt-[20vh]",
+          "border-small",
+          "dark:border-default-100",
+          "supports-[backdrop-filter]:bg-background/80",
+          "dark:supports-[backdrop-filter]:bg-background/30",
+          "supports-[backdrop-filter]:backdrop-blur-md",
+          "supports-[backdrop-filter]:backdrop-saturate-150",
         ],
-        backdrop: ['bg-black/80'],
+        backdrop: ["bg-black/80"],
       }}
       isOpen={isOpen && shouldOpen}
       motionProps={{
         onAnimationComplete: () => {
           if (!isOpen) {
-            setQuery('');
+            setQuery("");
           }
         },
       }}
@@ -416,8 +416,8 @@ export const Cmdk: FC<{}> = () => {
           <div className={slots.header()}>
             <span
               className={cn(
-                'icon-[mingcute--search-3-line] size-6',
-                slots.searchIcon(),
+                "icon-[mingcute--search-3-line] size-6",
+                slots.searchIcon()
               )}
             />
             <Command.Input
@@ -428,7 +428,7 @@ export const Cmdk: FC<{}> = () => {
               onKeyDown={onInputKeyDown}
               onValueChange={setQuery}
             />
-            {query.length > 0 && <CloseButton onPress={() => setQuery('')} />}
+            {query.length > 0 && <CloseButton onPress={() => setQuery("")} />}
             <Kbd className="ml-2 hidden border-none px-2 py-1 text-[0.6rem] font-medium md:block">
               ESC
             </Kbd>
@@ -469,7 +469,7 @@ export const Cmdk: FC<{}> = () => {
                     }
                   >
                     {recentSearches.map((item, index) =>
-                      renderItem(item, index, true),
+                      renderItem(item, index, true)
                     )}
                   </Command.Group>
                 )

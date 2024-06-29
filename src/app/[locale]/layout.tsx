@@ -9,8 +9,8 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
-import { AppConfig } from "@/utils/AppConfig";
-import { getPathnameFromMetadataState } from "@/utils/Helpers";
+import { AppConfig } from "@/utils/appConfig";
+import { getPathnameFromMetadataState } from "@/utils/helpers";
 
 import { getToolByHref } from "@/config/tools";
 import { Providers } from "../providers";

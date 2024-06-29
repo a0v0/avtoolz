@@ -48,3 +48,9 @@ tasks:
     desc: Clean project
     cmds:
       - sudo rm -rf .pnpm-store node_modules test-results .next
+      - task: clean:temp
+
+  clean:temp:
+    desc: Clean temporary files and folders
+    cmds:
+      - rm -rf `find . -type d -name temp`
