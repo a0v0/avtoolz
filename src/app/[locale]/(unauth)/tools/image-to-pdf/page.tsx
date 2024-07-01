@@ -17,7 +17,6 @@ const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
   "image/png",
-  "application/pdf",
   // TODO: add support for these too
   // "image/svg+xml",
   // "image/bmp",

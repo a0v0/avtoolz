@@ -48,7 +48,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
   },
   ref
 ) {
-  const { previews, setPreview, setError } = useFileUploaderStore();
+  const { previews, setPreview } = useFileUploaderStore();
 
   useEffect(() => {
     (async () => {
@@ -110,6 +110,7 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
           <CardBody className="pb-1 overflow-hidden">
             <div className="h-40 center">
               <Image
+                alt="file preview"
                 className="h-40 object-cover w-full"
                 width={"auto"}
                 style={{ objectFit: "cover" }}
