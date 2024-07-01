@@ -22,8 +22,6 @@ export default withSentryConfig(
     withNextIntlConfig({
       transpilePackages: ["@nextui-org/react", "@nextui-org/theme"],
       swcMinify: true,
-
-      reactStrictMode: true,
       eslint: {
         ignoreDuringBuilds: true,
       },
@@ -32,7 +30,6 @@ export default withSentryConfig(
       },
       webpack: (config) => {
         config.resolve.alias.canvas = false;
-
         return config;
       },
       eslint: {
