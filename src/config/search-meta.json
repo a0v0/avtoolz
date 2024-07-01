@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Image to PDF",
+    "type": "lvl1",
+    "url": "/tools/image-to-pdf",
+    "hierarchy": {
+      "lvl1": "image to pdf  convert image to pdf  image converter  pdf converter",
+      "lvl2": "Convert images to PDF files quickly and easily."
+    }
+  },
+  {
+    "content": "Merge PDF",
+    "type": "lvl1",
+    "url": "/tools/merge-pdf",
+    "hierarchy": {
+      "lvl1": "merge pdf  combine pdf  pdf merger  merge pdf documents  pdf merge online  merge pdf files  pdf merge tool",
+      "lvl2": "Combine multiple PDFs into one unified document."
+    }
+  }
+]
