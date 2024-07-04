@@ -31,6 +31,7 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@formkit/auto-animate": "^0.8.2",
+    "@formkit/drag-and-drop": "^0.1.6",
     "@hookform/resolvers": "^3.6.0",
     "@iconify/json": "^2.2.224",
     "@libsql/client": "^0.6.2",
