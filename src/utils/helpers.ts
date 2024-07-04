@@ -149,5 +149,5 @@ export function getFileTypeIcon(file: File): string {
 
 // function to modify the filename to add watermarked filename
 export function getWatermarkedFilename(filename: string) {
-  return join(["(avtoolz)", filename], "_");
+  return join(["avtoolz", filename], "_");
 }

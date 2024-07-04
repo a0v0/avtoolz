@@ -22,7 +22,9 @@ function ToolTemplate(props: ToolTemplateProps) {
         <>
           <div>{props.leftChildren}</div>
 
-          <Card className=" p-4  h-fit">{props.rightChildren}</Card>
+          <Card className="lg:md:w-1/4 mx-3 p-4 h-fit sticky top-24 ">
+            {props.rightChildren}
+          </Card>
         </>
       ) : (
         <div className=" w-full">{props.leftChildren}</div>

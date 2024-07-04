@@ -2,7 +2,6 @@
 
 TODO: update `README.md` as per https://github.com/lobehub/sd-webui-lobe-theme
 TODO: add github social preview banner
-TODO: watermarked filename and also test it
 
 <!-- Tools -->
 

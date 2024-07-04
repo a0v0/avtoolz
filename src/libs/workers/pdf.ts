@@ -13,6 +13,7 @@ export const PDFWorker = {
    */
   imagesToPDF: (images: File[]) => {
     const pdfDoc = new jsPDF();
+
     pdfDoc.deletePage(1);
     for (const file of images) {
       var img = URL.createObjectURL(file);

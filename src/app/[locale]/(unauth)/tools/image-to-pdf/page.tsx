@@ -15,6 +15,8 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Select,
+  SelectItem,
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
@@ -22,6 +24,7 @@ import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PDFWorker } from "../../../../../libs/workers/pdf";
+
 const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
@@ -40,17 +43,13 @@ enum PAGE_ORIENTATION {
   Landscape = "Landscape",
 }
 
-enum PAGE_SIZE {
-  Fit = "Fit",
-  A4 = "A4",
-  US = "US",
-}
+const PAGE_SIZE = [
+  { key: "Fit", label: "Fit" },
+  { key: "A4", label: "A4" },
+  { key: "US", label: "US" },
+];
 
-enum PAGE_MARGIN {
-  None = "None",
-  Small = "Small",
-  Big = "Big",
-}
+const PAGE_MARGIN = ["None", "Small", "Big"];
 
 export default function Page() {
   const { files, reset, error } = useFileUploaderStore();
@@ -62,8 +61,8 @@ export default function Page() {
   const [pageOrientation, setPageOrientation] = useState(
     PAGE_ORIENTATION.Portrait
   );
-  const [pageSize, setPageSize] = useState(PAGE_SIZE.Fit);
-  const [pageMargin, setPageMargin] = useState(PAGE_MARGIN.None);
+  const [pageSize, setPageSize] = useState(new Set(["Fit"]));
+  const [pageMargin, setPageMargin] = useState(PAGE_MARGIN[0]); // default to None
 
   async function _doWork() {
     setIsLoading(true);
@@ -116,6 +115,7 @@ export default function Page() {
               <Spacer y={2} />
               <div>
                 <h3 style={{ fontSize: "1.2rem" }}>Page Orientation</h3>
+                <Spacer y={1} />
                 <div className="border-0 flex justify-center flex-row">
                   <Button
                     color="success"
@@ -164,6 +164,18 @@ export default function Page() {
               <Spacer y={2} />
               <div>
                 <h2 style={{ fontSize: "1.2rem" }}>Page Size</h2>
+                <Spacer y={1} />
+                <Select
+                  // label="Page Size"
+
+                  defaultSelectedKeys={["Fit"]}
+                  // onSelectionChange={setPageSize}
+                  // className="max-w-[45%]"
+                >
+                  {PAGE_SIZE.map((size) => (
+                    <SelectItem key={size.key}>{size.label}</SelectItem>
+                  ))}
+                </Select>
               </div>
               <Spacer y={2} />
               <div>
