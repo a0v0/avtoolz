@@ -16,13 +16,13 @@ function ToolTemplate(props: ToolTemplateProps) {
   return (
     <div
       ref={parent}
-      className="container mx-auto lg:flex justify-center flex-row  min-h-[calc(90vh_-_108px)]"
+      className="container mx-auto lg:flex justify-center flex-row   min-h-[calc(90vh_-_108px)]"
     >
       {props.rightChildren ? (
         <>
-          <div className="  ">{props.leftChildren}</div>
+          <div>{props.leftChildren}</div>
 
-          <Card className=" p-4 h-fit">{props.rightChildren}</Card>
+          <Card className=" p-4  h-fit">{props.rightChildren}</Card>
         </>
       ) : (
         <div className=" w-full">{props.leftChildren}</div>

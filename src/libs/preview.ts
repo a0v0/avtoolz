@@ -1,3 +1,4 @@
+import { getFileTypeIcon } from "@/utils/helpers";
 import { pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -6,13 +7,18 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 /**
- * Retrieves a preview image of the first page of a PDF file.
+ * Generates a preview image of a PDF file.
+ * If the file size is greater than 10MB, an empty string is returned.
  *
- * @param file - The PDF file to generate the preview from.
- * @returns A data URL representing the preview image.
+ * @param file - The PDF file to generate the preview for.
+ * @returns The preview image as a base64-encoded data URL, or an empty string if the file size is too large.
  */
 export async function getPDFPreview(file: File) {
-  var preview = "";
+  var preview = getFileTypeIcon(file);
+  // skip generating thumbnail if file size is greater than 10MB
+  if (file.size > 10 * 1024 * 1024) {
+    return preview;
+  }
 
   const loadingTask = pdfjs.getDocument(await file.arrayBuffer());
   try {
@@ -37,4 +43,15 @@ export async function getPDFPreview(file: File) {
     console.log(reason);
   }
   return preview;
+}
+
+// generate preview of png, jpg, webp
+export async function getImagePreview(file: File) {
+  var preview = getFileTypeIcon(file);
+  // skip generating thumbnail if file size is greater than 10MB
+  if (file.size > 10 * 1024 * 1024) {
+    return preview;
+  }
+  // png, jpg, webp preview
+  return URL.createObjectURL(file);
 }

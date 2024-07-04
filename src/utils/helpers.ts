@@ -88,38 +88,23 @@ export const getPathnameFromMetadataState = (state: any): string => {
 };
 
 /**
- * Returns the icon path for a given file based on its type.
- * @param file - The file object.
- * @returns The icon path.
- */
-export function getFileIcon(file: File): string {
-  switch (file.type) {
-    case "application/pdf":
-      return "/svgrepo/pdf.svg";
-    default:
-      return "/svgrepo/unkown-file.svg";
-  }
-}
-
-/**
- * Downloads a file by creating a temporary URL for the given blob and triggering a download.
- * @param blob - The blob object representing the file data.
+ * Downloads a file by creating a temporary URL for the given object URL and triggering a download.
+ * @param objectURL - The object URL representing the file data.
  * @param filename - The name of the file to be downloaded.
- * @throws {Error} If invalid data or filename is provided.
+ * @throws {Error} If invalid objectURL or filename is provided.
  */
-export function downloadFile(blob: Blob, filename: string) {
-  if (!blob || !filename) {
-    throw new Error("Invalid data or filename provided");
+export function downloadObjectURL(objectURL: string, filename: string) {
+  if (!objectURL || !filename) {
+    throw new Error("Invalid objectURL or filename provided");
   }
 
-  const url = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.href = url;
+  link.href = objectURL;
   link.download = filename;
   link.click();
 
   // Revoke the object URL to avoid memory leaks
-  setTimeout(() => window.URL.revokeObjectURL(url), 0);
+  URL.revokeObjectURL(objectURL);
 }
 
 /**
@@ -135,5 +120,28 @@ export function getFileType(file: File): string {
     default:
       // @ts-ignore
       return file.type.split("/")[1].toLowerCase();
+  }
+}
+
+/**
+ * Returns the icon path for a given file based on its type.
+ * @param file - The file object.
+ * @returns The icon path.
+ */
+export function getFileTypeIcon(file: File): string {
+  switch (file.type) {
+    case "application/pdf":
+      return "/svgrepo/pdf.svg";
+    case "image/jpeg":
+      return "/svgrepo/jpg.svg";
+    case "image/jpg":
+      return "/svgrepo/jpg.svg";
+    case "image/png":
+      return "/svgrepo/png.svg";
+    case "image/svg+xml":
+      return "/svgrepo/svg.svg";
+
+    default:
+      return "/svgrepo/unkown-file.svg";
   }
 }

@@ -1,6 +1,6 @@
 "use client";
-import { getPDFPreview } from "@/libs/preview";
-import { getFileIcon, getFileType } from "@/utils/helpers";
+import { getImagePreview, getPDFPreview } from "@/libs/preview";
+import { getFileType } from "@/utils/helpers";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { Card, CardBody, CardHeader, Chip, Image } from "@nextui-org/react";
 import classNames from "classnames";
@@ -53,29 +53,14 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
   useEffect(() => {
     (async () => {
       if (file.type === "application/pdf") {
-        // check if the thumbnail already exists
-        const existingPreview = previews.find(
-          (preview) => preview.file === file
-        );
-        if (existingPreview) {
-        } else {
-          // skip generating thumbnail if file size is greater than 10MB
-          if (file.size > 10 * 1024 * 1024) {
-            setPreview(file, "");
-          } else {
-            setPreview(file, await getPDFPreview(file));
-          }
-        }
-      } else if (file.type.startsWith("image")) {
-        const existingPreview = previews.find(
-          (preview) => preview.file === file
-        );
-        if (existingPreview) {
-        } else {
-          setPreview(file, URL.createObjectURL(file));
-        }
+        setPreview(file, await getPDFPreview(file));
+      } else if (
+        file.type in
+        ["image/jpg", "image/jpeg", "image/png", "image/webp", "image/svg+xml"]
+      ) {
+        setPreview(file, await getImagePreview(file));
       } else {
-        setPreview(file, "");
+        setPreview(file, "/svgrepo/unkown-file.svg");
       }
     })();
   }, [file]);
@@ -110,15 +95,12 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
           <CardBody className="pb-1 overflow-hidden">
             <div className="h-40 center">
               <Image
+                id={file.name}
                 alt="file preview"
                 className="h-40 object-cover w-full"
                 width={"auto"}
                 style={{ objectFit: "cover" }}
-                src={
-                  previews.find((preview) => preview.file === file)?.thumb
-                    ? previews.find((preview) => preview.file === file)?.thumb
-                    : getFileIcon(file)
-                }
+                src={previews.find((preview) => preview.file === file)?.thumb}
               />
             </div>
 

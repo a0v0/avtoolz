@@ -1,18 +1,17 @@
 "use client";
 
+import FileUploader from "@/components/fileUploader";
 import { useFileUploaderStore } from "@/components/fileUploader/store";
 import { getToolByHref } from "@/config/tools";
 import { MimeType } from "@/libs/mime";
-
-import FileUploader from "@/components/fileUploader";
 import { subtitle, title } from "@/libs/primitives";
 import ToolTemplate from "@/templates/tool_template";
-import { downloadFile } from "@/utils/helpers";
+import { downloadObjectURL } from "@/utils/helpers";
 import { Button, Card, Spacer, useDisclosure } from "@nextui-org/react";
+import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { WorkerInput, WorkerOutput } from "./worker";
-
+import { PDFWorker } from "../../../../../libs/workers/pdf";
 const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
@@ -57,25 +56,31 @@ export default function Page() {
   const [pageMargin, setPageMargin] = useState(PAGE_MARGIN.None);
 
   // _doWork function is used to trigger the worker to start processing the data
-  function _doWork() {
+  async function _doWork() {
     setIsLoading(true);
 
-    const worker = new Worker(new URL("./worker.ts", import.meta.url));
-    worker.onmessage = (event: MessageEvent<WorkerOutput>) => {
-      setIsLoading(false);
-      const { blob, error } = event.data;
-      if (error?.length == 0) {
-        downloadFile(blob, files[0].name.split(".")[0] + "-merged.pdf");
-      } else {
-        onOpen();
-        reset();
-      }
-    };
+    const worker = wrap<typeof PDFWorker>(
+      new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
+    );
+    const outputPDF = await worker.imagesToPDF(files);
 
-    const workerInput: WorkerInput = {
-      files: files,
-    };
-    worker.postMessage(workerInput);
+    downloadObjectURL(outputPDF, files[0].name.split(".")[0] + "-merged.pdf");
+    // worker.onmessage = (event: MessageEvent<WorkerOutput>) => {
+    //   setIsLoading(false);
+    //   const { blob, error } = event.data;
+    //   if (error?.length == 0) {
+    //     downloadFile(blob, files[0].name.split(".")[0] + "-merged.pdf");
+    //   } else {
+    //     onOpen();
+    //     reset();
+    //   }
+    // };
+
+    // const workerInput: WorkerInput = {
+    //   files: files,
+    // };
+    // worker.postMessage(workerInput);
+    setIsLoading(false);
   }
 
   useEffect(() => {

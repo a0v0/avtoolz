@@ -1,5 +1,3 @@
-// TODO: write test to cehk if the page lists all the tools
-
 import { getToolsByCategory, ToolCategory } from "@/config/tools";
 import { expect, test } from "@playwright/test";
 
