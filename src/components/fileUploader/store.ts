@@ -1,27 +1,25 @@
-import { UniqueIdentifier } from "@dnd-kit/core";
 import { create } from "zustand";
 
 type State = {
   files: File[];
   previews: { file: File; thumb: string }[];
-  items: UniqueIdentifier[];
+
   error: string;
 };
 
 type Action = {
   reset: () => void;
   addFiles: (files: File[]) => void;
-  updateFiles: (files: File[]) => void;
-  setItems: (items: UniqueIdentifier[]) => void;
   setPreview: (file: File, thumb: string) => void;
   setError: (error: string) => void;
+  removeFiles: (files: File[]) => void;
+  updateFiles: (files: File[]) => void;
 };
 
 // define the initial state
 const initialState: State = {
   files: [],
   previews: [],
-  items: [],
   error: "",
 };
 
@@ -32,11 +30,9 @@ export const useFileUploaderStore = create<State & Action>((set) => ({
       files: [...state.files, ...files],
     }));
   },
-  updateFiles: (files) => set({ files }),
   reset: () => {
     set(initialState);
   },
-  setItems: (items) => set({ items }),
 
   setPreview: (file, thumb) => {
     set((state) => {
@@ -61,4 +57,13 @@ export const useFileUploaderStore = create<State & Action>((set) => ({
     });
   },
   setError: (error) => set({ error }),
+
+  removeFiles: (files) => {
+    set((state) => ({
+      files: state.files.filter((file) => !files.includes(file)),
+    }));
+  },
+  updateFiles: (files) => {
+    set({ files });
+  },
 }));

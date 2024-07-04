@@ -71,7 +71,10 @@ export default function Page() {
     );
     const outputPDF = await worker.imagesToPDF(files);
     // @ts-ignore
-    downloadObjectURL(outputPDF, getWatermarkedFilename(files[0].name));
+    downloadObjectURL(
+      outputPDF,
+      getWatermarkedFilename(files[0]?.name + ".pdf")
+    );
 
     setIsLoading(false);
   }

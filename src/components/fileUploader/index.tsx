@@ -1,32 +1,10 @@
-import { Logo } from "@/components/icons/logo";
+"use client";
 import { MimeType, mimeToExtension } from "@/libs/mime";
-import { subtitle, title } from "@/libs/primitives";
+import { subtitle } from "@/libs/primitives";
 import { getNanoID } from "@/utils/id";
-import type {
-  DragEndEvent,
-  DragStartEvent,
-  MeasuringConfiguration,
-  UniqueIdentifier,
-} from "@dnd-kit/core";
-import {
-  DndContext,
-  DragOverlay,
-  KeyboardSensor,
-  MeasuringStrategy,
-  PointerSensor,
-  closestCenter,
-  useDndContext,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-  useSortable,
-} from "@dnd-kit/sortable";
-import { CSS, isKeyboardEvent } from "@dnd-kit/utilities";
 import autoAnimate from "@formkit/auto-animate";
+import { animations, swap } from "@formkit/drag-and-drop";
+import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import {
   Button,
   Card,
@@ -45,30 +23,34 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import type { Props as PreviewProps } from "./preview/index";
-import { Layout, Page, Position } from "./preview/index";
+import { Preview } from "./preview";
 import { useFileUploaderStore } from "./store";
-
 interface FileUploaderProps {
   primaryColor: string;
   acceptedFileTypes: MimeType[];
 }
-
 const FileUploader: React.FC<FileUploaderProps> = ({
   primaryColor,
   acceptedFileTypes,
 }) => {
+  const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const { files, addFiles, updateFiles, items, setItems, reset } =
-    useFileUploaderStore((state) => state);
-  const activeIndex = activeId ? items.indexOf(activeId) : -1;
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  const { files, addFiles, reset, updateFiles } = useFileUploaderStore(
+    (state) => state
   );
-
+  const [parent, filesHolder, _setValues] = useDragAndDrop<
+    HTMLUListElement,
+    File
+  >(files, {
+    group: "files",
+    dragHandle: ".file-drag-handle",
+    // FIXME: fix animation when dragging and sorting
+    plugins: [animations(), swap()],
+    draggable: (el) => {
+      return el.id !== "no-drag";
+    },
+  });
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const {
     acceptedFiles,
@@ -82,18 +64,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       return { ...acc, [fileType]: [] };
     }, {}),
     noKeyboard: true,
-
     noClick: true,
     onDropRejected: (fileRejections) => {
       onOpen();
     },
   });
-  const measuring: MeasuringConfiguration = {
-    droppable: {
-      strategy: MeasuringStrategy.Always,
-    },
-  };
-  const router = useRouter();
 
   // add files to store
   useEffect(() => {
@@ -101,11 +76,14 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       addFiles(acceptedFiles);
     }
   }, [acceptedFiles]);
+
   useEffect(() => {
-    if (files.length > 0) {
-      setItems(files.map((_, index) => index.toString()));
-    }
+    _setValues(files);
   }, [files]);
+
+  useEffect(() => {
+    updateFiles(filesHolder);
+  }, [filesHolder]);
 
   // reset state when route changes
   useEffect(() => {
@@ -132,124 +110,43 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     });
   }, []);
 
-  const parent = useRef(null);
+  const animateRef = useRef(null);
   useEffect(() => {
-    parent.current && autoAnimate(parent.current);
-  }, [parent]);
-
-  function handleDragStart({ active }: DragStartEvent) {
-    setActiveId(active.id);
-  }
-
-  function handleDragCancel() {
-    setActiveId(null);
-  }
-
-  function handleDragEnd({ over }: DragEndEvent) {
-    if (over) {
-      const overIndex = items.indexOf(over.id);
-
-      if (activeIndex !== overIndex) {
-        const newIndex = overIndex;
-
-        setItems(arrayMove(items, activeIndex, newIndex));
-        updateFiles(arrayMove(files, activeIndex, newIndex));
-      }
-    }
-
-    setActiveId(null);
-  }
-
-  function handleRemove(id: UniqueIdentifier) {
-    setItems(items.filter((itemId) => itemId !== id));
-    updateFiles(files.filter((_, index) => index !== Number(id)));
-  }
+    animateRef.current && autoAnimate(animateRef.current);
+  }, [animateRef]);
 
   return (
-    <>
-      <Card
-        style={{ display: isOverlayVisible ? "block" : "none" }}
-        {...getRootProps({
-          className: "dropzone fixed inset-0 bg-black bg-opacity-70 z-50",
-        })}
-      >
-        <CardBody
-          style={{ color: "white" }}
-          className="justify-center items-center h-screen "
-          onClick={() => setIsOverlayVisible(false)}
-        >
-          <Logo size={50} />
-          drop them all{" "}
-          <h1 className={title({ color: "green", size: "xs" })}>Sire!</h1>
-        </CardBody>
-      </Card>
-
+    // FIXME: fix autoanimation when items are added and removed
+    <div ref={animateRef}>
       {files.length > 0 ? (
-        <div ref={parent}>
-          <DndContext
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            onDragCancel={handleDragCancel}
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            measuring={measuring}
-          >
-            <SortableContext items={items}>
-              <div className="lg:md:w-[780px] m-4 flex flex-wrap gap-10  pt-2 justify-items-center">
-                {items.map((id, index) => (
-                  <SortablePage
-                    style={{
-                      visibility: activeId == id ? "hidden" : "visible",
-                    }}
-                    focusRingColor={primaryColor}
-                    id={id}
-                    index={index + 1}
-                    key={id}
-                    layout={Layout.Grid}
-                    activeIndex={activeIndex}
-                    onRemove={() => handleRemove(id)}
-                    file={files[index]}
-                  />
-                ))}
-                {items.length > 0 ? (
-                  <div className="m-auto h-44 content-center">
-                    <Card
-                      onPress={open}
-                      isPressable
-                      radius="lg"
-                      className="h-32 w-32 rounded-full   align-middle   border-dashed border-4 border-gray-300 hover:border-gray-500"
-                    >
-                      <input {...getInputProps()} />
-                      <CardBody
-                        style={{ fontSize: "25px" }}
-                        className="font-bold text-center justify-center"
-                      >
-                        +
-                      </CardBody>
-                    </Card>
-                  </div>
-                ) : null}
-              </div>
-            </SortableContext>
-            <DragOverlay
-            // dropAnimation={{
-            //   duration: 100,
-            //   easing: "cubic-bezier(1,1,1,1)",
-            // }}
-            >
-              {activeId ? (
-                <PageOverlay
-                  focusRingColor={primaryColor}
-                  // @ts-ignore
-                  file={files[activeId]}
-                  id={activeId}
-                  layout={Layout.Grid}
-                  items={items}
-                />
-              ) : null}
-            </DragOverlay>
-          </DndContext>
-        </div>
+        <ul
+          ref={parent}
+          className="lg:md:w-[780px] m-4 flex flex-wrap gap-5  pt-2 justify-items-center"
+        >
+          {filesHolder.map((file, index) => (
+            <li key={index}>
+              <Preview file={file} />
+            </li>
+          ))}
+          {filesHolder.length > 0 ? (
+            <div id="no-drag" className="m-auto h-44 content-center">
+              <Card
+                onPress={open}
+                isPressable
+                radius="lg"
+                className="h-32 w-32 rounded-full   align-middle   border-dashed border-4 border-gray-300 hover:border-gray-500"
+              >
+                <input {...getInputProps()} />
+                <CardBody
+                  style={{ fontSize: "25px" }}
+                  className="font-bold text-center justify-center"
+                >
+                  +
+                </CardBody>
+              </Card>
+            </div>
+          ) : null}
+        </ul>
       ) : (
         <Card
           style={{
@@ -331,83 +228,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           )}
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 };
-
-function PageOverlay({
-  id,
-  items,
-  ...props
-}: Omit<PreviewProps, "index"> & { items: UniqueIdentifier[] }) {
-  const { activatorEvent, over } = useDndContext();
-  const isKeyboardSorting = isKeyboardEvent(activatorEvent);
-  const activeIndex = items.indexOf(id);
-  const overIndex = over?.id ? items.indexOf(over?.id) : -1;
-
-  return (
-    <Page
-      id={id}
-      {...props}
-      clone
-      insertPosition={
-        isKeyboardSorting && overIndex !== activeIndex
-          ? overIndex > activeIndex
-            ? Position.After
-            : Position.Before
-          : undefined
-      }
-    />
-  );
-}
-
-function SortablePage({
-  id,
-  activeIndex,
-  focusRingColor,
-  ...props
-}: PreviewProps & { activeIndex: number }) {
-  const {
-    attributes,
-    listeners,
-    index,
-    isDragging,
-    isSorting,
-    over,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({
-    id,
-    animateLayoutChanges: always,
-  });
-
-  return (
-    <Page
-      ref={setNodeRef}
-      focusRingColor={focusRingColor}
-      id={id}
-      active={isDragging}
-      style={{
-        transition,
-        transform: isSorting ? undefined : CSS.Translate.toString(transform),
-      }}
-      insertPosition={
-        over?.id === id
-          ? index > activeIndex
-            ? Position.After
-            : Position.Before
-          : undefined
-      }
-      {...props}
-      {...attributes}
-      {...listeners}
-    />
-  );
-}
-
-function always() {
-  return true;
-}
 
 export default FileUploader;
