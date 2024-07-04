@@ -1,4 +1,3 @@
-
 import { Logo } from "@/components/icons/logo";
 import { MimeType, mimeToExtension } from "@/libs/mime";
 import { subtitle, title } from "@/libs/primitives";
@@ -27,6 +26,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS, isKeyboardEvent } from "@dnd-kit/utilities";
+import autoAnimate from "@formkit/auto-animate";
 import {
   Button,
   Card,
@@ -43,7 +43,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import type { Props as PreviewProps } from "./preview/index";
 import { Layout, Page, Position } from "./preview/index";
@@ -68,6 +68,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const {
     acceptedFiles,
@@ -131,6 +132,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     });
   }, []);
 
+  const parent = useRef(null);
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
+
   function handleDragStart({ active }: DragStartEvent) {
     setActiveId(active.id);
   }
@@ -179,66 +185,71 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       </Card>
 
       {files.length > 0 ? (
-        <DndContext
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          measuring={measuring}
-        >
-          <SortableContext items={items}>
-            <div className="lg:md:w-[780px] m-4 flex flex-wrap gap-10  pt-2 justify-items-center">
-              {items.map((id, index) => (
-                <SortablePage
-                  focusRingColor={primaryColor}
-                  id={id}
-                  index={index + 1}
-                  key={id}
-                  layout={Layout.Grid}
-                  activeIndex={activeIndex}
-                  onRemove={() => handleRemove(id)}
-                  file={files[index]}
-                />
-              ))}
-              {items.length > 0 ? (
-                <div className="m-auto h-44 content-center">
-                  <Card
-                    onPress={open}
-                    isPressable
-                    radius="lg"
-                    className="h-32 w-32 rounded-full   align-middle   border-dashed border-4 border-gray-300 hover:border-gray-500"
-                  >
-                    <input {...getInputProps()} />
-                    <CardBody
-                      style={{ fontSize: "25px" }}
-                      className="font-bold text-center justify-center"
-                    >
-                      +
-                    </CardBody>
-                  </Card>
-                </div>
-              ) : null}
-            </div>
-          </SortableContext>
-          <DragOverlay
-            dropAnimation={{
-              duration: 100,
-              easing: "cubic-bezier(1,1,1,1)",
-            }}
+        <div ref={parent}>
+          <DndContext
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDragCancel={handleDragCancel}
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            measuring={measuring}
           >
-            {activeId ? (
-              <PageOverlay
-                focusRingColor={primaryColor}
-                // @ts-ignore
-                file={files[activeId]}
-                id={activeId}
-                layout={Layout.Grid}
-                items={items}
-              />
-            ) : null}
-          </DragOverlay>
-        </DndContext>
+            <SortableContext items={items}>
+              <div className="lg:md:w-[780px] m-4 flex flex-wrap gap-10  pt-2 justify-items-center">
+                {items.map((id, index) => (
+                  <SortablePage
+                    style={{
+                      visibility: activeId == id ? "hidden" : "visible",
+                    }}
+                    focusRingColor={primaryColor}
+                    id={id}
+                    index={index + 1}
+                    key={id}
+                    layout={Layout.Grid}
+                    activeIndex={activeIndex}
+                    onRemove={() => handleRemove(id)}
+                    file={files[index]}
+                  />
+                ))}
+                {items.length > 0 ? (
+                  <div className="m-auto h-44 content-center">
+                    <Card
+                      onPress={open}
+                      isPressable
+                      radius="lg"
+                      className="h-32 w-32 rounded-full   align-middle   border-dashed border-4 border-gray-300 hover:border-gray-500"
+                    >
+                      <input {...getInputProps()} />
+                      <CardBody
+                        style={{ fontSize: "25px" }}
+                        className="font-bold text-center justify-center"
+                      >
+                        +
+                      </CardBody>
+                    </Card>
+                  </div>
+                ) : null}
+              </div>
+            </SortableContext>
+            <DragOverlay
+            // dropAnimation={{
+            //   duration: 100,
+            //   easing: "cubic-bezier(1,1,1,1)",
+            // }}
+            >
+              {activeId ? (
+                <PageOverlay
+                  focusRingColor={primaryColor}
+                  // @ts-ignore
+                  file={files[activeId]}
+                  id={activeId}
+                  layout={Layout.Grid}
+                  items={items}
+                />
+              ) : null}
+            </DragOverlay>
+          </DndContext>
+        </div>
       ) : (
         <Card
           style={{
@@ -299,7 +310,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               <ModalBody>
                 <p>
                   The file{" "}
-                  <b style={{ color: "red" }}>{fileRejections[0].file.name}</b>{" "}
+                  <b style={{ color: "red" }}>{fileRejections[0]?.file.name}</b>{" "}
                   is not supported.
                 </p>
                 <p>Please make sure the file type is one of the following:</p>
