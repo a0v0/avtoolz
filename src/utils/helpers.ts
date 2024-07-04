@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import { join } from "lodash";
 import { AppConfig } from "./appConfig";
 
 /**
@@ -144,4 +145,9 @@ export function getFileTypeIcon(file: File): string {
     default:
       return "/svgrepo/unkown-file.svg";
   }
+}
+
+// function to modify the filename to add watermarked filename
+export function getWatermarkedFilename(filename: string) {
+  return join(["(avtoolz)", filename], "_");
 }

@@ -55,15 +55,20 @@ export const Page = forwardRef<HTMLLIElement, Props>(function Page(
       if (file.type === "application/pdf") {
         setPreview(file, await getPDFPreview(file));
       } else if (
-        file.type in
-        ["image/jpg", "image/jpeg", "image/png", "image/webp", "image/svg+xml"]
+        [
+          "image/jpg",
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/svg+xml",
+        ].includes(file.type)
       ) {
         setPreview(file, await getImagePreview(file));
       } else {
         setPreview(file, "/svgrepo/unkown-file.svg");
       }
     })();
-  }, [file]);
+  }, [file, setPreview]);
 
   return (
     <li
