@@ -104,10 +104,12 @@ export default function Page() {
                 <Spacer y={6} />
               </>
             )}
+
             <FileUploader
               primaryColor="#18c964"
               acceptedFileTypes={allowedFileTypes}
             />
+
             <Spacer y={6} />
           </center>
         }

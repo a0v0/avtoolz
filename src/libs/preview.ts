@@ -52,6 +52,7 @@ export async function getImagePreview(file: File) {
   if (file.size > 10 * 1024 * 1024) {
     return preview;
   }
+
   // png, jpg, webp preview
   return URL.createObjectURL(file);
 }

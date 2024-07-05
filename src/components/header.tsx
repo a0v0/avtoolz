@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Button,
@@ -8,31 +8,31 @@ import {
   DropdownTrigger,
   Kbd,
   Link,
-  Navbar as NextUINavbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenu,
   NavbarMenuToggle,
+  Navbar as NextUINavbar,
   Spacer,
-} from '@nextui-org/react';
-import { clsx } from '@nextui-org/shared-utils';
-import { isAppleDevice } from '@react-aria/utils';
-import { usePathname, useRouter } from 'next/navigation';
-import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+} from "@nextui-org/react";
+import { clsx } from "@nextui-org/shared-utils";
+import { isAppleDevice } from "@react-aria/utils";
+import { usePathname, useRouter } from "next/navigation";
+import type { FC } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // ThemeSwitch
 // import { ThemeSwitch } from '@/components';
 // import { DocsSidebar } from '@/components/docs/sidebar';
-import type { Route } from '@/config/routes';
-import { routes as manifest } from '@/config/routes';
-import { siteConfig } from '@/config/site';
+import type { Route } from "@/config/routes";
+import { routes as manifest } from "@/config/routes";
+import { siteConfig } from "@/config/site";
 
-import { useCmdkStore } from './cmdk';
-import { Logo } from './icons/logo';
-import { DocsSidebar } from './sidebar';
-import { ThemeSwitch } from './theme-switch';
+import { useCmdkStore } from "./cmdk";
+import { Logo } from "./icons/logo";
+import { DocsSidebar } from "./sidebar";
+import { ThemeSwitch } from "./theme-switch";
 
 export interface HeaderProps {
   routes: Route[];
@@ -41,7 +41,7 @@ export interface HeaderProps {
 }
 export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
-  const [commandKey, setCommandKey] = useState<'ctrl' | 'command'>('ctrl');
+  const [commandKey, setCommandKey] = useState<"ctrl" | "command">("ctrl");
   const router = useRouter();
   const ref = useRef<HTMLElement>(null);
   const pathname = usePathname();
@@ -54,7 +54,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
   }, [pathname]);
 
   useEffect(() => {
-    setCommandKey(isAppleDevice() ? 'command' : 'ctrl');
+    setCommandKey(isAppleDevice() ? "command" : "ctrl");
   }, []);
 
   const handleOpenCmdk = () => {
@@ -83,7 +83,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
     <NextUINavbar
       ref={ref}
       className={clsx({
-        'z-[100001]': isMenuOpen,
+        "z-[100001]": isMenuOpen,
       })}
       isMenuOpen={isMenuOpen}
       maxWidth="xl"
@@ -96,7 +96,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
             aria-label="Home"
             className="flex items-center justify-start transition-opacity tap-highlight-transparent active:opacity-50"
             href="/"
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: "none" }}
             color="foreground"
           >
             <Logo className="max-w-28" size={26} />
@@ -134,7 +134,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
                 aria-label={category.title}
                 className="w-[340px]"
                 itemClasses={{
-                  base: 'gap-4',
+                  base: "gap-4",
                 }}
               >
                 {category.routes.map((tool, index) => (
@@ -148,7 +148,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
                 ))}
               </DropdownMenu>
             </Dropdown>
-          ) : null,
+          ) : null
         )}
       </NavbarContent>
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
@@ -178,7 +178,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
 
         <NavbarItem className="h-full w-10">
           <NavbarMenuToggle
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="size-full pt-1"
           />
         </NavbarItem>
@@ -226,7 +226,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
         <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
 
         <NavbarMenuToggle
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="ml-4 hidden sm:flex lg:hidden"
         />
       </NavbarContent>

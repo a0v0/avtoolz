@@ -2,8 +2,7 @@
 import { MimeType, mimeToExtension } from "@/libs/mime";
 import { subtitle } from "@/libs/primitives";
 import { getNanoID } from "@/utils/id";
-import autoAnimate from "@formkit/auto-animate";
-import { animations, swap } from "@formkit/drag-and-drop";
+import { swap } from "@formkit/drag-and-drop";
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import {
   Button,
@@ -21,7 +20,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { Preview } from "./preview";
 import { useFileUploaderStore } from "./store";
@@ -34,38 +33,30 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   acceptedFileTypes,
 }) => {
   const router = useRouter();
-  const [isDragging, setIsDragging] = useState(false);
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const { files, addFiles, reset, updateFiles } = useFileUploaderStore(
     (state) => state
   );
+
   const [parent, filesHolder, _setValues] = useDragAndDrop<
-    HTMLUListElement,
+    HTMLDivElement,
     File
   >(files, {
     group: "files",
     dragHandle: ".file-drag-handle",
-    // FIXME: fix animation when dragging and sorting
-    plugins: [animations(), swap()],
+    plugins: [swap()],
     draggable: (el) => {
       return el.id !== "no-drag";
     },
   });
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const {
-    acceptedFiles,
-    fileRejections,
-    isDragActive,
-    getRootProps,
-    getInputProps,
-    open,
-  } = useDropzone({
+  const { acceptedFiles, fileRejections, getInputProps, open } = useDropzone({
     accept: acceptedFileTypes.reduce((acc, fileType) => {
       return { ...acc, [fileType]: [] };
     }, {}),
     noKeyboard: true,
     noClick: true,
-    onDropRejected: (fileRejections) => {
+    onDropRejected: () => {
       onOpen();
     },
   });
@@ -90,44 +81,17 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     reset();
   }, [router]);
 
-  useEffect(() => {
-    setIsOverlayVisible(isDragging);
-  }, [isDragging]);
-
-  useEffect(() => {
-    setIsOverlayVisible(isDragActive);
-  }, [isDragActive]);
-
-  useEffect(() => {
-    document.addEventListener("dragover", (e) => {
-      setIsDragging(true);
-    });
-    document.addEventListener("dragend", (e) => {
-      setIsDragging(false);
-    });
-    document.addEventListener("dragleave", (e) => {
-      setIsDragging(false);
-    });
-  }, []);
-
-  const animateRef = useRef(null);
-  useEffect(() => {
-    animateRef.current && autoAnimate(animateRef.current);
-  }, [animateRef]);
-
   return (
-    // FIXME: fix autoanimation when items are added and removed
-    <div ref={animateRef}>
+    <div>
       {files.length > 0 ? (
-        <ul
+        <div
           ref={parent}
-          className="lg:md:w-[780px] m-4 flex flex-wrap gap-5  pt-2 justify-items-center"
+          className="lg:md:w-[780px] m-4 flex flex-wrap gap-5 pt-2 justify-items-center"
         >
           {filesHolder.map((file, index) => (
-            <li key={index}>
-              <Preview file={file} />
-            </li>
+            <Preview key={index} file={file} />
           ))}
+
           {filesHolder.length > 0 ? (
             <div id="no-drag" className="m-auto h-44 content-center">
               <Card
@@ -146,7 +110,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               </Card>
             </div>
           ) : null}
-        </ul>
+        </div>
       ) : (
         <Card
           style={{

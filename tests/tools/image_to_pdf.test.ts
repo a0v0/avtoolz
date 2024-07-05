@@ -64,3 +64,5 @@ test.describe("image to pdf tools working check", () => {
     expect(pdfSize).toBeCloseTo(totalSize);
   });
 });
+
+// TODO: add test to check if images if rearranged are in correct order in pdf as well
