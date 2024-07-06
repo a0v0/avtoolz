@@ -1,4 +1,3 @@
-"use client";
 import { routes as manifest } from "@/config/routes";
 import { Spacer } from "@nextui-org/react";
 // import {sectionWrapper, title} from "../primitives";

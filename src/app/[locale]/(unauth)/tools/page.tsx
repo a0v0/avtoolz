@@ -1,4 +1,3 @@
-"use client";
 import { AllTools } from "@/components/ToolsGrid";
 
 export default function Page() {

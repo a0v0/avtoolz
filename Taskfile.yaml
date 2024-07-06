@@ -54,3 +54,11 @@ tasks:
     desc: Clean temporary files and folders
     cmds:
       - rm -rf `find . -type d -name temp`
+
+  build:
+    desc: Build project
+    cmd: pnpm build
+
+  build_analyze:
+    desc: Build project with analyze
+    cmd: ANALYZE=true pnpm build

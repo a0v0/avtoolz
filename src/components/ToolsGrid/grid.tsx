@@ -1,4 +1,3 @@
-"use client";
 import { Link } from "@nextui-org/link";
 import {
   Card,
