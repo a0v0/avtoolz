@@ -1,9 +1,9 @@
 // @ts-nocheck
+import { pdfjs } from "@/libs/previews";
 import { expect, test } from "@playwright/test";
 import { randomUUID } from "crypto";
 import fs from "fs";
 import path from "path";
-import { PDFDocument } from "pdf-lib";
 import { rimraf } from "rimraf";
 import { pdfToImages } from "tests/utils/pdf";
 
@@ -46,10 +46,16 @@ test.describe("image to pdf check if", () => {
   });
 
   test("page count is same as that of no. of input images", async ({}) => {
-    const uint8Array = fs.readFileSync(PDF_FILE_PATH);
-    const pdfDoc = await PDFDocument.load(uint8Array);
-    const totalPages = pdfDoc.getPageCount();
-    expect(totalPages).toBe(pdfFiles.length);
+    try {
+      const loadingTask = pdfjs.getDocument(
+        new Uint8Array(fs.readFileSync(PDF_FILE_PATH))
+      );
+      const pdfDocument = await loadingTask.promise;
+      expect(pdfDocument.numPages).toBe(pdfFiles.length);
+    } catch (reason) {
+      console.log(reason);
+      exit(1);
+    }
   });
 
   test("file size is not more than the sum of size of input images", async ({}) => {
