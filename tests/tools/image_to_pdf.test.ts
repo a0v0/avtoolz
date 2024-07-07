@@ -5,6 +5,8 @@ import path from "path";
 import { PDFDocument } from "pdf-lib";
 import { rimraf } from "rimraf";
 
+import { convert } from "pdf-img-convert";
+
 const pdfFiles = [
   "./tests/fixtures/timg1.jpg",
   "./tests/fixtures/timg2.jpeg",
@@ -21,6 +23,11 @@ test.describe("image to pdf tools working check", () => {
     const page = await browser.newPage();
     await page.goto("/tools/image-to-pdf");
     await page.locator("#fileInput").setInputFiles(pdfFiles);
+
+    // Change order of images: 1st to 2nd place and 4th to 3rd place
+    await page.locator('[id="shift-right-timg1.jpg"]').click();
+    await page.locator('[id="shift-left-timg4.jpg"]').click();
+
     // Convert and download file to temp dir
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: "Convert to PDF" }).click();
@@ -62,6 +69,26 @@ test.describe("image to pdf tools working check", () => {
 
     expect(pdfSize).not.toBe(0);
     expect(pdfSize).toBeCloseTo(totalSize);
+  });
+
+  test("check if images if rearranged are in correct order in pdf as well", async ({}) => {
+    const rearrangedOrder = [
+      "./tests/fixtures/timg2.jpeg",
+      "./tests/fixtures/timg1.jpg",
+      "./tests/fixtures/timg4.jpg",
+      "./tests/fixtures/timg3.jpeg",
+    ];
+
+    // const images = await convertPdfToImageNode(fs.readFileSync(PDF_FILE_PATH));
+    // console.log(images);
+
+    (async function () {
+      const pdfArray = await convert(fs.readFileSync(PDF_FILE_PATH));
+
+      for (var i = 0; i < pdfArray.length; i++) {
+        console.log(pdfArray[i]);
+      }
+    })();
   });
 });
 

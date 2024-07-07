@@ -67,6 +67,7 @@ export const Preview = (props: Props) => {
 
           <span className="cursor-pointer ">
             <Link
+              id={"shift-left-" + encodeURIComponent(file.name)}
               anchorIcon={
                 <span className=" size-5 icon-[mingcute--arrow-to-left-fill] text-default-600 dark:text-default-500"></span>
               }
@@ -80,6 +81,7 @@ export const Preview = (props: Props) => {
           </span>
           <span className="cursor-pointer ">
             <Link
+              id={"shift-right-" + encodeURIComponent(file.name)}
               anchorIcon={
                 <span className="cursor-pointer size-5 icon-[mingcute--arrow-to-right-fill] text-default-600 dark:text-default-500"></span>
               }
