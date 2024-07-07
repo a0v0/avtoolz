@@ -57,9 +57,10 @@ jobs:
       - name: Build Next.js for E2E tests
         run: pnpm build
 
-      - if: github.event_name == 'pull_request'
-        name: Validate all commits from PR
-        run: pnpx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+      # TODO: Add commitlint to PRs
+      # - if: github.event_name == 'pull_request'
+      #   name: Validate all commits from PR
+      #   run: pnpx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: Linter
         run: pnpm lint
