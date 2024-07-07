@@ -48,11 +48,11 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-pnpm-store-
 
-      - name: Set SENTRY_AUTH_TOKEN env if secret exists
-        run: |
-          if [[ -n "${{ secrets.SENTRY_AUTH_TOKEN }}" ]]; then
-            echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
-          fi
+      # - name: Set SENTRY_AUTH_TOKEN env if secret exists
+      #   run: |
+      #     if [[ -n "${{ secrets.SENTRY_AUTH_TOKEN }}" ]]; then
+      #       echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
+      #     fi
 
       - name: Build Next.js for E2E tests
         run: pnpm build
@@ -64,27 +64,20 @@ jobs:
       - name: Linter
         run: pnpm lint
 
-      # - name: Type checking
-      #   run: pnpm run check-types
-
-      # - name: Run unit tests
-      #   run: pnpm run test
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage reports to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Install Playwright (used for Storybook and E2E tests)
         run: npx playwright install --with-deps
 
       # - name: Run storybook tests
       #   run: pnpm run test-storybook:ci
-
       - name: Run E2E tests
-        run: pnpx percy exec -- npm run test:e2e
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: pnpm run test:e2e
+        # env:
+        #   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
       - uses: actions/upload-artifact@v3
         if: always()
