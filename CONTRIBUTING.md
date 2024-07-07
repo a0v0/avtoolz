@@ -23,7 +23,7 @@ Following are the steps to contribute to this project:
 <!-- - [Docker](https://www.docker.com/) -->
 
 - [VSCode](https://code.visualstudio.com/)
-- [Node.js](https://nodejs.org/en/)
+- [Node@20](https://nodejs.org/en/)
 - [Taskfile](https://taskfile.dev/#/installation)
 - [pnpm](https://pnpm.io/)
 
@@ -52,4 +52,4 @@ Following are the steps to contribute to this project:
     task run
     ```
 
-    For more commands, see [Taskfile](./Taskfile.yml)
+    For more commands, see [Taskfile](./Taskfile.yaml)

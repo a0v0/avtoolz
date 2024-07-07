@@ -1,11 +1,10 @@
+// @ts-nocheck
 import { expect, test } from "@playwright/test";
 import { randomUUID } from "crypto";
 import fs from "fs";
 import path from "path";
 import { PDFDocument } from "pdf-lib";
 import { rimraf } from "rimraf";
-
-import { convert } from "pdf-img-convert";
 
 const pdfFiles = [
   "./tests/fixtures/timg1.jpg",
@@ -69,26 +68,6 @@ test.describe("image to pdf tools working check", () => {
 
     expect(pdfSize).not.toBe(0);
     expect(pdfSize).toBeCloseTo(totalSize);
-  });
-
-  test("check if images if rearranged are in correct order in pdf as well", async ({}) => {
-    const rearrangedOrder = [
-      "./tests/fixtures/timg2.jpeg",
-      "./tests/fixtures/timg1.jpg",
-      "./tests/fixtures/timg4.jpg",
-      "./tests/fixtures/timg3.jpeg",
-    ];
-
-    // const images = await convertPdfToImageNode(fs.readFileSync(PDF_FILE_PATH));
-    // console.log(images);
-
-    (async function () {
-      const pdfArray = await convert(fs.readFileSync(PDF_FILE_PATH));
-
-      for (var i = 0; i < pdfArray.length; i++) {
-        console.log(pdfArray[i]);
-      }
-    })();
   });
 });
 
