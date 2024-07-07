@@ -1,10 +1,11 @@
 import { getFileTypeIcon } from "@/utils/helpers";
+import * as PDFJSWorker from "pdfjs-dist/build/pdf.worker";
 import { pdfjs } from "react-pdf";
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.js",
-  import.meta.url
-).toString();
+pdfjs.GlobalWorkerOptions.workerSrc = PDFJSWorker;
+
+// export pdfjs for use at other places
+export { pdfjs };
 
 /**
  * Generates a preview image of a PDF file.
@@ -24,6 +25,7 @@ export async function getPDFPreview(file: File) {
   try {
     const pdfDocument = await loadingTask.promise;
     const page = await pdfDocument.getPage(1);
+
     const viewport = page.getViewport({ scale: 1.0 });
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");

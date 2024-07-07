@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import { PDFDocument } from "pdf-lib";
 import { rimraf } from "rimraf";
+import { pdfToImages } from "tests/utils/pdf";
 
 const pdfFiles = [
   "./tests/fixtures/timg1.jpg",
@@ -13,7 +14,7 @@ const pdfFiles = [
   "./tests/fixtures/timg4.jpg",
 ];
 
-test.describe("image to pdf tools working check", () => {
+test.describe("image to pdf check if", () => {
   const tempTestDir = path.join("temp", randomUUID());
   var PDF_FILE_PATH = "";
 
@@ -44,15 +45,14 @@ test.describe("image to pdf tools working check", () => {
     await rimraf(path.join(__dirname, tempTestDir), {});
   });
 
-  test("check if page count is same as that of no. of input images", async ({}) => {
+  test("page count is same as that of no. of input images", async ({}) => {
     const uint8Array = fs.readFileSync(PDF_FILE_PATH);
     const pdfDoc = await PDFDocument.load(uint8Array);
     const totalPages = pdfDoc.getPageCount();
     expect(totalPages).toBe(pdfFiles.length);
-    console.log("teardown");
   });
 
-  test("check file size is not more than the sum of size of input images", async ({}) => {
+  test("file size is not more than the sum of size of input images", async ({}) => {
     var totalSize = 0;
     var pdfSize = fs.statSync(PDF_FILE_PATH).size;
 
@@ -68,6 +68,55 @@ test.describe("image to pdf tools working check", () => {
 
     expect(pdfSize).not.toBe(0);
     expect(pdfSize).toBeCloseTo(totalSize);
+  });
+});
+
+test.describe("image to pdf check rearrange order", () => {
+  const tempTestDir = path.join("temp", randomUUID());
+  let intactPDFPath = "";
+  let rearrangedPDFPath = "";
+
+  test.afterAll("Teardown", async () => {
+    await rimraf(path.join(__dirname, tempTestDir), {});
+  });
+
+  test("make sure all the pdf tools are listed", async ({ page }) => {
+    // generate pdf with order intact
+    fs.mkdirSync(tempTestDir, { recursive: true });
+    await page.goto("/tools/image-to-pdf");
+    await page.locator("#fileInput").setInputFiles(pdfFiles);
+    let downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Convert to PDF" }).click();
+    let download = await downloadPromise;
+    let filePath = path.join(__dirname, tempTestDir, "intact.pdf");
+    await download.saveAs(filePath);
+    intactPDFPath = filePath;
+
+    // generate pdf with rearranged pdf pages
+    fs.mkdirSync(tempTestDir, { recursive: true });
+    await page.reload();
+    await page.locator("#fileInput").setInputFiles(pdfFiles);
+    // change order of images: 1st to 2nd place and 4th to 3rd place
+    await page.locator('[id="shift-right-timg1.jpg"]').click();
+    await page.locator('[id="shift-left-timg4.jpg"]').click();
+    downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Convert to PDF" }).click();
+    download = await downloadPromise;
+    filePath = path.join(__dirname, tempTestDir, "rearranged.pdf");
+    await download.saveAs(filePath);
+    rearrangedPDFPath = filePath;
+
+    // parse and check if images are in correct order
+    let intactPDFData = await pdfToImages(intactPDFPath);
+    let rearrangedPDFData = await pdfToImages(rearrangedPDFPath);
+    expect(intactPDFData).toHaveLength(4);
+    expect(rearrangedPDFData).toHaveLength(4);
+    expect(intactPDFData).toEqual([
+      rearrangedPDFData[1],
+      rearrangedPDFData[0],
+      rearrangedPDFData[3],
+      rearrangedPDFData[2],
+    ]);
   });
 });
 

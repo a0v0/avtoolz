@@ -1,4 +1,4 @@
-import { getImagePreview, getPDFPreview } from "@/libs/preview";
+import { getImagePreview, getPDFPreview } from "@/libs/previews";
 import { getFileType } from "@/utils/helpers";
 import {
   Card,
@@ -7,6 +7,7 @@ import {
   Chip,
   Image,
   Link,
+  Tooltip,
 } from "@nextui-org/react";
 import prettyBytes from "pretty-bytes";
 import { HTMLAttributes, useEffect } from "react";
@@ -52,7 +53,7 @@ export const Preview = (props: Props) => {
   return (
     <Card radius="lg" className="w-[175px]  border-none hover:outline-dashed">
       <CardHeader className="justify-between  pb-0 pt-1 px-1">
-        <div>
+        <Tooltip offset={10} content="Move this file">
           <span className="cursor-pointer file-drag-handle relative">
             <div className="fixed z-20 inline w-8 h-8"></div>
             <Link
@@ -64,7 +65,8 @@ export const Preview = (props: Props) => {
               <span className="file-drag-handle cursor-move size-5 icon-[fluent--drag-24-filled]  text-default-600 dark:text-default-500"></span>
             </Link>
           </span>
-
+        </Tooltip>
+        <Tooltip offset={10} content="shift to left">
           <span className="cursor-pointer ">
             <Link
               id={"shift-left-" + encodeURIComponent(file.name)}
@@ -79,6 +81,8 @@ export const Preview = (props: Props) => {
               color="foreground"
             />
           </span>
+        </Tooltip>
+        <Tooltip offset={10} content="shift file to right">
           <span className="cursor-pointer ">
             <Link
               id={"shift-right-" + encodeURIComponent(file.name)}
@@ -93,9 +97,10 @@ export const Preview = (props: Props) => {
               color="foreground"
             />
           </span>
-        </div>{" "}
-        <span className="cursor-pointer ">
-          <div>
+        </Tooltip>
+
+        <Tooltip offset={10} content="remove file this file">
+          <span className="cursor-pointer ">
             <Link
               anchorIcon={
                 <span className="cursor-pointer size-5 icon-[rivet-icons--close-circle-solid] text-default-600 dark:text-default-500"></span>
@@ -107,8 +112,8 @@ export const Preview = (props: Props) => {
               className="border-transparent p-1 text-inherit focus:border-transparent focus:outline-none focus:ring-0"
               color="foreground"
             />
-          </div>
-        </span>
+          </span>
+        </Tooltip>
       </CardHeader>
       <CardBody className="pb-1 overflow-hidden">
         <div className="h-40 center">
@@ -124,10 +129,11 @@ export const Preview = (props: Props) => {
         </div>
 
         <div className="text-ellipsis py-2 text-small gap-1 justify-between">
-          <p className=" max-h-[3.5rem] truncate font-bold  opacity-75">
-            {file?.name}
-          </p>
-
+          <Tooltip content={file.name}>
+            <p className=" max-h-[3.5rem] truncate font-bold  opacity-75">
+              {file.name}
+            </p>
+          </Tooltip>
           <div className="m-0  p-0">
             <Chip size="sm" color="success" variant="flat">
               {file.type ? getFileType(file) : "invalid type"}
