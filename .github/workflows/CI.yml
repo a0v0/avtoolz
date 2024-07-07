@@ -19,7 +19,6 @@ jobs:
           - 20
         architecture:
           - x64
-          - x86
     name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
     steps:
       - name: Checkout
