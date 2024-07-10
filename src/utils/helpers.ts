@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import { MimeType } from "@/libs/mime";
 import { join } from "lodash";
 import { AppConfig } from "./appConfig";
 
@@ -94,7 +95,7 @@ export const getPathnameFromMetadataState = (state: any): string => {
  * @param filename - The name of the file to be downloaded.
  * @throws {Error} If invalid objectURL or filename is provided.
  */
-export function downloadObjectURL(objectURL: string, filename: string) {
+export function downloadURL(objectURL: string, filename: string) {
   if (!objectURL || !filename) {
     throw new Error("Invalid objectURL or filename provided");
   }
@@ -148,6 +149,18 @@ export function getFileTypeIcon(file: File): string {
 }
 
 // function to modify the filename to add watermarked filename
-export function getWatermarkedFilename(filename: string) {
-  return join(["avtoolz", filename], "_");
+// TODO: accept mime type and add extension accordingly
+export function getWatermarkedFilename(filename: string, outputType: MimeType) {
+  let extension = "";
+  switch (outputType) {
+    case "application/pdf":
+      extension = ".pdf";
+  }
+
+  // strip last extension from filename
+  filename = filename.replace(/\.[^/.]+$/, "");
+
+  // add watermark
+
+  return join(["avtoolz", filename], "_") + extension;
 }

@@ -9,14 +9,12 @@ import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import {
   Button,
-  Card,
+  Divider,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Select,
-  SelectItem,
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
@@ -25,31 +23,20 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PDFWorker } from "../../../../../libs/workers/pdf";
 
-const allowedFileTypes: MimeType[] = [
-  "image/jpeg",
-  "image/webp",
-  "image/png",
-  // TODO: add support for these too
-  // "image/svg+xml",
-  // "image/bmp",
-  // "image/tiff",
-  // "image/gif",
-  // "image/heif",
-  // "image/heic",
-];
+const allowedFileTypes: MimeType[] = ["application/pdf"];
 
 enum PAGE_ORIENTATION {
   Portrait = "Portrait",
   Landscape = "Landscape",
 }
 
-const PAGE_SIZE = [
-  { key: "Fit", label: "Fit" },
-  { key: "A4", label: "A4" },
-  { key: "US", label: "US" },
-];
+// const PAGE_SIZE = [
+//   { key: "Fit", label: "Fit" },
+//   { key: "A4", label: "A4" },
+//   { key: "US", label: "US" },
+// ];
 
-const PAGE_MARGIN = ["None", "Small", "Big"];
+// const PAGE_MARGIN = ["None", "Small", "Big"];
 
 export default function Page() {
   const { files, reset, error } = useFileUploaderStore();
@@ -58,24 +45,22 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const [pageOrientation, setPageOrientation] = useState(
-    PAGE_ORIENTATION.Portrait
-  );
-  const [pageSize, setPageSize] = useState(new Set(["Fit"]));
-  const [pageMargin, setPageMargin] = useState(PAGE_MARGIN[0]); // default to None
+  // const [pageOrientation, setPageOrientation] = useState(
+  //   PAGE_ORIENTATION.Portrait
+  // );
+  // const [pageSize, setPageSize] = useState(new Set(["Fit"]));
+  // const [pageMargin, setPageMargin] = useState(PAGE_MARGIN[0]); // default to None
 
   async function _doWork() {
     setIsLoading(true);
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
     );
-    const outputPDF = await worker.imagesToPDF(files);
-    // @ts-ignore
+    const outputFile = await worker.mergePDFs(files);
     downloadURL(
-      outputPDF,
+      outputFile,
       getWatermarkedFilename(files[0]!.name, "application/pdf")
     );
-
     setIsLoading(false);
   }
 
@@ -122,8 +107,9 @@ export default function Page() {
               >
                 {tool?.title}
               </h2>
+              <Divider />
               <Spacer y={2} />
-              <div>
+              {/* <div>
                 <h3 style={{ fontSize: "1.2rem" }}>Page Orientation</h3>
                 <Spacer y={1} />
                 <div className="border-0 flex justify-center flex-row">
@@ -170,8 +156,8 @@ export default function Page() {
                     </div>
                   </Button>
                 </div>
-              </div>
-              <Spacer y={2} />
+              </div> */}
+              {/* <Spacer y={2} />
               <div>
                 <h2 style={{ fontSize: "1.2rem" }}>Page Size</h2>
                 <Spacer y={1} />
@@ -190,7 +176,7 @@ export default function Page() {
               <Spacer y={2} />
               <div>
                 <h2 style={{ fontSize: "1.2rem" }}>Margin</h2>
-              </div>
+              </div> */}
               <Spacer y={2} />
               <div className="flex justify-center items-end">
                 <Button color="danger" variant="bordered" onPress={reset}>
@@ -203,8 +189,9 @@ export default function Page() {
                   size="lg"
                   isLoading={isLoading}
                   onPress={_doWork}
+                  id="btn-submit"
                 >
-                  Convert to PDF
+                  Merge PDF
                 </Button>
               </div>
             </>

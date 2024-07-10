@@ -1,6 +1,11 @@
 import { getToolsByCategory, ToolCategory } from "@/config/tools";
 import { expect, test } from "@playwright/test";
 
+test("should navigate to tools page", async ({ page }) => {
+  await page.goto("/tools");
+  await expect(page).toHaveTitle("Tools • aVToolz");
+});
+
 test("test breadcrumb loaded properly", async ({ page }) => {
   await page.goto("/tools");
   const element = await page.locator(

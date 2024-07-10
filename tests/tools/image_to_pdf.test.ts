@@ -7,12 +7,16 @@ import path from "path";
 import { rimraf } from "rimraf";
 import { pdfToImages } from "tests/utils/pdf";
 
-const pdfFiles = [
+const imageFiles = [
   "./tests/fixtures/timg1.jpg",
   "./tests/fixtures/timg2.jpeg",
   "./tests/fixtures/timg3.jpeg",
   "./tests/fixtures/timg4.jpg",
 ];
+test("should navigate to the page properly", async ({ page }) => {
+  await page.goto("/tools/image-to-pdf");
+  await expect(page).toHaveTitle("Image to PDF • aVToolz");
+});
 
 test.describe("image to pdf check if", () => {
   const tempTestDir = path.join("temp", randomUUID());
@@ -22,7 +26,7 @@ test.describe("image to pdf check if", () => {
     fs.mkdirSync(tempTestDir, { recursive: true });
     const page = await browser.newPage();
     await page.goto("/tools/image-to-pdf");
-    await page.locator("#fileInput").setInputFiles(pdfFiles);
+    await page.locator("#fileInput").setInputFiles(imageFiles);
 
     // Change order of images: 1st to 2nd place and 4th to 3rd place
     await page.locator('[id="shift-right-timg1.jpg"]').click();
@@ -51,7 +55,7 @@ test.describe("image to pdf check if", () => {
         new Uint8Array(fs.readFileSync(PDF_FILE_PATH))
       );
       const pdfDocument = await loadingTask.promise;
-      expect(pdfDocument.numPages).toBe(pdfFiles.length);
+      expect(pdfDocument.numPages).toBe(imageFiles.length);
     } catch (reason) {
       console.log(reason);
       exit(1);
@@ -63,7 +67,7 @@ test.describe("image to pdf check if", () => {
     var pdfSize = fs.statSync(PDF_FILE_PATH).size;
 
     // Get total size of input images
-    pdfFiles.forEach((imagePath) => {
+    imageFiles.forEach((imagePath) => {
       var stats = fs.statSync(imagePath);
       totalSize += stats.size;
     });
@@ -77,7 +81,8 @@ test.describe("image to pdf check if", () => {
   });
 });
 
-test.describe("image to pdf check rearrange order", () => {
+// TODO: refactor this
+test.describe("file reorder check", () => {
   const tempTestDir = path.join("temp", randomUUID());
   let intactPDFPath = "";
   let rearrangedPDFPath = "";
@@ -86,11 +91,11 @@ test.describe("image to pdf check rearrange order", () => {
     await rimraf(path.join(__dirname, tempTestDir), {});
   });
 
-  test("make sure all the pdf tools are listed", async ({ page }) => {
+  test("check final pdf after rearranging images", async ({ page }) => {
     // generate pdf with order intact
     fs.mkdirSync(tempTestDir, { recursive: true });
     await page.goto("/tools/image-to-pdf");
-    await page.locator("#fileInput").setInputFiles(pdfFiles);
+    await page.locator("#fileInput").setInputFiles(imageFiles);
     let downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: "Convert to PDF" }).click();
     let download = await downloadPromise;
@@ -101,7 +106,7 @@ test.describe("image to pdf check rearrange order", () => {
     // generate pdf with rearranged pdf pages
     fs.mkdirSync(tempTestDir, { recursive: true });
     await page.reload();
-    await page.locator("#fileInput").setInputFiles(pdfFiles);
+    await page.locator("#fileInput").setInputFiles(imageFiles);
     // change order of images: 1st to 2nd place and 4th to 3rd place
     await page.locator('[id="shift-right-timg1.jpg"]').click();
     await page.locator('[id="shift-left-timg4.jpg"]').click();
@@ -126,4 +131,4 @@ test.describe("image to pdf check rearrange order", () => {
   });
 });
 
-// TODO: add test to check if images if rearranged are in correct order in pdf as well
+// TODO: add test for page orientation, page size, etc.

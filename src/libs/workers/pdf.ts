@@ -1,5 +1,6 @@
 import { expose } from "comlink";
 import jsPDF from "jspdf";
+import { PDFDocument } from "pdf-lib";
 
 /**
  * Utility functions for working with PDF files.
@@ -33,6 +34,31 @@ export const PDFWorker = {
       URL.revokeObjectURL(img);
     }
     return URL.createObjectURL(pdfDoc.output("blob"));
+  },
+
+  /**
+   * Merges an array of PDF documents into a single PDF document.
+   *
+   * @param pdfs - An array of PDF files.
+   * @returns A merged PDF document.
+   */
+  mergePDFs: async (pdfs: File[]) => {
+    const mergedPdf = await PDFDocument.create();
+    console.debug("Merging PDFs started...");
+    const actions = pdfs.map(async (pdfBuffer) => {
+      console.debug("Merging PDF: ", pdfBuffer);
+      const pdf = await PDFDocument.load(await pdfBuffer.arrayBuffer());
+      const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+      copiedPages.forEach((page) => {
+        // console.log('page', page.getWidth(), page.getHeight());
+        // page.setWidth(210);
+        mergedPdf.addPage(page);
+      });
+    });
+    console.debug("Merging PDFs completed...");
+    await Promise.all(actions);
+    const mergedPdfFile = await mergedPdf.saveAsBase64({ dataUri: true });
+    return mergedPdfFile;
   },
 };
 
