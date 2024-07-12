@@ -20,29 +20,34 @@ test("should navigate to the page properly", async ({ page }) => {
 
 test.describe("image to pdf check if", () => {
   const tempTestDir = path.join("temp", randomUUID());
-  var PDF_FILE_PATH = "";
+  var normalPDFPath = "";
+  let rearrangedPDFPath = "";
 
   test.beforeAll("Setup", async ({ browser }) => {
     fs.mkdirSync(tempTestDir, { recursive: true });
     const page = await browser.newPage();
     await page.goto("/tools/image-to-pdf");
     await page.locator("#fileInput").setInputFiles(imageFiles);
+    let downloadPromise = page.waitForEvent("download");
+    await page.locator("#btn-submit").click();
+    let download = await downloadPromise;
+    let filePath = path.join(__dirname, tempTestDir, "normal.pdf");
+    await download.saveAs(filePath);
+    normalPDFPath = filePath;
 
-    // Change order of images: 1st to 2nd place and 4th to 3rd place
+    // generate pdf with rearranged pdf pages
+    fs.mkdirSync(tempTestDir, { recursive: true });
+    await page.reload();
+    await page.locator("#fileInput").setInputFiles(imageFiles);
+    // change order of images: 1st to 2nd place and 4th to 3rd place
     await page.locator('[id="shift-right-timg1.jpg"]').click();
     await page.locator('[id="shift-left-timg4.jpg"]').click();
-
-    // Convert and download file to temp dir
-    const downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "Convert to PDF" }).click();
-    const download = await downloadPromise;
-    const filePath = path.join(
-      __dirname,
-      tempTestDir,
-      download.suggestedFilename()
-    );
+    downloadPromise = page.waitForEvent("download");
+    await page.locator("#btn-submit").click();
+    download = await downloadPromise;
+    filePath = path.join(__dirname, tempTestDir, "rearranged.pdf");
     await download.saveAs(filePath);
-    PDF_FILE_PATH = filePath;
+    rearrangedPDFPath = filePath;
   });
 
   test.afterAll("Teardown", async () => {
@@ -52,7 +57,7 @@ test.describe("image to pdf check if", () => {
   test("page count is same as that of no. of input images", async ({}) => {
     try {
       const loadingTask = pdfjs.getDocument(
-        new Uint8Array(fs.readFileSync(PDF_FILE_PATH))
+        new Uint8Array(fs.readFileSync(normalPDFPath))
       );
       const pdfDocument = await loadingTask.promise;
       expect(pdfDocument.numPages).toBe(imageFiles.length);
@@ -64,7 +69,7 @@ test.describe("image to pdf check if", () => {
 
   test("file size is not more than the sum of size of input images", async ({}) => {
     var totalSize = 0;
-    var pdfSize = fs.statSync(PDF_FILE_PATH).size;
+    var pdfSize = fs.statSync(normalPDFPath).size;
 
     // Get total size of input images
     imageFiles.forEach((imagePath) => {
@@ -79,54 +84,18 @@ test.describe("image to pdf check if", () => {
     expect(pdfSize).not.toBe(0);
     expect(pdfSize).toBeCloseTo(totalSize);
   });
-});
 
-// TODO: refactor this
-test.describe("file reorder check", () => {
-  const tempTestDir = path.join("temp", randomUUID());
-  let intactPDFPath = "";
-  let rearrangedPDFPath = "";
-
-  test.afterAll("Teardown", async () => {
-    await rimraf(path.join(__dirname, tempTestDir), {});
-  });
-
-  test("check final pdf after rearranging images", async ({ page }) => {
-    // generate pdf with order intact
-    fs.mkdirSync(tempTestDir, { recursive: true });
-    await page.goto("/tools/image-to-pdf");
-    await page.locator("#fileInput").setInputFiles(imageFiles);
-    let downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "Convert to PDF" }).click();
-    let download = await downloadPromise;
-    let filePath = path.join(__dirname, tempTestDir, "intact.pdf");
-    await download.saveAs(filePath);
-    intactPDFPath = filePath;
-
-    // generate pdf with rearranged pdf pages
-    fs.mkdirSync(tempTestDir, { recursive: true });
-    await page.reload();
-    await page.locator("#fileInput").setInputFiles(imageFiles);
-    // change order of images: 1st to 2nd place and 4th to 3rd place
-    await page.locator('[id="shift-right-timg1.jpg"]').click();
-    await page.locator('[id="shift-left-timg4.jpg"]').click();
-    downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "Convert to PDF" }).click();
-    download = await downloadPromise;
-    filePath = path.join(__dirname, tempTestDir, "rearranged.pdf");
-    await download.saveAs(filePath);
-    rearrangedPDFPath = filePath;
-
+  test("check if pages in pdf are in correct order after rearranging", async () => {
     // parse and check if images are in correct order
-    let intactPDFData = await pdfToImages(intactPDFPath);
-    let rearrangedPDFData = await pdfToImages(rearrangedPDFPath);
-    expect(intactPDFData).toHaveLength(4);
-    expect(rearrangedPDFData).toHaveLength(4);
-    expect(intactPDFData).toEqual([
-      rearrangedPDFData[1],
-      rearrangedPDFData[0],
-      rearrangedPDFData[3],
-      rearrangedPDFData[2],
+    let normalPDF = await pdfToImages(normalPDFPath);
+    let rearrangedPDF = await pdfToImages(rearrangedPDFPath);
+    expect(normalPDF).toHaveLength(4);
+    expect(rearrangedPDF).toHaveLength(4);
+    expect(normalPDF).toEqual([
+      rearrangedPDF[1],
+      rearrangedPDF[0],
+      rearrangedPDF[3],
+      rearrangedPDF[2],
     ]);
   });
 });

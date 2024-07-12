@@ -198,6 +198,7 @@ export default function Page() {
                 </Button>
                 <Spacer x={2} />
                 <Button
+                  id="btn-submit"
                   color="success"
                   variant="solid"
                   size="lg"
