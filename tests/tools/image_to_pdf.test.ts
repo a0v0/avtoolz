@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { pdfjs } from "@/libs/previews";
 import { expect, test } from "@playwright/test";
 import { randomUUID } from "crypto";
 import fs from "fs";
 import path from "path";
+import { exit } from "process";
 import { rimraf } from "rimraf";
 import { pdfToImages } from "tests/utils/pdf";
 
