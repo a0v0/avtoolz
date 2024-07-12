@@ -21,5 +21,3 @@ export default function GlobalError(props: {
     </html>
   );
 }
-
-// TODO: add retro 404 page

@@ -148,8 +148,12 @@ export function getFileTypeIcon(file: File): string {
   }
 }
 
-// function to modify the filename to add watermarked filename
-// TODO: accept mime type and add extension accordingly
+dic changes/**
+ * Generates a watermarked filename based on the original filename and output type.
+ * @param filename - The original filename.
+ * @param outputType - The output type (MIME type).
+ * @returns The watermarked filename.
+ */
 export function getWatermarkedFilename(filename: string, outputType: MimeType) {
   let extension = "";
   switch (outputType) {

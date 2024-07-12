@@ -7,5 +7,5 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "todo-tree.tree.showBadges": false,
   "todo-tree.tree.disableCompactFolders": true,
-  "CodeGPT.apiKey": "Ollama"
+  "todo-tree.filtering.excludeGlobs": ["**/node_modules/*/**"]
 }
