@@ -13,6 +13,7 @@ const imageFiles = [
   "./tests/fixtures/timg3.jpeg",
   "./tests/fixtures/timg4.jpg",
 ];
+
 test("should navigate to the page properly", async ({ page }) => {
   await page.goto("/tools/image-to-pdf");
   await expect(page).toHaveTitle("Image to PDF • aVToolz");

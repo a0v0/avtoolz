@@ -69,8 +69,6 @@ export default function Page() {
   const [pageMargin, setPageMargin] = useState(PAGE_MARGIN.None); // default to None
 
   async function _doWork() {
-    // console.log(pageSize);
-    // console.log(pageMargin);
     setIsLoading(true);
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
@@ -202,7 +200,7 @@ export default function Page() {
                 <Spacer y={1} />
                 <Select
                   onSelectionChange={(key) => setPageMargin(key as PAGE_MARGIN)}
-                  defaultSelectedKeys={["None"]}
+                  defaultSelectedKeys={[pageMargin]}
                   label="Page Margin"
                 >
                   {$enum(PAGE_MARGIN).map((margin) => (
