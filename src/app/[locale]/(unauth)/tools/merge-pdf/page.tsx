@@ -68,6 +68,7 @@ export default function Page() {
     if (error.length > 0) {
       onOpen();
       reset();
+      setIsLoading(false);
     }
   }, [error]);
 

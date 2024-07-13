@@ -1,5 +1,5 @@
 import { getImagePreview, getPDFPreview } from "@/libs/previews";
-import { getFileType } from "@/utils/helpers";
+import { getFileType, getFileTypeIcon } from "@/utils/helpers";
 import {
   Card,
   CardBody,
@@ -23,7 +23,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
 export const Preview = (props: Props) => {
   const { file } = props;
   const {
-    previews,
+    metadata,
     setPreview,
     removeFiles,
     shiftFileToLeft,
@@ -33,7 +33,7 @@ export const Preview = (props: Props) => {
   useEffect(() => {
     (async () => {
       if (file.type === "application/pdf") {
-        setPreview(file, await getPDFPreview(file));
+        setPreview(await getPDFPreview({ file }));
       } else if (
         [
           "image/jpg",
@@ -43,9 +43,7 @@ export const Preview = (props: Props) => {
           "image/svg+xml",
         ].includes(file.type)
       ) {
-        setPreview(file, await getImagePreview(file));
-      } else {
-        setPreview(file, "/svgrepo/unkown-file.svg");
+        setPreview(await getImagePreview({ file }));
       }
     })();
   }, [file, setPreview]);
@@ -54,7 +52,7 @@ export const Preview = (props: Props) => {
     <Card radius="lg" className="w-[175px]  border-none hover:outline-dashed">
       <CardHeader className="justify-between  pb-0 pt-1 px-1">
         <Tooltip offset={10} content="Move this file">
-          <span className="cursor-pointer file-drag-handle relative">
+          <span className="cursor-move file-drag-handle relative">
             <div className="fixed z-20 inline w-8 h-8"></div>
             <Link
               isExternal
@@ -83,7 +81,7 @@ export const Preview = (props: Props) => {
           </span>
         </Tooltip>
         <Tooltip offset={10} content="shift file to right">
-          <span className="cursor-pointer ">
+          <span className="cursor-pointer">
             <Link
               id={"shift-right-" + encodeURIComponent(file.name)}
               anchorIcon={
@@ -124,7 +122,10 @@ export const Preview = (props: Props) => {
             className="h-40 object-cover w-full"
             width={"auto"}
             style={{ objectFit: "cover" }}
-            src={previews.find((preview) => preview.file === file)?.thumb}
+            src={
+              metadata.find((m) => m.file === file)?.smallPreview ??
+              getFileTypeIcon(file)
+            }
           />
         </div>
 

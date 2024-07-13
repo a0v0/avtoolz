@@ -1,6 +1,11 @@
 import { expose } from "comlink";
-import jsPDF from "jspdf";
 import { PDFDocument } from "pdf-lib";
+import { OPreviewProps } from "../previews";
+
+export interface ImagesToPDFProps {
+  images: OPreviewProps[];
+  // orientation: "portrait" | "landscape";
+}
 
 /**
  * Utility functions for working with PDF files.
@@ -12,28 +17,28 @@ export const PDFWorker = {
    * @param images - An array of image files.
    * @returns A URL representing the converted PDF document.
    */
-  imagesToPDF: (images: File[]) => {
-    const pdfDoc = new jsPDF();
+  imagesToPDF: async (prop: ImagesToPDFProps) => {
+    const pdfDoc = await PDFDocument.create();
 
-    pdfDoc.deletePage(1);
-    for (const file of images) {
-      var img = URL.createObjectURL(file);
-      var imgProps = pdfDoc.getImageProperties(img);
-      var page = pdfDoc.addPage(
-        [imgProps.height, imgProps.width],
-        imgProps.height > imgProps.width ? "portrait" : "landscape"
+    for (const file of prop.images) {
+      console.log(file);
+      const width = file.width;
+      const height = file.height;
+      const image = await fetch(file.fullPreview).then((res) =>
+        res.arrayBuffer()
       );
-      page.addImage(
-        img,
-        imgProps.fileType,
-        0,
-        0,
-        imgProps.width,
-        imgProps.height
-      );
-      URL.revokeObjectURL(img);
+      const img = await pdfDoc.embedJpg(image);
+      const page = pdfDoc.addPage([width, height]);
+      page.drawImage(img, {
+        // x: page.getWidth() / 2 - jpgDims.width / 2,
+        // y: page.getHeight() / 2 - jpgDims.height / 2 + 250,
+        x: 0,
+        y: 0,
+        width: width,
+        height: height,
+      });
     }
-    return URL.createObjectURL(pdfDoc.output("blob"));
+    return pdfDoc.saveAsBase64({ dataUri: true });
   },
 
   /**

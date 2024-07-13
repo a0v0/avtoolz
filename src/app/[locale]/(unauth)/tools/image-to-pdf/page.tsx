@@ -23,8 +23,8 @@ import {
 import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { $enum } from "ts-enum-util";
 import { PDFWorker } from "../../../../../libs/workers/pdf";
-
 const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
@@ -43,16 +43,20 @@ enum PAGE_ORIENTATION {
   Landscape = "Landscape",
 }
 
-const PAGE_SIZE = [
-  { key: "Fit", label: "Fit" },
-  { key: "A4", label: "A4" },
-  { key: "US", label: "US" },
-];
+enum PAGE_SIZE {
+  Fit = "Fit",
+  A4 = "A4",
+  US = "US",
+}
 
-const PAGE_MARGIN = ["None", "Small", "Big"];
+enum PAGE_MARGIN {
+  None = "None",
+  Small = "Small",
+  Big = "Big",
+}
 
 export default function Page() {
-  const { files, reset, error } = useFileUploaderStore();
+  const { files, reset, error, metadata } = useFileUploaderStore();
   const path = usePathname();
   const tool = getToolByHref(path);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,16 +65,21 @@ export default function Page() {
   const [pageOrientation, setPageOrientation] = useState(
     PAGE_ORIENTATION.Portrait
   );
-  const [pageSize, setPageSize] = useState(new Set(["Fit"]));
-  const [pageMargin, setPageMargin] = useState(PAGE_MARGIN[0]); // default to None
+  const [pageSize, setPageSize] = useState(PAGE_SIZE.Fit); // default to Fit
+  const [pageMargin, setPageMargin] = useState(PAGE_MARGIN.None); // default to None
 
   async function _doWork() {
+    console.log(pageSize);
+    console.log(pageMargin);
     setIsLoading(true);
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
     );
-    const outputPDF = await worker.imagesToPDF(files);
-    // @ts-ignore
+    const outputPDF = await worker.imagesToPDF({
+      // filter only those elements from metadata whose file is in files
+      images: metadata.filter((m) => files.includes(m.file)),
+    });
+
     downloadURL(
       outputPDF,
       getWatermarkedFilename(files[0]!.name, "application/pdf")
@@ -83,6 +92,7 @@ export default function Page() {
     if (error.length > 0) {
       onOpen();
       reset();
+      setIsLoading(false);
     }
   }, [error]);
 
@@ -160,7 +170,6 @@ export default function Page() {
                     }
                     className="w-24 h-24 p-2"
                     style={{ alignItems: "end" }}
-                    // active={pageOrientation === PAGE_ORIENTATION.Landscape}
                   >
                     <div>
                       <Card className="flex flex-row h-9 justify-center items-center">
@@ -176,20 +185,28 @@ export default function Page() {
                 <h2 style={{ fontSize: "1.2rem" }}>Page Size</h2>
                 <Spacer y={1} />
                 <Select
-                  // label="Page Size"
-
-                  defaultSelectedKeys={["Fit"]}
-                  // onSelectionChange={setPageSize}
-                  // className="max-w-[45%]"
+                  label="Page Size"
+                  defaultSelectedKeys={[pageSize]}
+                  onSelectionChange={(key) => setPageSize(key as PAGE_SIZE)}
                 >
-                  {PAGE_SIZE.map((size) => (
-                    <SelectItem key={size.key}>{size.label}</SelectItem>
+                  {$enum(PAGE_SIZE).map((size) => (
+                    <SelectItem key={size}>{size}</SelectItem>
                   ))}
                 </Select>
               </div>
               <Spacer y={2} />
               <div>
-                <h2 style={{ fontSize: "1.2rem" }}>Margin</h2>
+                <h2 style={{ fontSize: "1.2rem" }}>Page Margin</h2>
+                <Spacer y={1} />
+                <Select
+                  onSelectionChange={(key) => setPageMargin(key as PAGE_MARGIN)}
+                  defaultSelectedKeys={["None"]}
+                  label="Page Margin"
+                >
+                  {$enum(PAGE_MARGIN).map((margin) => (
+                    <SelectItem key={margin}>{margin}</SelectItem>
+                  ))}
+                </Select>
               </div>
               <Spacer y={2} />
               <div className="flex justify-center items-end">

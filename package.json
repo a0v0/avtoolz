@@ -81,6 +81,7 @@
     "sharp": "^0.33.4",
     "tailwind-merge": "^2.3.0",
     "tailwind-variants": "^0.2.1",
+    "ts-enum-util": "^4.1.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },

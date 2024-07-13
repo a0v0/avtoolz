@@ -148,7 +148,7 @@ export function getFileTypeIcon(file: File): string {
   }
 }
 
-dic changes/**
+/**
  * Generates a watermarked filename based on the original filename and output type.
  * @param filename - The original filename.
  * @param outputType - The output type (MIME type).
