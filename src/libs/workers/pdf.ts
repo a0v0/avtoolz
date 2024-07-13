@@ -12,16 +12,15 @@ export interface ImagesToPDFProps {
  */
 export const PDFWorker = {
   /**
-   * Converts an array of images to a PDF document.
+   * Converts an array of images to a single PDF document.
    *
-   * @param images - An array of image files.
-   * @returns A URL representing the converted PDF document.
+   * @param prop - An array of type `ImagesToPDFProps`.
+   * @returns A PDF document.
    */
   imagesToPDF: async (prop: ImagesToPDFProps) => {
     const pdfDoc = await PDFDocument.create();
 
     for (const file of prop.images) {
-      console.log(file);
       const width = file.width;
       const height = file.height;
       const image = await fetch(file.fullPreview).then((res) =>

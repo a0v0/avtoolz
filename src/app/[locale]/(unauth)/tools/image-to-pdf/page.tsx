@@ -69,15 +69,17 @@ export default function Page() {
   const [pageMargin, setPageMargin] = useState(PAGE_MARGIN.None); // default to None
 
   async function _doWork() {
-    console.log(pageSize);
-    console.log(pageMargin);
+    // console.log(pageSize);
+    // console.log(pageMargin);
     setIsLoading(true);
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
     );
     const outputPDF = await worker.imagesToPDF({
-      // filter only those elements from metadata whose file is in files
-      images: metadata.filter((m) => files.includes(m.file)),
+      // filter only those elements from metadata whose file is in files, keep the order intact
+      images: metadata
+        .filter((m) => files.includes(m.file))
+        .sort((a, b) => files.indexOf(a.file) - files.indexOf(b.file)),
     });
 
     downloadURL(
