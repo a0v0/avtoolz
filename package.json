@@ -6,7 +6,7 @@
     "dev:next": "open-cli http://localhost:3000 && next dev",
     "dev": "run-p dev:*",
     "build": "pnpm run db:migrate && next build",
-    "start": "npnext start",
+    "start": "next start",
     "build-stats": "cross-env ANALYZE=true pnpm run build",
     "clean": "rimraf .next .swc out coverage",
     "lint": "next lint",

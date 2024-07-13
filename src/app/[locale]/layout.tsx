@@ -73,7 +73,9 @@ export default function RootLayout(props: {
   return (
     <html suppressHydrationWarning lang={props.params.locale}>
       <body>
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers
+          themeProps={{ attribute: "class", defaultTheme: "enableSystem" }}
+        >
           <NextIntlClientProvider
             locale={props.params.locale}
             messages={messages}
