@@ -96,8 +96,6 @@ export const PDFWorker = {
             : page.setSize(PageSizes.Tabloid[1], PageSizes.Tabloid[0]);
           break;
       }
-      // const image = canvas.toDataURL('image/jpeg', 1.0);
-      // const doc = new jsPDF('p', 'px', 'a4');
 
       const pageWidth = page.getWidth();
       const pageHeight = page.getHeight();
@@ -109,7 +107,6 @@ export const PDFWorker = {
       const marginX = (pageWidth - canvasWidth) / 2;
       const marginY = (pageHeight - canvasHeight) / 2;
 
-      // doc.addImage(image, 'JPEG', marginX, marginY, canvasWidth, canvasHeight);
       // page margin
       switch (prop.margin) {
         case "None":
