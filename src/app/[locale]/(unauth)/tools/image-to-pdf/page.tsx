@@ -5,6 +5,12 @@ import { useFileUploaderStore } from "@/components/fileUploader/store";
 import { getToolByHref } from "@/config/tools";
 import { MimeType } from "@/libs/mime";
 import { subtitle, title } from "@/libs/primitives";
+import {
+  PAGE_MARGIN,
+  PAGE_ORIENTATION,
+  PAGE_SIZE,
+  PDFWorker,
+} from "@/libs/workers/pdf";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import {
@@ -23,8 +29,6 @@ import {
 import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { $enum } from "ts-enum-util";
-import { PDFWorker } from "../../../../../libs/workers/pdf";
 const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
@@ -38,23 +42,6 @@ const allowedFileTypes: MimeType[] = [
   // "image/heic",
 ];
 
-enum PAGE_ORIENTATION {
-  Portrait = "Portrait",
-  Landscape = "Landscape",
-}
-
-enum PAGE_SIZE {
-  Fit = "Fit",
-  A4 = "A4",
-  US = "US",
-}
-
-enum PAGE_MARGIN {
-  None = "None",
-  Small = "Small",
-  Big = "Big",
-}
-
 export default function Page() {
   const { files, reset, error, metadata } = useFileUploaderStore();
   const path = usePathname();
@@ -62,11 +49,11 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const [pageOrientation, setPageOrientation] = useState(
-    PAGE_ORIENTATION.Portrait
-  );
-  const [pageSize, setPageSize] = useState(PAGE_SIZE.Fit); // default to Fit
-  const [pageMargin, setPageMargin] = useState(PAGE_MARGIN.None); // default to None
+  const [pageOrientation, setPageOrientation] =
+    useState<(typeof PAGE_ORIENTATION)[number]>("Portrait");
+  const [pageSize, setPageSize] = useState<(typeof PAGE_SIZE)[number]>("Fit"); // default to Fit
+  const [pageMargin, setPageMargin] =
+    useState<(typeof PAGE_MARGIN)[number]>("None"); // default to None
 
   async function _doWork() {
     setIsLoading(true);
@@ -78,6 +65,9 @@ export default function Page() {
       images: metadata
         .filter((m) => files.includes(m.file))
         .sort((a, b) => files.indexOf(a.file) - files.indexOf(b.file)),
+      margin: pageMargin,
+      orientation: pageOrientation,
+      size: pageSize,
     });
 
     downloadURL(
@@ -139,14 +129,8 @@ export default function Page() {
                 <div className="border-0 flex justify-center flex-row">
                   <Button
                     color="success"
-                    variant={
-                      pageOrientation == PAGE_ORIENTATION.Portrait
-                        ? "solid"
-                        : "flat"
-                    }
-                    onPress={() =>
-                      setPageOrientation(PAGE_ORIENTATION.Portrait)
-                    }
+                    variant={pageOrientation === "Portrait" ? "solid" : "flat"}
+                    onPress={() => setPageOrientation("Portrait")}
                     className="w-24 h-24 p-2"
                     style={{ alignItems: "end" }}
                   >
@@ -160,14 +144,8 @@ export default function Page() {
                   <Spacer x={2} />
                   <Button
                     color="success"
-                    variant={
-                      pageOrientation === PAGE_ORIENTATION.Landscape
-                        ? "solid"
-                        : "flat"
-                    }
-                    onPress={() =>
-                      setPageOrientation(PAGE_ORIENTATION.Landscape)
-                    }
+                    variant={pageOrientation === "Landscape" ? "solid" : "flat"}
+                    onPress={() => setPageOrientation("Landscape")}
                     className="w-24 h-24 p-2"
                     style={{ alignItems: "end" }}
                   >
@@ -187,9 +165,15 @@ export default function Page() {
                 <Select
                   label="Page Size"
                   defaultSelectedKeys={[pageSize]}
-                  onSelectionChange={(key) => setPageSize(key as PAGE_SIZE)}
+                  onSelectionChange={(key) =>
+                    new Set(key).forEach((v) => {
+                      setPageSize(v);
+                    })
+                  }
+                  selectionMode="single"
+                  disallowEmptySelection
                 >
-                  {$enum(PAGE_SIZE).map((size) => (
+                  {PAGE_SIZE.map((size) => (
                     <SelectItem key={size}>{size}</SelectItem>
                   ))}
                 </Select>
@@ -199,11 +183,17 @@ export default function Page() {
                 <h2 style={{ fontSize: "1.2rem" }}>Page Margin</h2>
                 <Spacer y={1} />
                 <Select
-                  onSelectionChange={(key) => setPageMargin(key as PAGE_MARGIN)}
+                  onSelectionChange={(key) =>
+                    new Set(key).forEach((v) => {
+                      setPageMargin(v);
+                    })
+                  }
                   defaultSelectedKeys={[pageMargin]}
                   label="Page Margin"
+                  selectionMode="single"
+                  disallowEmptySelection
                 >
-                  {$enum(PAGE_MARGIN).map((margin) => (
+                  {PAGE_MARGIN.map((margin) => (
                     <SelectItem key={margin}>{margin}</SelectItem>
                   ))}
                 </Select>
