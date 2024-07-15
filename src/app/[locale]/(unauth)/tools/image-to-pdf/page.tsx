@@ -167,6 +167,7 @@ export default function Page() {
                   defaultSelectedKeys={[pageSize]}
                   onSelectionChange={(key) =>
                     new Set(key).forEach((v) => {
+                      // @ts-ignore
                       setPageSize(v);
                     })
                   }
@@ -185,6 +186,7 @@ export default function Page() {
                 <Select
                   onSelectionChange={(key) =>
                     new Set(key).forEach((v) => {
+                      // @ts-ignore
                       setPageMargin(v);
                     })
                   }
