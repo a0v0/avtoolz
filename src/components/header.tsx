@@ -2,6 +2,7 @@
 
 import {
   Button,
+  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -29,6 +30,7 @@ import type { Route } from "@/config/routes";
 import { routes as manifest } from "@/config/routes";
 import { siteConfig } from "@/config/site";
 
+import { currentVersion } from "@/utils/version";
 import { useCmdkStore } from "./cmdk";
 import { Logo } from "./icons/logo";
 import { DocsSidebar } from "./sidebar";
@@ -104,6 +106,16 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
             <h1 className="font-bold text-inherit">aVToolz</h1>
             <Spacer x={2} />
           </Link>
+          <Chip
+            variant="flat"
+            color="success"
+            as={Link}
+            isExternal
+            endContent={<span className="icon-[mingcute--tag-fill]"></span>}
+            href={siteConfig.links.githubLatestRelease}
+          >
+            v{currentVersion}
+          </Chip>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-4 sm:flex" justify="start">
