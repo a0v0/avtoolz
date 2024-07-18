@@ -1,0 +1,64 @@
+version: 3
+silent: true
+tasks:
+  default:
+    desc: Show all tasks
+    cmd: task -a
+
+  install:
+    desc: Install dependencies
+    cmds:
+      - pnpm install
+      - pnpx playwright install chromium #--with-deps
+
+  storybook:
+    desc: Run storybook
+    cmd: pnpm storybook
+
+  run:
+    desc: Run development server
+    cmd: pnpm dev
+
+  lint:
+    desc: Lint code
+    cmd: pnpm lint
+
+  # Sometimes git is not tracking the files that are in .gitignore
+  # This task will fix that
+  # See: https://stackoverflow.com/questions/25436312/gitignore-not-working
+  fix_gitignore:
+    desc: Fix git not tracking files in .gitignore
+    cmds:
+      - git rm -rf --cached .
+      - git add .
+
+  test:
+    desc: Run tests
+    cmds:
+      - pnpm test
+      - pnpm test:e2e
+
+  update:
+    desc: Update dependencies
+    cmds:
+      - pnpm update
+      # - pnpx playwright install chromium #--with-deps
+
+  clean:
+    desc: Clean project
+    cmds:
+      - sudo rm -rf .pnpm-store node_modules test-results .next out
+      - task: clean:temp
+
+  clean:temp:
+    desc: Clean temporary files and folders
+    cmds:
+      - rm -rf `find . -type d -name temp`
+
+  build:
+    desc: Build project
+    cmd: pnpm build
+
+  build_analyze:
+    desc: Build project with analyze
+    cmd: ANALYZE=true pnpm build

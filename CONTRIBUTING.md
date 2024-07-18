@@ -20,28 +20,36 @@ Following are the steps to contribute to this project:
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/en/)
+<!-- - [Docker](https://www.docker.com/) -->
+
+- [VSCode](https://code.visualstudio.com/)
+- [Node@20](https://nodejs.org/en/)
+- [Taskfile](https://taskfile.dev/#/installation)
 - [pnpm](https://pnpm.io/)
-- [Taskfile](https://taskfile.dev/#/installation?id=install-script)
 
 ## Running Locally
 
-1. Clone the repository
+1.  Clone the repository
 
-```bash
-git clone https://github.com/a0v0/avtoolz && cd avtoolz
-```
+        ```bash
+        git clone https://github.com/a0v0/avtoolz && cd avtoolz
+        ```
 
-2. Install dependencies
+<!-- 2. Install this VSCode extension: [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+2.  Press `F1` and select `Dev Container: Open Folder in Container`
+3.  Wait for the development container to build
+4.  Press `F5` or run `task dev` in the terminal to start the development server. -->
 
-```bash
-task install
-```
+5.  Install dependencies
 
-3. Run the development server
+    ```bash
+    task install
+    ```
 
-```bash
-task dev
-```
+6.  Start the development server
 
-For more commands, see [Taskfile](./Taskfile.yml)
+    ```
+    task run
+    ```
+
+    For more commands, see [Taskfile](./Taskfile.yaml)
