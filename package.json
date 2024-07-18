@@ -1,6 +1,6 @@
 {
   "name": "avtoolz",
-  "version": "2.0.0",
+  "version": "2.4.1",
   "scripts": {
     "dev:spotlight": "spotlight-sidecar",
     "dev:next": "open-cli http://localhost:3000 && next dev",

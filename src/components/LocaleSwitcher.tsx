@@ -6,6 +6,7 @@ import type { ChangeEventHandler } from "react";
 import { usePathname, useRouter } from "@/libs/i18nNavigation";
 import { AppConfig } from "@/utils/appConfig";
 
+// TODO: make LocaleSwitcher work
 export default function LocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
