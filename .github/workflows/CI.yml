@@ -25,16 +25,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          version: 9
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      # - uses: pnpm/action-setup@v4
+      # name: Install pnpm
+      # with:
+      #   version: 9
+      - uses: wyvox/action-setup-pnpm@v3
         with:
           node-version: ${{ matrix.node_version }}
-          architecture: ${{ matrix.architecture }}
-          cache: "pnpm"
+          pnpm-version: 9
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: ${{ matrix.node_version }}
+      #     architecture: ${{ matrix.architecture }}
+      #     cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
       # - name: Get pnpm store directory
