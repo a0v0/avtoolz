@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 import { Cmdk } from "@/components/cmdk";
 import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import { Navbar } from "@/components/navbar";
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
 import { AppConfig } from "@/utils/appConfig";
@@ -80,7 +80,7 @@ export default function RootLayout(props: {
             locale={props.params.locale}
             messages={messages}
           >
-            <Header routes={routes.items.filter((r) => r.routes.length > 0)} />
+            <Navbar routes={routes.items.filter((r) => r.routes.length > 0)} />
             {props.children}
             <Footer />
             <Cmdk />

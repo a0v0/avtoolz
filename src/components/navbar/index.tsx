@@ -3,11 +3,11 @@
 import {
   Button,
   Chip,
+  Divider,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Kbd,
   Link,
   NavbarBrand,
   NavbarContent,
@@ -18,7 +18,6 @@ import {
   Spacer,
 } from "@nextui-org/react";
 import { clsx } from "@nextui-org/shared-utils";
-import { isAppleDevice } from "@react-aria/utils";
 import { usePathname, useRouter } from "next/navigation";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -31,55 +30,29 @@ import { routes as manifest } from "@/config/routes";
 import { siteConfig } from "@/config/site";
 
 import { currentVersion } from "@/utils/version";
-import { useCmdkStore } from "./cmdk";
-import { Logo } from "./icons/logo";
-import { DocsSidebar } from "./sidebar";
-import { ThemeSwitch } from "./theme-switch";
+import { Logo } from "../icons/logo";
+import { DocsSidebar } from "../sidebar";
+// import { ThemeSwitch } from "../theme-switch";
+import ProfileMenu from "./profile-menu";
+import SearchButton from "./search-btn";
 
 export interface HeaderProps {
   routes: Route[];
   tag?: string;
   slug?: string;
 }
-export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
+export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
-  const [commandKey, setCommandKey] = useState<"ctrl" | "command">("ctrl");
+
   const router = useRouter();
   const ref = useRef<HTMLElement>(null);
   const pathname = usePathname();
-  const cmdkStore = useCmdkStore();
 
   useEffect(() => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
   }, [pathname]);
-
-  useEffect(() => {
-    setCommandKey(isAppleDevice() ? "command" : "ctrl");
-  }, []);
-
-  const handleOpenCmdk = () => {
-    cmdkStore.onOpen();
-  };
-
-  const searchButton = (
-    <Button
-      aria-label="Quick search"
-      className="bg-default-400/20 text-sm font-normal text-default-500 dark:bg-default-500/20"
-      endContent={
-        <Kbd className="hidden px-2 py-0.5 lg:inline-block" keys={commandKey}>
-          K
-        </Kbd>
-      }
-      startContent={
-        <span className="icon-[mingcute--search-3-line] pointer-events-none size-6 shrink-0 text-base text-default-400" />
-      }
-      onPress={handleOpenCmdk}
-    >
-      Quick Search...
-    </Button>
-  );
 
   return (
     <NextUINavbar
@@ -111,8 +84,11 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
             color="success"
             as={Link}
             isExternal
-            endContent={<span className="icon-[mingcute--tag-fill]"></span>}
+            startContent={
+              <span className="icon-[mingcute--tag-fill] size-4"></span>
+            }
             href={siteConfig.links.githubLatestRelease}
+            className="hidden sm:flex"
           >
             v{currentVersion}
           </Chip>
@@ -151,7 +127,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
               >
                 {category.routes.map((tool, index) => (
                   <DropdownItem
-                    onPress={() => router.push(tool.href)}
+                    href={tool.href}
                     key={index}
                     startContent={tool.icon}
                   >
@@ -165,9 +141,9 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
       </NavbarContent>
       <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
         <NavbarItem className="flex h-full items-center">
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
 
-          <Link
+          {/* <Link
             isBlock
             isExternal
             aria-label="Github"
@@ -176,16 +152,9 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
             color="foreground"
           >
             <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500" />
-          </Link>
-          <Link
-            color="success"
-            // isBlock
-            aria-label="Search"
-            className="p-1 text-inherit "
-            onClick={handleOpenCmdk}
-          >
-            <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
-          </Link>
+          </Link> */}
+          <SearchButton isSearchFullWidth={false} />
+          <ProfileMenu />
         </NavbarItem>
 
         <NavbarItem className="h-full w-10">
@@ -200,7 +169,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
         className="hidden basis-1/5 sm:flex sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex">
+        <NavbarItem className="hidden sm:flex gap-2">
           <Link
             isExternal
             isBlock
@@ -221,21 +190,17 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
             Report Bugs
           </Link>
 
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
 
-          <Link
-            isBlock
-            isExternal
-            aria-label="Github"
-            className="p-1 text-inherit"
-            color="foreground"
-            href={siteConfig.links.github}
-          >
-            <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500" />
-          </Link>
+          <div className="hidden sm:flex lg:hidden">
+            <SearchButton isSearchFullWidth={false} />
+          </div>
+          <ProfileMenu />
         </NavbarItem>
 
-        <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
+        <div className="hidden lg:flex ">
+          <SearchButton isSearchFullWidth />
+        </div>
 
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -243,12 +208,41 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
         />
       </NavbarContent>
 
+      {/* mobile navbar */}
       <NavbarMenu>
         <NavbarItem>
-          <Link color="success" isBlock href="/tools">
+          <Link color="foreground" isBlock href="/tools">
             All Tools
           </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <DocsSidebar routes={[...routes]} slug={slug} tag={tag} />
+        </NavbarItem>
+        <div className=" h-full  content-end items-center text-center mb-5">
+          <Divider />
           <Spacer y={2} />
+          {/* <Chip
+            variant="flat"
+            color="success"
+            as={Link}
+            isExternal
+            endContent={
+              <span className="icon-[mingcute--tag-fill] size-4"></span>
+            }
+            href={siteConfig.links.githubLatestRelease}
+          >
+            v{currentVersion}
+          </Chip> */}
+          <Link
+            isBlock
+            color="warning"
+            isExternal
+            href={siteConfig.links.github}
+            showAnchorIcon
+          >
+            Source Code
+          </Link>
+
           <Link
             isBlock
             color="success"
@@ -258,7 +252,6 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
           >
             Roadmap
           </Link>
-          <Spacer y={2} />
           <Link
             isExternal
             isBlock
@@ -268,14 +261,7 @@ export const Header: FC<HeaderProps> = ({ routes, slug, tag }) => {
           >
             Report Bugs
           </Link>
-        </NavbarItem>
-
-        <DocsSidebar
-          className="mt-t"
-          routes={[...routes]}
-          slug={slug}
-          tag={tag}
-        />
+        </div>
       </NavbarMenu>
     </NextUINavbar>
   );
