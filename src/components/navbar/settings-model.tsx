@@ -27,7 +27,7 @@ function Settings() {
   return (
     <Tabs aria-label="Options" isVertical={!isMobile}>
       <Tab
-        key="appearence"
+        key="appearance"
         className="w-full"
         title={
           <div className="flex items-center space-x-2">

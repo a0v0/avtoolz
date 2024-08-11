@@ -6,7 +6,7 @@ test.describe("theme toggle", () => {
 
     await page.getByRole("button", { name: "avatar" }).click();
     await page.getByLabel("Settings").click();
-    await page.getByRole("tab", { name: "Appearence" }).click();
+    await page.getByRole("tab", { name: "Appearance" }).click();
 
     // default theme mode is light so first switch to dark then back to light
     await page.getByRole("button", { name: "Dark" }).click();
@@ -22,11 +22,9 @@ test.describe("theme toggle", () => {
 
     await page.getByRole("button", { name: "avatar" }).click();
     await page.getByLabel("Settings").click();
-    await page.getByRole("tab", { name: "Appearence" }).click();
+    await page.getByRole("tab", { name: "Appearance" }).click();
 
-    // default theme mode is light so first switch to dark then back to light
     await page.getByRole("button", { name: "Dark" }).click();
-    await page.getByRole("button", { name: "Light" }).click();
 
     await expect(page.locator("html")).toHaveClass("enableSystem dark");
     await page.reload();
