@@ -237,7 +237,7 @@ export default function Page() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  OK
+                  {}
                 </Button>
               </ModalFooter>
             </>
