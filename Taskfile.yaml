@@ -8,6 +8,8 @@ tasks:
   install:
     desc: Install dependencies
     cmds:
+      - fnm install
+      - corepack enable pnpm
       - pnpm install
       - pnpx playwright install chromium --with-deps
 

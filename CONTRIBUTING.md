@@ -23,9 +23,8 @@ Following are the steps to contribute to this project:
 <!-- - [Docker](https://www.docker.com/) -->
 
 - [VSCode](https://code.visualstudio.com/)
-- [Node@20](https://nodejs.org/en/)
 - [Taskfile](https://taskfile.dev/#/installation)
-- [pnpm](https://pnpm.io/)
+- [fnm](https://github.com/Schniz/fnm)
 
 ## Running Locally
 

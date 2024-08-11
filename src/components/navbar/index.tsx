@@ -1,5 +1,8 @@
 "use client";
 
+import type { Route } from "@/config/routes";
+import { routes as manifest } from "@/config/routes";
+import { siteConfig } from "@/config/site";
 import {
   Button,
   Chip,
@@ -18,21 +21,15 @@ import {
   Spacer,
 } from "@nextui-org/react";
 import { clsx } from "@nextui-org/shared-utils";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-
-// ThemeSwitch
-// import { ThemeSwitch } from '@/components';
-// import { DocsSidebar } from '@/components/docs/sidebar';
-import type { Route } from "@/config/routes";
-import { routes as manifest } from "@/config/routes";
-import { siteConfig } from "@/config/site";
 
 import { currentVersion } from "@/utils/version";
 import { Logo } from "../icons/logo";
 import { DocsSidebar } from "../sidebar";
-// import { ThemeSwitch } from "../theme-switch";
+
+import { useTranslations } from "next-intl";
 import ProfileMenu from "./profile-menu";
 import SearchButton from "./search-btn";
 
@@ -43,8 +40,7 @@ export interface HeaderProps {
 }
 export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
-
-  const router = useRouter();
+  const t = useTranslations();
   const ref = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
@@ -97,7 +93,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
       <NavbarContent className="hidden gap-4 sm:flex" justify="start">
         <NavbarItem>
           <Link isBlock color="foreground" href="/tools">
-            All Tools
+            {t("common.all_tools")}
           </Link>
         </NavbarItem>
         {manifest.items.map((category, index) =>
@@ -177,7 +173,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             href={siteConfig.links.githubRoadmap}
             color="success"
           >
-            Roadmap
+            {t("common.roadmap")}
           </Link>
 
           <Link
@@ -187,7 +183,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             href={siteConfig.links.githubIssues}
             color="danger"
           >
-            Report Bugs
+            {t("common.report_bugs")}
           </Link>
 
           {/* <ThemeSwitch /> */}
@@ -212,7 +208,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
       <NavbarMenu>
         <NavbarItem>
           <Link color="foreground" isBlock href="/tools">
-            All Tools
+            {t("common.all_tools")}
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -240,7 +236,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             href={siteConfig.links.github}
             showAnchorIcon
           >
-            Source Code
+            {t("common.source_code")}
           </Link>
 
           <Link
@@ -250,7 +246,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             href={siteConfig.links.githubRoadmap}
             showAnchorIcon
           >
-            Roadmap
+            {t("common.roadmap")}
           </Link>
           <Link
             isExternal
@@ -259,7 +255,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             href={siteConfig.links.githubIssues}
             color="danger"
           >
-            Report Bugs
+            {t("common.roadmap")}
           </Link>
         </div>
       </NavbarMenu>
