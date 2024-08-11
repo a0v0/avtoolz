@@ -1,10 +1,11 @@
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { Button } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
 function ThemeSwitchPills() {
   const { theme, setTheme } = useTheme();
-
+  const t = useTranslations();
   const isMounted = useIsMounted();
   const isSelected = theme === "dark" && isMounted;
 
@@ -19,7 +20,7 @@ function ThemeSwitchPills() {
         variant={isSelected ? "ghost" : "solid"}
         onPress={() => setTheme("light")}
       >
-        Light
+        {t("theme.light")}
       </Button>
       <Button
         radius="full"
@@ -30,7 +31,7 @@ function ThemeSwitchPills() {
         color="success"
         variant={isSelected ? "solid" : "ghost"}
       >
-        Dark
+        {t("theme.dark")}
       </Button>
     </div>
   );

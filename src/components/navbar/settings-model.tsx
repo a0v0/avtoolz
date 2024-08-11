@@ -10,7 +10,7 @@ import {
   Tab,
   Tabs,
 } from "@nextui-org/react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ThemeSwitchPills from "./theme-switch-pills";
 
 function Settings() {
@@ -18,7 +18,7 @@ function Settings() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
-
+  const t = useTranslations();
   const handleLocaleChange = (value: any) => {
     router.push(pathname, { locale: value });
     router.refresh();
@@ -33,17 +33,19 @@ function Settings() {
           <div className="flex items-center space-x-2">
             <span className="icon-[solar--paint-roller-bold-duotone] size-6"></span>
 
-            <span>Appearence</span>
+            <span>{t("settings.appearance")}</span>
           </div>
         }
       >
         <Card shadow="none">
           <CardBody className="gap-4">
-            <h1 className="text-2xl font-semibold">Appearence</h1>
+            <h1 className="text-2xl font-semibold">
+              {t("settings.appearance")}
+            </h1>
             <Divider />
 
             <div className="flex justify-between flex-wrap gap-2">
-              <h1 className="font-medium text-lg">Theme Mode</h1>
+              <h1 className="font-medium text-lg">{t("settings.themMode")}</h1>
 
               <ThemeSwitchPills />
             </div>
@@ -57,20 +59,21 @@ function Settings() {
           <div className="flex items-center space-x-2">
             <span className="icon-[fa6-solid--language] size-6"></span>
 
-            <span>Language</span>
+            <span>{t("settings.language")}</span>
           </div>
         }
       >
         <Card shadow="none">
           <CardBody className="gap-4">
-            <h1 className="text-2xl font-semibold">Language</h1>
+            <h1 className="text-2xl font-semibold">{t("settings.language")}</h1>
             <Divider />
 
             <div className="flex justify-between flex-wrap gap-2">
-              <h1 className="font-medium text-lg">Choose your language</h1>
+              <h1 className="font-medium text-lg">
+                {t("settings.chooseLanguage")}
+              </h1>
               <Select
                 variant={"flat"}
-                // label="Select an animal"
                 className="max-w-xs"
                 defaultSelectedKeys={[locale]}
                 onSelectionChange={(key) =>
@@ -87,17 +90,6 @@ function Settings() {
                   </SelectItem>
                 ))}
               </Select>
-              {/* <select
-                defaultValue={locale}
-                onChange={handleChange}
-                className="border border-gray-300 font-medium focus:outline-none focus-visible:ring"
-              >
-                {AppConfig.locales.map((elt) => (
-                  <option key={elt} value={elt}>
-                    {getLocaleInWords(elt)}
-                  </option>
-                ))}
-              </select> */}
             </div>
           </CardBody>
         </Card>

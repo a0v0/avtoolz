@@ -10,11 +10,13 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import { ProfileAvatar } from "./profile-avatar";
 import Settings from "./settings-model";
 
 function ProfileMenu() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const t = useTranslations();
 
   return (
     <>
@@ -28,7 +30,9 @@ function ProfileMenu() {
             <div className="flex gap-5 items-center">
               <div className="">{ProfileAvatar}</div>
               <div className="">
-                <p className="font-semibold text-default-500">Signed in as</p>
+                <p className="font-semibold text-default-500">
+                  {t("settings.auth.signed_in_as")}
+                </p>
                 <p className="font-semibold">Guest</p>
               </div>
             </div>
@@ -94,9 +98,9 @@ function ProfileMenu() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                <h1>Settings</h1>
+                <h1>{t("settings.settings")}</h1>
                 <p className="text-small text-default-400">
-                  Manage theme, account settings and more...
+                  {t("settings.manage_settings")}
                 </p>
               </ModalHeader>
               <ModalBody>

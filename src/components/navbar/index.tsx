@@ -48,7 +48,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
-  }, [pathname]);
+  }, [isMenuOpen, pathname]);
 
   return (
     <NextUINavbar

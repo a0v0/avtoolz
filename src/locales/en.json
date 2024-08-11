@@ -9,7 +9,30 @@
     "roadmap": "Roadmap",
     "source_code": "Source Code"
   },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
 
+  "search": {
+    "quick_search": "Quick search...",
+    "no_result": "No results for \"{query}\"",
+    "no_recent_results": "No recent searches",
+    "try_something_else": "Try searching for something else.",
+    "try_add_more_term": "Try adding more characters to your search term."
+  },
+
+  "settings": {
+    "manage_settings": "Manage theme, account settings and more...",
+    "settings": "Settings",
+    "appearance": "Appearance",
+    "language": "Language",
+    "themMode": "Theme Mode",
+    "chooseLanguage": "Choose your language",
+    "auth": {
+      "signed_in_as": "Signed in as"
+    }
+  },
   "unsupported_file_error": {
     "unsupported_file_type": "Unsupported File Type",
     "unsupported_file_type_message": "The file <bold>{filename}</bold> is not supported.",

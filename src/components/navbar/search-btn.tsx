@@ -1,11 +1,13 @@
 import { Button, Kbd, Link } from "@nextui-org/react";
 import { isAppleDevice } from "@react-aria/utils";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useCmdkStore } from "../cmdk";
 
 function SearchButton({ isSearchFullWidth }: { isSearchFullWidth: boolean }) {
   const [commandKey, setCommandKey] = useState<"ctrl" | "command">("ctrl");
   const cmdkStore = useCmdkStore();
+  const t = useTranslations();
 
   useEffect(() => {
     setCommandKey(isAppleDevice() ? "command" : "ctrl");
@@ -28,7 +30,7 @@ function SearchButton({ isSearchFullWidth }: { isSearchFullWidth: boolean }) {
       }
       onPress={handleOpenCmdk}
     >
-      Quick Search...
+      {t("search.quick_search")}
     </Button>
   ) : (
     <Link
