@@ -32,7 +32,6 @@ jobs:
       - uses: wyvox/action-setup-pnpm@v3
         with:
           node-version: ${{ matrix.node_version }}
-          pnpm-version: 9
       # - name: Install Node.js
       #   uses: actions/setup-node@v4
       #   with:

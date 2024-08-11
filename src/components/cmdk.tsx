@@ -22,6 +22,7 @@ import { Tools } from "@/config/tools";
 import { useUpdateEffect } from "@/hooks/use-update-effect";
 import { cn } from "@/utils/helpers";
 
+import { useTranslations } from "next-intl";
 import { ChevronRightLinearIcon } from "./icons/chevron-right";
 import { HashBoldIcon } from "./icons/hash";
 
@@ -377,7 +378,7 @@ export const Cmdk: FC<{}> = () => {
   );
 
   const shouldOpen = !hideOnPaths.some((path) => pathname.includes(path));
-
+  const t = useTranslations();
   return (
     <Modal
       hideCloseButton
@@ -438,14 +439,14 @@ export const Cmdk: FC<{}> = () => {
               <Command.Empty>
                 <div className={slots.emptyWrapper()}>
                   <div>
-                    <p>No results for &quot;{query}&quot;</p>
+                    <p>{t("search.no_result", { query: query })}</p>
                     {query.length === 1 ? (
                       <p className="text-default-400">
-                        Try adding more characters to your search term.
+                        {t("search.try_add_more_term")}
                       </p>
                     ) : (
                       <p className="text-default-400">
-                        Try searching for something else.
+                        {t("search.try_something_else")}
                       </p>
                     )}
                   </div>
@@ -456,7 +457,9 @@ export const Cmdk: FC<{}> = () => {
             {isEmpty(query) &&
               (isEmpty(recentSearches) ? (
                 <div className={slots.emptyWrapper()}>
-                  <p className="text-default-400">No recent searches</p>
+                  <p className="text-default-400">
+                    {t("search.no_recent_results")}
+                  </p>
                 </div>
               ) : (
                 recentSearches &&

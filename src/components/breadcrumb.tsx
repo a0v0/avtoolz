@@ -2,11 +2,13 @@
 import { getToolByHref } from "@/config/tools";
 
 import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 
 function Breadcrumb() {
   const path = usePathname();
   const tool = getToolByHref(path);
+  const t = useTranslations();
 
   return (
     <Breadcrumbs id="breadcrumb" className="flex justify-center my-5">
@@ -16,7 +18,7 @@ function Breadcrumb() {
           <span className="icon-[solar--home-smile-angle-bold] size-5"></span>
         }
       >
-        <p>Home</p>
+        <p>{t("common.home")}</p>
       </BreadcrumbItem>
 
       <BreadcrumbItem
@@ -25,7 +27,7 @@ function Breadcrumb() {
           <span className="icon-[fluent--grid-24-filled] size-5"></span>
         }
       >
-        <p>Tools</p>
+        <p>{t("common.tools")}</p>
       </BreadcrumbItem>
       {path.includes("/tools/") ? (
         <BreadcrumbItem

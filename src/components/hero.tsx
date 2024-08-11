@@ -31,7 +31,7 @@ function Hero() {
         variant="ghost"
         href="/tools"
       >
-        Browse All
+        {t("browse_all")}
       </Button>
     </main>
   );

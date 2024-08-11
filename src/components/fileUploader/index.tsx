@@ -19,6 +19,7 @@ import {
   Spacer,
   useDisclosure,
 } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
@@ -36,7 +37,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   const { files, addFiles, reset, updateFiles } = useFileUploaderStore(
     (state) => state
   );
-
+  const t = useTranslations();
   const [parent, filesHolder, _setValues] = useDragAndDrop<
     HTMLDivElement,
     File
@@ -66,20 +67,20 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     if (acceptedFiles) {
       addFiles(acceptedFiles);
     }
-  }, [acceptedFiles]);
+  }, [acceptedFiles, addFiles]);
 
   useEffect(() => {
     _setValues(files);
-  }, [files]);
+  }, [_setValues, files]);
 
   useEffect(() => {
     updateFiles(filesHolder);
-  }, [filesHolder]);
+  }, [filesHolder, updateFiles]);
 
   // reset state when route changes
   useEffect(() => {
     reset();
-  }, [router]);
+  }, [reset, router]);
 
   return (
     <div>
@@ -126,7 +127,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             <Card onPress={open} className="w-72" isPressable>
               <CardBody className="text-center ">
                 <h1 className={subtitle({ fullWidth: true, size: "sm" })}>
-                  + Select Files
+                  {t("file_uploader.select_files")}
                 </h1>
               </CardBody>
             </Card>
@@ -140,7 +141,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                 size: "xs",
               })}
             >
-              drop your files here...
+              {t("file_uploader.drop_files")}
             </h2>
             <Divider className="my-2" />
             <div className="max-w-96 gap-2 text-center">
@@ -166,15 +167,19 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Unsupported file type
+                {t("unsupported_file_error.unsupported_file_type")}
               </ModalHeader>
               <ModalBody>
                 <p>
-                  The file{" "}
-                  <b style={{ color: "red" }}>{fileRejections[0]?.file.name}</b>{" "}
-                  is not supported.
+                  {t.rich(
+                    "unsupported_file_error.unsupported_file_type_message",
+                    {
+                      filename: fileRejections[0]?.file.name,
+                      bold: (text) => <b style={{ color: "red" }}>{text}</b>,
+                    }
+                  )}
                 </p>
-                <p>Please make sure the file type is one of the following:</p>
+                <p>{t("unsupported_file_error.file_is_of_following_format")}</p>
                 <ul>
                   {acceptedFileTypes.map((fileType) => (
                     <li style={{ color: "#18c964" }} key={fileType}>
@@ -185,7 +190,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  OK
+                  {t("common.ok")}
                 </Button>
               </ModalFooter>
             </>

@@ -1,3 +1,4 @@
+import { getFileTypeIcon } from "@/utils/helpers";
 import * as PDFJSWorker from "pdfjs-dist/build/pdf.worker";
 import { pdfjs } from "react-pdf";
 
@@ -28,7 +29,7 @@ export interface OPreviewProps {
 export async function getPDFPreview(
   props: IPreviewProps
 ): Promise<OPreviewProps> {
-  var preview = "";
+  var preview = getFileTypeIcon(props.file);
   var fullPreview = preview;
   var width = 0,
     height = 0;
@@ -85,7 +86,7 @@ export async function getPDFPreview(
 export async function getImagePreview(
   props: IPreviewProps
 ): Promise<OPreviewProps> {
-  var preview = "";
+  var preview = getFileTypeIcon(props.file);
   var fullPreview = preview;
   var width = 0,
     height = 0;

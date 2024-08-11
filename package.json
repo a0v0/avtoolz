@@ -1,6 +1,6 @@
 {
   "name": "avtoolz",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "scripts": {
     "dev:spotlight": "spotlight-sidecar",
     "dev:next": "open-cli http://localhost:3000 && next dev",
@@ -190,5 +190,6 @@
   "author": "Ixartz (https://github.com/ixartz)",
   "engines": {
     "node": "=20"
-  }
+  },
+  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }

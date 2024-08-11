@@ -27,6 +27,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { wrap } from "comlink";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 const allowedFileTypes: MimeType[] = [
@@ -48,6 +49,7 @@ export default function Page() {
   const tool = getToolByHref(path);
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const t = useTranslations();
 
   const [pageOrientation, setPageOrientation] =
     useState<(typeof PAGE_ORIENTATION)[number]>("Portrait");
@@ -84,7 +86,7 @@ export default function Page() {
       reset();
       setIsLoading(false);
     }
-  }, [error]);
+  }, [error, onOpen, reset]);
 
   return (
     <>
@@ -203,7 +205,7 @@ export default function Page() {
               <Spacer y={2} />
               <div className="flex justify-center items-end">
                 <Button color="danger" variant="bordered" onPress={reset}>
-                  Reset
+                  {t("common.reset")}
                 </Button>
                 <Spacer x={2} />
                 <Button
@@ -214,7 +216,7 @@ export default function Page() {
                   isLoading={isLoading}
                   onPress={_doWork}
                 >
-                  Convert to PDF
+                  {t("image_to_pdf.convert_to_pdf")}
                 </Button>
               </div>
             </>
@@ -226,18 +228,15 @@ export default function Page() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Invalid File
+                {t("unsupported_file_error.invalid_file")}
               </ModalHeader>
               <ModalBody>
-                <p>
-                  One or more of the files you have selected are not supported,
-                  invalid, or corrupted.
-                </p>
-                <p>Please ensure that the file is valid and not corrupted.</p>
+                <p>{t("unsupported_file_error.error_msg_one_or_more")}</p>
+                <p>{t("unsupported_file_error.error_msg_warning")}</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  OK
+                  {}
                 </Button>
               </ModalFooter>
             </>

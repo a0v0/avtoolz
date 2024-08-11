@@ -8,8 +8,10 @@ tasks:
   install:
     desc: Install dependencies
     cmds:
+      - fnm install
+      - corepack enable pnpm
       - pnpm install
-      - pnpx playwright install chromium #--with-deps
+      - pnpx playwright install chromium --with-deps
 
   storybook:
     desc: Run storybook
