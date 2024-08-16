@@ -18,37 +18,54 @@ Following are the steps to contribute to this project:
 
 # Development
 
-## Requirements
+Choose any of the below methods to start working on this project:
 
-<!-- - [Docker](https://www.docker.com/) -->
+## Develop using Devcontainers (Recommended)
 
-- [VSCode](https://code.visualstudio.com/)
-- [Taskfile](https://taskfile.dev/#/installation)
-- [fnm](https://github.com/Schniz/fnm)
+### Requirements
 
-## Running Locally
+1.  [VSCode](https://code.visualstudio.com/Download)
+2.  [Git](https://git-scm.com/)
 
+### Instructions
+
+1.  Make sure all the `requirements` are installed.
 1.  Clone the repository
 
         ```bash
         git clone https://github.com/a0v0/avtoolz && cd avtoolz
         ```
 
-<!-- 2. Install this VSCode extension: [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-2.  Press `F1` and select `Dev Container: Open Folder in Container`
-3.  Wait for the development container to build
-4.  Press `F5` or run `task dev` in the terminal to start the development server. -->
+1.  Open the repo in VSCode
+1.  Install this VSCode extension: [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+1.  Press `F1` and select `Dev Container: Open Folder in Container`
+1.  Wait for the development container to build.
+1.  Run `task dev` in the terminal to start the development server.
 
-5.  Install dependencies
+## Develop natively
+
+### Requirements
+
+1.  [VSCode](https://code.visualstudio.com/Download)
+2.  [Git](https://git-scm.com/)
+3.  [Node](https://nodejs.org/en/download/package-manager) (see [.node-version](.node-version) to see which version to install)
+4.  [pnpm](https://pnpm.io/)
+5.  [Taskfile](https://taskfile.dev/)
+
+### Instructions
+
+1.  Install project dependencies
 
     ```bash
     task install
     ```
 
-6.  Start the development server
+1.  Start the development server
 
     ```
     task run
     ```
 
-    For more commands, see [Taskfile](./Taskfile.yaml)
+---
+
+Got a question or stuck with a problem? Ask on [Github Discussions](https://github.com/a0v0/avtoolz/discussions)
