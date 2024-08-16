@@ -26,6 +26,7 @@ Choose any of the below methods to start working on this project:
 
 1.  [VSCode](https://code.visualstudio.com/Download)
 2.  [Git](https://git-scm.com/)
+3.  [Docker](https://docs.docker.com/engine/install/)
 
 ### Instructions
 
