@@ -23,18 +23,15 @@
       "extensions": [
         "ibm.output-colorizer",
         "infeng.vscode-react-typescript",
-        "jeroen-meijer.pubspec-assist",
         "yoavbls.pretty-ts-errors",
         "jock.svg",
         "gruntfuggly.todo-tree",
         "task.vscode-task",
-        "ms-azuretools.vscode-docker",
         "dbaeumer.vscode-eslint",
         "mikestead.dotenv",
         "csstools.postcss",
         "bradlc.vscode-tailwindcss",
         "vitest.explorer",
-        "humao.rest-client",
         "ms-playwright.playwright",
         "github.vscode-github-actions",
         "lokalise.i18n-ally",
@@ -46,7 +43,8 @@
         "YoavBls.pretty-ts-errors",
         "Gruntfuggly.todo-tree",
         "redhat.vscode-yaml",
-        "vivaxy.vscode-conventional-commits"
+        "vivaxy.vscode-conventional-commits",
+        "tonybaloney.vscode-pets"
       ]
     }
   },
