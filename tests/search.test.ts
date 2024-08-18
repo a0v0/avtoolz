@@ -6,7 +6,7 @@ test("when clicked on spotlight icon, should open search panel", async ({
   await page.goto("/");
   await page.getByLabel("Quick search").click();
 
-  expect(page.getByLabel("Quick search Modal")).toBeVisible();
+  await expect(page.getByLabel("Quick search Modal")).toBeVisible();
 });
 
 test("a searched item when clicked, should navigate to proper destination", async ({
