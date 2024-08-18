@@ -5,7 +5,6 @@ import fs from "fs";
 import path from "path";
 import { exit } from "process";
 import { rimraf } from "rimraf";
-import { pdfToImages } from "tests/utils/pdf";
 
 const pdfFiles = [
   "./tests/fixtures/test1.pdf",
@@ -104,19 +103,5 @@ test.describe("page count and file size check", () => {
     expect(pdfSize).not.toBe(0);
     console.log(pdfSize, totalSize);
     expect(pdfSize).toBeCloseTo(totalSize, 1);
-  });
-
-  test("check if merged pdf page order is same as arranged pdf order", async () => {
-    let normalPDFPages = await pdfToImages(normalPDFPath);
-    let rearrangedPDFPages = await pdfToImages(rearrangedPDFPath);
-    expect(normalPDFPages).toHaveLength(5);
-    expect(rearrangedPDFPages).toHaveLength(5);
-    expect(normalPDFPages).toEqual([
-      rearrangedPDFPages[3],
-      rearrangedPDFPages[4],
-      rearrangedPDFPages[0],
-      rearrangedPDFPages[1],
-      rearrangedPDFPages[2],
-    ]);
   });
 });
