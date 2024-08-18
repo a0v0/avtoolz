@@ -32,5 +32,3 @@ test.describe("theme toggle", () => {
     await expect(page.locator("html")).toHaveClass("dark");
   });
 });
-
-// TODO: add test for search spotlight

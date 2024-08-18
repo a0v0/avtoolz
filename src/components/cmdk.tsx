@@ -381,6 +381,7 @@ export const Cmdk: FC<{}> = () => {
   const t = useTranslations();
   return (
     <Modal
+      aria-label="Quick search Modal"
       hideCloseButton
       backdrop="opaque"
       classNames={{
