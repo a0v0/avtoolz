@@ -30,10 +30,9 @@ jobs:
       - name: Set branch name # workaround to detect branch name in "deployment_status" actions
         run: echo "CHECKLY_TEST_REPO_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_ENV
 
-      - uses: actions/setup-node@v3
+      - uses: wyvox/action-setup-pnpm@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
 
       - name: Restore or cache node_modules
         id: cache-node-modules
@@ -48,7 +47,7 @@ jobs:
 
       - name: Run checks # run the checks passing in the ENVIRONMENT_URL and recording a test session.
         id: run-checks
-        run: npx checkly test -e ENVIRONMENT_URL=${{ env.ENVIRONMENT_URL }} --reporter=github --record
+        run: pnpx checkly test -e ENVIRONMENT_URL=${{ env.ENVIRONMENT_URL }} --reporter=github --record
 
       - name: Create summary # export the markdown report to the job summary.
         id: create-summary
@@ -57,4 +56,4 @@ jobs:
       - name: Deploy checks # if the test run was successful and we are on Production, deploy the checks
         id: deploy-checks
         if: steps.run-checks.outcome == 'success' && github.event.deployment_status.environment == 'Production'
-        run: npx checkly deploy --force
+        run: pnpx checkly deploy --force
