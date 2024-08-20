@@ -3,7 +3,7 @@ import { defineConfig } from "checkly";
 import { EmailAlertChannel, Frequency } from "checkly/constructs";
 
 const emailChannel = new EmailAlertChannel("email-channel-1", {
-  address: "avm244@proton.me",
+  address: process.env.CHECKLY_EMAIL_ADDRESS ?? "",
   sendDegraded: true,
 });
 
