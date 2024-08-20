@@ -7,7 +7,7 @@ const emailChannel = new EmailAlertChannel("email-channel-1", {
   sendDegraded: true,
 });
 
-export const  = defineConfig({
+export const config = defineConfig({
   projectName: "aVToolz",
   logicalId: "avtoolz",
   repoUrl: "https://github.com/a0v0/avtoolz",
