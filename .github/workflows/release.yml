@@ -28,12 +28,29 @@ jobs:
         with:
           fetch-depth: 0
           
-      - uses: wyvox/action-setup-pnpm@v3
+      - uses: actions/cache@v4
+        with:
+            # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
+          path: |
+                ~/.pnpm-store
+                ${{ github.workspace }}/.next/cache
+              # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+              # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+                ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+  
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+              version: 9
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v4
         with:
             node-version: ${{ matrix.node_version }}
-    
-      
-      - run: HUSKY=0 npm ci
+            cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install i
 
       - name: Release
         env:
