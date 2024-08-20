@@ -3,14 +3,14 @@ import { defineConfig } from "checkly";
 import { EmailAlertChannel, Frequency } from "checkly/constructs";
 
 const emailChannel = new EmailAlertChannel("email-channel-1", {
-  address: "",
+  address: "avm244@proton.me",
   sendDegraded: true,
 });
 
-export const config = defineConfig({
-  projectName: "Next.js Boilerplate",
-  logicalId: "nextjs-boilerplate",
-  repoUrl: "https://github.com/ixartz/Next-js-Boilerplate",
+export const  = defineConfig({
+  projectName: "aVToolz",
+  logicalId: "avtoolz",
+  repoUrl: "https://github.com/a0v0/avtoolz",
   checks: {
     locations: ["us-east-1", "eu-west-1"],
     tags: ["website"],
