@@ -6,13 +6,13 @@ import path from "path";
 import { exit } from "process";
 import { rimraf } from "rimraf";
 
-const pdfFiles = [
+const testFiles = [
   "./tests/fixtures/test1.pdf",
   "./tests/fixtures/test2.pdf",
   "./tests/fixtures/test3.pdf",
 ];
 
-test("should navigate to the page properly", async ({ page }) => {
+test("navigation checks", async ({ page }) => {
   await page.goto("/tools/merge-pdf");
   await expect(page).toHaveTitle("Merge PDF • aVToolz");
 });
@@ -26,7 +26,7 @@ test.describe("page count and file size check", () => {
     fs.mkdirSync(tempTestDir, { recursive: true });
     const page = await browser.newPage();
     await page.goto("/tools/merge-pdf");
-    await page.locator("#fileInput").setInputFiles(pdfFiles);
+    await page.locator("#fileInput").setInputFiles(testFiles);
     let downloadPromise = page.waitForEvent("download");
     await page.locator("#btn-submit").click();
     let download = await downloadPromise;
@@ -37,7 +37,7 @@ test.describe("page count and file size check", () => {
     // generate pdf with rearranged pdf pages
     fs.mkdirSync(tempTestDir, { recursive: true });
     await page.reload();
-    await page.locator("#fileInput").setInputFiles(pdfFiles);
+    await page.locator("#fileInput").setInputFiles(testFiles);
     // change order of images: 1st pdf to last
     await page.locator('[id="shift-right-test1.pdf"]').click();
     await page.locator('[id="shift-right-test1.pdf"]').click();
@@ -57,7 +57,7 @@ test.describe("page count and file size check", () => {
     // total pages in input pdf files
     let tpInPDFs = 0;
 
-    pdfFiles.forEach(async (pdfFile) => {
+    testFiles.forEach(async (pdfFile) => {
       try {
         const loadingTask = pdfjs.getDocument(
           new Uint8Array(fs.readFileSync(pdfFile))
@@ -92,7 +92,7 @@ test.describe("page count and file size check", () => {
 
     // Get total size of input images
     var totalSize = 0;
-    pdfFiles.forEach((pdf) => {
+    testFiles.forEach((pdf) => {
       var stats = fs.statSync(pdf);
       totalSize += stats.size;
     });

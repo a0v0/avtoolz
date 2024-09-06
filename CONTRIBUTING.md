@@ -1,4 +1,4 @@
-# Contributing
+## Contributing
 
 First off, thank you for considering contributing to aVToolz. It's people like you that make aVToolz such a great tool.
 
@@ -16,19 +16,19 @@ Following are the steps to contribute to this project:
 8. Get your changes merged
 9. Celebrate your success 🎉
 
-# Development
+## Setting up development environment
 
 Choose any of the below methods to start working on this project:
 
-## Develop using Devcontainers (Recommended)
+### Develop using Devcontainers (Recommended)
 
-### Requirements
+#### Requirements
 
 1.  [VSCode](https://code.visualstudio.com/Download)
 2.  [Git](https://git-scm.com/)
 3.  [Docker](https://docs.docker.com/engine/install/)
 
-### Instructions
+#### Instructions
 
 1.  Make sure all the `requirements` are installed.
 1.  Clone the repository
@@ -43,9 +43,9 @@ Choose any of the below methods to start working on this project:
 1.  Wait for the development container to build.
 1.  Run `task dev` in the terminal to start the development server.
 
-## Develop natively
+### Develop natively
 
-### Requirements
+#### Requirements
 
 1.  [VSCode](https://code.visualstudio.com/Download)
 2.  [Git](https://git-scm.com/)
@@ -53,7 +53,7 @@ Choose any of the below methods to start working on this project:
 4.  [pnpm](https://pnpm.io/)
 5.  [Taskfile](https://taskfile.dev/)
 
-### Instructions
+#### Instructions
 
 1.  Install project dependencies
 
@@ -67,6 +67,15 @@ Choose any of the below methods to start working on this project:
     task run
     ```
 
----
+## Important notes
+
+### Adding a new tool
+
+1. Update meta about new tool in [tools.tsx](src/config/tools.tsx) and [routes.ts](src/config/routes.ts)
+1. Add code for new tool in `tools` directory inside `src/app` directory.
+1. Write test cases for the new tool.
+1. Update documentation if required.
+
+## Support
 
 Got a question or stuck with a problem? Ask on [Github Discussions](https://github.com/a0v0/avtoolz/discussions)

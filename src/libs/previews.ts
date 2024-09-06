@@ -18,6 +18,11 @@ export interface OPreviewProps {
   width: number;
   height: number;
 }
+export interface pdfToImgProps {
+  blob: string;
+  width: number;
+  height: number;
+}
 
 /**
  * Generates a preview image of a PDF file.
@@ -135,4 +140,53 @@ export async function getImagePreview(
     width: width,
     height: height,
   };
+}
+
+export async function pdfToImg(file: File, quality: number) {
+  var images: pdfToImgProps[] = [];
+
+  try {
+    const loadingTask = pdfjs.getDocument(await file.arrayBuffer());
+    const pdfDocument = await loadingTask.promise;
+    const numPages = pdfDocument.numPages;
+    console.log(numPages);
+    console.log("entering pdfToImg");
+    for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+      console.log(pageNum);
+      const page = await pdfDocument.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1 });
+      const width = viewport.width;
+      const height = viewport.height;
+
+      const canvas = new OffscreenCanvas(width, height);
+      const context = canvas.getContext("2d");
+      console.log("canvas created");
+      if (context) {
+        const renderContext = {
+          canvasContext: context,
+          viewport,
+        };
+        // @ts-ignore
+        const renderTask = page.render(renderContext);
+        await renderTask.promise;
+
+        const fullPreview = await canvas
+          .convertToBlob({
+            type: "image/jpeg",
+            quality: quality,
+          })
+          .then((blob) => URL.createObjectURL(blob));
+        console.log(fullPreview);
+        images.push({ blob: fullPreview, width: width, height: height });
+      }
+
+      page.cleanup();
+      console.log("page cleanup");
+    }
+
+    return images;
+  } catch (reason) {
+    console.log(reason);
+    return [];
+  }
 }

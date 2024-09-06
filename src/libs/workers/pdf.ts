@@ -1,9 +1,8 @@
 import { expose } from "comlink";
 import { PageSizes, PDFDocument } from "pdf-lib";
-import { OPreviewProps } from "../previews";
+import { OPreviewProps, pdfToImg } from "../previews";
 
 export const PAGE_ORIENTATION = ["Portrait", "Landscape"] as const;
-
 export const PAGE_SIZE = [
   "Fit",
   "A0",
@@ -154,8 +153,6 @@ export const PDFWorker = {
       const pdf = await PDFDocument.load(await pdfBuffer.arrayBuffer());
       const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
       copiedPages.forEach((page) => {
-        // console.log('page', page.getWidth(), page.getHeight());
-        // page.setWidth(210);
         mergedPdf.addPage(page);
       });
     });
@@ -163,6 +160,42 @@ export const PDFWorker = {
     await Promise.all(actions);
     const mergedPdfFile = await mergedPdf.saveAsBase64({ dataUri: true });
     return mergedPdfFile;
+  },
+
+  /**
+   * Compress a single PDF document.
+   *
+   * @param pdf - A PDF file.
+   * @returns A compressed PDF document.
+   *
+   */
+  compressPDF: async (pdf: File, quality = 0.9) => {
+    const images = await pdfToImg(pdf, quality);
+    console.log(images);
+    const pdfDoc = await PDFDocument.create();
+
+    for (const image of images) {
+      const width = image.width;
+      const height = image.height;
+
+      const img = await pdfDoc.embedJpg(
+        await fetch(image.blob).then((res) => res.arrayBuffer())
+      );
+      const page = pdfDoc.addPage([width, height]);
+
+      // const pageWidth = page.getWidth();
+      // const pageHeight = page.getHeight();
+      // const widthRatio = pageWidth / width;
+      // const heightRatio = pageHeight / height;
+      // const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
+      // const canvasWidth = width * ratio;
+      // const canvasHeight = height * ratio;
+      // const marginX = (pageWidth - canvasWidth) / 2;
+      // const marginY = (pageHeight - canvasHeight) / 2;
+
+      page.drawImage(img);
+    }
+    return pdfDoc.saveAsBase64({ dataUri: true });
   },
 };
 

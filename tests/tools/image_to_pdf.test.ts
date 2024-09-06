@@ -7,19 +7,19 @@ import { exit } from "process";
 import { rimraf } from "rimraf";
 import { pdfToImages } from "tests/utils/pdf";
 
-const imageFiles = [
+const testFiles = [
   "./tests/fixtures/timg1.jpg",
   "./tests/fixtures/timg2.jpeg",
   "./tests/fixtures/timg3.jpeg",
   "./tests/fixtures/timg4.jpg",
 ];
 
-test("should navigate to the page properly", async ({ page }) => {
+test("navigation checks", async ({ page }) => {
   await page.goto("/tools/image-to-pdf");
   await expect(page).toHaveTitle("Image to PDF • aVToolz");
 });
 
-test.describe("image to pdf check if", () => {
+test.describe("test if", () => {
   const tempTestDir = path.join("temp", randomUUID());
   var normalPDFPath = "";
   let rearrangedPDFPath = "";
@@ -28,7 +28,7 @@ test.describe("image to pdf check if", () => {
     fs.mkdirSync(tempTestDir, { recursive: true });
     const page = await browser.newPage();
     await page.goto("/tools/image-to-pdf");
-    await page.locator("#fileInput").setInputFiles(imageFiles);
+    await page.locator("#fileInput").setInputFiles(testFiles);
     // sleep for 1 second to allow images to load
     await page.waitForTimeout(1000);
     let downloadPromise = page.waitForEvent("download");
@@ -41,7 +41,7 @@ test.describe("image to pdf check if", () => {
     // generate pdf with rearranged pdf pages
     fs.mkdirSync(tempTestDir, { recursive: true });
     await page.reload();
-    await page.locator("#fileInput").setInputFiles(imageFiles);
+    await page.locator("#fileInput").setInputFiles(testFiles);
     // sleep for 1 second to allow images to load
     await page.waitForTimeout(1000);
     // change order of images: 1st to 2nd place and 4th to 3rd place
@@ -64,32 +64,14 @@ test.describe("image to pdf check if", () => {
       const doc = await PDFDocument.load(
         new Uint8Array(fs.readFileSync(normalPDFPath))
       );
-      expect(doc.getPageCount()).toBe(imageFiles.length);
+      expect(doc.getPageCount()).toBe(testFiles.length);
     } catch (reason) {
       console.log(reason);
       exit(1);
     }
   });
 
-  // test("file size is not more than the sum of size of input images", async ({}) => {
-  //   var totalSize = 0;
-  //   var pdfSize = fs.statSync(normalPDFPath).size;
-
-  //   // Get total size of input images
-  //   imageFiles.forEach((imagePath) => {
-  //     var stats = fs.statSync(imagePath);
-  //     totalSize += stats.size;
-  //   });
-
-  //   // convert to MB
-  //   totalSize /= 1024 * 1024;
-  //   pdfSize /= 1024 * 1024;
-
-  //   expect(pdfSize).not.toBe(0);
-  //   expect(pdfSize).toBeCloseTo(totalSize);
-  // });
-
-  test("check if pages in pdf are in correct order after rearranging", async () => {
+  test("if pages in pdf are in correct order after rearranging", async () => {
     // parse and check if images are in correct order
     let normalPDF = await pdfToImages(normalPDFPath);
     let rearrangedPDF = await pdfToImages(rearrangedPDFPath);

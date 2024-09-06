@@ -30,11 +30,12 @@ import { wrap } from "comlink";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+
 const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
   "image/png",
-  // TODO: add support for these too
+  // TODO: add support for more image types
   // "image/svg+xml",
   // "image/bmp",
   // "image/tiff",

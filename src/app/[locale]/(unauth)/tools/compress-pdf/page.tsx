@@ -5,6 +5,7 @@ import { useFileUploaderStore } from "@/components/fileUploader/store";
 import { getToolByHref } from "@/config/tools";
 import { MimeType } from "@/libs/mime";
 import { subtitle, title } from "@/libs/primitives";
+import { PDFWorker } from "@/libs/workers/pdf";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import {
@@ -21,8 +22,6 @@ import {
 import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { PDFWorker } from "../../../../../libs/workers/pdf";
-
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
 export default function Page() {
@@ -37,7 +36,8 @@ export default function Page() {
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
     );
-    const outputFile = await worker.mergePDFs(files);
+    const outputFile = await worker.compressPDF(files[0]!);
+
     downloadURL(
       outputFile,
       getWatermarkedFilename(files[0]!.name, "application/pdf")
@@ -106,7 +106,7 @@ export default function Page() {
                   onPress={_doWork}
                   id="btn-submit"
                 >
-                  Merge PDF
+                  Compress PDF
                 </Button>
               </div>
             </>
