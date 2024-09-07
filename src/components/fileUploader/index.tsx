@@ -1,4 +1,5 @@
 "use client";
+import { XErrors } from "@/config/errors";
 import { MimeType, mimeToExtension } from "@/libs/mime";
 import { subtitle } from "@/libs/primitives";
 import { getNanoID } from "@/utils/id";
@@ -22,22 +23,20 @@ import {
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useDropzone } from "react-dropzone";
+import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { Preview } from "./preview";
 import { useFileUploaderStore } from "./store";
-interface FileUploaderProps {
+
+interface FileUploaderProps extends DropzoneOptions {
   primaryColor: string;
   acceptedFileTypes: MimeType[];
 }
-const FileUploader: React.FC<FileUploaderProps> = ({
-  primaryColor,
-  acceptedFileTypes,
-}) => {
+export const FileUploader = (props: FileUploaderProps) => {
   const router = useRouter();
-  const { files, addFiles, reset, updateFiles } = useFileUploaderStore(
-    (state) => state
-  );
+  const { files, addFiles, reset, updateFiles, setLoading, error, setError } =
+    useFileUploaderStore((state) => state);
   const t = useTranslations();
+
   const [parent, filesHolder, _setValues] = useDragAndDrop<
     HTMLDivElement,
     File
@@ -51,15 +50,17 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { acceptedFiles, fileRejections, getInputProps, open } = useDropzone({
-    accept: acceptedFileTypes.reduce((acc, fileType) => {
+  const { acceptedFiles, getInputProps, open } = useDropzone({
+    accept: props.acceptedFileTypes.reduce((acc, fileType) => {
       return { ...acc, [fileType]: [] };
     }, {}),
     noKeyboard: true,
     noClick: true,
     onDropRejected: () => {
+      setError(XErrors.invalidFile);
       onOpen();
     },
+    ...props,
   });
 
   // add files to store
@@ -82,6 +83,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     reset();
   }, [reset, router]);
 
+  useEffect(() => {
+    if (error) {
+      setLoading(false);
+    }
+  }, [error, setLoading]);
+
   return (
     <div>
       {files.length > 0 ? (
@@ -93,7 +100,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             <Preview key={index} file={file} />
           ))}
 
-          {filesHolder.length > 0 ? (
+          {filesHolder.length > 0 && props.maxFiles ? (
+            props.maxFiles > 1
+          ) : 1 ? (
             <div id="no-drag" className="m-auto h-44 content-center">
               <Card
                 onPress={open}
@@ -117,7 +126,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           style={{
             backgroundColor: "transparent",
             borderStyle: "dashed",
-            border: "2px dashed ".concat(primaryColor),
+            border: "2px dashed ".concat(props.primaryColor),
           }}
           className="mx-3 lg:md:w-[780px]"
         >
@@ -145,7 +154,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             </h2>
             <Divider className="my-2" />
             <div className="max-w-96 gap-2 text-center">
-              {acceptedFileTypes.map((fileType) => (
+              {props.acceptedFileTypes.map((fileType) => (
                 <Chip
                   key={getNanoID()}
                   className="m-[2px]"
@@ -161,42 +170,25 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           </CardBody>
         </Card>
       )}
-
-      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {t("unsupported_file_error.unsupported_file_type")}
-              </ModalHeader>
-              <ModalBody>
-                <p>
-                  {t.rich(
-                    "unsupported_file_error.unsupported_file_type_message",
-                    {
-                      filename: fileRejections[0]?.file.name,
-                      bold: (text) => <b style={{ color: "red" }}>{text}</b>,
-                    }
-                  )}
-                </p>
-                <p>{t("unsupported_file_error.file_is_of_following_format")}</p>
-                <ul>
-                  {acceptedFileTypes.map((fileType) => (
-                    <li style={{ color: "#18c964" }} key={fileType}>
-                      {fileType}
-                    </li>
-                  ))}
-                </ul>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  {t("common.ok")}
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+      {error ? (
+        <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  {error.title}
+                </ModalHeader>
+                <ModalBody>{error.message}</ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="flat" onPress={onClose}>
+                    OK
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      ) : null}
     </div>
   );
 };

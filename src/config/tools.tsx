@@ -64,6 +64,27 @@ export const Tools: ToolType[] = [
     updated: false,
     newPost: false,
   },
+  {
+    key: "compress-pdf",
+    title: "Compress PDF",
+    description: "Reduce the file size of your PDF documents.",
+    showFullDescription: true,
+    // TODO: Change the icon
+    icon: (
+      <Image
+        alt="Thumbnail for the Compress PDF tool"
+        src="/icons/compress-pdf.webp"
+        width={35}
+        height={35}
+      />
+    ),
+    href: "/tools/compress-pdf",
+    isExternal: false,
+    keywords: "compress pdf, reduce pdf size, pdf compressor, pdf size reducer",
+    category: [ToolCategory.PDF],
+    updated: false,
+    newPost: true,
+  },
 ];
 
 // function to get tools by category

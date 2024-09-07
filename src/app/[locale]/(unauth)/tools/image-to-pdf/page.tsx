@@ -13,23 +13,11 @@ import {
 } from "@/libs/workers/pdf";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
-import {
-  Button,
-  Card,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Spacer,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Button, Card, Select, SelectItem, Spacer } from "@nextui-org/react";
 import { wrap } from "comlink";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const allowedFileTypes: MimeType[] = [
   "image/jpeg",
@@ -45,11 +33,10 @@ const allowedFileTypes: MimeType[] = [
 ];
 
 export default function Page() {
-  const { files, reset, error, metadata } = useFileUploaderStore();
+  const { files, reset, metadata, loading, setLoading } =
+    useFileUploaderStore();
   const path = usePathname();
   const tool = getToolByHref(path);
-  const [isLoading, setIsLoading] = useState(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const t = useTranslations();
 
   const [pageOrientation, setPageOrientation] =
@@ -59,7 +46,7 @@ export default function Page() {
     useState<(typeof PAGE_MARGIN)[number]>("None"); // default to None
 
   async function _doWork() {
-    setIsLoading(true);
+    setLoading(true);
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
     );
@@ -78,16 +65,8 @@ export default function Page() {
       getWatermarkedFilename(files[0]!.name, "application/pdf")
     );
 
-    setIsLoading(false);
+    setLoading(false);
   }
-
-  useEffect(() => {
-    if (error.length > 0) {
-      onOpen();
-      reset();
-      setIsLoading(false);
-    }
-  }, [error, onOpen, reset]);
 
   return (
     <>
@@ -214,7 +193,7 @@ export default function Page() {
                   color="success"
                   variant="solid"
                   size="lg"
-                  isLoading={isLoading}
+                  isLoading={loading}
                   onPress={_doWork}
                 >
                   {t("image_to_pdf.convert_to_pdf")}
@@ -224,26 +203,6 @@ export default function Page() {
           ) : null
         }
       />
-      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {t("unsupported_file_error.invalid_file")}
-              </ModalHeader>
-              <ModalBody>
-                <p>{t("unsupported_file_error.error_msg_one_or_more")}</p>
-                <p>{t("unsupported_file_error.error_msg_warning")}</p>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  {}
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { XErrors } from "@/config/errors";
 import { getImagePreview, getPDFPreview } from "@/libs/previews";
 import { getFileType, getFileTypeIcon } from "@/utils/helpers";
 import {
@@ -28,12 +29,14 @@ export const Preview = (props: Props) => {
     removeFiles,
     shiftFileToLeft,
     shiftFileToRight,
+    setError,
   } = useFileUploaderStore();
 
   useEffect(() => {
     (async () => {
       if (file.type === "application/pdf") {
-        setPreview(await getPDFPreview({ file }));
+        const p = await getPDFPreview({ file });
+        p ? setPreview(p) : setError(XErrors.invalidFile);
       } else if (
         [
           "image/jpg",
@@ -46,7 +49,7 @@ export const Preview = (props: Props) => {
         setPreview(await getImagePreview({ file }));
       }
     })();
-  }, [file, setPreview]);
+  }, [file, setError, setPreview]);
 
   return (
     <Card radius="lg" className="w-[175px]  border-none hover:outline-dashed">

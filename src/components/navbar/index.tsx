@@ -180,7 +180,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             isExternal
             isBlock
             showAnchorIcon
-            href={siteConfig.links.githubIssues}
+            href={siteConfig.links.githubNewIssuesURL}
             color="danger"
           >
             {t("common.report_bugs")}
@@ -252,10 +252,10 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             isExternal
             isBlock
             showAnchorIcon
-            href={siteConfig.links.githubIssues}
+            href={siteConfig.links.githubNewIssuesURL}
             color="danger"
           >
-            {t("common.roadmap")}
+            {t("common.report_bugs")}
           </Link>
         </div>
       </NavbarMenu>

@@ -171,7 +171,6 @@ export const PDFWorker = {
    */
   compressPDF: async (pdf: File, quality = 0.9) => {
     const images = await pdfToImg(pdf, quality);
-    console.log(images);
     const pdfDoc = await PDFDocument.create();
 
     for (const image of images) {

@@ -7,33 +7,20 @@ import { MimeType } from "@/libs/mime";
 import { subtitle, title } from "@/libs/primitives";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
-import {
-  Button,
-  Divider,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Spacer,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Button, Divider, Spacer } from "@nextui-org/react";
 import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { PDFWorker } from "../../../../../libs/workers/pdf";
 
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
 export default function Page() {
-  const { files, reset, error } = useFileUploaderStore();
+  const { files, reset, loading, setLoading } = useFileUploaderStore();
   const path = usePathname();
   const tool = getToolByHref(path);
-  const [isLoading, setIsLoading] = useState(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   async function _doWork() {
-    setIsLoading(true);
+    setLoading(true);
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
     );
@@ -42,16 +29,8 @@ export default function Page() {
       outputFile,
       getWatermarkedFilename(files[0]!.name, "application/pdf")
     );
-    setIsLoading(false);
+    setLoading(false);
   }
-
-  useEffect(() => {
-    if (error.length > 0) {
-      onOpen();
-      reset();
-      setIsLoading(false);
-    }
-  }, [error]);
 
   return (
     <>
@@ -102,7 +81,7 @@ export default function Page() {
                   color="success"
                   variant="solid"
                   size="lg"
-                  isLoading={isLoading}
+                  isLoading={loading}
                   onPress={_doWork}
                   id="btn-submit"
                 >
@@ -113,29 +92,6 @@ export default function Page() {
           ) : null
         }
       />
-      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                Invalid File
-              </ModalHeader>
-              <ModalBody>
-                <p>
-                  One or more of the files you have selected are not supported,
-                  invalid, or corrupted.
-                </p>
-                <p>Please ensure that the file is valid and not corrupted.</p>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  OK
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </>
   );
 }
