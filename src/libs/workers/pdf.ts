@@ -1,7 +1,6 @@
 import { expose } from "comlink";
 import { PageSizes, PDFDocument } from "pdf-lib";
-import { OPreviewProps, pdfToImg } from "../previews";
-
+import { getPDFPreview, OPreviewProps } from "../previews";
 export const PAGE_ORIENTATION = ["Portrait", "Landscape"] as const;
 export const PAGE_SIZE = [
   "Fit",
@@ -42,9 +41,7 @@ export const PDFWorker = {
     for (const file of prop.images) {
       const width = file.width;
       const height = file.height;
-      const image = await fetch(file.fullPreview).then((res) =>
-        res.arrayBuffer()
-      );
+      const image = await fetch(file.preview).then((res) => res.arrayBuffer());
       const img = await pdfDoc.embedJpg(image);
       const page = pdfDoc.addPage([width, height]);
 
@@ -169,16 +166,55 @@ export const PDFWorker = {
    * @returns A compressed PDF document.
    *
    */
-  compressPDF: async (pdf: File, quality = 0.9) => {
-    const images = await pdfToImg(pdf, quality);
+  compressPDF: async (pdf: File, quality: number) => {
+    // const result: OPreviewProps[] = [];
+
+    const result = await getPDFPreview(pdf, true, quality);
+    // try {
+    //   const loadingTask = pdfjs.getDocument(await pdf.arrayBuffer());
+    //   const pdfDocument = await loadingTask.promise;
+    //   // console.log(await pdfDocument.getMetadata());
+    //   console.log(pdfDocument.numPages);
+    //   for (let pageNum = 1; pageNum < pdfDocument.numPages + 1; pageNum++) {
+    //     const page = await pdfDocument.getPage(pageNum);
+    //     const viewport = page.getViewport({ scale: 1.0 });
+    //     console.log(page);
+    //     // const canvas = new OffscreenCanvas(viewport.width, viewport.height);
+    //     const context = canvas.getContext("2d");
+    //     canvas.width = viewport.width;
+    //     canvas.height = viewport.height;
+    //     if (context) {
+    //       const renderContext = {
+    //         canvasContext: context,
+    //         viewport,
+    //       };
+    //       // @ts-ignore
+    //       const renderTask = page.render({ renderContext });
+    //       await renderTask.promise;
+    //       const preview = URL.createObjectURL(
+    //         await canvas.convertToBlob({ type: "image/jpeg", quality: 0.5 })
+    //       );
+    //       console.log(preview);
+    //       result.push({
+    //         file: pdf,
+    //         width: viewport.width,
+    //         height: viewport.height,
+    //         preview: preview,
+    //       });
+    //     }
+    //     page.cleanup();
+    //   }
+    // } catch (reason) {
+    //   console.log("Failed to generate PDF preview:", reason);
+    // }
     const pdfDoc = await PDFDocument.create();
 
-    for (const image of images) {
+    for (const image of result) {
       const width = image.width;
       const height = image.height;
 
       const img = await pdfDoc.embedJpg(
-        await fetch(image.blob).then((res) => res.arrayBuffer())
+        await fetch(image.preview).then((res) => res.arrayBuffer())
       );
       const page = pdfDoc.addPage([width, height]);
 

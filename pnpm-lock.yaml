@@ -35,6 +35,9 @@ importers:
       '@iconify/json':
         specifier: ^2.2.224
         version: 2.2.224
+      '@imagemagick/magick-wasm':
+        specifier: ^0.0.30
+        version: 0.0.30
       '@libsql/client':
         specifier: ^0.6.2
         version: 0.6.2
@@ -1921,6 +1924,9 @@ packages:
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+
+  '@imagemagick/magick-wasm@0.0.30':
+    resolution: {integrity: sha512-l5pTepsyrM9O3zMdmDHGbncP2Uf4858nylU5tw6GE7QA/Qh99aEFr4eNkEan3q1PT6mV/1Ev0gOgthuK7/kNFQ==}
 
   '@img/sharp-darwin-arm64@0.33.4':
     resolution: {integrity: sha512-p0suNqXufJs9t3RqLBO6vvrgr5OhgbWp76s5gTRvdmxmuv9E1rcaqGUsl3l4mKVmXPkTkTErXediAui4x+8PSA==}
@@ -12915,6 +12921,8 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify/types@2.0.0': {}
+
+  '@imagemagick/magick-wasm@0.0.30': {}
 
   '@img/sharp-darwin-arm64@0.33.4':
     optionalDependencies:

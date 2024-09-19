@@ -24,7 +24,11 @@ export default function Page() {
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
     );
-    const outputFile = await worker.compressPDF(files[0]!);
+    const outputFile = await worker.compressPDF(
+      files[0]!,
+      0.9
+      // transfer(offscreen, [offscreen])
+    );
 
     downloadURL(
       outputFile,

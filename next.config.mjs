@@ -31,7 +31,7 @@ export default withSentryConfig(
       webpack: (config) => {
         config.resolve.alias.canvas = false;
         // Fixes npm packages that depend on `fs` module
-        // config.resolve.fallback = { fs: false, child_process: false };
+        config.resolve.fallback = { fs: false, child_process: false };
 
         return config;
       },

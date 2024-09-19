@@ -35,8 +35,8 @@ export const Preview = (props: Props) => {
   useEffect(() => {
     (async () => {
       if (file.type === "application/pdf") {
-        const p = await getPDFPreview({ file });
-        p ? setPreview(p) : setError(XErrors.invalidFile);
+        const p = await getPDFPreview(file, true, 0.5);
+        p[0] ? setPreview(p[0]) : setError(XErrors.invalidFile);
       } else if (
         [
           "image/jpg",
@@ -46,7 +46,7 @@ export const Preview = (props: Props) => {
           "image/svg+xml",
         ].includes(file.type)
       ) {
-        setPreview(await getImagePreview({ file }));
+        setPreview(await getImagePreview(file, 0.5));
       }
     })();
   }, [file, setError, setPreview]);
@@ -126,7 +126,7 @@ export const Preview = (props: Props) => {
             width={"auto"}
             style={{ objectFit: "cover" }}
             src={
-              metadata.find((m) => m.file === file)?.smallPreview ??
+              metadata.find((m) => m.file === file)?.preview ??
               getFileTypeIcon(file)
             }
           />

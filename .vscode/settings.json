@@ -8,5 +8,7 @@
   "todo-tree.tree.showBadges": false,
   "todo-tree.tree.disableCompactFolders": true,
   "todo-tree.filtering.excludeGlobs": ["**/node_modules/*/**"],
-  "todo-tree.general.tags": ["BUG", "HACK", "NOTE", "REVIEW"]
+  "todo-tree.general.tags": ["BUG", "HACK", "NOTE", "REVIEW", "TODO"],
+  "todo-tree.filtering.useBuiltInExcludes": "file and search excludes",
+  "todo-tree.filtering.includeGlobs": ["!**/*.d.ts"]
 }
