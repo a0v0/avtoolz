@@ -22,7 +22,8 @@ export interface pdfToImgProps {
 export async function getPDFPreview(
   file: File,
   firstPageOnly: Boolean = true,
-  quality: number
+  quality: number,
+  canvas: HTMLCanvasElement
 ): Promise<OPreviewProps[]> {
   const result: OPreviewProps[] = [];
 
@@ -45,28 +46,22 @@ export async function getPDFPreview(
   try {
     const loadingTask = pdfjs.getDocument(await file.arrayBuffer());
     const pdfDocument = await loadingTask.promise;
-    // console.log(await pdfDocument.getMetadata());
-    console.log(pdfDocument.numPages);
+
     for (let pageNum = 1; pageNum < pdfDocument.numPages + 1; pageNum++) {
       const page = await pdfDocument.getPage(pageNum);
       const viewport = page.getViewport({ scale: 1.0 });
-      console.log(page);
-      const canvas = new OffscreenCanvas(viewport.width, viewport.height);
-      // canvas.width = viewport.width;
-      // canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
       const context = canvas.getContext("2d");
       if (context) {
         const renderContext = {
           canvasContext: context,
           viewport,
         };
-        // @ts-ignore
         const renderTask = page.render(renderContext);
         await renderTask.promise;
-        const preview = URL.createObjectURL(
-          await canvas.convertToBlob({ type: "image/jpeg", quality: quality })
-        );
-        console.log(preview);
+        const preview = canvas.toDataURL("image/jpeg", quality);
+
         result.push({
           file: file,
           width: viewport.width,

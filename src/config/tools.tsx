@@ -69,7 +69,7 @@ export const Tools: ToolType[] = [
     title: "Compress PDF",
     description: "Reduce the file size of your PDF documents.",
     showFullDescription: true,
-    // TODO: Change the icon
+    // TODO: add compress pdf icon
     icon: (
       <Image
         alt="Thumbnail for the Compress PDF tool"

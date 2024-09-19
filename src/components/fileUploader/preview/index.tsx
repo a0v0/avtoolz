@@ -35,7 +35,8 @@ export const Preview = (props: Props) => {
   useEffect(() => {
     (async () => {
       if (file.type === "application/pdf") {
-        const p = await getPDFPreview(file, true, 0.5);
+        const htmlCanvas = document.createElement("canvas");
+        const p = await getPDFPreview(file, true, 0.5, htmlCanvas);
         p[0] ? setPreview(p[0]) : setError(XErrors.invalidFile);
       } else if (
         [

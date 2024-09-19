@@ -34,7 +34,6 @@
     "@formkit/drag-and-drop": "^0.1.6",
     "@hookform/resolvers": "^3.6.0",
     "@iconify/json": "^2.2.224",
-    "@imagemagick/magick-wasm": "^0.0.30",
     "@libsql/client": "^0.6.2",
     "@logtail/pino": "^0.4.22",
     "@nextui-org/aria-utils": "^2.0.21",

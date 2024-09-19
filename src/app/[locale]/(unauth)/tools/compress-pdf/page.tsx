@@ -9,7 +9,6 @@ import { PDFWorker } from "@/libs/workers/pdf";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import { Button, Divider, Spacer } from "@nextui-org/react";
-import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
@@ -21,14 +20,10 @@ export default function Page() {
 
   async function _doWork() {
     setLoading(true);
-    const worker = wrap<typeof PDFWorker>(
-      new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
-    );
-    const outputFile = await worker.compressPDF(
-      files[0]!,
-      0.9
-      // transfer(offscreen, [offscreen])
-    );
+
+    const htmlCanvas = document.createElement("canvas");
+    // TODO: dynamically set  via slider
+    const outputFile = await PDFWorker.compressPDF(files[0]!, 0.9, htmlCanvas);
 
     downloadURL(
       outputFile,
