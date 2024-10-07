@@ -166,8 +166,18 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
         )}
       </NavbarContent>
 
-      <NavbarContent className="flex w-full sm:hidden" justify="end">
-        <NavbarItem className="flex h-full items-center  gap-2">
+      <NavbarContent className="flex w-full sm:hidden gap-1" justify="end">
+        <NavbarItem className="flex h-full items-center">
+          <Button
+            isIconOnly
+            startContent={
+              <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
+            }
+            variant="light"
+            onClick={handleOpenCmdk}
+          ></Button>
+        </NavbarItem>
+        <NavbarItem className="flex h-full items-center">
           {/* <button
             className={clsx(
               "transition-opacity p-1 hover:opacity-80 rounded-full cursor-pointer outline-none",
@@ -180,19 +190,15 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
           >
             <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
           </button> */}
-          <Button onPress={handleOpenCmdk}>
-            <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
-          </Button>
+
           <ProfileMenu />
+        </NavbarItem>
+        <NavbarItem className="w-10 h-full">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="size-full pt-1"
           />
         </NavbarItem>
-        {/* <NavbarItem className="flex h-full items-center">
-        </NavbarItem>
-        <NavbarItem className="w-10 h-full">
-        </NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent
