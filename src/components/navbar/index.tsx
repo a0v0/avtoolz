@@ -10,6 +10,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Kbd,
   Link,
   NavbarBrand,
   NavbarContent,
@@ -27,9 +28,12 @@ import { useEffect, useRef, useState } from "react";
 import { Logo } from "../icons/logo";
 import { DocsSidebar } from "../sidebar";
 
+import { isAppleDevice } from "@react-aria/utils";
+
+import { useCmdkStore } from "@/components/cmdk";
+
 import { useTranslations } from "next-intl";
 import ProfileMenu from "./profile-menu";
-import SearchButton from "./search-btn";
 
 export interface HeaderProps {
   routes: Route[];
@@ -37,16 +41,56 @@ export interface HeaderProps {
   slug?: string;
 }
 export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
+  // const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
+  // const t = useTranslations();
+  // const ref = useRef<HTMLElement>(null);
+  // const pathname = usePathname();
+  // const [commandKey, setCommandKey] = useState<"ctrl" | "command">("ctrl");
+  // const cmdkStore = useCmdkStore();
+  // const { focusProps, isFocusVisible } = useFocusRing();
+
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
+  const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
+
   const t = useTranslations();
+
   const ref = useRef<HTMLElement>(null);
+
   const pathname = usePathname();
+
+  const cmdkStore = useCmdkStore();
+
+  useEffect(() => {
+    setCommandKey(isAppleDevice() ? "command" : "ctrl");
+  }, []);
+
+  const handleOpenCmdk = () => {
+    cmdkStore.onOpen();
+  };
 
   useEffect(() => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
-  }, [isMenuOpen, pathname]);
+  }, [pathname]);
+
+  const searchButton = (
+    <Button
+      aria-label="Quick search"
+      className="bg-default-400/20 text-sm font-normal text-default-500 dark:bg-default-500/20"
+      endContent={
+        <Kbd className="hidden px-2 py-0.5 lg:inline-block" keys={commandKey}>
+          K
+        </Kbd>
+      }
+      startContent={
+        <span className="icon-[mingcute--search-3-line] pointer-events-none size-6 shrink-0 text-base text-default-400" />
+      }
+      onPress={handleOpenCmdk}
+    >
+      {t("search.quick_search")}
+    </Button>
+  );
 
   return (
     <NextUINavbar
@@ -75,6 +119,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
           </Link>
         </NavbarBrand>
       </NavbarContent>
+
       <NavbarContent className="hidden gap-4 sm:flex" justify="start">
         <NavbarItem>
           <Link isBlock color="foreground" href="/tools">
@@ -120,37 +165,41 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
           ) : null
         )}
       </NavbarContent>
-      <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
-        <NavbarItem className="flex h-full items-center">
-          {/* <ThemeSwitch /> */}
 
-          {/* <Link
-            isBlock
-            isExternal
-            aria-label="Github"
-            className="p-1 text-inherit"
-            href={siteConfig.links.github}
-            color="foreground"
+      <NavbarContent className="flex w-full sm:hidden" justify="end">
+        <NavbarItem className="flex h-full items-center  gap-2">
+          {/* <button
+            className={clsx(
+              "transition-opacity p-1 hover:opacity-80 rounded-full cursor-pointer outline-none",
+              // focus ring
+              ...dataFocusVisibleClasses
+            )}
+            data-focus-visible={isFocusVisible}
+            {...focusProps}
+            {...pressProps}
           >
-            <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500" />
-          </Link> */}
-          <SearchButton isSearchFullWidth={false} />
+            <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
+          </button> */}
+          <Button onPress={handleOpenCmdk}>
+            <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
+          </Button>
           <ProfileMenu />
-        </NavbarItem>
-
-        <NavbarItem className="h-full w-10">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="size-full pt-1"
           />
         </NavbarItem>
+        {/* <NavbarItem className="flex h-full items-center">
+        </NavbarItem>
+        <NavbarItem className="w-10 h-full">
+        </NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent
-        className="hidden basis-1/5 sm:flex sm:basis-full"
+        className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex gap-2">
+        <NavbarItem className="sm:flex items-center gap-2">
           <Link
             isExternal
             isBlock
@@ -171,32 +220,23 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             {t("common.report_bugs")}
           </Link>
 
-          <div className="hidden sm:flex lg:hidden">
-            <SearchButton isSearchFullWidth={false} />
-          </div>
+          {searchButton}
           <ProfileMenu />
         </NavbarItem>
 
-        <div className="hidden lg:flex ">
-          <SearchButton isSearchFullWidth />
-        </div>
-
+        {/* <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="ml-4 hidden sm:flex lg:hidden"
-        />
+          className="hidden sm:flex lg:hidden ml-4"
+        /> */}
       </NavbarContent>
 
-      {/* mobile navbar */}
       <NavbarMenu>
-        <NavbarItem>
-          <Link color="foreground" isBlock href="/tools">
-            {t("common.all_tools")}
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <DocsSidebar routes={[...routes]} slug={slug} tag={tag} />
-        </NavbarItem>
+        <Link color="foreground" isBlock href="/tools">
+          {t("common.all_tools")}
+        </Link>
+        <DocsSidebar routes={[...routes]} slug={slug} tag={tag} />
+
         <div className=" h-full  content-end items-center text-center mb-5">
           <Divider />
           <Spacer y={2} />
