@@ -5,7 +5,6 @@ import { routes as manifest } from "@/config/routes";
 import { siteConfig } from "@/config/site";
 import {
   Button,
-  Chip,
   Divider,
   Dropdown,
   DropdownItem,
@@ -25,7 +24,6 @@ import { usePathname } from "next/navigation";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { currentVersion } from "@/utils/version";
 import { Logo } from "../icons/logo";
 import { DocsSidebar } from "../sidebar";
 
@@ -75,19 +73,6 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             <h1 className="font-bold text-inherit">aVToolz</h1>
             <Spacer x={2} />
           </Link>
-          <Chip
-            variant="flat"
-            color="success"
-            as={Link}
-            isExternal
-            startContent={
-              <span className="icon-[mingcute--tag-fill] size-4"></span>
-            }
-            href={siteConfig.links.githubLatestRelease}
-            className="hidden sm:flex"
-          >
-            v{currentVersion}
-          </Chip>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-4 sm:flex" justify="start">
@@ -186,8 +171,6 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             {t("common.report_bugs")}
           </Link>
 
-          {/* <ThemeSwitch /> */}
-
           <div className="hidden sm:flex lg:hidden">
             <SearchButton isSearchFullWidth={false} />
           </div>
@@ -217,18 +200,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
         <div className=" h-full  content-end items-center text-center mb-5">
           <Divider />
           <Spacer y={2} />
-          {/* <Chip
-            variant="flat"
-            color="success"
-            as={Link}
-            isExternal
-            endContent={
-              <span className="icon-[mingcute--tag-fill] size-4"></span>
-            }
-            href={siteConfig.links.githubLatestRelease}
-          >
-            v{currentVersion}
-          </Chip> */}
+
           <Link
             isBlock
             color="warning"
