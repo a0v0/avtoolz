@@ -41,14 +41,6 @@ export interface HeaderProps {
   slug?: string;
 }
 export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
-  // const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
-  // const t = useTranslations();
-  // const ref = useRef<HTMLElement>(null);
-  // const pathname = usePathname();
-  // const [commandKey, setCommandKey] = useState<"ctrl" | "command">("ctrl");
-  // const cmdkStore = useCmdkStore();
-  // const { focusProps, isFocusVisible } = useFocusRing();
-
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
   const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
 
@@ -178,19 +170,6 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
           ></Button>
         </NavbarItem>
         <NavbarItem className="flex h-full items-center">
-          {/* <button
-            className={clsx(
-              "transition-opacity p-1 hover:opacity-80 rounded-full cursor-pointer outline-none",
-              // focus ring
-              ...dataFocusVisibleClasses
-            )}
-            data-focus-visible={isFocusVisible}
-            {...focusProps}
-            {...pressProps}
-          >
-            <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
-          </button> */}
-
           <ProfileMenu />
         </NavbarItem>
         <NavbarItem className="w-10 h-full">
@@ -229,12 +208,6 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
           {searchButton}
           <ProfileMenu />
         </NavbarItem>
-
-        {/* <NavbarItem className="hidden lg:flex">{searchButton}</NavbarItem>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="hidden sm:flex lg:hidden ml-4"
-        /> */}
       </NavbarContent>
 
       <NavbarMenu>
