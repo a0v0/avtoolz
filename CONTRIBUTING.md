@@ -20,7 +20,7 @@ Following are the steps to contribute to this project:
 
 Choose any of the below methods to start working on this project:
 
-### Develop using Devcontainers (Recommended)
+### With Devcontainers (Recommended)
 
 #### Requirements
 
@@ -43,15 +43,14 @@ Choose any of the below methods to start working on this project:
 1.  Wait for the development container to build.
 1.  Run `task dev` in the terminal to start the development server.
 
-### Develop natively
+### Without Devcontainers
 
 #### Requirements
 
 1.  [VSCode](https://code.visualstudio.com/Download)
 2.  [Git](https://git-scm.com/)
-3.  [Node](https://nodejs.org/en/download/package-manager) (see [.node-version](.node-version) to see which version to install)
-4.  [pnpm](https://pnpm.io/)
-5.  [Taskfile](https://taskfile.dev/)
+3.  [fnm](https://github.com/Schniz/fnm#installation)
+4.  [Taskfile](https://taskfile.dev/)
 
 #### Instructions
 

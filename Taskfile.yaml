@@ -8,6 +8,8 @@ tasks:
   install:
     desc: Install dependencies
     cmds:
+      - fnm install  --corepack-enabled && fnm use
+      - corepack enable pnpm
       - pnpm i
       - pnpx playwright install chromium #--with-deps
 
@@ -47,7 +49,7 @@ tasks:
   clean:
     desc: Clean project
     cmds:
-      - sudo rm -rf .pnpm-store node_modules test-results .next out
+      - rm -rf .pnpm-store node_modules test-results .next out
       - task: clean:temp
 
   clean:temp:
