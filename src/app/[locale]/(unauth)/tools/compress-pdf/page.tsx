@@ -19,16 +19,6 @@ export default function Page() {
   const path = usePathname();
   const tool = getToolByHref(path);
 
-  // async function _doWork() {
-  //   setLoading(true);
-
-  //   downloadURL(
-  //     pdfURL,
-  //     getWatermarkedFilename(files[0]!.name, "application/pdf")
-  //   );
-
-  //   setLoading(false);
-  // }
   async function _doWork() {
     if (files.length === 0) return;
 
@@ -36,9 +26,7 @@ export default function Page() {
     const worker = wrap<typeof PDFWorker>(
       new Worker(new URL("@/lib/workers/pdf.ts", import.meta.url))
     );
-
     const output = await worker.compressPDF(files[0]!);
-    console.log("output", output);
     downloadURL(
       output,
       getWatermarkedFilename(files[0]!.name, "application/pdf")

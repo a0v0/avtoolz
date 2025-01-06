@@ -167,83 +167,64 @@ export const PDFWorker = {
    * @returns A compressed PDF document.
    *
    */
-  // compressPDF: async (
-  //   pdf: File,
-  //   quality: number,
-  //   canvas: HTMLCanvasElement
-  // ) => {
-  //   const result = await getPDFPreview(pdf, false, quality, canvas);
-  //   const pdfDoc = await PDFDocument.create();
+  compressPDF: async (pdf: File): Promise<string> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const arrayBuffer = await pdf.arrayBuffer();
 
-  //   for (const image of result) {
-  //     const width = image.width;
-  //     const height = image.height;
-  //     const img = await pdfDoc.embedJpg(
-  //       await fetch(image.preview).then((res) => res.arrayBuffer())
-  //     );
-  //     const page = pdfDoc.addPage([width, height]);
-  //     page.drawImage(img);
-  //   }
-  //   return pdfDoc.saveAsBase64({ dataUri: true });
-  // },
-  compressPDF: async (pdfObjectURL: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      var output: string;
-      var Module;
-      Module = {
-        preRun: [
-          async function () {
-            var arrayBuffer = await pdf.arrayBuffer();
-            self.Module.FS.writeFile("input.pdf", new Uint8Array(arrayBuffer));
-          },
-        ],
-        postRun: [
-          function () {
-            try {
-              var uarray = self.Module.FS.readFile("output.pdf", {
-                encoding: "binary",
-              });
-              var blob = new Blob([uarray], {
-                type: "application/octet-stream",
-              });
-
-              output = self.URL.createObjectURL(blob);
-              // downloadURL(
-              //   output,
-              //   getWatermarkedFilename(pdf.name, "application/pdf")
-              // );
-              // Resolve the promise with the output URL
-              resolve(output);
-            } catch (error) {
-              // Reject the promise if there's an error
-              reject(error);
-            }
-          },
-        ],
-        arguments: [
-          "-sDEVICE=pdfwrite",
-          "-dCompatibilityLevel=1.4",
-          "-dPDFSETTINGS=/ebook",
-          "-DNOPAUSE",
-          "-dQUIET",
-          "-dBATCH",
-          "-sOutputFile=output.pdf",
-          "input.pdf",
-        ],
-        print: function (text) {},
-        printErr: function (text) {},
-        totalDependencies: 0,
-        noExitRuntime: 1,
-      };
-      // Module.setStatus("Loading Ghostscript...");
-      if (!self.Module) {
-        self.Module = Module;
-        import("../ghostscript/gs-worker.js");
-      } else {
-        self.Module["calledRun"] = false;
-        self.Module["postRun"] = Module.postRun;
-        self.Module["preRun"] = Module.preRun;
-        self.Module.callMain();
+        // set up EMScripten environment
+        const Module = {
+          preRun: [
+            function () {
+              self.Module.FS.writeFile(
+                "input.pdf",
+                new Uint8Array(arrayBuffer)
+              );
+            },
+          ],
+          postRun: [
+            function () {
+              try {
+                const uarray = self.Module.FS.readFile("output.pdf", {
+                  encoding: "binary",
+                });
+                const blob = new Blob([uarray], {
+                  type: "application/octet-stream",
+                });
+                const pdfDataURL = self.URL.createObjectURL(blob);
+                resolve(pdfDataURL);
+              } catch (error) {
+                reject(error);
+              }
+            },
+          ],
+          arguments: [
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.4",
+            "-dPDFSETTINGS=/ebook",
+            "-DNOPAUSE",
+            "-dQUIET",
+            "-dBATCH",
+            "-sOutputFile=output.pdf",
+            "input.pdf",
+          ],
+          print: function () {},
+          printErr: function () {},
+          totalDependencies: 0,
+          noExitRuntime: 1,
+        };
+        // Module.setStatus("Loading Ghostscript...");
+        if (!self.Module) {
+          self.Module = Module;
+          import("../ghostscript/gs-worker.js");
+        } else {
+          self.Module["calledRun"] = false;
+          self.Module["postRun"] = Module.postRun;
+          self.Module["preRun"] = Module.preRun;
+          self.Module.callMain();
+        }
+      } catch (error) {
+        reject(error);
       }
     });
   },
