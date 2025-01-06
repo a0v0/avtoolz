@@ -1,4 +1,3 @@
-import { getWatermarkedFilename } from "@/utils/helpers";
 import { expose } from "comlink";
 import { PageSizes, PDFDocument } from "pdf-lib";
 import { OPreviewProps } from "../previews";
@@ -187,34 +186,67 @@ export const PDFWorker = {
   //   }
   //   return pdfDoc.saveAsBase64({ dataUri: true });
   // },
-  compressPDF: async (pdf: File) => {
-    const element = await _GSPS2PDF({
-      psDataURL: URL.createObjectURL(pdf),
+  compressPDF: async (pdfObjectURL: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      var output: string;
+      var Module;
+      Module = {
+        preRun: [
+          async function () {
+            var arrayBuffer = await pdf.arrayBuffer();
+            self.Module.FS.writeFile("input.pdf", new Uint8Array(arrayBuffer));
+          },
+        ],
+        postRun: [
+          function () {
+            try {
+              var uarray = self.Module.FS.readFile("output.pdf", {
+                encoding: "binary",
+              });
+              var blob = new Blob([uarray], {
+                type: "application/octet-stream",
+              });
+
+              output = self.URL.createObjectURL(blob);
+              // downloadURL(
+              //   output,
+              //   getWatermarkedFilename(pdf.name, "application/pdf")
+              // );
+              // Resolve the promise with the output URL
+              resolve(output);
+            } catch (error) {
+              // Reject the promise if there's an error
+              reject(error);
+            }
+          },
+        ],
+        arguments: [
+          "-sDEVICE=pdfwrite",
+          "-dCompatibilityLevel=1.4",
+          "-dPDFSETTINGS=/ebook",
+          "-DNOPAUSE",
+          "-dQUIET",
+          "-dBATCH",
+          "-sOutputFile=output.pdf",
+          "input.pdf",
+        ],
+        print: function (text) {},
+        printErr: function (text) {},
+        totalDependencies: 0,
+        noExitRuntime: 1,
+      };
+      // Module.setStatus("Loading Ghostscript...");
+      if (!self.Module) {
+        self.Module = Module;
+        import("../ghostscript/gs-worker.js");
+      } else {
+        self.Module["calledRun"] = false;
+        self.Module["postRun"] = Module.postRun;
+        self.Module["preRun"] = Module.preRun;
+        self.Module.callMain();
+      }
     });
-
-    const { pdfURL, size: newSize } = await loadPDFData(
-      element,
-      getWatermarkedFilename(pdf.name, "application/pdf")
-    );
-
-    return pdfURL;
   },
 };
 
 expose(PDFWorker);
-
-function loadPDFData(response, filename) {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", response);
-    xhr.responseType = "arraybuffer";
-    xhr.onload = function () {
-      window.URL.revokeObjectURL(response);
-      const blob = new Blob([xhr.response], { type: "application/pdf" });
-      const pdfURL = window.URL.createObjectURL(blob);
-      const size = xhr.response.byteLength;
-      resolve({ pdfURL, size });
-    };
-    xhr.send();
-  });
-}
