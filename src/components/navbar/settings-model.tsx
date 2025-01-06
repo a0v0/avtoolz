@@ -1,5 +1,5 @@
 import { useIsMobile } from "@/hooks/use-media-query";
-import { usePathname, useRouter } from "@/libs/i18nNavigation";
+import { usePathname, useRouter } from "@/lib/i18nNavigation";
 import { supportedLocales } from "@/locales/locale";
 import {
   Card,

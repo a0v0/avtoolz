@@ -1,9 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import { MimeType } from "@/libs/mime";
+import { MimeType } from "@/lib/mime";
 import { join } from "lodash";
-import { AppConfig } from "./appConfig";
+import { AppConfig } from "./app_config";
 
 /**
  * Retrieves the base URL for the application.

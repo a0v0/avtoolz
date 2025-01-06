@@ -1,4 +1,4 @@
-import { pdfjs } from "@/libs/previews";
+import { pdfjs } from "@/lib/previews";
 import { createCanvas } from "canvas";
 import fs from "fs";
 import { exit } from "process";

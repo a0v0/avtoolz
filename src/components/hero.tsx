@@ -1,5 +1,5 @@
 import { Logo } from "@/components/icons/logo";
-import { subtitle, title } from "@/libs/primitives";
+import { subtitle, title } from "@/lib/primitives";
 import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/react";
 import { useTranslations } from "next-intl";

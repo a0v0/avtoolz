@@ -1,4 +1,4 @@
-import { pdfjs } from "@/libs/previews";
+import { pdfjs } from "@/lib/previews";
 import { expect, test } from "@playwright/test";
 import { randomUUID } from "crypto";
 import fs from "fs";

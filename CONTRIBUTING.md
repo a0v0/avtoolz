@@ -1,6 +1,6 @@
 ## Contributing
 
-First off, thank you for considering contributing to aVToolz. It's people like you that make aVToolz such a great tool.
+First off, thank you for considering contributing to aVToolz. It's people like you that make aVToolz great.
 
 No matter how big or small, any contribution is welcome and highly appreciated.
 
@@ -9,18 +9,41 @@ Following are the steps to contribute to this project:
 1. Fork the repository
 2. Create a new branch
 3. Make your changes
-4. Commit your changes
-5. Push to the branch
-6. Create a new Pull Request
-7. Wait for the review
-8. Get your changes merged
-9. Celebrate your success 🎉
+4. Write test cases for your changes
+5. Commit your changes
+6. Push to the branch
+7. Create a new Pull Request
+8. Wait for the review
+9. Get your changes merged
+10. Celebrate your success 🎉
 
 ## Setting up development environment
 
-Choose any of the below methods to start working on this project:
+#### Requirements
 
-### With Devcontainers (Recommended)
+1.  [VSCode](https://code.visualstudio.com/Download)
+2.  [Git](https://git-scm.com/)
+3.  [fnm](https://github.com/Schniz/fnm)
+4.  [Taskfile](https://taskfile.dev/)
+
+#### Instructions
+
+1.  Install project dependencies
+
+    ```bash
+    task install
+    ```
+
+1.  Start the development server
+
+    ```
+    task run
+    ```
+
+<!-- ### With Devcontainers
+
+> Playwright testing tools do not work in devcontainers.
+> You can however still use the devcontainer for development and testing other tools.
 
 #### Requirements
 
@@ -41,30 +64,7 @@ Choose any of the below methods to start working on this project:
 1.  Install this VSCode extension: [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 1.  Press `F1` and select `Dev Container: Open Folder in Container`
 1.  Wait for the development container to build.
-1.  Run `task dev` in the terminal to start the development server.
-
-### Without Devcontainers
-
-#### Requirements
-
-1.  [VSCode](https://code.visualstudio.com/Download)
-2.  [Git](https://git-scm.com/)
-3.  [fnm](https://github.com/Schniz/fnm#installation)
-4.  [Taskfile](https://taskfile.dev/)
-
-#### Instructions
-
-1.  Install project dependencies
-
-    ```bash
-    task install
-    ```
-
-1.  Start the development server
-
-    ```
-    task run
-    ```
+1.  Run `task dev` in the terminal to start the development server. -->
 
 ## Important notes
 

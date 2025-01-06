@@ -1,4 +1,4 @@
-import { MimeType } from "@/libs/mime";
+import { MimeType } from "@/lib/mime";
 import { expect, test } from "vitest";
 import { getWatermarkedFilename } from "./helpers";
 

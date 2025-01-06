@@ -1,5 +1,5 @@
 import { FileUploadError } from "@/config/errors";
-import { OPreviewProps } from "@/libs/previews";
+import { OPreviewProps } from "@/lib/previews";
 import { create } from "zustand";
 
 type State = {

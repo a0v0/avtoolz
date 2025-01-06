@@ -1,5 +1,5 @@
 import { XErrors } from "@/config/errors";
-import { getImagePreview, getPDFPreview } from "@/libs/previews";
+import { getImagePreview, getPDFPreview } from "@/lib/previews";
 import { getFileType, getFileTypeIcon } from "@/utils/helpers";
 import {
   Card,

@@ -1,6 +1,6 @@
 import { Link } from "@nextui-org/react";
 
-import { title } from "@/libs/primitives";
+import { title } from "@/lib/primitives";
 
 import { siteConfig } from "@/config/site";
 import FluentUIEmoji, { EmpojiType } from "./icons/fluentui-emoji";

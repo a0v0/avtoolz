@@ -3,13 +3,15 @@
 import FileUploader from "@/components/fileUploader";
 import { useFileUploaderStore } from "@/components/fileUploader/store";
 import { getToolByHref } from "@/config/tools";
-import { MimeType } from "@/libs/mime";
-import { subtitle, title } from "@/libs/primitives";
-import { PDFWorker } from "@/libs/workers/pdf";
+import { MimeType } from "@/lib/mime.js";
+import { subtitle, title } from "@/lib/primitives.js";
+import { PDFWorker } from "@/lib/workers/pdf.js";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import { Button, Divider, Spacer } from "@nextui-org/react";
+import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
+
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
 // BUG: PDF that contain only text is replace with small boxed
@@ -21,16 +23,36 @@ export default function Page() {
   async function _doWork() {
     setLoading(true);
 
-    const htmlCanvas = document.createElement("canvas");
-    // TODO: dynamically set  via slider
-    const outputFile = await PDFWorker.compressPDF(files[0]!, 0.9, htmlCanvas);
-
     downloadURL(
-      outputFile,
+      pdfURL,
       getWatermarkedFilename(files[0]!.name, "application/pdf")
     );
+
     setLoading(false);
   }
+  async function _doWork() {
+    setLoading(true);
+    const worker = wrap<typeof PDFWorker>(
+      new Worker(new URL("@/lib/workers/pdf.ts", import.meta.url))
+    );
+
+    const output = await worker.compressPDF({});
+
+    downloadURL(
+      output,
+      getWatermarkedFilename(files[0]!.name, "application/pdf")
+    );
+
+    setLoading(false);
+  }
+
+  // async function compressPDF(pdf, filename) {
+  //   const dataObject = {psDataURL: pdf};
+  //   const element = await _GSPS2PDF(dataObject)
+  //   const {pdfURL, size: newSize} = await loadPDFData(element, filename)
+  //   setDownloadLink(pdfURL);
+  //   setState("toBeDownloaded");
+  // }
 
   return (
     <>

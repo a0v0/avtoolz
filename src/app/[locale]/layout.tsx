@@ -9,7 +9,7 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
-import { AppConfig } from "@/utils/appConfig";
+import { AppConfig } from "@/utils/app_config";
 import { getPathnameFromMetadataState } from "@/utils/helpers";
 
 import { getToolByHref } from "@/config/tools";

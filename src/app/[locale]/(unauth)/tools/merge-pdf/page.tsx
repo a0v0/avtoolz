@@ -3,14 +3,14 @@
 import FileUploader from "@/components/fileUploader";
 import { useFileUploaderStore } from "@/components/fileUploader/store";
 import { getToolByHref } from "@/config/tools";
-import { MimeType } from "@/libs/mime";
-import { subtitle, title } from "@/libs/primitives";
+import { MimeType } from "@/lib/mime";
+import { subtitle, title } from "@/lib/primitives";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import { Button, Divider, Spacer } from "@nextui-org/react";
 import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
-import { PDFWorker } from "../../../../../libs/workers/pdf";
+import { PDFWorker } from "../../../../../lib/workers/pdf";
 
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
@@ -22,7 +22,7 @@ export default function Page() {
   async function _doWork() {
     setLoading(true);
     const worker = wrap<typeof PDFWorker>(
-      new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
+      new Worker(new URL("@/lib/workers/pdf.ts", import.meta.url))
     );
     const outputFile = await worker.mergePDFs(files);
     downloadURL(

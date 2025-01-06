@@ -1,7 +1,7 @@
 "use client";
 import { XErrors } from "@/config/errors";
-import { MimeType, mimeToExtension } from "@/libs/mime";
-import { subtitle } from "@/libs/primitives";
+import { MimeType, mimeToExtension } from "@/lib/mime";
+import { subtitle } from "@/lib/primitives";
 import { getNanoID } from "@/utils/id";
 import { swap } from "@formkit/drag-and-drop";
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";

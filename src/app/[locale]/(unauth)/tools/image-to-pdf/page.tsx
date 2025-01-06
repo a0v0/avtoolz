@@ -3,14 +3,14 @@
 import FileUploader from "@/components/fileUploader";
 import { useFileUploaderStore } from "@/components/fileUploader/store";
 import { getToolByHref } from "@/config/tools";
-import { MimeType } from "@/libs/mime";
-import { subtitle, title } from "@/libs/primitives";
+import { MimeType } from "@/lib/mime";
+import { subtitle, title } from "@/lib/primitives";
 import {
   PAGE_MARGIN,
   PAGE_ORIENTATION,
   PAGE_SIZE,
   PDFWorker,
-} from "@/libs/workers/pdf";
+} from "@/lib/workers/pdf";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import { Button, Card, Select, SelectItem, Spacer } from "@nextui-org/react";
@@ -48,7 +48,7 @@ export default function Page() {
   async function _doWork() {
     setLoading(true);
     const worker = wrap<typeof PDFWorker>(
-      new Worker(new URL("@/libs/workers/pdf.ts", import.meta.url))
+      new Worker(new URL("@/lib/workers/pdf.ts", import.meta.url))
     );
     const outputPDF = await worker.imagesToPDF({
       // filter only those elements from metadata whose file is in files, keep the order intact

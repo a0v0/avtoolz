@@ -8,14 +8,10 @@ tasks:
   install:
     desc: Install dependencies
     cmds:
-      - fnm install  --corepack-enabled && fnm use
+      - fnm install --corepack-enabled && fnm use
       - corepack enable pnpm
       - pnpm i
       - pnpx playwright install chromium #--with-deps
-
-  storybook:
-    desc: Run storybook
-    cmd: pnpm storybook
 
   run:
     desc: Run development server
@@ -50,11 +46,6 @@ tasks:
     desc: Clean project
     cmds:
       - rm -rf .pnpm-store node_modules test-results .next out
-      - task: clean:temp
-
-  clean:temp:
-    desc: Clean temporary files and folders
-    cmds:
       - rm -rf `find . -type d -name temp`
 
   build:
