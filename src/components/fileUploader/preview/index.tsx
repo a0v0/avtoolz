@@ -22,7 +22,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
 }
 
 export const Preview = (props: Props) => {
-  const { file } = props;
+  const { file, className } = props;
   const {
     metadata,
     setPreview,
@@ -53,7 +53,10 @@ export const Preview = (props: Props) => {
   }, [file, setError, setPreview]);
 
   return (
-    <Card radius="lg" className="w-[175px]  border-none hover:outline-dashed">
+    <Card
+      radius="lg"
+      className={`w-44 border-none hover:outline-dashed ${className}`}
+    >
       <CardHeader className="justify-between  pb-0 pt-1 px-1">
         <Tooltip offset={10} content="Move this file">
           <span className="cursor-move file-drag-handle relative">

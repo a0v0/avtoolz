@@ -22,7 +22,7 @@ import {
 } from "@nextui-org/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { Preview } from "./preview";
 import { useFileUploaderStore } from "./store";
@@ -36,6 +36,7 @@ export const FileUploader = (props: FileUploaderProps) => {
   const { files, addFiles, reset, updateFiles, setLoading, error, setError } =
     useFileUploaderStore((state) => state);
   const t = useTranslations();
+  const [cardsGridCSS, setCardsGridCSS] = useState("second");
 
   const [parent, filesHolder, _setValues] = useDragAndDrop<
     HTMLDivElement,
@@ -89,21 +90,37 @@ export const FileUploader = (props: FileUploaderProps) => {
     }
   }, [error, setLoading]);
 
+  useEffect(() => {
+    if (files.length == 1) {
+      setCardsGridCSS("grid-cols-1");
+    } else if (files.length == 2) {
+      setCardsGridCSS("grid-cols-2");
+    } else if (files.length == 3) {
+      setCardsGridCSS("grid-cols-2 md:grid-cols-3 lg:grid-cols-3");
+    } else {
+      setCardsGridCSS("grid-cols-2 md:grid-cols-3 lg:grid-cols-4");
+    }
+  }, [files.length]);
+
   return (
     <div>
       {files.length > 0 ? (
         <div
           ref={parent}
-          className="lg:md:w-[780px] m-4 flex flex-wrap gap-5 pt-2 justify-items-center"
+          className={`grid gap-3 justify-end justify-items-center ${cardsGridCSS}`}
         >
           {filesHolder.map((file, index) => (
-            <Preview key={index} file={file} />
+            <Preview
+              // className={files.length == 1 ? "md:col-start-2" : ""}
+              key={index}
+              file={file}
+            />
           ))}
 
           {filesHolder.length > 0 && props.maxFiles ? (
             props.maxFiles > 1
           ) : 1 ? (
-            <div id="no-drag" className="m-auto h-44 content-center">
+            <div id="no-drag" className="my-auto h-44 content-center">
               <Card
                 onPress={open}
                 isPressable
