@@ -9,7 +9,7 @@ import {
   Image,
   Link,
   Tooltip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import prettyBytes from "pretty-bytes";
 import { HTMLAttributes, useEffect } from "react";
 import { useFileUploaderStore } from "../store";

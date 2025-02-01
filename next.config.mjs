@@ -20,7 +20,7 @@ const bundleAnalyzer = withBundleAnalyzer({
 export default withSentryConfig(
   bundleAnalyzer(
     withNextIntlConfig({
-      transpilePackages: ["@nextui-org/react", "@nextui-org/theme"],
+      transpilePackages: ["@heroui/react", "@heroui/theme"],
       swcMinify: true,
       eslint: {
         ignoreDuringBuilds: true,

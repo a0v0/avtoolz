@@ -1,16 +1,16 @@
 "use client";
 
-import { BaseItem } from "@nextui-org/aria-utils";
-import type { SpacerProps } from "@nextui-org/react";
+import { BaseItem } from "@heroui/aria-utils";
+import type { SpacerProps } from "@heroui/react";
 import {
   Chip,
   dataFocusVisibleClasses,
   Link,
   Link as NextUILink,
   Spacer,
-} from "@nextui-org/react";
-import { ChevronIcon } from "@nextui-org/shared-icons";
-import { clsx, dataAttr } from "@nextui-org/shared-utils";
+} from "@heroui/react";
+import { ChevronIcon } from "@heroui/shared-icons";
+import { clsx, dataAttr } from "@heroui/shared-utils";
 import { useFocusRing } from "@react-aria/focus";
 import { usePress } from "@react-aria/interactions";
 import { useSelectableCollection } from "@react-aria/selection";

@@ -8,12 +8,13 @@ import { subtitle, title } from "@/lib/primitives";
 import { PDFWorker } from "@/lib/workers/pdf.js";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
-import { Button, Divider, Spacer } from "@nextui-org/react";
+import { Button, Divider, Spacer } from "@heroui/react";
 import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
 
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
+// TODO: preload wasm module or inform user about the delay
 export default function Page() {
   const { files, reset, loading, setLoading } = useFileUploaderStore();
   const path = usePathname();

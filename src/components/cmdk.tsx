@@ -2,9 +2,9 @@
 
 "use client";
 
-import type { ButtonProps } from "@nextui-org/react";
-import { Button, Kbd, Modal, ModalContent } from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
+import type { ButtonProps } from "@heroui/react";
+import { Button, Kbd, Modal, ModalContent } from "@heroui/react";
+import { clsx } from "@heroui/shared-utils";
 import { isAppleDevice, isWebKit } from "@react-aria/utils";
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
 import { Command } from "cmdk";
@@ -329,7 +329,7 @@ export const Cmdk: FC<{}> = () => {
 
       const mainIcon = isRecent ? (
         // <SearchLinearIcon className={slots.leftIcon()} size={20} strokeWidth={2} />
-        <span className="icon-[mingcute--search-3-line] size-6" />
+        (<span className="icon-[mingcute--search-3-line] size-6" />)
       ) : isLvl1 ? (
         <span
           className={cn("icon-[solar--document-bold] size-6", slots.leftIcon())}

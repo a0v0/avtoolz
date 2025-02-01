@@ -1,7 +1,7 @@
 import { Logo } from "@/components/icons/logo";
 import { subtitle, title } from "@/lib/primitives";
-import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/react";
+import { Link } from "@heroui/link";
+import { Button } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 function Hero() {

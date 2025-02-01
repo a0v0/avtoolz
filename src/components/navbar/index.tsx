@@ -19,8 +19,8 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
   Spacer,
-} from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
+} from "@heroui/react";
+import { clsx } from "@heroui/shared-utils";
 import { usePathname } from "next/navigation";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";

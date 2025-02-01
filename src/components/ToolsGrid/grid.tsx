@@ -1,19 +1,19 @@
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import {
   Card,
   CardBody,
   CardHeader,
   LinkProps,
   SlotsToClasses,
-} from "@nextui-org/react";
-import { LinkIcon } from "@nextui-org/shared-icons";
+} from "@heroui/react";
+import { LinkIcon } from "@heroui/shared-icons";
 import React, { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 const styles = tv({
   slots: {
-    base: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4",
-    card: "border-transparent bg-white/5 dark:bg-default-400/10 backdrop-blur-lg backdrop-saturate-[1.8]",
+    base: " grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4",
+    card: " backdrop-blur-lg border-transparent bg-white/10",
     header: "gap-2 pb-0",
     body: "",
     iconWrapper:
@@ -49,7 +49,7 @@ export const ToolsGrid: React.FC<ToolsGridProps> = ({
       {features.map((tool: Tool) => (
         <Card
           key={tool.title}
-          isBlurred
+          // isBlurred
           className={slots.card({ class: classNames?.card })}
           isPressable={!!tool.href}
           as={Link}

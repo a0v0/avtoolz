@@ -9,7 +9,7 @@ import {
   SelectItem,
   Tab,
   Tabs,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useLocale, useTranslations } from "next-intl";
 import ThemeSwitchPills from "./theme-switch-pills";
 

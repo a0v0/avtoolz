@@ -13,7 +13,7 @@ import {
 } from "@/lib/workers/pdf";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
-import { Button, Card, Select, SelectItem, Spacer } from "@nextui-org/react";
+import { Button, Card, Select, SelectItem, Spacer } from "@heroui/react";
 import { wrap } from "comlink";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";

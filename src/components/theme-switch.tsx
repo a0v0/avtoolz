@@ -2,9 +2,9 @@
 
 "use client";
 
-import type { SwitchProps } from "@nextui-org/react";
-import { Link, useSwitch } from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
+import type { SwitchProps } from "@heroui/react";
+import { Link, useSwitch } from "@heroui/react";
+import { clsx } from "@heroui/shared-utils";
 import { useIsSSR } from "@react-aria/ssr";
 import { VisuallyHidden } from "@react-aria/visually-hidden";
 import { useTheme } from "next-themes";
