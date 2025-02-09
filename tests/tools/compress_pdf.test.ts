@@ -6,11 +6,6 @@ import { rimraf } from "rimraf";
 
 const testFile = "./tests/fixtures/test1.pdf";
 
-test("navigation check", async ({ page }) => {
-  await page.goto("/tools/compress-pdf");
-  await expect(page).toHaveTitle("Compress PDF • aVToolz");
-});
-
 test.describe("test if", () => {
   const tempTestDir = path.join("temp", randomUUID());
   var compressedPDF = "";
@@ -33,6 +28,10 @@ test.describe("test if", () => {
 
   test.afterAll("cleanup", async () => {
     await rimraf(path.join(__dirname, tempTestDir), {});
+  });
+
+  test("navigation is working", async ({ page }) => {
+    await expect(page).toHaveTitle("Compress PDF • aVToolz");
   });
 
   test("size is less than original pdf", async () => {

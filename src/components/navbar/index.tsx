@@ -166,7 +166,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
               <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
             }
             variant="light"
-            onClick={handleOpenCmdk}
+            onPress={handleOpenCmdk}
           ></Button>
         </NavbarItem>
         <NavbarItem className="flex h-full items-center">

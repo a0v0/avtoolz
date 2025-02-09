@@ -37,7 +37,12 @@ function ProfileMenu() {
     <>
       <Dropdown backdrop="blur">
         <DropdownTrigger>
-          <Button isIconOnly startContent={avatar} variant="light"></Button>
+          <Button
+            aria-label="avatar"
+            isIconOnly
+            startContent={avatar}
+            variant="light"
+          ></Button>
         </DropdownTrigger>
         <DropdownMenu
           variant="faded"
