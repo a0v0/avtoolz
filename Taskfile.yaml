@@ -47,6 +47,7 @@ tasks:
     cmds:
       - rm -rf .pnpm-store node_modules test-results .next out
       - rm -rf `find . -type d -name temp`
+      - echo "Project cleaned successfully 🙀"
 
   build:
     desc: Build project

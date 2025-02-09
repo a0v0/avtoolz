@@ -15,11 +15,12 @@ test.describe("test if", () => {
   const tempTestDir = path.join("temp", randomUUID());
   var compressedPDF = "";
 
-  test.beforeAll("Setup", async ({ browser }) => {
+  test.beforeAll("setup", async ({ browser }) => {
     fs.mkdirSync(tempTestDir, { recursive: true });
     const page = await browser.newPage();
     await page.goto("/tools/compress-pdf");
     await page.locator("#fileInput").setInputFiles(testFile);
+
     // cooldown to allow pdf to load
     await page.waitForTimeout(1000);
     let downloadPromise = page.waitForEvent("download");
@@ -30,7 +31,7 @@ test.describe("test if", () => {
     compressedPDF = filePath;
   });
 
-  test.afterAll("Teardown", async () => {
+  test.afterAll("cleanup", async () => {
     await rimraf(path.join(__dirname, tempTestDir), {});
   });
 
