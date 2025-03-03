@@ -1,8 +1,8 @@
-import Image from 'next/image';
+import { Image } from "@heroui/react";
 
 export enum EmpojiType {
-  SMILING_FACE_WITH_HEARTS = '/emoji/smiling_face_with_heart.svg',
-  SALUTING_FACE = '/emoji/saluting_face.svg',
+  SMILING_FACE_WITH_HEARTS = "/emoji/smiling_face_with_heart.svg",
+  SALUTING_FACE = "/emoji/saluting_face.svg",
 }
 
 export interface FluentUIEmojiProps {
@@ -11,19 +11,9 @@ export interface FluentUIEmojiProps {
   emojiType: EmpojiType;
 }
 
-function FluentUIEmoji({
-  size = 150,
-  className,
-  emojiType,
-}: FluentUIEmojiProps) {
+function FluentUIEmoji({ className, emojiType }: FluentUIEmojiProps) {
   return (
-    <Image
-      alt="avtoolz logo"
-      className={className}
-      height={size}
-      width={size}
-      src={emojiType.valueOf()}
-    />
+    <Image alt="avtoolz logo" className={className} src={emojiType.valueOf()} />
   );
 }
 

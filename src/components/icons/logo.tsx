@@ -5,10 +5,6 @@ interface LogoProps {
   className?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({ size, className }) => (
-  <FluentUIEmoji
-    size={size}
-    className={className}
-    emojiType={EmpojiType.SALUTING_FACE}
-  />
+export const Logo: React.FC<LogoProps> = ({ className }) => (
+  <FluentUIEmoji className={className} emojiType={EmpojiType.SALUTING_FACE} />
 );

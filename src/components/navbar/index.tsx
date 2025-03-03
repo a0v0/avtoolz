@@ -104,9 +104,9 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             style={{ textDecoration: "none" }}
             color="foreground"
           >
-            <Logo className="max-w-28" size={26} />
+            <Logo className="w-7 lg:w-9" />
             <Spacer x={1} />
-            <h1 className="font-bold text-inherit">aVToolz</h1>
+            <h1 className="font-bold text-inherit lg:text-2xl">aVToolz</h1>
             <Spacer x={2} />
           </Link>
         </NavbarBrand>

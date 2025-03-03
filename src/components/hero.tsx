@@ -7,12 +7,10 @@ import { useTranslations } from "next-intl";
 function Hero() {
   const t = useTranslations("home.hero");
   return (
-    <main className="h-screen text-center  mt-24">
-      <center>
-        <Logo />
-      </center>
+    <main className="h-screen flex flex-col items-center justify-center -mt-20">
+      <Logo className="w-36 text-center" />
+
       <h1 className={title()}>Your Online&nbsp;</h1>
-      <br />
       <h1 className={title({ color: "green" })}>Utitlity Toolbox&nbsp;</h1>
       <h2
         className={subtitle({
