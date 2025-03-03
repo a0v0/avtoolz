@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - uses: actions/cache@v4
         with:
           # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
@@ -32,18 +32,16 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-            version: 9
+
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
-          cache: 'pnpm'
+          cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
       - name: Build Next.js for E2E tests
         run: pnpm build
-
 
       - name: Install Playwright (used for Storybook and E2E tests)
         run: npx playwright install --with-deps
