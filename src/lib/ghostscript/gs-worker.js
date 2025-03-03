@@ -92,7 +92,7 @@ if (ENVIRONMENT_IS_NODE) {
   // `require()` is no-op in an ESM module, use `createRequire()` to construct
   // the require()` function.  This is only necessary for multi-environment
   // builds, `-sENVIRONMENT=node` emits a static import declaration instead.
-  // TODO: Swap all `require()`'s with `import()`'s?
+  // TODO Swap all `require()`'s with `import()`'s?
   // These modules will usually be used on Node.js. Load them eagerly to avoid
   // the complexity of lazy-loading.
   var fs = require("fs");
@@ -969,7 +969,7 @@ function createWasm() {
       "the Module object should not be replaced during async compilation - perhaps the order of HTML elements is wrong?"
     );
     trueModule = null;
-    // TODO: Due to Closure regression https://github.com/google/closure-compiler/issues/3193, the above line no longer optimizes out down to the following line.
+    // TODO Due to Closure regression https://github.com/google/closure-compiler/issues/3193, the above line no longer optimizes out down to the following line.
     // When the regression is fixed, can restore the above PTHREADS-enabled path.
     receiveInstance(result["instance"]);
   }
@@ -2810,7 +2810,7 @@ var FS = {
         FS.flagsToPermissionString(flags) !== "r" || // opening for write
         flags & 512
       ) {
-        // TODO: check for O_SEARCH? (== search for dir only)
+        // TODO check for O_SEARCH? (== search for dir only)
         return 31;
       }
     }
@@ -3993,7 +3993,7 @@ var FS = {
               "only " + datalength + " bytes available! programmer error!"
             );
 
-          // TODO: Use mozResponseArrayBuffer, responseStream, etc. if available.
+          // TODO Use mozResponseArrayBuffer, responseStream, etc. if available.
           var xhr = new XMLHttpRequest();
           xhr.open("GET", url, false);
           if (datalength !== chunkSize)
@@ -4516,7 +4516,7 @@ function ___syscall_ioctl(fd, op, varargs) {
         return FS.ioctl(stream, op, argp);
       }
       case 21523: {
-        // TODO: in theory we should write to the winsize struct that gets
+        // TODO in theory we should write to the winsize struct that gets
         // passed in, but for now musl doesn't read anything on it
         if (!stream.tty) return -59;
         if (stream.tty.ops.ioctl_tiocgwinsz) {
@@ -4528,7 +4528,7 @@ function ___syscall_ioctl(fd, op, varargs) {
         return 0;
       }
       case 21524: {
-        // TODO: technically, this ioctl call should change the window size.
+        // TODO technically, this ioctl call should change the window size.
         // but, since emscripten doesn't have any concept of a terminal window
         // yet, we'll just silently throw it away as we do TIOCGWINSZ
         if (!stream.tty) return -59;
@@ -4781,7 +4781,7 @@ var __mktime_js = function (tmPtr) {
 };
 
 var __tzset_js = (timezone, daylight, std_name, dst_name) => {
-  // TODO: Use (malleable) environment variables instead of system settings.
+  // TODO Use (malleable) environment variables instead of system settings.
   var currentYear = new Date().getFullYear();
   var winter = new Date(currentYear, 0, 1);
   var summer = new Date(currentYear, 6, 1);

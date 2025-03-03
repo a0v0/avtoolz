@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
-// TODO: preload wasm module or inform user about the delay
+// TODO preload wasm module or inform user about the delay
 export default function Page() {
   const { files, reset, loading, setLoading } = useFileUploaderStore();
   const path = usePathname();

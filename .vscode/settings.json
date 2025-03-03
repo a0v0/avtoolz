@@ -7,7 +7,28 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "todo-tree.tree.showBadges": false,
   "todo-tree.tree.disableCompactFolders": true,
-  "todo-tree.general.tags": ["BUG", "HACK", "NOTE", "REVIEW", "TODO"],
+  "todo-tree.general.tags": ["PICKUP", "TODO", "FIXME"],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "check-circle-fill",
+      "type": "whole-line"
+    },
+    "FIXME": {
+      "icon": "tools",
+      "iconColour": "#7bff00",
+      "foreground": "#000",
+      "background": "#7bff00",
+      "type": "whole-line"
+    },
+    "PICKUP": {
+      "icon": "alert-fill",
+      "iconColour": "#ff0000",
+      "foreground": "#000",
+      "background": "#ff0000",
+      "type": "whole-line"
+    }
+  },
+  "todo-tree.tree.labelFormat": "${after}",
   "todo-tree.filtering.useBuiltInExcludes": "file and search excludes",
   "todo-tree.filtering.excludeGlobs": [
     "**/node_modules/*/**",

@@ -74,6 +74,7 @@ Following are the steps to contribute to this project:
 1. Add code for new tool in `tools` directory inside `src/app` directory.
 1. Write test cases for the new tool.
 1. Update documentation if required.
+1. Icon for the tools can be found in this [figma file](https://www.figma.com/design/Vo1SWIWLnCnmrnpnysrTyX/avtoolz-icons)
 
 ## Support
 

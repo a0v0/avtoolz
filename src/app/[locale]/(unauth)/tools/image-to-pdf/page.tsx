@@ -23,7 +23,7 @@ const allowedFileTypes: MimeType[] = [
   "image/jpeg",
   "image/webp",
   "image/png",
-  // TODO: add support for more image types
+  // TODO add support for more image types
   // "image/svg+xml",
   // "image/bmp",
   // "image/tiff",

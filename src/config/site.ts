@@ -29,7 +29,7 @@ export const siteConfig = {
     description: "Fast, beautiful and modern tools for everyone.",
     images: [
       {
-        // TODO: add og image
+        // TODO add og image
         url: "https://avtoolz.com/twitter-cards/avtoolz.jpeg",
         width: 1200,
         height: 630,
