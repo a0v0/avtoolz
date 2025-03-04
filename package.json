@@ -17,12 +17,7 @@
     "db:generate": "drizzle-kit generate:sqlite",
     "db:migrate": "dotenv -c -- tsx ./scripts/dbMigrate.ts",
     "db:studio": "dotenv -c -- drizzle-kit studio",
-    "test:e2e": "playwright test",
-    "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
-    "storybook:serve": "http-server storybook-static --port 6006 --silent",
-    "serve-storybook": "run-s storybook:*",
-    "test-storybook:ci": "start-server-and-test serve-storybook http://127.0.0.1:6006 test-storybook"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@clerk/localizations": "^2.4.6",
@@ -52,6 +47,7 @@
     "@sentry/nextjs": "^7.118.0",
     "@spotlightjs/spotlight": "^1.2.17",
     "@t3-oss/env-nextjs": "^0.10.1",
+    "canvas": "^3.1.0",
     "canvg": "^4.0.2",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
@@ -98,15 +94,6 @@
     "@react-types/shared": "^3.23.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@storybook/addon-essentials": "^8.1.11",
-    "@storybook/addon-interactions": "^8.1.11",
-    "@storybook/addon-links": "^8.1.11",
-    "@storybook/addon-onboarding": "^8.1.11",
-    "@storybook/blocks": "^8.1.11",
-    "@storybook/nextjs": "^8.1.11",
-    "@storybook/react": "^8.1.11",
-    "@storybook/test": "^8.1.11",
-    "@storybook/test-runner": "^0.18.2",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^15.0.7",
     "@types/lodash": "^4.17.6",
@@ -118,7 +105,6 @@
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/expect": "^1.6.0",
     "autoprefixer": "^10.4.19",
-    "canvas": "^2.11.2",
     "commitizen": "^4.3.0",
     "cross-env": "^7.0.3",
     "cssnano": "^7.0.3",
@@ -138,7 +124,6 @@
     "eslint-plugin-react": "^7.34.3",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-simple-import-sort": "^12.1.0",
-    "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "eslint-plugin-testing-library": "^6.2.2",
     "eslint-plugin-unused-imports": "^3.2.0",
@@ -154,7 +139,6 @@
     "rimraf": "^5.0.7",
     "semantic-release": "^23.1.1",
     "start-server-and-test": "^2.0.4",
-    "storybook": "^8.1.11",
     "tailwindcss": "^3.4.4",
     "tsx": "^4.16.0",
     "typescript": "^5.5.2",
@@ -188,6 +172,11 @@
   "author": "aV (https://github.com/a0v0)",
   "packageManager": "pnpm@10.5.2",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "canvas"
+    ]
   }
 }

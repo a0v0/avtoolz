@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_version: [20]
+        node_version: [22]
 
     name: E2E tests with node@${{ matrix.node_version }}
     steps:
@@ -43,7 +43,7 @@ jobs:
       - name: Build Next.js for E2E tests
         run: pnpm build
 
-      - name: Install Playwright (used for Storybook and E2E tests)
+      - name: Install Playwright (used for E2E tests)
         run: npx playwright install --with-deps
 
       - name: Run E2E tests
