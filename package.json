@@ -63,6 +63,7 @@
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "pdf-lib": "^1.17.1",
+    "pdf-to-img": "^4.4.0",
     "pino": "^8.21.0",
     "pino-pretty": "^11.3.0",
     "pretty-bytes": "^6.1.1",

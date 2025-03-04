@@ -3,9 +3,8 @@ import { randomUUID } from "crypto";
 import fs from "fs";
 import path from "path";
 import { PDFDocument } from "pdf-lib";
-import { rimraf } from "rimraf";
-import pdfToImages from "tests/utils/pdf";
 
+import { rimraf } from "rimraf";
 const testFiles = [
   "./tests/fixtures/timg1.jpg",
   "./tests/fixtures/timg2.jpeg",
@@ -63,8 +62,19 @@ test.describe("test if", () => {
   });
 
   test("pages in pdf are in correct order after rearranging", async () => {
-    let normalPDF = await pdfToImages({ pdfFilePath: normalPDFPath });
-    let rearrangedPDF = await pdfToImages({ pdfFilePath: rearrangedPDFPath });
+    const { pdf } = await import("pdf-to-img");
+
+    const ogPDF = await pdf(normalPDFPath, { scale: 1 });
+    const newPDF = await pdf(rearrangedPDFPath, { scale: 1 });
+    let normalPDF: string[] = [];
+    let rearrangedPDF: string[] = [];
+
+    for await (const image of ogPDF) {
+      normalPDF.push(image.toString("base64"));
+    }
+    for await (const image of newPDF) {
+      rearrangedPDF.push(image.toString("base64"));
+    }
 
     expect(normalPDF).toHaveLength(4);
     expect(rearrangedPDF).toHaveLength(4);
