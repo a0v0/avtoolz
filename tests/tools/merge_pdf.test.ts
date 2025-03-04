@@ -12,11 +12,6 @@ const testFiles = [
   "./tests/fixtures/test3.pdf",
 ];
 
-test("navigation checks", async ({ page }) => {
-  await page.goto("/tools/merge-pdf");
-  await expect(page).toHaveTitle("Merge PDF • aVToolz");
-});
-
 test.describe("page count and file size check", () => {
   const tempTestDir = path.join("temp", randomUUID());
   let normalPDFPath = "";

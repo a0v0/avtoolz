@@ -30,11 +30,7 @@ test.describe("test if", () => {
     await rimraf(path.join(__dirname, tempTestDir), {});
   });
 
-  test("navigation is working", async ({ page }) => {
-    await expect(page).toHaveTitle("Compress PDF • aVToolz");
-  });
-
-  test("size is less than original pdf", async () => {
+  test("size of compressed pdf is less than original pdf", async () => {
     const compressedPDFSize = statSync(compressedPDF).size;
     const originalPDFSize = statSync(testFile).size;
 

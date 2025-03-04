@@ -1,10 +1,13 @@
 import { pdfjs } from "@/lib/previews";
 import { createCanvas } from "canvas";
 import fs from "fs";
-import { exit } from "process";
 
 // function that convert pdf to array containing base64 encoded images of each page
-export async function pdfToImages(pdfFilePath: string): Promise<string[]> {
+export default async function pdfToImages({
+  pdfFilePath,
+}: {
+  pdfFilePath: string;
+}): Promise<string[]> {
   const loadingTask = pdfjs.getDocument(
     new Uint8Array(fs.readFileSync(pdfFilePath))
   );
@@ -34,7 +37,6 @@ export async function pdfToImages(pdfFilePath: string): Promise<string[]> {
     }
   } catch (reason) {
     console.log(reason);
-    exit(1);
   }
   return images;
 }

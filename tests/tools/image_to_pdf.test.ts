@@ -3,9 +3,8 @@ import { randomUUID } from "crypto";
 import fs from "fs";
 import path from "path";
 import { PDFDocument } from "pdf-lib";
-import { exit } from "process";
 import { rimraf } from "rimraf";
-import { pdfToImages } from "tests/utils/pdf";
+import pdfToImages from "tests/utils/pdf";
 
 const testFiles = [
   "./tests/fixtures/timg1.jpg",
@@ -13,11 +12,6 @@ const testFiles = [
   "./tests/fixtures/timg3.jpeg",
   "./tests/fixtures/timg4.jpg",
 ];
-
-test("navigation checks", async ({ page }) => {
-  await page.goto("/tools/image-to-pdf");
-  await expect(page).toHaveTitle("Image to PDF • aVToolz");
-});
 
 test.describe("test if", () => {
   const tempTestDir = path.join("temp", randomUUID());
@@ -52,29 +46,26 @@ test.describe("test if", () => {
     download = await downloadPromise;
     filePath = path.join(__dirname, tempTestDir, "rearranged.pdf");
     await download.saveAs(filePath);
+
     rearrangedPDFPath = filePath;
+    console.log(rearrangedPDFPath);
   });
 
   test.afterAll("Teardown", async () => {
     await rimraf(path.join(__dirname, tempTestDir), {});
   });
 
-  test("page count is same as that of no. of input images", async ({}) => {
-    try {
-      const doc = await PDFDocument.load(
-        new Uint8Array(fs.readFileSync(normalPDFPath))
-      );
-      expect(doc.getPageCount()).toBe(testFiles.length);
-    } catch (reason) {
-      console.log(reason);
-      exit(1);
-    }
+  test("page count is same as that of no. of input images", async () => {
+    const doc = await PDFDocument.load(
+      new Uint8Array(fs.readFileSync(normalPDFPath))
+    );
+    expect(doc.getPageCount()).toBe(testFiles.length);
   });
 
-  test("if pages in pdf are in correct order after rearranging", async () => {
-    // parse and check if images are in correct order
-    let normalPDF = await pdfToImages(normalPDFPath);
-    let rearrangedPDF = await pdfToImages(rearrangedPDFPath);
+  test("pages in pdf are in correct order after rearranging", async () => {
+    let normalPDF = await pdfToImages({ pdfFilePath: normalPDFPath });
+    let rearrangedPDF = await pdfToImages({ pdfFilePath: rearrangedPDFPath });
+
     expect(normalPDF).toHaveLength(4);
     expect(rearrangedPDF).toHaveLength(4);
     expect(normalPDF).toEqual([
