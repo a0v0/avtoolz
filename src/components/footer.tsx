@@ -1,26 +1,21 @@
-import { Link } from "@heroui/react";
-
-import { title } from "@/lib/primitives";
-
+import { SmilingFaceWithHearts } from "@/components/icons/SmilingFaceWithHeartsIcon";
 import { siteConfig } from "@/config/site";
-import FluentUIEmoji, { EmpojiType } from "./icons/fluentui-emoji";
+import { title } from "@/lib/primitives";
+import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="flex items-center justify-center lg:justify-between w-full md:px-10 px-3 py-3 text-current">
+    <footer className="flex items-center justify-center lg:justify-between w-full md:px-10  px-3  text-current">
       <div className="flex gap-1">
         Crafted with
-        <FluentUIEmoji
-          emojiType={EmpojiType.SMILING_FACE_WITH_HEARTS}
-          className="inline-block w-6"
-        />
+        <SmilingFaceWithHearts />
         on
-        <Link isExternal href="https://en.wikipedia.org/wiki/Earth">
+        <Link target="_blank" href="https://en.wikipedia.org/wiki/Earth">
           <h1 className={title({ color: "green", size: "xs" })}>Earth</h1>
         </Link>
         by
         <Link
-          isExternal
+          target="_blank"
           href="https://github.com/a0v0/avtoolz/graphs/contributors"
         >
           <h1 className={title({ color: "yellow", size: "xs" })}>Humans</h1>
@@ -29,8 +24,7 @@ export const Footer = () => {
       <div className="hidden lg:flex">
         {" "}
         <Link
-          isBlock
-          isExternal
+          target="_blank"
           aria-label="Github"
           className="p-1 text-inherit"
           color="foreground"

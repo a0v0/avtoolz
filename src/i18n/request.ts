@@ -1,4 +1,5 @@
-import { getRequestConfig } from 'next-intl/server';
+import { getRequestConfig } from "next-intl/server";
+import { cookies } from "next/headers";
 
 // NextJS Boilerplate uses Crowdin as the localization software.
 // As a developer, you only need to take care of the English (or another default language) version.
@@ -11,6 +12,15 @@ import { getRequestConfig } from 'next-intl/server';
 // 3. Every 24 hours at 5am, the workflow will run automatically
 
 // Using internationalization in Server Components
-export default getRequestConfig(async ({ locale }) => ({
-  messages: (await import(`../locales/${locale}.json`)).default,
-}));
+export default getRequestConfig(async () => {
+  // Provide a static locale, fetch a user setting,
+  // read from `cookies()`, `headers()`, etc.
+  const cookieStore = await cookies();
+  const i18n = cookieStore.get("i18n");
+  const locale = i18n?.value || "en";
+
+  return {
+    locale,
+    messages: (await import(`./messages/${locale}.json`)).default,
+  };
+});

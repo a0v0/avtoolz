@@ -2,8 +2,8 @@ import { expect, test } from "@playwright/test";
 import { randomUUID } from "crypto";
 import fs from "fs";
 import path from "path";
+
 import { rimraf } from "rimraf";
-const { pdf } = await import("pdf-to-img");
 
 const testFiles = [
   "./tests/fixtures/test1.pdf",
@@ -48,17 +48,20 @@ test.describe("page count and file size check", () => {
   });
 
   test("check page count of merged pdf", async ({}) => {
+    const { pdf } = await import("pdf-to-img");
+
     // total pages in input pdf files
     let tpInPDFs = 0;
-    testFiles.forEach(async (pdfFile) => {
+
+    // Use for...of loop to properly handle async operations
+    for (const pdfFile of testFiles) {
       const ogPDF = await pdf(pdfFile, { scale: 1 });
       tpInPDFs += ogPDF.length;
-    });
+    }
 
     // total pages in merged pdf
     const mergedPDF = await pdf(normalPDFPath, { scale: 1 });
     let tpInMergedPDF = mergedPDF.length;
-
     expect(tpInMergedPDF).not.toBe(0);
     expect(tpInMergedPDF).toEqual(tpInPDFs);
   });

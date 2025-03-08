@@ -2,9 +2,7 @@
   "name": "avtoolz",
   "version": "2.4.2",
   "scripts": {
-    "dev:spotlight": "spotlight-sidecar",
-    "dev:next": "open-cli http://localhost:3000 && next dev",
-    "dev": "run-p dev:*",
+    "dev": "next dev ",
     "build": "pnpm run db:migrate && next build",
     "start": "next start",
     "build-stats": "cross-env ANALYZE=true pnpm run build",
@@ -20,8 +18,6 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@clerk/localizations": "^2.8.1",
-    "@clerk/nextjs": "^5.7.5",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
@@ -31,10 +27,7 @@
     "@heroui/react": "2.6.14",
     "@heroui/shared-icons": "2.1.2",
     "@heroui/shared-utils": "2.1.3",
-    "@hookform/resolvers": "^3.10.0",
     "@iconify/json": "^2.2.313",
-    "@libsql/client": "^0.6.2",
-    "@logtail/pino": "^0.4.22",
     "@radix-ui/react-scroll-area": "^1.2.3",
     "@react-aria/focus": "^3.19.1",
     "@react-aria/interactions": "^3.23.0",
@@ -44,28 +37,23 @@
     "@react-aria/visually-hidden": "^3.8.19",
     "@react-stately/tree": "^3.8.7",
     "@rehooks/local-storage": "^2.4.5",
-    "@spotlightjs/spotlight": "^1.2.17",
-    "@t3-oss/env-nextjs": "^0.10.1",
     "canvas": "^3.1.0",
-    "canvg": "^4.0.2",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
     "comlink": "^4.4.2",
-    "drizzle-orm": "^0.30.10",
+    "cookies-next": "^5.1.0",
     "framer-motion": "^11.18.2",
     "jspdf": "^2.5.2",
     "lodash": "^4.17.21",
     "match-sorter": "^6.3.4",
     "nanoid": "^5.1.2",
-    "next": "^14.2.24",
+    "next": "^15.2.1",
     "next-intl": "^3.26.5",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "pdf-lib": "^1.17.1",
     "pdf-to-img": "^4.4.0",
-    "pino": "^8.21.0",
-    "pino-pretty": "^11.3.0",
     "pretty-bytes": "^6.1.1",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
@@ -74,11 +62,9 @@
     "react-multi-ref": "^1.0.2",
     "react-pdf": "^7.7.3",
     "scroll-into-view-if-needed": "^3.1.0",
-    "sharp": "^0.33.5",
     "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^0.2.1",
     "ts-enum-util": "^4.1.0",
-    "zod": "^3.24.2",
     "zustand": "^4.5.6"
   },
   "devDependencies": {
@@ -110,7 +96,7 @@
     "cssnano": "^7.0.6",
     "dotenv-cli": "^7.4.4",
     "drizzle-kit": "~0.20.18",
-    "eslint": "^8.57.1",
+    "eslint": "^9.22.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-next": "^14.2.24",
@@ -176,13 +162,11 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@clerk/shared",
       "@percy/core",
       "@swc/core",
       "canvas",
       "core-js",
-      "esbuild",
-      "sharp"
+      "esbuild"
     ]
   }
 }

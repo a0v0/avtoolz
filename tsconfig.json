@@ -1,64 +1,39 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "strict": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
-
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "allowUnreachableCode": false,
-    "noFallthroughCasesInSwitch": true,
-
-    "target": "esnext",
-    "outDir": "out",
-    "sourceMap": true,
-
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "checkJs": true,
     "skipLibCheck": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
-
-    "jsx": "preserve",
     "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
     "isolatedModules": true,
+    "jsx": "preserve",
     "incremental": true,
-
-    // Load types
-    "types": ["vitest/globals", "node"],
-
-    // Path aliases
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/public/*": ["./public/*"]
-    },
-
-    // Editor support
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "types": ["vitest/globals", "node", "react"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/icons/*": ["./src/components/icons/*"]
+    }
   },
-  "exclude": ["./out/**/*", "./node_modules/**/*"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-
     ".next/types/**/*.ts",
-    "**/*.mts"
-  ]
+    "**/*.d.ts",
+    "next.config.mjs"
+  ],
+  "exclude": ["node_modules"]
 }

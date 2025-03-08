@@ -1,16 +1,13 @@
 import { expect, test } from "@playwright/test";
 
-test("should navigate to homepage", async ({ page }) => {
-  await page.goto("/");
-  await expect(page).toHaveTitle(
-    "aVToolz • Fast, beautiful and modern tools for everyone."
-  );
-});
-
 test("Verify that the Hero section is rendered correctly and is interactive", async ({
   page,
 }) => {
   await page.goto("/");
+
+  await expect(page).toHaveTitle(
+    "aVToolz • Fast, beautiful and modern tools for everyone."
+  );
 
   // hero logo
   expect(

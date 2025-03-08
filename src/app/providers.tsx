@@ -3,7 +3,6 @@
 import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ThemeProviderProps } from "next-themes/dist/types";
-import { useRouter } from "next/navigation";
 import NextTopLoader from "nextjs-toploader";
 import * as React from "react";
 
@@ -12,12 +11,11 @@ export interface ProvidersProps {
   themeProps?: ThemeProviderProps;
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
-  const router = useRouter();
-
+export function Providers({ children }: ProvidersProps) {
   return (
-    <HeroUIProvider navigate={router.push}>
-      <NextThemesProvider {...themeProps}>
+    <HeroUIProvider>
+      {/* <HeroUIProvider navigate={router.push}> */}
+      <NextThemesProvider attribute="class" defaultTheme="dark">
         <NextTopLoader color="#18c964" height={2} />
         {children}
       </NextThemesProvider>

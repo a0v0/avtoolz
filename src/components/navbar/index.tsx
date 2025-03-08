@@ -25,7 +25,7 @@ import { usePathname } from "next/navigation";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { Logo } from "../icons/logo";
+import { Logo } from "../icons/Logo";
 import { DocsSidebar } from "../sidebar";
 
 import { isAppleDevice } from "@react-aria/utils";
@@ -104,7 +104,7 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             style={{ textDecoration: "none" }}
             color="foreground"
           >
-            <Logo className="w-7 lg:w-9" />
+            <Logo width={64} className="w-7 lg:w-9" />
             <Spacer x={1} />
             <h1 className="font-bold text-inherit lg:text-2xl">aVToolz</h1>
             <Spacer x={2} />

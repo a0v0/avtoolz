@@ -1,4 +1,5 @@
-import { Logo } from "@/components/icons/logo";
+"use client";
+import { Logo } from "@/components/icons/Logo";
 import { subtitle, title } from "@/lib/primitives";
 import { Link } from "@heroui/link";
 import { Button } from "@heroui/react";

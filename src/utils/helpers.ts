@@ -82,11 +82,12 @@ export const getRoutePaths = (path: string, tag?: string) => {
  * credit: https://github.com/vercel/next.js/discussions/50189#discussioncomment-9224262
  */
 export const getPathnameFromMetadataState = (state: any): string => {
-  const res = Object.getOwnPropertySymbols(state || {})
-    .map((p) => state[p])
-    .find((state) => state?.hasOwnProperty?.("urlPathname"));
+  const res = Object.getOwnPropertySymbols(state)
+    .map((item) => state[item])
+    .find((state) => state?.hasOwnProperty("url"))?.url?.pathname;
 
-  return res?.urlPathname.replace(/\?.+/, "") ?? "";
+  // return res?.urlPathname.replace(/\?.+/, "") ?? "";
+  return res ?? "";
 };
 
 /**

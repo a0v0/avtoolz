@@ -1,7 +1,7 @@
 {
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "testing.openTesting": "neverOpen",
-  "i18n-ally.localesPaths": ["src/locales"],
+  "i18n-ally.localesPaths": ["src/i18n/messages"],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sourceLanguage": "en",
   "typescript.tsdk": "node_modules/typescript/lib",
@@ -35,5 +35,8 @@
     "**/gs-worker.js",
     "**/*.d.ts"
   ],
-  "testing.automaticallyOpenTestResults": "neverOpen"
+  "testing.automaticallyOpenTestResults": "neverOpen",
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }

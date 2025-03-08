@@ -1,46 +1,36 @@
-/* eslint-disable import/no-extraneous-dependencies, import/extensions */
-import { fileURLToPath } from "node:url";
+// @ts-check
+import createNextIntlPlugin from "next-intl/plugin";
 
-import withBundleAnalyzer from "@next/bundle-analyzer";
-import createJiti from "jiti";
-import withNextIntl from "next-intl/plugin";
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+  transpilePackages: ["@heroui/react", "@heroui/theme"],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    // Fixes npm packages that depend on `fs` module
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      child_process: false,
+    };
 
-const jiti = createJiti(fileURLToPath(import.meta.url));
+    return config;
+  },
 
-jiti("./src/lib/Env");
+  poweredByHeader: false,
+  reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
+  },
+};
 
-const withNextIntlConfig = withNextIntl("./src/lib/i18n.ts");
+const withNextIntl = createNextIntlPlugin();
 
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-});
-
-/** @type {import('next').NextConfig} */
-export default bundleAnalyzer(
-  withNextIntlConfig({
-    transpilePackages: ["@heroui/react", "@heroui/theme"],
-    swcMinify: true,
-    eslint: {
-      ignoreDuringBuilds: true,
-    },
-    typescript: {
-      ignoreBuildErrors: true,
-    },
-    webpack: (config) => {
-      config.resolve.alias.canvas = false;
-      // Fixes npm packages that depend on `fs` module
-      config.resolve.fallback = { fs: false, child_process: false };
-
-      return config;
-    },
-    eslint: {
-      dirs: ["."],
-    },
-    poweredByHeader: false,
-    reactStrictMode: true,
-    experimental: {
-      // Related to Pino error with RSC: https://github.com/orgs/vercel/discussions/3150
-      serverComponentsExternalPackages: ["pino"],
-    },
-  })
-);
+export default withNextIntl(nextConfig);

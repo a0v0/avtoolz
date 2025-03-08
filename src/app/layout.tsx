@@ -1,25 +1,25 @@
 import "@/styles/global.css";
 
-import type { Metadata, Viewport } from "next";
-import { NextIntlClientProvider, useMessages } from "next-intl";
-import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
 
 import { Cmdk } from "@/components/cmdk";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
-import { AppConfig } from "@/utils/app_config";
 import { getPathnameFromMetadataState } from "@/utils/helpers";
 
 import { getToolByHref } from "@/config/tools";
-import { Providers } from "../providers";
+import { getLocale, getMessages } from "next-intl/server";
+import { Providers } from "./providers";
 
 export async function generateMetadata(_: any, state: any): Promise<Metadata> {
   // FIXME: migrate to a better solution once nextjs allows reading pathname in generateMetadata
   const pathname = getPathnameFromMetadataState(state);
   const tool = getToolByHref(pathname ?? "");
   let title = `${siteConfig.name} • ${siteConfig.tagline}`;
+
   let { description } = siteConfig;
 
   if (tool) {
@@ -50,42 +50,27 @@ export async function generateMetadata(_: any, state: any): Promise<Metadata> {
     },
   };
 }
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
-export default function RootLayout(props: {
+
+export default async function RootLayout(props: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Validate that the incoming `locale` parameter is valid
-  if (!AppConfig.locales.includes(props.params.locale)) notFound();
+  const locale = await getLocale();
 
-  // Using internationalization in Client Components
-  const messages = useMessages();
-
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
   return (
-    <html suppressHydrationWarning lang={props.params.locale}>
+    <html suppressHydrationWarning lang={locale}>
       <body>
-        <Providers
-          themeProps={{ attribute: "class", defaultTheme: "enableSystem" }}
-        >
-          <NextIntlClientProvider
-            locale={props.params.locale}
-            messages={messages}
-          >
+        <NextIntlClientProvider messages={messages}>
+          <Providers>
             <Navbar routes={routes.items.filter((r) => r.routes.length > 0)} />
             {props.children}
             <Footer />
             <Cmdk />
-          </NextIntlClientProvider>
-        </Providers>
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

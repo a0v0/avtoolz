@@ -1,6 +1,6 @@
 import { MimeType } from "@/lib/mime";
-import { expect, test } from "vitest";
-import { getWatermarkedFilename } from "./helpers";
+import { getWatermarkedFilename } from "@/utils/helpers";
+import { expect, test } from "@playwright/test";
 
 interface ITestCase {
   filename: string;

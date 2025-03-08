@@ -1,6 +1,6 @@
-import { CompressPDFIcon } from "@/components/icons/compress-pdf";
-import { ImageToPDFIcon } from "@/components/icons/image-to-pdf";
-import { MergePDFIcon } from "@/components/icons/merge-pdf";
+import { CompressPDFIcon } from "@/components/icons/CompressPDFIcon";
+import { ImageToPDFIcon } from "@/components/icons/ImageToPDFIcon";
+import { MergePDFIcon } from "@/components/icons/MergePDFIcon";
 import React from "react";
 
 export interface ToolType {

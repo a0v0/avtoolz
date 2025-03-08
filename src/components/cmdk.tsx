@@ -23,8 +23,8 @@ import { useUpdateEffect } from "@/hooks/use-update-effect";
 import { cn } from "@/utils/helpers";
 
 import { useTranslations } from "next-intl";
-import { ChevronRightLinearIcon } from "./icons/chevron-right";
-import { HashBoldIcon } from "./icons/hash";
+import { ChevronRightLinearIcon } from "./icons/ChevronRightLinearIcon";
+import { HashBoldIcon } from "./icons/HashIcon";
 
 const hideOnPaths = ["examples"];
 
@@ -211,7 +211,7 @@ export const Cmdk: FC<{}> = () => {
     [query]
   );
 
-  const items = !isEmpty(results) ? results : recentSearches ?? [];
+  const items = !isEmpty(results) ? results : (recentSearches ?? []);
 
   // Toggle the menu when ⌘K / CTRL K is pressed
   useEffect(() => {
@@ -329,7 +329,7 @@ export const Cmdk: FC<{}> = () => {
 
       const mainIcon = isRecent ? (
         // <SearchLinearIcon className={slots.leftIcon()} size={20} strokeWidth={2} />
-        (<span className="icon-[mingcute--search-3-line] size-6" />)
+        <span className="icon-[mingcute--search-3-line] size-6" />
       ) : isLvl1 ? (
         <span
           className={cn("icon-[solar--document-bold] size-6", slots.leftIcon())}
