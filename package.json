@@ -3,18 +3,13 @@
   "version": "2.4.2",
   "scripts": {
     "dev": "next dev ",
-    "build": "pnpm run db:migrate && next build",
+    "build": "next build",
     "start": "next start",
-    "build-stats": "cross-env ANALYZE=true pnpm run build",
     "clean": "rimraf .next .swc out coverage",
     "lint": "next lint",
-    "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
     "check-types": "tsc --noEmit --pretty",
     "test": "vitest run",
     "commit": "cz",
-    "db:generate": "drizzle-kit generate:sqlite",
-    "db:migrate": "dotenv -c -- tsx ./scripts/dbMigrate.ts",
-    "db:studio": "dotenv -c -- drizzle-kit studio",
     "test:e2e": "playwright test"
   },
   "dependencies": {
@@ -159,14 +154,5 @@
   "packageManager": "pnpm@10.5.2",
   "engines": {
     "node": "22.x"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@percy/core",
-      "@swc/core",
-      "canvas",
-      "core-js",
-      "esbuild"
-    ]
   }
 }
