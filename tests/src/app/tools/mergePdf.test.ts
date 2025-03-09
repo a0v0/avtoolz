@@ -1,3 +1,4 @@
+import { pdfjs } from "@/lib/previews";
 import { expect, test } from "@playwright/test";
 import { randomUUID } from "crypto";
 import fs from "fs";
@@ -48,22 +49,24 @@ test.describe("page count and file size check", () => {
   });
 
   test("check page count of merged pdf", async ({}) => {
-    const { pdf } = await import("pdf-to-img");
-
-    // total pages in input pdf files
     let tpInPDFs = 0;
+    testFiles.forEach(async (pdfFile) => {
+      const loadingTask = pdfjs.getDocument(
+        new Uint8Array(fs.readFileSync(pdfFile))
+      );
+      const pdfDocument = await loadingTask.promise;
+      tpInPDFs += pdfDocument.numPages;
+    });
 
-    // Use for...of loop to properly handle async operations
-    for (const pdfFile of testFiles) {
-      const ogPDF = await pdf(pdfFile, { scale: 1 });
-      tpInPDFs += ogPDF.length;
-    }
+    let tpInMergedPDF = 0;
+    const loadingTask = pdfjs.getDocument(
+      new Uint8Array(fs.readFileSync(normalPDFPath))
+    );
+    const pdfDocument = await loadingTask.promise;
+    tpInMergedPDF = pdfDocument.numPages;
 
-    // total pages in merged pdf
-    const mergedPDF = await pdf(normalPDFPath, { scale: 1 });
-    let tpInMergedPDF = mergedPDF.length;
     expect(tpInMergedPDF).not.toBe(0);
-    expect(tpInMergedPDF).toEqual(tpInPDFs);
+    expect(tpInMergedPDF).toBe(tpInPDFs);
   });
 
   test("check file size of merged pdf", async ({}) => {

@@ -39,7 +39,7 @@
     "comlink": "^4.4.2",
     "cookies-next": "^5.1.0",
     "framer-motion": "^11.18.2",
-    "jspdf": "^2.5.2",
+    "jspdf": "^2.5.1",
     "lodash": "^4.17.21",
     "match-sorter": "^6.3.4",
     "nanoid": "^5.1.2",
@@ -48,7 +48,6 @@
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "pdf-lib": "^1.17.1",
-    "pdf-to-img": "^4.4.0",
     "pretty-bytes": "^6.1.1",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
@@ -155,5 +154,15 @@
   "packageManager": "pnpm@10.5.2",
   "engines": {
     "node": "22.x"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@percy/core",
+      "canvas",
+      "core-js",
+      "es5-ext",
+      "esbuild",
+      "sharp"
+    ]
   }
 }

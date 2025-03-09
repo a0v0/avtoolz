@@ -17,10 +17,6 @@ tasks:
     desc: Run development server
     cmd: pnpm dev
 
-  lint:
-    desc: Lint code
-    cmd: pnpm lint
-
   # Sometimes git is not tracking the files that are in .gitignore
   # This task will fix that
   # See: https://stackoverflow.com/questions/25436312/gitignore-not-working
@@ -45,14 +41,11 @@ tasks:
   clean:
     desc: Clean project
     cmds:
-      - rm -rf .pnpm-store node_modules test-results .next out
+      - rm -rf .pnpm-store node_modules test-results .next out pnpm-lock.yaml
       - rm -rf `find . -type d -name temp`
+      - pnpm store prune
       - echo "Project cleaned successfully 🙀"
 
   build:
     desc: Build project
     cmd: pnpm build
-
-  build_analyze:
-    desc: Build project with analyze
-    cmd: ANALYZE=true pnpm build
