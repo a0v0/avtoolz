@@ -5,12 +5,12 @@ import { useFileUploaderStore } from "@/components/fileUploader/store";
 import { getToolByHref } from "@/config/tools";
 import { MimeType } from "@/lib/mime";
 import { subtitle, title } from "@/lib/primitives";
+import { PDFWorker } from "@/lib/workers/pdf";
 import ToolTemplate from "@/templates/tool_template";
 import { downloadURL, getWatermarkedFilename } from "@/utils/helpers";
 import { Button, Divider, Spacer } from "@heroui/react";
 import { wrap } from "comlink";
 import { usePathname } from "next/navigation";
-import { PDFWorker } from "../../../../../lib/workers/pdf";
 
 const allowedFileTypes: MimeType[] = ["application/pdf"];
 
