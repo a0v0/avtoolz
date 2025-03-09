@@ -1,4 +1,4 @@
-name: Test
+name: E2E Tests
 
 on:
   push:
@@ -15,50 +15,57 @@ jobs:
 
     name: E2E tests with node@${{ matrix.node_version }}
     steps:
-      - name: Checkout
+      # Checkout the repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install ghostscript and graphicsmagick
-        uses: ConorMacBride/install-package@v1
-        with:
-          apt: graphicsmagick ghostscript
-
-      - uses: actions/cache@v4
-        with:
-          # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
-          path: |
-            ~/.pnpm-store
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Use Node.js ${{ matrix.node_version }}
+      # Setup Node.js environment
+      - name: Setup Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
           cache: "pnpm"
 
-      - name: Install dependencies
+      # Setup pnpm package manager
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      # Cache dependencies to speed up workflow
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+
+      # Install project dependencies
+      - name: Install Dependencies
         run: pnpm install
 
-      - name: Build Next.js for E2E tests
+      # Install Ghostscript and GraphicsMagick for image processing
+      - name: Install Ghostscript and GraphicsMagick
+        uses: ConorMacBride/install-package@v1
+        with:
+          apt: graphicsmagick ghostscript
+
+      # Build the Next.js application
+      - name: Build Next.js Application
         run: pnpm build
 
-      - name: Install Playwright (used for E2E tests)
+      # Install Playwright for end-to-end testing
+      - name: Install Playwright
         run: npx playwright install --with-deps
 
-      - name: Run E2E tests
+      # Run end-to-end tests
+      - name: Run E2E Tests
         run: pnpm run test:e2e
-        # env:
-        #   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
-      - uses: actions/upload-artifact@v4
+      # Upload test results as artifacts
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: test-results
