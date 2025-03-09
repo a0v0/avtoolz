@@ -23,8 +23,8 @@ import { useUpdateEffect } from "@/hooks/use-update-effect";
 import { cn } from "@/utils/helpers";
 
 import { useTranslations } from "next-intl";
-import { ChevronRightLinearIcon } from "./icons/ChevronRightLinearIcon";
-import { HashBoldIcon } from "./icons/HashIcon";
+import { ChevronRightLinearIcon } from "./icons/chevronRightLinearIcon";
+import { HashBoldIcon } from "./icons/hashIcon";
 
 const hideOnPaths = ["examples"];
 

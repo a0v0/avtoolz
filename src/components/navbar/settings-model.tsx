@@ -15,7 +15,7 @@ import {
 import { setCookie } from "cookies-next";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import ThemeSwitchPills from "./theme-switch-pills";
+import { ThemeSwitch } from "../theme-switch";
 
 function Settings() {
   const isMobile = useIsMobile();
@@ -53,7 +53,7 @@ function Settings() {
             <div className="flex justify-between flex-wrap gap-2">
               <h1 className="font-medium text-lg">{t("settings.themMode")}</h1>
 
-              <ThemeSwitchPills />
+              <ThemeSwitch />
             </div>
           </CardBody>
         </Card>

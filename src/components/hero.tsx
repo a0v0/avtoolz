@@ -1,5 +1,5 @@
 "use client";
-import { Logo } from "@/components/icons/Logo";
+import { Logo } from "@/components/icons/logo";
 import { subtitle, title } from "@/lib/primitives";
 import { Link } from "@heroui/link";
 import { Button } from "@heroui/react";
@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 function Hero() {
   const t = useTranslations("home.hero");
   return (
-    <main className="h-screen flex flex-col items-center justify-center -mt-20">
+    <main className="h-screen flex flex-col items-center mt-20">
       <Logo size={128} />
 
       <h1 className={title()}>Your Online&nbsp;</h1>

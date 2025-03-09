@@ -78,8 +78,7 @@ function ProfileMenu() {
               // shortcut="⌘⇧E"
               description="Manage theme, account settings and more"
               startContent={
-                // <span className="icon-[solar--planet-2-bold-duotone] size-8"></span>
-                <span className="icon-[solar--settings-bold-duotone] size-8"></span>
+                <span className="icon-[mage--settings-fill] dark:text-default-500 size-6" />
               }
               onPress={onOpen}
 

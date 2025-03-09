@@ -25,7 +25,7 @@ import { usePathname } from "next/navigation";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { Logo } from "../icons/Logo";
+import { Logo } from "../icons/logo";
 import { DocsSidebar } from "../sidebar";
 
 import { isAppleDevice } from "@react-aria/utils";
