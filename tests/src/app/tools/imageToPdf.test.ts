@@ -5,7 +5,7 @@ import path from "path";
 import { PDFDocument } from "pdf-lib";
 
 import { rimraf } from "rimraf";
-import { pdfToImages } from "../../../helpers/pdfToImage";
+import { getImagesFromPDF } from "../../../helpers/pdfToImage";
 const testFiles = [
   "./tests/fixtures/timg1.jpg",
   "./tests/fixtures/timg2.jpeg",
@@ -63,8 +63,8 @@ test.describe("test if", () => {
   });
 
   test("pages in pdf are in correct order after rearranging", async () => {
-    let normalPDF = await pdfToImages(normalPDFPath);
-    let rearrangedPDF = await pdfToImages(rearrangedPDFPath);
+    let normalPDF = await getImagesFromPDF(normalPDFPath);
+    let rearrangedPDF = await getImagesFromPDF(rearrangedPDFPath);
     expect(normalPDF).toHaveLength(4);
     expect(rearrangedPDF).toHaveLength(4);
     expect(normalPDF).toEqual([

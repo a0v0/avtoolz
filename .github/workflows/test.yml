@@ -18,6 +18,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install ghostscript and graphicsmagick
+        uses: ConorMacBride/install-package@v1
+        with:
+          apt: graphicsmagick ghostscript
+
       - uses: actions/cache@v4
         with:
           # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
@@ -38,8 +43,10 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
           cache: "pnpm"
+
       - name: Install dependencies
         run: pnpm install
+
       - name: Build Next.js for E2E tests
         run: pnpm build
 

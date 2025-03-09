@@ -12,6 +12,7 @@ tasks:
       - corepack enable pnpm
       - pnpm i
       - pnpx playwright install chromium #--with-deps
+      - sudo apt install graphicsmagick ghostscript -y
 
   run:
     desc: Run development server
