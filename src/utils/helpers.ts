@@ -1,9 +1,7 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
 import { MimeType } from "@/lib/mime";
+import { type ClassValue, clsx } from "clsx";
 import { join } from "lodash";
-import { AppConfig } from "./app_config";
+import { twMerge } from "tailwind-merge";
 
 /**
  * Retrieves the base URL for the application.
@@ -25,21 +23,6 @@ export const getBaseUrl = () => {
   }
 
   return "http://localhost:3000";
-};
-
-/**
- * Returns the internationalized path based on the provided URL and locale.
- *
- * @param url - The original URL.
- * @param locale - The locale to be used for internationalization.
- * @returns The internationalized path.
- */
-export const getI18nPath = (url: string, locale: string) => {
-  if (locale === AppConfig.defaultLocale) {
-    return url;
-  }
-
-  return `/${locale}${url}`;
 };
 
 /**

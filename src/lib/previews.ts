@@ -21,7 +21,7 @@ export interface pdfToImgProps {
 
 export async function getPDFPreview(
   file: File,
-  firstPageOnly: Boolean = true,
+  firstPageOnly: boolean = true,
   quality: number,
   canvas: HTMLCanvasElement
 ): Promise<OPreviewProps[]> {

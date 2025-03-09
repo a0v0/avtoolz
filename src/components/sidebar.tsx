@@ -1,5 +1,8 @@
 "use client";
 
+import type { Route } from "@/config/routes";
+import { getRoutePaths } from "@/utils/helpers";
+import { TreeKeyboardDelegate } from "@/utils/treeKeyboardDelegate";
 import { BaseItem } from "@heroui/aria-utils";
 import type { SpacerProps } from "@heroui/react";
 import {
@@ -27,20 +30,13 @@ import { isEmpty } from "lodash";
 import { usePathname, useRouter } from "next/navigation";
 import type { FC } from "react";
 import { useMemo, useRef } from "react";
-
-import type { Route } from "@/config/routes";
-import { getRoutePaths } from "@/utils/helpers";
-import { TreeKeyboardDelegate } from "@/utils/tree-keyboard-delegate";
-
 import { ScrollArea } from "./scroll-area";
 
 export interface Props<T> extends Omit<ItemProps<T>, "title">, Route {
   slug?: string;
   tag?: string;
 }
-
 export type BaseItemProps<T extends object> = Props<T>;
-
 const Item = BaseItem as <T extends object>(
   props: BaseItemProps<T>
 ) => JSX.Element;

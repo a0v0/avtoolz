@@ -24,16 +24,21 @@ export default function Page() {
     if (files.length === 0) return;
 
     setLoading(true);
-    const worker = wrap<typeof PDFWorker>(
-      new Worker(new URL("@/lib/workers/pdf.ts", import.meta.url))
-    );
-    const output = await worker.compressPDF(files[0]!);
-    downloadURL(
-      output,
-      getWatermarkedFilename(files[0]!.name, "application/pdf")
-    );
-
-    setLoading(false);
+    try {
+      const worker = wrap<typeof PDFWorker>(
+        new Worker(new URL("@/lib/workers/pdf.ts", import.meta.url))
+      );
+      const output = await worker.compressPDF(files[0]!);
+      downloadURL(
+        output,
+        getWatermarkedFilename(files[0]!.name, "application/pdf")
+      );
+    } catch (error) {
+      console.error("PDF compression failed:", error);
+      // Display error to user
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 import { useIsMobile } from "@/hooks/use-media-query";
 import { useRouter } from "@/i18n/routing";
-import { AppConfig } from "@/utils/app_config";
+import { AppConfig } from "@/utils/appConfig";
 import { getLocaleName } from "@/utils/getLocaleName";
 import {
   Card,

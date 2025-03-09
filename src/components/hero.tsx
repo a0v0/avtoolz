@@ -9,7 +9,7 @@ function Hero() {
   const t = useTranslations("home.hero");
   return (
     <main className="h-screen flex flex-col items-center justify-center -mt-20">
-      <Logo className="w-36 text-center" />
+      <Logo size={128} />
 
       <h1 className={title()}>Your Online&nbsp;</h1>
       <h1 className={title({ color: "green" })}>Utitlity Toolbox&nbsp;</h1>

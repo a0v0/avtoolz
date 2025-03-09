@@ -165,6 +165,9 @@ importers:
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
+      '@iconify-icon/react':
+        specifier: ^2.3.0
+        version: 2.3.0(react@18.2.0)
       '@iconify/tailwind':
         specifier: ^1.2.0
         version: 1.2.0
@@ -1781,6 +1784,11 @@ packages:
   '@humanwhocodes/retry@0.4.2':
     resolution: {integrity: sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==}
     engines: {node: '>=18.18'}
+
+  '@iconify-icon/react@2.3.0':
+    resolution: {integrity: sha512-7at8wGF+igiCS2XMaIrkZokD0zxz0pNa5SZn5tJAkZMJezeJlYiFXI5rYkiEpUpMaNYhYTqGLB90I/0sKJZkUw==}
+    peerDependencies:
+      react: '>=16'
 
   '@iconify/json@2.2.313':
     resolution: {integrity: sha512-lzZ0KFpb0/IN4TVp/9lkUQQx6pmDqe6UD6lWiwkjnPMUVfFXYFMOfy6Qna5zb2cKwVQLTcOUgKk82Ah4qilKlw==}
@@ -5204,6 +5212,9 @@ packages:
   human-signals@8.0.0:
     resolution: {integrity: sha512-/1/GPCpDUCCYwlERiYjxoczfP0zfvZMU/OWgQPMya9AbAE24vseigFdhAMObpc8Q4lc/kjutPfUddDYyAmejnA==}
     engines: {node: '>=18.18.0'}
+
+  iconify-icon@2.3.0:
+    resolution: {integrity: sha512-C0beI9oTDxQz6voI5CKl7MiJf0Lw4UU8K4G4t6pcUDClLmCvuMOpcvd8MAztQ2SfoH0iv7WHdxBFjekKPFKH2Q==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -9793,6 +9804,11 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.2': {}
 
+  '@iconify-icon/react@2.3.0(react@18.2.0)':
+    dependencies:
+      iconify-icon: 2.3.0
+      react: 18.2.0
+
   '@iconify/json@2.2.313':
     dependencies:
       '@iconify/types': 2.0.0
@@ -14136,6 +14152,10 @@ snapshots:
   human-signals@5.0.0: {}
 
   human-signals@8.0.0: {}
+
+  iconify-icon@2.3.0:
+    dependencies:
+      '@iconify/types': 2.0.0
 
   iconv-lite@0.4.24:
     dependencies:

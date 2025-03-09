@@ -67,6 +67,7 @@
     "@commitlint/config-conventional": "^19.7.1",
     "@commitlint/cz-commitlint": "^19.6.1",
     "@faker-js/faker": "^8.4.1",
+    "@iconify-icon/react": "^2.3.0",
     "@iconify/tailwind": "^1.2.0",
     "@next/bundle-analyzer": "^14.2.24",
     "@percy/cli": "1.28.6",

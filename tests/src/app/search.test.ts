@@ -1,34 +1,31 @@
-import { expect, test } from "@playwright/test";
+import { expect, Page, test } from "@playwright/test";
+test.describe("Search functionality tests", () => {
+  let page: Page;
 
-test("a searched item when clicked, should navigate to proper destination", async ({
-  page,
-}) => {
-  await page.goto("/");
-  await page.getByLabel("Quick search").click();
+  test.beforeAll(async ({ browser }) => {
+    page = await browser.newPage();
+    await page.goto("/");
+  });
 
-  await page.getByPlaceholder("Search tools").click();
-  await page.getByPlaceholder("Search tools").fill("Image to PDF");
-  await page.getByRole("option", { name: "Image to PDF" }).click();
+  test("should navigate to the correct destination when a searched item is clicked", async () => {
+    await page.getByLabel("Quick search").click();
+    await page.getByPlaceholder("Search tools").click();
+    await page.getByPlaceholder("Search tools").fill("Image to PDF");
+    await page.getByRole("option", { name: "Image to PDF" }).click();
 
-  await page.goto("tools/image-to-pdf");
-  expect(page.url()).toContain("tools/image-to-pdf");
+    await expect(
+      page.getByRole("heading", { name: "Image to PDF" })
+    ).toBeVisible();
+  });
 
-  await expect(
-    page.getByRole("heading", { name: "Image to PDF" })
-  ).toBeVisible();
-});
+  test("should retain the searched item in search history", async () => {
+    await page.getByLabel("Quick search").click();
+    await page.getByPlaceholder("Search tools").click();
+    await page.getByPlaceholder("Search tools").fill("Image to PDF");
+    await page.getByRole("option", { name: "Image to PDF" }).click();
 
-test("after searching an item, the item should remain in search history", async ({
-  page,
-}) => {
-  await page.goto("/");
-
-  await page.getByLabel("Quick search").click();
-  await page.getByPlaceholder("Search tools").click();
-  await page.getByPlaceholder("Search tools").fill("Image to PDF");
-  await page.getByRole("option", { name: "Image to PDF" }).click();
-
-  await expect(
-    page.getByRole("option", { name: "Image to PDF" })
-  ).toBeVisible();
+    await expect(
+      page.getByRole("option", { name: "Image to PDF" })
+    ).toBeVisible();
+  });
 });

@@ -2,7 +2,6 @@
 import { XErrors } from "@/config/errors";
 import { MimeType, mimeToExtension } from "@/lib/mime";
 import { subtitle } from "@/lib/primitives";
-import { getNanoID } from "@/utils/id";
 import { swap } from "@formkit/drag-and-drop";
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import {
@@ -173,7 +172,7 @@ export const FileUploader = (props: FileUploaderProps) => {
             <div className="max-w-96 gap-2 text-center">
               {props.acceptedFileTypes.map((fileType) => (
                 <Chip
-                  key={getNanoID()}
+                  key={fileType}
                   className="m-[2px]"
                   color="success"
                   variant="flat"
