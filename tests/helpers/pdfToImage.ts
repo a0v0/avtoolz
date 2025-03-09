@@ -1,50 +1,4 @@
-// import { pdfjs } from "@/lib/previews";
-// import { createCanvas } from "canvas";
-// import fs from "fs";
-
-// // function that convert pdf to array containing base64 encoded images of each page
-// export async function pdfToImages(pdfFilePath: string): Promise<string[]> {
-//   const loadingTask = pdfjs.getDocument(
-//     new Uint8Array(fs.readFileSync(pdfFilePath))
-//   );
-//   const images: string[] = [];
-//   try {
-//     const pdfDocument = await loadingTask.promise;
-
-//     for (let i = 1; i <= pdfDocument.numPages; i++) {
-//       const page = await pdfDocument.getPage(i);
-//       const viewport = page.getViewport({ scale: 1.0 });
-//       const canvas = createCanvas(viewport.width, viewport.height);
-//       const context = canvas.getContext("2d");
-//       canvas.width = viewport.width;
-//       canvas.height = viewport.height;
-//       if (context) {
-//         const renderContext = {
-//           canvasContext: context,
-//           viewport,
-//         };
-//         // @ts-ignore
-//         const renderTask = page.render(renderContext);
-//         await renderTask.promise;
-//         images.push(canvas.toDataURL("image/jpeg", 0.5));
-//       }
-//       page.cleanup();
-//     }
-//   } catch (reason) {
-//     console.log(reason);
-//   }
-//   return images;
-// }
-
 import { fromPath } from "pdf2pic";
-
-interface ConvertResult {
-  page: number;
-  name: string;
-  size: number;
-  time: number;
-  base64?: string;
-}
 
 /**
  * Converts a PDF file to an array of base64-encoded PNG images.
@@ -76,12 +30,3 @@ export async function getImagesFromPDF(pdfPath: string): Promise<string[]> {
     return result.base64;
   });
 }
-
-// Example usage (uncomment to run in your server-side code):
-// convertPdfToImages("path/to/your.pdf")
-//   .then((images) => {
-//     images.forEach((imgBase64, index) => {
-//       console.log(`Page ${index + 1} image (base64):`, imgBase64);
-//     });
-//   })
-//   .catch((error) => console.error("Error converting PDF:", error));
