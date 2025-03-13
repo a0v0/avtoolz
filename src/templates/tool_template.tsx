@@ -1,5 +1,5 @@
 import autoAnimate from "@formkit/auto-animate";
-import { Card } from "@nextui-org/react";
+import { Card } from "@heroui/react";
 import React, { useEffect, useRef } from "react";
 
 interface ToolTemplateProps {

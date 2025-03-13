@@ -1,14 +1,6 @@
-import FluentUIEmoji, { EmpojiType } from "./fluentui-emoji";
-
-interface LogoProps {
-  size?: number;
-  className?: string;
+import { Icon } from "@iconify-icon/react";
+export function Logo({ size = 24 }: { size?: number }) {
+  return (
+    <Icon icon="fluent-emoji-flat:saluting-face" width={size} height={size} />
+  );
 }
-
-export const Logo: React.FC<LogoProps> = ({ size, className }) => (
-  <FluentUIEmoji
-    size={size}
-    className={className}
-    emojiType={EmpojiType.SALUTING_FACE}
-  />
-);

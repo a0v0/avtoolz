@@ -1,4 +1,5 @@
-import { getImagePreview, getPDFPreview } from "@/libs/previews";
+import { XErrors } from "@/config/errors";
+import { getImagePreview, getPDFPreview } from "@/lib/previews";
 import { getFileType, getFileTypeIcon } from "@/utils/helpers";
 import {
   Card,
@@ -8,7 +9,7 @@ import {
   Image,
   Link,
   Tooltip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import prettyBytes from "pretty-bytes";
 import { HTMLAttributes, useEffect } from "react";
 import { useFileUploaderStore } from "../store";
@@ -21,19 +22,22 @@ export interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
 }
 
 export const Preview = (props: Props) => {
-  const { file } = props;
+  const { file, className } = props;
   const {
     metadata,
     setPreview,
     removeFiles,
     shiftFileToLeft,
     shiftFileToRight,
+    setError,
   } = useFileUploaderStore();
 
   useEffect(() => {
     (async () => {
       if (file.type === "application/pdf") {
-        setPreview(await getPDFPreview({ file }));
+        const htmlCanvas = document.createElement("canvas");
+        const p = await getPDFPreview(file, true, 0.5, htmlCanvas);
+        p[0] ? setPreview(p[0]) : setError(XErrors.invalidFile);
       } else if (
         [
           "image/jpg",
@@ -43,13 +47,16 @@ export const Preview = (props: Props) => {
           "image/svg+xml",
         ].includes(file.type)
       ) {
-        setPreview(await getImagePreview({ file }));
+        setPreview(await getImagePreview(file, 0.5));
       }
     })();
-  }, [file, setPreview]);
+  }, [file, setError, setPreview]);
 
   return (
-    <Card radius="lg" className="w-[175px]  border-none hover:outline-dashed">
+    <Card
+      radius="lg"
+      className={`w-44 border-none hover:outline-dashed ${className}`}
+    >
       <CardHeader className="justify-between  pb-0 pt-1 px-1">
         <Tooltip offset={10} content="Move this file">
           <span className="cursor-move file-drag-handle relative">
@@ -123,7 +130,7 @@ export const Preview = (props: Props) => {
             width={"auto"}
             style={{ objectFit: "cover" }}
             src={
-              metadata.find((m) => m.file === file)?.smallPreview ??
+              metadata.find((m) => m.file === file)?.preview ??
               getFileTypeIcon(file)
             }
           />

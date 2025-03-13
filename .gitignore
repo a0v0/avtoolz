@@ -55,3 +55,7 @@ local
 .sentryclirc
 
 temp
+
+# Playwright
+node_modules/
+/blob-report/

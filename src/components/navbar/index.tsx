@@ -5,12 +5,12 @@ import { routes as manifest } from "@/config/routes";
 import { siteConfig } from "@/config/site";
 import {
   Button,
-  Chip,
   Divider,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Kbd,
   Link,
   NavbarBrand,
   NavbarContent,
@@ -19,19 +19,21 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
   Spacer,
-} from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
+} from "@heroui/react";
+import { clsx } from "@heroui/shared-utils";
 import { usePathname } from "next/navigation";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { currentVersion } from "@/utils/version";
 import { Logo } from "../icons/logo";
 import { DocsSidebar } from "../sidebar";
 
+import { isAppleDevice } from "@react-aria/utils";
+
+import { useCmdkStore } from "@/components/cmdk";
+
 import { useTranslations } from "next-intl";
 import ProfileMenu from "./profile-menu";
-import SearchButton from "./search-btn";
 
 export interface HeaderProps {
   routes: Route[];
@@ -40,15 +42,47 @@ export interface HeaderProps {
 }
 export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean | undefined>(false);
+  const [commandKey, setCommandKey] = useState<"ctrl" | "command">("command");
+
   const t = useTranslations();
+
   const ref = useRef<HTMLElement>(null);
+
   const pathname = usePathname();
+
+  const cmdkStore = useCmdkStore();
+
+  useEffect(() => {
+    setCommandKey(isAppleDevice() ? "command" : "ctrl");
+  }, []);
+
+  const handleOpenCmdk = () => {
+    cmdkStore.onOpen();
+  };
 
   useEffect(() => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
-  }, [isMenuOpen, pathname]);
+  }, [pathname]);
+
+  const searchButton = (
+    <Button
+      aria-label="Quick search"
+      className="bg-default-400/20 text-sm font-normal text-default-500 dark:bg-default-500/20"
+      endContent={
+        <Kbd className="hidden px-2 py-0.5 lg:inline-block" keys={commandKey}>
+          K
+        </Kbd>
+      }
+      startContent={
+        <span className="icon-[mingcute--search-3-line] pointer-events-none size-6 shrink-0 text-base text-default-400" />
+      }
+      onPress={handleOpenCmdk}
+    >
+      {t("search.quick_search")}
+    </Button>
+  );
 
   return (
     <NextUINavbar
@@ -70,26 +104,14 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             style={{ textDecoration: "none" }}
             color="foreground"
           >
-            <Logo className="max-w-28" size={26} />
+            <Logo aria-label="hero-logo" size={28} />
             <Spacer x={1} />
-            <h1 className="font-bold text-inherit">aVToolz</h1>
+            <h1 className="font-bold text-inherit lg:text-2xl">aVToolz</h1>
             <Spacer x={2} />
           </Link>
-          <Chip
-            variant="flat"
-            color="success"
-            as={Link}
-            isExternal
-            startContent={
-              <span className="icon-[mingcute--tag-fill] size-4"></span>
-            }
-            href={siteConfig.links.githubLatestRelease}
-            className="hidden sm:flex"
-          >
-            v{currentVersion}
-          </Chip>
         </NavbarBrand>
       </NavbarContent>
+
       <NavbarContent className="hidden gap-4 sm:flex" justify="start">
         <NavbarItem>
           <Link isBlock color="foreground" href="/tools">
@@ -135,25 +157,22 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
           ) : null
         )}
       </NavbarContent>
-      <NavbarContent className="flex w-full gap-2 sm:hidden" justify="end">
-        <NavbarItem className="flex h-full items-center">
-          {/* <ThemeSwitch /> */}
 
-          {/* <Link
-            isBlock
-            isExternal
-            aria-label="Github"
-            className="p-1 text-inherit"
-            href={siteConfig.links.github}
-            color="foreground"
-          >
-            <span className="icon-[mdi--github] size-6 text-default-600 dark:text-default-500" />
-          </Link> */}
-          <SearchButton isSearchFullWidth={false} />
+      <NavbarContent className="flex w-full sm:hidden gap-1" justify="end">
+        <NavbarItem className="flex h-full items-center">
+          <Button
+            isIconOnly
+            startContent={
+              <span className="icon-[mingcute--search-3-line] size-6 text-default-600 dark:text-default-500" />
+            }
+            variant="light"
+            onPress={handleOpenCmdk}
+          ></Button>
+        </NavbarItem>
+        <NavbarItem className="flex h-full items-center">
           <ProfileMenu />
         </NavbarItem>
-
-        <NavbarItem className="h-full w-10">
+        <NavbarItem className="w-10 h-full">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="size-full pt-1"
@@ -162,10 +181,10 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
       </NavbarContent>
 
       <NavbarContent
-        className="hidden basis-1/5 sm:flex sm:basis-full"
+        className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex gap-2">
+        <NavbarItem className="sm:flex items-center gap-2">
           <Link
             isExternal
             isBlock
@@ -180,55 +199,27 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             isExternal
             isBlock
             showAnchorIcon
-            href={siteConfig.links.githubIssues}
+            href={siteConfig.links.githubNewIssuesURL}
             color="danger"
           >
             {t("common.report_bugs")}
           </Link>
 
-          {/* <ThemeSwitch /> */}
-
-          <div className="hidden sm:flex lg:hidden">
-            <SearchButton isSearchFullWidth={false} />
-          </div>
+          {searchButton}
           <ProfileMenu />
         </NavbarItem>
-
-        <div className="hidden lg:flex ">
-          <SearchButton isSearchFullWidth />
-        </div>
-
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="ml-4 hidden sm:flex lg:hidden"
-        />
       </NavbarContent>
 
-      {/* mobile navbar */}
       <NavbarMenu>
-        <NavbarItem>
-          <Link color="foreground" isBlock href="/tools">
-            {t("common.all_tools")}
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <DocsSidebar routes={[...routes]} slug={slug} tag={tag} />
-        </NavbarItem>
+        <Link color="foreground" isBlock href="/tools">
+          {t("common.all_tools")}
+        </Link>
+        <DocsSidebar routes={[...routes]} slug={slug} tag={tag} />
+
         <div className=" h-full  content-end items-center text-center mb-5">
           <Divider />
           <Spacer y={2} />
-          {/* <Chip
-            variant="flat"
-            color="success"
-            as={Link}
-            isExternal
-            endContent={
-              <span className="icon-[mingcute--tag-fill] size-4"></span>
-            }
-            href={siteConfig.links.githubLatestRelease}
-          >
-            v{currentVersion}
-          </Chip> */}
+
           <Link
             isBlock
             color="warning"
@@ -252,10 +243,10 @@ export const Navbar: FC<HeaderProps> = ({ routes, slug, tag }) => {
             isExternal
             isBlock
             showAnchorIcon
-            href={siteConfig.links.githubIssues}
+            href={siteConfig.links.githubNewIssuesURL}
             color="danger"
           >
-            {t("common.roadmap")}
+            {t("common.report_bugs")}
           </Link>
         </div>
       </NavbarMenu>

@@ -1,7 +1,7 @@
 "use client";
 import { getToolByHref } from "@/config/tools";
 
-import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 

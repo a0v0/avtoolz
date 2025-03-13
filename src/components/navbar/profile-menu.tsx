@@ -1,4 +1,7 @@
+"use client";
 import {
+  Avatar,
+  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -9,26 +12,46 @@ import {
   ModalContent,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useTranslations } from "next-intl";
-import { ProfileAvatar } from "./profile-avatar";
 import Settings from "./settings-model";
 
 function ProfileMenu() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const t = useTranslations();
 
+  const avatar = (
+    <Avatar
+      size="sm"
+      // isBordered
+
+      // className="transition-transform"
+      classNames={{
+        base: "bg-gradient-to-br from-[#FFB457] to-[#FF705B]",
+        icon: "text-black/80",
+      }}
+      // src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+    />
+  );
+
   return (
     <>
       <Dropdown backdrop="blur">
-        <DropdownTrigger>{ProfileAvatar}</DropdownTrigger>
+        <DropdownTrigger>
+          <Button
+            aria-label="avatar"
+            isIconOnly
+            startContent={avatar}
+            variant="light"
+          ></Button>
+        </DropdownTrigger>
         <DropdownMenu
           variant="faded"
           aria-label="Dropdown menu with description"
         >
           <DropdownItem key="profile" className="h-14 gap-2">
             <div className="flex gap-5 items-center">
-              <div className="">{ProfileAvatar}</div>
+              <div className="">{avatar}</div>
               <div className="">
                 <p className="font-semibold text-default-500">
                   {t("settings.auth.signed_in_as")}
@@ -55,8 +78,7 @@ function ProfileMenu() {
               // shortcut="⌘⇧E"
               description="Manage theme, account settings and more"
               startContent={
-                // <span className="icon-[solar--planet-2-bold-duotone] size-8"></span>
-                <span className="icon-[solar--settings-bold-duotone] size-8"></span>
+                <span className="icon-[mage--settings-fill] dark:text-default-500 size-6" />
               }
               onPress={onOpen}
 

@@ -1,9 +1,7 @@
+import { MimeType } from "@/lib/mime";
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-import { MimeType } from "@/libs/mime";
 import { join } from "lodash";
-import { AppConfig } from "./appConfig";
+import { twMerge } from "tailwind-merge";
 
 /**
  * Retrieves the base URL for the application.
@@ -25,21 +23,6 @@ export const getBaseUrl = () => {
   }
 
   return "http://localhost:3000";
-};
-
-/**
- * Returns the internationalized path based on the provided URL and locale.
- *
- * @param url - The original URL.
- * @param locale - The locale to be used for internationalization.
- * @returns The internationalized path.
- */
-export const getI18nPath = (url: string, locale: string) => {
-  if (locale === AppConfig.defaultLocale) {
-    return url;
-  }
-
-  return `/${locale}${url}`;
 };
 
 /**
@@ -82,11 +65,12 @@ export const getRoutePaths = (path: string, tag?: string) => {
  * credit: https://github.com/vercel/next.js/discussions/50189#discussioncomment-9224262
  */
 export const getPathnameFromMetadataState = (state: any): string => {
-  const res = Object.getOwnPropertySymbols(state || {})
-    .map((p) => state[p])
-    .find((state) => state?.hasOwnProperty?.("urlPathname"));
+  const res = Object.getOwnPropertySymbols(state)
+    .map((item) => state[item])
+    .find((state) => state?.hasOwnProperty("url"))?.url?.pathname;
 
-  return res?.urlPathname.replace(/\?.+/, "") ?? "";
+  // return res?.urlPathname.replace(/\?.+/, "") ?? "";
+  return res ?? "";
 };
 
 /**

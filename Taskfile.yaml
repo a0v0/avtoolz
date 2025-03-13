@@ -8,20 +8,15 @@ tasks:
   install:
     desc: Install dependencies
     cmds:
+      - fnm install --corepack-enabled && fnm use
+      - corepack enable pnpm
       - pnpm i
       - pnpx playwright install chromium #--with-deps
-
-  storybook:
-    desc: Run storybook
-    cmd: pnpm storybook
+      - sudo apt install graphicsmagick ghostscript -y
 
   run:
     desc: Run development server
     cmd: pnpm dev
-
-  lint:
-    desc: Lint code
-    cmd: pnpm lint
 
   # Sometimes git is not tracking the files that are in .gitignore
   # This task will fix that
@@ -36,7 +31,6 @@ tasks:
     desc: Run tests
     cmds:
       - pnpm test
-      - pnpm test:e2e
 
   update:
     desc: Update dependencies
@@ -47,18 +41,11 @@ tasks:
   clean:
     desc: Clean project
     cmds:
-      - sudo rm -rf .pnpm-store node_modules test-results .next out
-      - task: clean:temp
-
-  clean:temp:
-    desc: Clean temporary files and folders
-    cmds:
+      - rm -rf .pnpm-store node_modules test-results .next out pnpm-lock.yaml
       - rm -rf `find . -type d -name temp`
+      - pnpm store prune
+      - echo "Project cleaned successfully 🙀"
 
   build:
     desc: Build project
     cmd: pnpm build
-
-  build_analyze:
-    desc: Build project with analyze
-    cmd: ANALYZE=true pnpm build

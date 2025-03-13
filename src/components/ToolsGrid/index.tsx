@@ -1,7 +1,7 @@
 import { routes as manifest } from "@/config/routes";
-import { Spacer } from "@nextui-org/react";
+import { Spacer } from "@heroui/react";
 // import {sectionWrapper, title} from "../primitives";
-import { sectionWrapper, title } from "@/libs/primitives";
+import { sectionWrapper, title } from "@/lib/primitives";
 import { ToolsGrid } from "./grid";
 
 export const AllTools = () => {

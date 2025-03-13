@@ -1,18 +1,17 @@
+"use client";
 import { Logo } from "@/components/icons/logo";
-import { subtitle, title } from "@/libs/primitives";
-import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/react";
+import { subtitle, title } from "@/lib/primitives";
+import { Link } from "@heroui/link";
+import { Button } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 function Hero() {
   const t = useTranslations("home.hero");
   return (
-    <main className="h-screen text-center  mt-24">
-      <center>
-        <Logo />
-      </center>
+    <main className="h-screen flex flex-col items-center mt-20">
+      <Logo size={128} />
+
       <h1 className={title()}>Your Online&nbsp;</h1>
-      <br />
       <h1 className={title({ color: "green" })}>Utitlity Toolbox&nbsp;</h1>
       <h2
         className={subtitle({

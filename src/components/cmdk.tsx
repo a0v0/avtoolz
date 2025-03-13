@@ -2,9 +2,9 @@
 
 "use client";
 
-import type { ButtonProps } from "@nextui-org/react";
-import { Button, Kbd, Modal, ModalContent } from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
+import type { ButtonProps } from "@heroui/react";
+import { Button, Kbd, Modal, ModalContent } from "@heroui/react";
+import { clsx } from "@heroui/shared-utils";
 import { isAppleDevice, isWebKit } from "@react-aria/utils";
 import { useLocalStorage, writeStorage } from "@rehooks/local-storage";
 import { Command } from "cmdk";
@@ -23,8 +23,8 @@ import { useUpdateEffect } from "@/hooks/use-update-effect";
 import { cn } from "@/utils/helpers";
 
 import { useTranslations } from "next-intl";
-import { ChevronRightLinearIcon } from "./icons/chevron-right";
-import { HashBoldIcon } from "./icons/hash";
+import { ChevronRightLinearIcon } from "./icons/chevronRightLinearIcon";
+import { HashBoldIcon } from "./icons/hashIcon";
 
 const hideOnPaths = ["examples"];
 
@@ -211,7 +211,7 @@ export const Cmdk: FC<{}> = () => {
     [query]
   );
 
-  const items = !isEmpty(results) ? results : recentSearches ?? [];
+  const items = !isEmpty(results) ? results : (recentSearches ?? []);
 
   // Toggle the menu when ⌘K / CTRL K is pressed
   useEffect(() => {

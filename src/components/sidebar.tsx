@@ -1,16 +1,19 @@
 "use client";
 
-import { BaseItem } from "@nextui-org/aria-utils";
-import type { SpacerProps } from "@nextui-org/react";
+import type { Route } from "@/config/routes";
+import { getRoutePaths } from "@/utils/helpers";
+import { TreeKeyboardDelegate } from "@/utils/treeKeyboardDelegate";
+import { BaseItem } from "@heroui/aria-utils";
+import type { SpacerProps } from "@heroui/react";
 import {
   Chip,
   dataFocusVisibleClasses,
   Link,
   Link as NextUILink,
   Spacer,
-} from "@nextui-org/react";
-import { ChevronIcon } from "@nextui-org/shared-icons";
-import { clsx, dataAttr } from "@nextui-org/shared-utils";
+} from "@heroui/react";
+import { ChevronIcon } from "@heroui/shared-icons";
+import { clsx, dataAttr } from "@heroui/shared-utils";
 import { useFocusRing } from "@react-aria/focus";
 import { usePress } from "@react-aria/interactions";
 import { useSelectableCollection } from "@react-aria/selection";
@@ -27,20 +30,13 @@ import { isEmpty } from "lodash";
 import { usePathname, useRouter } from "next/navigation";
 import type { FC } from "react";
 import { useMemo, useRef } from "react";
-
-import type { Route } from "@/config/routes";
-import { getRoutePaths } from "@/utils/helpers";
-import { TreeKeyboardDelegate } from "@/utils/tree-keyboard-delegate";
-
 import { ScrollArea } from "./scroll-area";
 
 export interface Props<T> extends Omit<ItemProps<T>, "title">, Route {
   slug?: string;
   tag?: string;
 }
-
 export type BaseItemProps<T extends object> = Props<T>;
-
 const Item = BaseItem as <T extends object>(
   props: BaseItemProps<T>
 ) => JSX.Element;

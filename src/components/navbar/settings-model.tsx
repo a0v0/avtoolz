@@ -1,6 +1,8 @@
+"use client";
 import { useIsMobile } from "@/hooks/use-media-query";
-import { usePathname, useRouter } from "@/libs/i18nNavigation";
-import { supportedLocales } from "@/locales/locale";
+import { useRouter } from "@/i18n/routing";
+import { AppConfig } from "@/utils/appConfig";
+import { getLocaleName } from "@/utils/getLocaleName";
 import {
   Card,
   CardBody,
@@ -9,20 +11,24 @@ import {
   SelectItem,
   Tab,
   Tabs,
-} from "@nextui-org/react";
+} from "@heroui/react";
+import { setCookie } from "cookies-next";
 import { useLocale, useTranslations } from "next-intl";
-import ThemeSwitchPills from "./theme-switch-pills";
+import { useEffect, useState } from "react";
+import { ThemeSwitch } from "../theme-switch";
 
 function Settings() {
   const isMobile = useIsMobile();
   const router = useRouter();
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations();
-  const handleLocaleChange = (value: any) => {
-    router.push(pathname, { locale: value });
+  const [lang, setLang] = useState(locale);
+
+  useEffect(() => {
+    setCookie("i18n", lang);
     router.refresh();
-  };
+  }, [lang]);
 
   return (
     <Tabs aria-label="Options" isVertical={!isMobile}>
@@ -47,7 +53,7 @@ function Settings() {
             <div className="flex justify-between flex-wrap gap-2">
               <h1 className="font-medium text-lg">{t("settings.themMode")}</h1>
 
-              <ThemeSwitchPills />
+              <ThemeSwitch />
             </div>
           </CardBody>
         </Card>
@@ -78,15 +84,15 @@ function Settings() {
                 defaultSelectedKeys={[locale]}
                 onSelectionChange={(key) =>
                   new Set(key).forEach((v) => {
-                    handleLocaleChange(v);
+                    setLang(v.toString());
                   })
                 }
                 selectionMode="single"
                 disallowEmptySelection
               >
-                {supportedLocales.map((locale) => (
-                  <SelectItem key={locale.shortLabel}>
-                    {locale.longLabel}
+                {AppConfig.locales.map((locale) => (
+                  <SelectItem key={locale}>
+                    {getLocaleName(locale, locale)}
                   </SelectItem>
                 ))}
               </Select>

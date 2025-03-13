@@ -1,34 +1,38 @@
-import { OPreviewProps } from "@/libs/previews";
+import { FileUploadError } from "@/config/errors";
+import { OPreviewProps } from "@/lib/previews";
 import { create } from "zustand";
 
 type State = {
   files: File[];
   metadata: OPreviewProps[];
-  error: string;
+  error?: FileUploadError;
+  loading: boolean;
 };
 
 type Action = {
   reset: () => void;
   addFiles: (files: File[]) => void;
 
-  setError: (error: string) => void;
+  setError: (error: FileUploadError) => void;
   removeFiles: (files: File[]) => void;
   updateFiles: (files: File[]) => void;
   shiftFileToLeft: (file: File) => void;
   shiftFileToRight: (file: File) => void;
 
   setPreview: (preview: OPreviewProps) => void;
+  setLoading: (loading: boolean) => void;
 };
 
 // define the initial state
 const initialState: State = {
   files: [],
   metadata: [],
-  error: "",
+  error: { title: "", message: "", code: "" },
+  loading: false,
 };
 export const useFileUploaderStore = create<State & Action>()(
   // persist(
-  (set, get) => ({
+  (set) => ({
     ...initialState,
     addFiles: (files) => {
       set((state) => ({
@@ -115,21 +119,9 @@ export const useFileUploaderStore = create<State & Action>()(
         }
       });
     },
-  })
-  //   {
-  //     name: "food-storage", // name of the item in the storage (must be unique)
-  //     storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-  //   }
-  // )
-);
-// export const useFileUploaderStore = create<State & Action>(
-//   persist(
-//     (set) => ({
 
-//     }),
-//     {
-//       name: "file-uploader",
-//       storage: createJSONStorage(() => AsyncStorage),
-//     }
-//   )
-// );
+    setLoading: (loading) => {
+      set({ loading });
+    },
+  })
+);

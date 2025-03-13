@@ -1,4 +1,6 @@
-import Image from "next/image";
+import { CompressPDFIcon } from "@/components/icons/compressPDFIcon";
+import { ImageToPDFIcon } from "@/components/icons/imageToPDFIcon";
+import { MergePDFIcon } from "@/components/icons/mergePDFIcon";
 import React from "react";
 
 export interface ToolType {
@@ -24,14 +26,7 @@ export const Tools: ToolType[] = [
   {
     key: "image-to-pdf",
     title: "Image to PDF",
-    icon: (
-      <Image
-        alt="Thumbnail for the Image to PDF tool"
-        src="/icons/image-to-pdf.webp"
-        width={35}
-        height={35}
-      />
-    ),
+    icon: <ImageToPDFIcon />,
     description: "Convert images to PDF files quickly and easily.",
     showFullDescription: true,
     href: "/tools/image-to-pdf",
@@ -48,14 +43,7 @@ export const Tools: ToolType[] = [
     title: "Merge PDF",
     description: "Combine multiple PDFs into one unified document.",
     showFullDescription: true,
-    icon: (
-      <Image
-        alt="Thumbnail for the Merge PDF tool"
-        src="/icons/merge-pdf.webp"
-        width={35}
-        height={35}
-      />
-    ),
+    icon: <MergePDFIcon />,
     href: "/tools/merge-pdf",
     isExternal: false,
     keywords:
@@ -63,6 +51,20 @@ export const Tools: ToolType[] = [
     category: [ToolCategory.PDF],
     updated: false,
     newPost: false,
+  },
+  {
+    key: "compress-pdf",
+    title: "Compress PDF",
+    description: "Reduce the file size of your PDF documents.",
+    showFullDescription: true,
+
+    icon: <CompressPDFIcon />,
+    href: "/tools/compress-pdf",
+    isExternal: false,
+    keywords: "compress pdf, reduce pdf size, pdf compressor, pdf size reducer",
+    category: [ToolCategory.PDF],
+    updated: false,
+    newPost: true,
   },
 ];
 
