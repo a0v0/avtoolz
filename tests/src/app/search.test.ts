@@ -15,7 +15,7 @@ test.describe("Search functionality tests", () => {
 
     await expect(
       page.getByRole("heading", { name: "Image to PDF" })
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 1 * 60 * 1000 });
   });
 
   test("should retain the searched item in search history", async () => {

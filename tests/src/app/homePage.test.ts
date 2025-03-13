@@ -13,7 +13,7 @@ test.describe("Hero section tests", () => {
       "aVToolz • Fast, beautiful and modern tools for everyone."
     );
 
-    await expect(page.locator("section").getByRole("img")).toBeVisible();
+    await expect(page.getByRole("main").getByRole("img")).toBeVisible();
 
     await page.getByRole("heading", { name: "Your Online" }).click();
     await expect(

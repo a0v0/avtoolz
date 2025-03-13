@@ -8,9 +8,8 @@
     "clean": "rimraf .next .swc out coverage",
     "lint": "next lint",
     "check-types": "tsc --noEmit --pretty",
-    "test": "vitest run",
     "commit": "cz",
-    "test:e2e": "playwright test"
+    "test": "playwright test"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

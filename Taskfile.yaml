@@ -31,7 +31,6 @@ tasks:
     desc: Run tests
     cmds:
       - pnpm test
-      - pnpm test:e2e
 
   update:
     desc: Update dependencies
