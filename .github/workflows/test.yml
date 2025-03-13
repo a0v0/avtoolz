@@ -61,7 +61,7 @@ jobs:
 
       # Run end-to-end tests
       - name: Run E2E Tests
-        run: pnpm run test:e2e
+        run: pnpm run test
 
       # Upload test results as artifacts
       - name: Upload Test Results
