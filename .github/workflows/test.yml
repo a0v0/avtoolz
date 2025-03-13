@@ -19,6 +19,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Install apt packages
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: graphicsmagick ghostscript
+          version: 1.0
+
       # Setup pnpm package manager
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -44,12 +50,6 @@ jobs:
       # Install project dependencies
       - name: Install Dependencies
         run: pnpm install
-
-      # Install Ghostscript and GraphicsMagick for image processing
-      - name: Install Ghostscript and GraphicsMagick
-        uses: ConorMacBride/install-package@v1
-        with:
-          apt: graphicsmagick ghostscript
 
       # Build the Next.js application
       - name: Build Next.js Application
